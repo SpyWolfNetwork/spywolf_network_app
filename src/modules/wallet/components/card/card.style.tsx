@@ -2,12 +2,6 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    min-height: 70px;
-    padding: 0 2.25rem;
-    background-color: transparent;
-    border-bottom: 1px solid #eff2f5;
     position: relative;
     display: flex;
     flex-direction: column;

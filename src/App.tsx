@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import Root from './core/routes/root-routing';
 
 function App() {
@@ -7,6 +7,6 @@ function App() {
       <Root/>
     </div>
   );
-}
+} 
 
 export default App;

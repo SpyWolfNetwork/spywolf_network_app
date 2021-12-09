@@ -10,7 +10,6 @@ import Wallet from "../../modules/wallet/pages/wallet";
 export default function Root() {
     return (
         <Router>
-            <div>
                 <Routes>
                     <Route path="/" element={<Wallet />}>
                     </Route>
@@ -19,7 +18,6 @@ export default function Root() {
                     <Route path="/tokens" element={<Wallet />}>
                     </Route>
                 </Routes>
-            </div>
         </Router>
     );
 }
