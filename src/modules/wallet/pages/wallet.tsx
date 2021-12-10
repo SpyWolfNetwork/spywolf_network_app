@@ -1,87 +1,150 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Card from '../components/card/card';
 import OrderToolbar from '../components/order-toolbar/order-toolbar';
 import { Container } from './wallet.style';
 
 import axios from 'axios';
-import { TokenGroup, Transfers, WalletResponse } from '../models/wallet.model';
+import { Transfers, WalletDTO } from '../models/dto/wallet.model';
 
-import { Collapse } from "antd";
+import { Collapse, Pagination, Spin } from "antd";
 
 import "antd/dist/antd.css";
 import CollapsePanel from 'antd/lib/collapse/CollapsePanel';
 import ArrowIcon from '../components/arrow-icon/arrow.';
 import WalletAddress from '../components/wallet-address/wallet-address';
-import { groupBy, transfersGroupBy } from '../utils/utils';
 import TokenListItem from '../components/token-list-item/received-tokens';
 
 import { Bar, ResponsiveBar } from '@nivo/bar'
 import { chartmock } from '../mocks/chart.mock';
+import { RectSeries } from 'react-vis';
+import { Wallet } from '../models/classes/wallet.model';
 
 
-const Wallet: React.FC = () => {
+import ArrowRed from '../../../assets/png-icons/arrow_red.png';
+import ArrowGreen from '../../../assets/png-icons/arrow_green.png';
+import { format } from 'path';
+import { Block, Transfer, Transfers as TransfersResponse } from '../models/dto/currency-transaction.dto';
+
+
+
+const WalletComponent: React.FC = () => {
     const [walletAddress, setWalletAddress] = useState('');
-    // const [walletInfo, setWalletInfo] = useState<WalletResponse>();
-    // const [receivedCurrencies, setReceivedWalletCurrencies] = useState<WalletResponse>();
-    // const [sentCurrencies, setSentWalletCurrencies] = useState<WalletResponse>();
-    const [receivedTokenGroups, setReceivedTokenGroups] = useState<Transfers.TransfersGroup[]>();
-    const [sentTokenGroups, setSentTokenGroups] = useState<Transfers.TransfersGroup[]>();
-    // const [tokenKeys, setTokenKeys] = useState<any>();
+    const [page, setPage] = useState(1);
+    const [perpage, setPerpage] = useState(7);
+    const [period, setPeriod] = useState<string | number>(30);
+    const [walletInfo, setWalletInfo] = useState<Wallet>();
+    const [receivedTokenGroups, setReceivedTokenGroups] = useState<Transfers.TransfersInfoModel[]>();
+    const [sentTokenGroups, setSentTokenGroups] = useState<Transfers.TransfersInfoModel[]>();
+    const [transfersPerToken, setTransfersPerToken] = useState<Transfer[]>();
+    const [transactionsPerTokenEndpoint] = useState<any>(process.env.REACT_APP_TRANSACTIONS_PER_TOKEN_ENDPOINT);
+    const [walletEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_RECEIVED_TOKEN);
+    const [transfersEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_SENT_TOKEN);
 
+    
+    const from = (days: number) => {
+        const date = new Date();
+        date.setDate(date.getDate() - days);
+        return date.toISOString();
+    }
+
+    useMemo( () => {
+        const dt = new Date();
+        const month = dt.getMonth();
+        const year = dt.getFullYear();
+        const daysInMonth = new Date(year, month, 0).getDate();
+        setPeriod(daysInMonth);
+    }, [])
 
     useEffect(() => {
-        setWalletAddress('bc1qx067yt3mf2hmqyvyz02m06zwa8rgzald43m295');
-        const receivedEndpoint = process.env.REACT_APP_WALLET_ENDPOINT_RECEIVED_TOKEN as string;
-        const transfersEndpoint = process.env.REACT_APP_WALLET_ENDPOINT_SENT_TOKEN as string;
-        const addr = {
-            address: "0x377e0D8e62788Cab207D56C097b89D225A182D31"
+        setWalletAddress('0x377e0D8e62788Cab207D56C097b89D225A182D31');
+        const requestTransfersDataBody = {
+            address: "0x377e0D8e62788Cab207D56C097b89D225A182D31",
+            from: from(15)
+        }
+        const requestWaletDataBody = {
+            address: "0x377e0D8e62788Cab207D56C097b89D225A182D31",
         }
 
-        fetchTransfers(transfersEndpoint,addr );
+        const transactionPerTokenDataBody = {
+            isSend: true,
+            address: "0x377e0d8e62788cab207d56c097b89d225a182d31",
+            currency: "0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd",
+            from: "2021-11-06",
+            till: "2021-12-05T23:59:59"
 
+        }
+        fetchTransfers(transfersEndpoint, requestTransfersDataBody);
+        fetchWalletData(walletEndpoint, requestWaletDataBody);
 
     }, []);
 
-    const fetchTransfers = (endpoint: string, addr: { address: string }) => {
+    const fetchTransfers = (endpoint: string, addr: { address: string, from: string }) => {
         axios.post(endpoint, addr).then(
-            (res) => {
-                const transfers: Transfers.TransfersInfoModel[] = res.data.transfers.transfersInfo;
-
-                // const walletInfo: WalletResponse = res.data;
+            ({ data }) => {
+                const { transfers } = data;
                 console.log(transfers);
-                // setReceivedWalletCurrencies(walletInfo);
-                // setWalletInfo(walletInfo);
-            
-                // fetchReceivedTokens();
-                // fetchSentTokens();
-                setReceivedTokenGroups(transfersGroupBy(transfers));
-                setSentTokenGroups(transfersGroupBy(transfers));
+                setReceivedTokenGroups(transfers);
+                setSentTokenGroups(transfers);
             }
         );
     }
-    const fetchReceivedTokens = (transferGroups: Transfers.TransfersModel) => {
-                // setReceivedTokenGroups(groups);
+
+    const updatePeriod = (days: number | string) => {
+        if (days == 'month') {
+            const dt = new Date();
+            const month = dt.getMonth();
+            const year = dt.getFullYear();
+            const daysInMonth = new Date(year, month, 0).getDate();
+            setPeriod(daysInMonth);
+
+        } else {
+            setPeriod(days)
+        }
+        const requestTransfersDataBody = {
+            address: "0x377e0D8e62788Cab207D56C097b89D225A182D31",
+            from: from(period as number)
+        }
+        const requestWaletDataBody = {
+            address: "0x377e0D8e62788Cab207D56C097b89D225A182D31",
+        }
+        fetchTransfers(transfersEndpoint, requestTransfersDataBody);
+        fetchWalletData(walletEndpoint, requestWaletDataBody);
+        console.log('disparou', period)
+
     }
 
-    const fetchSentTokens = (endpoint: string, addr: { address: string }) => {
+    const fetchWalletData = (endpoint: string, addr: { address: string }) => {
         axios.post(endpoint, addr).then(
-            (res) => {
-                const transfers: { transfersInfo: any[] } = res.data.transfers
-                const currencies = transfers.transfersInfo.map((
-                    transfer: { currency: any }) => {
-                    return transfer.currency
-                }
-                )
-
-                const groups = groupBy(currencies, 'symbol')
-                    .filter((group: TokenGroup) => group.symbol);
-
-                setSentTokenGroups(groups);
+            ({ data }) => {
+                const walletInfoData: WalletDTO = data;
+                const wallet = new Wallet(walletInfoData);
+                setWalletInfo(wallet);
 
             }
         );
+    }
+
+    const fetchCurrencyTransatcions = (body: {
+        isSend: boolean,
+        address: string,
+        currency: string,
+        from: string,
+        till: string
+    }) => {
+        console.log(transactionsPerTokenEndpoint, body)
+        setTransfersPerToken([])
+        axios.post(transactionsPerTokenEndpoint, body
+        ).then(
+            ({ data }) => {
+                const res = data.transfers as TransfersResponse;
+                const { transfers } = res;
+                console.log(res, transfers)
+                setTransfersPerToken(transfers)
+            }
+        );
+
     }
 
     return <Container>
@@ -94,21 +157,27 @@ const Wallet: React.FC = () => {
                     <div className="card-title">
                         <h2 className="fw-bolder mb-0">Received Tokens</h2>
                     </div>
-                    <OrderToolbar />
+                    <OrderToolbar setPeriod={updatePeriod} />
                 </div>
                 <Collapse accordion ghost expandIcon={(props) => <ArrowIcon rotate={props.isActive ? 'rotate' : 'initial'} />} expandIconPosition="left"  >
                     {
-                        receivedTokenGroups?.map((transfer, index) =>
-                            <CollapsePanel className="collapsed-panel-override" key={index} header={<div>
-                                <div style={{ height: '60px', display: 'flex', alignItems: 'center' }} className="me-3">
-                                    <div className="d-flex">
-                                        <div className="text-gray-800 fw-bolder fs-3">{transfer.symbol}</div>
 
-                                        {/* <div className="text-gray-800 fw-bolder ms-20 fs-3">{token?.priceInWallet?.toFixed(1)}</div> */}
-                                    </div>
+                        receivedTokenGroups?.slice((page - 1) * perpage, page * perpage).map((transfer, index) =>
 
+                            <CollapsePanel className="collapsed-panel-override" key={index} header={
+                                <div className="panel-header-wrapper" onClick={() => fetchCurrencyTransatcions({
+                                    isSend: false,
+                                    address: walletAddress,
+                                    currency: transfer.currency.address,
+                                    from: from(period as number),
+                                    till: new Date().toISOString()
+                                })}>
+                                    <div className="text-gray-800 fw-bolder fs-3 currency-simbol">{transfer.currency.symbol}</div>
+                                    <img src={ArrowGreen} width="15px" height="15px" alt="" />
+                                    <div className="text-gray-800 fw-bolder">{transfer.sum_in.toFixed(2)}</div>
+                                    <div className="text-gray-800 fw-bolder">{transfer.count_in}Tx</div>
                                 </div>
-                            </div>}>
+                            }>
 
                                 <table style={{ marginLeft: "30px" }} className="table align-middle gs-0 gy-5">
                                     <thead>
@@ -120,9 +189,12 @@ const Wallet: React.FC = () => {
                                             <th className="p-0 min-w-40px"></th>
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody >
+                                        {(!transfersPerToken || transfersPerToken?.length == 0) && <Spin className={
+                                            (transfersPerToken && transfersPerToken?.length > 0) ? 'hide' : 'show'
+                                        } style={{ margin: '0 auto' }} />}
                                         {
-                                            transfer.transfers.map(
+                                            transfersPerToken?.map(
                                                 transfer => (
                                                     <TokenListItem token={transfer} currency={transfer.currency} rule="in" />
                                                 )
@@ -134,14 +206,7 @@ const Wallet: React.FC = () => {
                         )
                     }
                 </Collapse>
-                <div className="row mb-10" style={{ width: "100%" }}>
-                    <div className="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-                        <div className="dataTables_paginate paging_simple_numbers"
-                            id="kt_customer_details_invoices_table_1_paginate">
-
-                        </div>
-                    </div>
-                </div>
+                <Pagination defaultCurrent={1} total={receivedTokenGroups?.length}  onChange={(page) => setPage(page)} />
             </Card>
 
             <Card>
@@ -149,22 +214,26 @@ const Wallet: React.FC = () => {
                     <div className="card-title">
                         <h2 className="fw-bolder mb-0">Sent Tokens</h2>
                     </div>
-                    <OrderToolbar />
+                    <OrderToolbar setPeriod={updatePeriod}  />
                 </div>
                 <Collapse accordion ghost expandIcon={(props) => <ArrowIcon rotate={props.isActive ? 'rotate' : 'initial'} />} expandIconPosition="left"  >
                     {
-                        sentTokenGroups?.slice(0, 11).map((transferGroup, index) =>
-                            <CollapsePanel className="collapsed-panel-override" key={index} header={<div>
-                                <div style={{ height: '60px', display: 'flex', alignItems: 'center' }} className="me-3">
-                                    <div className="d-flex">
-                                        <div className="text-gray-800 fw-bolder fs-3">{transferGroup.symbol && transferGroup.symbol}</div>
-                                        
-
-                                        {/* <div className="text-gray-800 fw-bolder ms-20 fs-3">{token?.priceInWallet && token?.priceInWallet?.toFixed(1)}</div> */}
-                                    </div>
-
+                        sentTokenGroups?.slice((page - 1) * perpage, page * perpage).map((transfer, index) =>
+                            <CollapsePanel className="collapsed-panel-override" key={index} header={
+                                <div className="panel-header-wrapper" onClick={() => fetchCurrencyTransatcions({
+                                    isSend: true,
+                                    address: walletAddress,
+                                    currency: transfer.currency.address,
+                                    from: from(period as number),
+                                    till: new Date().toISOString()
+                                })}>
+                                    <div className="text-gray-800 fw-bolder fs-3 currency-symbol">{transfer.currency.symbol}</div>
+                                    <img src={ArrowRed} width="15px" height="15px" alt="" />
+                                    <div className="text-gray-800 fw-bolder ">{transfer.sum_out.toFixed(2)}</div>
+                                    <div className="text-gray-800 fw-bolder ">{transfer.count_out}Tx</div>
+                                    {/* <div className="text-gray-800 fw-bolder ms-20 fs-3">{token?.priceInWallet && token?.priceInWallet?.toFixed(1)}</div> */}
                                 </div>
-                            </div>}>
+                            }>
 
                                 <table style={{ marginLeft: "30px" }} className="table align-middle gs-0 gy-5">
                                     <thead>
@@ -177,10 +246,13 @@ const Wallet: React.FC = () => {
                                         </tr>
                                     </thead>
                                     <tbody>
+                                        {(!transfersPerToken || transfersPerToken?.length == 0) && <Spin className={
+                                            (transfersPerToken && transfersPerToken?.length > 0) ? 'hide' : 'show'
+                                        } style={{ margin: '0 auto' }} />}
                                         {
-                                            transferGroup.transfers.map(
+                                            transfersPerToken?.map(
                                                 transfer => (
-                                                    <TokenListItem token={transfer} currency={transfer.currency} rule="out" />
+                                                    <TokenListItem token={transfer} currency={transfer.currency} rule="in" />
                                                 )
                                             )
                                         }
@@ -190,18 +262,12 @@ const Wallet: React.FC = () => {
                         )
                     }
                 </Collapse>
-                <div className="row mb-10" style={{ width: "100%" }}>
-                    <div className="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end">
-                        <div className="dataTables_paginate paging_simple_numbers"
-                            id="kt_customer_details_invoices_table_1_paginate">
+                <Pagination defaultCurrent={1} total={sentTokenGroups?.length}  onChange={(page) => setPage(page)} />
 
-                        </div>
-                    </div>
-                </div>
             </Card>
         </div >
         <Card>
-            <div className="chart-wrapper">
+            {/* <div className="chart-wrapper">
                 {
 
                     receivedTokenGroups && <ResponsiveBar
@@ -287,9 +353,9 @@ const Wallet: React.FC = () => {
 
                     />
                 }
-            </div>
+            </div> */}
         </Card>
     </Container >;
 };
 
-export default Wallet;
+export default WalletComponent;

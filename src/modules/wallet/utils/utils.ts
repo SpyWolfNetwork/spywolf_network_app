@@ -1,4 +1,4 @@
-import { Currency, TokenGroup, Transfers } from "../models/wallet.model";
+import { Currency, TokenGroup, Transfers } from "../models/dto/wallet.model";
 
 export function groupBy(arr: any, key: 'symbol') {
     return arr.reduce((acc: any, current: Currency) => {
@@ -25,7 +25,7 @@ export function groupBy(arr: any, key: 'symbol') {
 }
 
 export function transfersGroupBy(arr: Transfers.TransfersInfoModel[], key = 'symbol') {
-    return arr.reduce((acc: any, current: Transfers.TransfersInfoModel) => {
+    return arr.reduce((acc: any[], current: Transfers.TransfersInfoModel) => {
         const symbol = current.currency['symbol'];
         // const currencyPriceInBnb = current.currencyPriceInBnb;
         // const priceInWallet = current.priceInWallet;

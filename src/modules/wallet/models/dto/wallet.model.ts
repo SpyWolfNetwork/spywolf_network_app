@@ -24,7 +24,7 @@ export interface Result {
     Payload: Payload;
 }
 
-export interface WalletResponse {
+export interface WalletDTO {
     smartContractInfo?: any;
     BNBPriceInDollar: TokenModel;
     result: Result;
