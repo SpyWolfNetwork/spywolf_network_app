@@ -1,0 +1,17 @@
+@import "./mixins.scss";
+
+.ant-descriptions {
+  .ant-descriptions-item {
+    .ant-descriptions-item-label {
+      @include muted-text();
+      font-weight: 500!important;
+
+    }
+    .ant-descriptions-item-content {
+      @include text-grey-800();
+      font-weight: 500!important;
+      font-size: 13px!important;
+
+    }
+  }
+}

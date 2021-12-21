@@ -13,16 +13,16 @@ const TokenListItem: React.FC<{ currency: Currency, token: Transfer, rule: strin
     return <tr>
         <td>
             <span className="text-dark fw-bolder mb-1 fs-8">
-                {token.amount.toFixed(2) + currency.symbol}</span>
+                {token.amount.toFixed(2) + currency?.symbol}</span>
 
         </td>
         <td>
-            <span className="badge badge-light-primary fw-bold me-1">{ props.rule == 'in' ? 'Received from' : 'Sent to' }</span>
+            <span className="badge badge-light-primary fw-bold me-1">{ props?.rule == 'in' ? 'Received from' : 'Sent to' }</span>
 
         </td>
         <td>
             <span className="text-muted fs-8">
-                {token.transaction.hash.substr(0, 4) + '...' + token.transaction.hash.substr(token.transaction.hash.length - 7)}
+                {token.transaction.hash.substr(0, 4) + '...' + token?.transaction?.hash.substr(token.transaction.hash.length - 7)}
                 </span>
         </td>
         <td>

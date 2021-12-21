@@ -1,6 +1,6 @@
 // Dependencies
 import React, { useEffect } from 'react';
-import Switch from '../switch/switch';
+import Switch from '../../../../shared/components/switch/switch';
 import { Container } from './wallet-address.style';
 
 const WalletAddress: React.FC<{ address: string }> = (props) => {

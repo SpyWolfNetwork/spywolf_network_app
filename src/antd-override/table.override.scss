@@ -1,0 +1,14 @@
+@import './mixins.scss';
+.ant-table {
+  .ant-table-thead {
+    .ant-table-cell {
+      background: transparent !important;
+      border-right: none;
+      @include muted-text;
+      &::before{
+          background: transparent !important;
+
+      }
+    }
+  }
+}

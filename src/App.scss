@@ -64,7 +64,7 @@
 }
 
 body {
-
+	line-height: 1.5;
 	margin: 0;
 	font-family: var(--bs-body-font-family);
 	font-size: var(--bs-body-font-size);
@@ -49444,6 +49444,8 @@ body {
 .App{
 	display: flex;
 	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	/* as root */
 	> .div{  
  		 width: 100%;
@@ -49455,4 +49457,28 @@ body {
 
 *{
 	font-family: 'Poppins' , 'Helvetica', 'sans-serif';
+}
+
+
+
+.ant-card{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    word-wrap: break-word;
+    box-shadow: rgb(88 102 126 / 8%) 0px 4px 24px, rgb(88 102 126 / 12%) 0px 1px 2px;
+    border-radius: 8px;
+    border: none;
+    background: #fff;
+    align-items: space-between;
+	}
+
+
+	.footer{
+	width: 100%;
+	display: flex;
+	padding: 1rem 2.25rem!important;
+	justify-content: space-between;
 }
