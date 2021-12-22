@@ -46,11 +46,11 @@ export default function Root() {
 
 
     return (
-        <div style={{ width: '100%', flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
+        <div style={{ width: '100%',  height:'100%',flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
             <Breadcrumb style={{ width: "100%", maxWidth: "1320px", padding: '0 2.25rem ' }}>
                 {breadcrumbItems}
             </Breadcrumb>
-            <div style={{ width: '100%', justifyContent: 'center', display: 'flex' }}>
+            <div style={{ width: '100%', height:'100%',justifyContent: 'center', display: 'flex' }}>
                 <Routes >
                     <Route path="/wallet/:walletid" element={<Wallet />}>
                     </Route>

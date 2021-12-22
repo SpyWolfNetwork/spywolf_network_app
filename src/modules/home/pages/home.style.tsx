@@ -8,6 +8,8 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     padding: 0 3.25rem!important;
+  height: 100%;
+
 `;
 export const SearchContainer = styled.div`
     width: fit-content;

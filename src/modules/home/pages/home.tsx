@@ -469,7 +469,7 @@ export const HomeComponent: React.FC = () => {
             <div className="bottom-cards">
                 <Card
                     id="latests"
-                    title={<CardTitleSubtitle title="Latests Scams" subtitle=""></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle title="Latest Scams" subtitle=""></CardTitleSubtitle>}
                     actions={[
                         <Pagination
                             current={latestScamsPage}

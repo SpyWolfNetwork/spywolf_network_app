@@ -35,9 +35,6 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
 
 
     return <Container className={`${(tokenData?.basicInfo?.trustLevel !== undefined || tokenData?.basicInfo?.tag) ? 'showRibbon' : 'hideRibbon'}`}>
-        <span>
-            {tokenData?.basicInfo?.tag}
-        </span>
         {/* ${ tokenData?.basicInfo?.tag === 'UNVERIFED' ? 'UNVERIFIED' : ('Trust' + tokenData?.level)} */}
         <Badge.Ribbon
             style={
