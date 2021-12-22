@@ -5,6 +5,7 @@ export const Container = styled.div`
     display: flex;
     width: 100%;
     column-gap: 20px;
+    row-gap: 20px;
   flex-wrap: wrap;
 `;
 

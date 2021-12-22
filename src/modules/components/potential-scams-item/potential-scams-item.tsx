@@ -9,7 +9,10 @@ import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
 const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
-    useEffect(() => { }, []);
+    useEffect(() => {
+        if (props.token.name == 'Visor.Finance') { console.log(props.token) }
+
+    }, []);
     const trustLevelBgColor = {
         'Level 1': '#fff8dd',
         'Level 2': '#E6F4F1',
@@ -22,6 +25,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         'Level 3': '#129edb',
     }
     return <Container>
+
         <LogoContainer>
             <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
@@ -51,7 +55,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
                 )}
         </TrustLevelContainer>
         {
-            props?.token.deployedDate &&
+            props?.token.vettedBy &&
             <ReleaseContainer>
                 <PoweredBy
                     company={props?.token.vettedBy}
