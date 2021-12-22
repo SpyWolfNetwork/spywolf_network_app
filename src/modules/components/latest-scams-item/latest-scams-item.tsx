@@ -54,7 +54,7 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         </TrustLevelContainer>
         <ReleaseContainer>
             <PoweredBy
-                company="RugSeekers"
+                company={props?.token?.vettedBy ? props?.token?.vettedBy : 'SpyWolf'}
             />
         </ReleaseContainer>
         <ActionsContainer>
