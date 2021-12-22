@@ -6,6 +6,11 @@ export const Container = styled.div`
     display: flex;
     justify-content: flex-end;
     padding: 0;
+    .ant-card-head{
+        align-items: center;
+        display: flex;
+        justify-content: flex-end;
+    }
     .text-container{
         width: fit-content;
         display: flex;

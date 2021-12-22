@@ -8,8 +8,7 @@ const TokenMainCardHeaderComponent: React.FC<{info: Token}> = (props) => {
 
     return <Container>
         <div className="text-container">
-            <span className='fw-bolder mb-2 text-dark name'>{props?.info?.currency?.name ? props?.info?.currency?.name : '-'}</span>
-            <span className='text-muted fw-bold fs-7'>{props?.info?.currency?.name ? props?.info?.currency?.symbol : '-'}</span>
+            <span className='fw-bolder mb-1 fs-1 text-dark name'>{props?.info?.currency?.name ? props?.info?.currency?.name : ''}</span>
         </div>
     </Container>;
 };

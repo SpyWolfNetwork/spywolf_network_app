@@ -14,7 +14,7 @@ const IconFont = createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',
 });
 
-const TokenMainCardComponent: React.FC = () => {
+const TokenMainCardComponent: React.FC<{loading: any}> = (props) => {
     const [tokenData]: Token[] = useContext(ApplicationContext) as any[];
     const arrow = () => (
         <img width="14px" src={Arrow} />
@@ -22,29 +22,33 @@ const TokenMainCardComponent: React.FC = () => {
     useEffect(() => { }, []);
 
     const trustLevelBgColor: { [x: string]: string } = {
-        '1': '#fff8dd',
-        '2': '#E6F4F1',
-        '3': '#f1faff',
+        'Level 1': '#fff8dd',
+        'Level 2': '#E6F4F1',
+        'Level 3': '#f8f5ff',
     };
 
     const trustLevelTextColor: { [x: string]: string } = {
-        '1': '#b39019 ',
-        '2': '#65a0a7 ',
-        '3': '#129edb ',
+        'Level 1': '#b39019 ',
+        'Level 2': '#65a0a7 ',
+        'Level 3': '#7e6aa7 ',
     };
 
-    return <Container>
-        <Badge.Ribbon style={
-            {
-                background: trustLevelBgColor[tokenData?.level ? tokenData?.level : 1],
-                color: trustLevelTextColor[tokenData?.level ? tokenData?.level : 1]
-            }
-        } text={`Trust level ${tokenData?.level ? tokenData?.level : 1}/3`} placement='start' >
+
+    return <Container className={`${tokenData?.basicInfo?.trustLevel !== undefined ? 'showRibbon' : 'hideRibbon'}`}>
+
+        <Badge.Ribbon
+            style={
+                {
+                    background: trustLevelTextColor[tokenData?.level ? tokenData?.level : 1],
+                    color: trustLevelBgColor[tokenData?.level ? tokenData?.level : 1]
+                }
+            } text={`Trust ${tokenData?.level}`} placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
+            {props.loading}
                 <div className="token-logo-wrapper">
                     <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
                 </div>
-                <div className="actions">
+                {/* <div className="actions">
                     <DashedCard>
                         <h1 className='fs-4 fw-bolder text-gray-700 votes-quantity'> {tokenData?.basicInfo?.votes !== undefined ? tokenData?.basicInfo?.votes : '-'} <span><Icon component={arrow} alt="" /></span> </h1>
                         <span className='fw-bold text-muted votes-label'>Votes</span>
@@ -52,7 +56,7 @@ const TokenMainCardComponent: React.FC = () => {
                     <DashedCard>
                         <LikeTwoTone twoToneColor={['#a1a5b7', 'white']} style={{ fontSize: '42px' }} className="like" />
                     </DashedCard>
-                </div>
+                </div> */}
                 <div className="social">
                     {
                         tokenData?.basicInfo?.website &&
@@ -65,7 +69,7 @@ const TokenMainCardComponent: React.FC = () => {
 
                     {
                         tokenData?.basicInfo?.twitter &&
-                        <Button href={'https://t.me/' + tokenData?.basicInfo?.telegram} target="_blank" type="primary" icon={<SendOutlined style={{ transform: 'rotate(-35deg)' }} />} size={'large'} />
+                        <Button href={tokenData?.basicInfo?.telegram} target="_blank" type="primary" icon={<SendOutlined style={{ transform: 'rotate(-35deg)' }} />} size={'large'} />
                     }
 
                 </div>

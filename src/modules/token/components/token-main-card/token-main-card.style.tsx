@@ -4,6 +4,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
     width: 100%;
     max-width: 100%;
+    &.hideRibbon{
+        .ant-ribbon{
+            display: none;
+        }
+    }
     .token-logo-wrapper{
         width: 100%;
         display: flex;
@@ -11,7 +16,7 @@ export const Container = styled.div`
         padding: 2rem 2.25rem;
     }
     .ant-ribbon{
-        margin-top: 1rem !important;
+        margin-top: 0.9rem !important;
     }
     .ant-card{
         flex: 0;

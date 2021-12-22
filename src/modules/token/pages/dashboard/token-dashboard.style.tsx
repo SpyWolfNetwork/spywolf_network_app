@@ -15,6 +15,18 @@ export const Container = styled.div`
     column-gap:3.75rem!important;
     flex-direction: column;
     padding: 0 2.25rem !important;
+
+    .loading{
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .ant-spin{
+            height: fit-content;
+        }
+    }
+
     @media ( min-width: 1200px){
         flex-direction: row;
 
@@ -24,7 +36,12 @@ export const Container = styled.div`
         align-items: center;
         column-gap: 5px;
         margin-bottom: 10px;
-
+        &:hover{
+            svg{   
+                 transition: all 0.2s ease, all 0.2s ease;
+                fill: #AADADF !important;
+}           
+        }
         a{
             margin: 0 !important;
         }
@@ -86,7 +103,7 @@ export const MainContent = styled.div`
             .ant-descriptions-item{
                 .ant-card.presale-card{
                     margin-top: 40px;
-                    min-width: 200px;
+                    max-width: 300px;
                     .ant-card-head{
                         min-height: fit-content !important;
                     }
@@ -117,7 +134,7 @@ export const MainContent = styled.div`
                             padding-bottom: 0 !important;
                         }
                         table{
-                            width: fit-content;
+                            width: 100%;
                         
                         }
                     }

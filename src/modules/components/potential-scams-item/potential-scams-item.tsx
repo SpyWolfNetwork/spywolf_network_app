@@ -25,9 +25,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
-            <Link to={`/token/${props.token.address}`}>
-                <a className='text-dark fw-bolder text-hover-primary mb-1 fs-6' >{props?.token?.name}</a>
-            </Link>
+                <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>
         <TrustLevelContainer>

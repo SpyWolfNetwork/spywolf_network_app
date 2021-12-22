@@ -12,7 +12,7 @@ export const Container = styled.div`
 export const SearchContainer = styled.div`
     width: 100%;
     color: #181c32;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;

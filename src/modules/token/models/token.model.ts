@@ -1,3 +1,4 @@
+import { FeaturedToken, FeaturedTokenDTO } from "../../home/models/featured-token";
 
 export interface Currency {
     symbol: string;
@@ -31,8 +32,13 @@ export interface TopHolder {
 }
 
 export interface PresaleInfo {
-    link: string;
-    releaseDate: string;
+    link?: string;
+    releaseDate?: string;
+    hardcap?: string;
+    isWhiteListed?: false
+    presaleDate?: string;
+    presaleLink?: string;
+    softcap?: string;
 }
 
 export interface SpyWolfAudit {
@@ -43,7 +49,7 @@ export interface SpyWolfAudit {
 
 export interface Item {
     website: string;
-    presaleInfo: PresaleInfo;
+    presaleInfo: Partial<PresaleInfo>;
     symbol: string;
     address: string;
     discord: string;
@@ -58,6 +64,9 @@ export interface Item {
     isPriviateAndPresale: boolean;
     description: string;
     auditCertificateLink: string;
+    trustLevel: string;
+    status: string;
+    deployedDate: string;
 }
 
 export interface Content {
@@ -106,31 +115,88 @@ export interface TokenResponseObject {
 
 
 export class Token {
-    level: number;
-    isVerified: boolean;
-    currentMarketCap: number;
-    currentPrice: number;
-    lastchange: string;
-    currentLiquidity: number;
-    contractAddress: string;
-    basicInfo: Item;
-    statisticInfo: TokenStatisticsInfo;
-    topHolders: TopHolder[];
-    currency: Currency;
+    level?: string;
+    isVerified?: boolean;
+    currentMarketCap?: number;
+    currentPrice?: number;
+    lastchange?: string;
+    currentLiquidity?: number;
+    contractAddress?: string;
+    basicInfo?: Partial<Item>;
+    statisticInfo?: TokenStatisticsInfo;
+    topHolders?: TopHolder[];
+    currency?: Currency;
 
-    constructor(tokenResponse: TokenResponseObject) {
-        console.log('token response', tokenResponse)
+    constructor(tokenResponse: TokenResponseObject | null, featuredToken?: FeaturedTokenDTO, isUpcoming?: boolean) {
+
+        // symbol: string;
+        // isScam: string;
+        // address: string;
+        // discord: string;
+        // logo: string;
+        // name: string;
+        // isPotencialScam: string;
+        // telegram: string;
+        // votes: number;
+        // twitter: string;
+        // isRecentlyAdded: string;
+        // isFeature: string;
+        // isFairlaunch: boolean;
+        // description: string;
+        // scamReason: string[];
+        // deployedDate?: string;
+        // scamReasonTooltip?: string;        if (!isUpcoming) {
+        this.level = 'Upcoming';
+
         this.currentMarketCap = tokenResponse?.smartContractInfo?.marketCapInDollar;
-        this.currentPrice = (tokenResponse?.tokenPrice?.priceInBNB * tokenResponse?.BNBPriceInDollar?.priceInDollar);
+        this.currentPrice = tokenResponse ? (tokenResponse?.tokenPrice?.priceInBNB * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
         this.lastchange = 'empty'
-        this.currentLiquidity = (tokenResponse?.smartContractInfo?.liquidityBalance * tokenResponse?.BNBPriceInDollar?.priceInDollar) ;
+        this.currentLiquidity = tokenResponse ? (tokenResponse?.smartContractInfo?.liquidityBalance * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
         this.contractAddress = tokenResponse?.tokenPrice?.address;
         this.basicInfo = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
         this.topHolders = tokenResponse?.smartContractInfo?.topHolders;
         this.currency = tokenResponse?.smartContractInfo?.currency;
         this.isVerified = tokenResponse?.smartContractInfo?.isVerified;
-        this.level = this.basicInfo?.SpyWolfAudit?.level;
+        this.level = this.basicInfo?.trustLevel;
         this.statisticInfo = tokenResponse?.smartContractInfo?.statisticsInfo?.tokenStatisticsInfo;
+        if (isUpcoming) {
+            this.basicInfo = {
+                website: featuredToken?.website as string,
+                telegram: featuredToken?.telegram as string,
+                presaleInfo: featuredToken?.presaleInfo as any,
+                symbol: featuredToken?.symbol as any,
+                address: featuredToken?.address,
+                twitter: featuredToken?.twitter,
+                discord: featuredToken?.discord,
+                description: featuredToken?.description,
+                name: featuredToken?.name,
+                logo: featuredToken?.logo,
+                deployedDate: featuredToken?.deployedDate
+            }
+        }
+
+    }
+}
+
+export class UpComingToken {
+    level?: string;
+    isVerified?: boolean;
+    currentMarketCap?: number;
+    currentPrice?: number;
+    lastchange?: string;
+    currentLiquidity?: number;
+    contractAddress?: string;
+    basicInfo?: Item;
+    statisticInfo?: TokenStatisticsInfo;
+    topHolders?: TopHolder[];
+    currency?: Currency;
+
+    constructor(tokenResponse: null, featuredToken?: FeaturedTokenDTO, isUpcoming?: boolean) {
+        if (!isUpcoming) {
+            console.log(featuredToken)
+        }
+
+
     }
 }
 

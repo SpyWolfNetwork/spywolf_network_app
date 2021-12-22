@@ -50,6 +50,7 @@ export class FeaturedToken {
     telegram: string;
     website: string;
     scamReasonTooltip?: string;
+    alldata?: FeaturedTokenDTO;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -68,5 +69,7 @@ export class FeaturedToken {
         this.website = featuredTokenDTO?.website;
         this.telegram = featuredTokenDTO?.telegram;
         this.scamReasonTooltip = featuredTokenDTO.scamReasonTooltip;
+
+        this.alldata = featuredTokenDTO;
     }
 }

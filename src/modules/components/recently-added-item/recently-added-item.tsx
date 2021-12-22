@@ -3,19 +3,23 @@ import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, TrustLevelContainer } from './recently-added-item.style';
 
 const RecentlyAddedItem: React.FC<{ token: FeaturedToken }> = (props) => {
     useEffect(() => { }, []);
+    const navigate = useNavigate();
+    const handleNavigate = () => {
+        navigate(`token/${props?.token?.address}`, { state: { isUpcoming: true } });
+    }
 
     return <Container>
         <LogoContainer>
             <img src={props?.token?.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
-            <a className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
+            <a onClick={handleNavigate} className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>
         <TrustLevelContainer>

@@ -32,7 +32,7 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
         </InfoContainer>
         <ReleaseContainer>
             <span className='released-title text-muted fw-bold d-block fs-8'>
-                Deployed
+                Released
             </span>
             <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.deployedDate}</span>
         </ReleaseContainer>

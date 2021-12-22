@@ -50,7 +50,7 @@ export default function Root() {
                 <Routes >
                     <Route path="/wallet/:walletid" element={<Wallet />}>
                     </Route>
-                    <Route path="/token/:tokenid" element={<TokenDashboardComponent />}>
+                    <Route path="/token/:tokenid" element={<HomeProvider><TokenDashboardComponent /></HomeProvider>}>
                     </Route>
                     <Route path="/" element={<HomeProvider><HomeComponent /></HomeProvider>}></Route>
                     <Route path="/wallet" element={<Navigate replace to="/" />}></Route>
