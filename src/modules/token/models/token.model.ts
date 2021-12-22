@@ -67,6 +67,7 @@ export interface Item {
     trustLevel: string;
     status: string;
     deployedDate: string;
+    tag: any;
 }
 
 export interface Content {

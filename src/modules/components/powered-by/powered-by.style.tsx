@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-    display: flex;
+    a{display: flex;
     max-width: 140px;
     column-gap: 4px;
     align-items: center;
@@ -11,5 +11,5 @@ export const Container = styled.div`
         font-size: 1em;
         color: #181c32;
         font-weight: 500;
-    }
+    }}
 `;

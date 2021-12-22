@@ -48,28 +48,8 @@ export const TokenDashboardComponent: React.FC = () => {
         // fetchTransfersSent(transfersEndpoint, requestTransfersDataBody);
         setTokenData(null)
 
-        console.log('location state', state)
-        if (recentlyAdded != undefined && state && (state as any)?.isUpcoming !== undefined) {
-            console.log('location inside', state)
-            if (recentlyAdded != undefined) {
-                console.log('upcoming data', tokenid);
-                const token = recentlyAdded.find(
-                    (t: FeaturedToken) => {
-                        return t.address == tokenid;
-                    }
-                )
-                console.log(token)
-                const tobject = new Token(null, token.alldata, true);
-                setTokenData(tobject);
-                setLoadingState(false);
-
-                console.log(tobject)
-            }
-
-        } else {
+ 
             fetchTokenData(walletEndpoint, requestWaletDataBody);
-
-        }
 
     }, [])
 
@@ -89,9 +69,9 @@ export const TokenDashboardComponent: React.FC = () => {
         ).catch(
             e => Swal.fire({
                 title: 'Oops!',
-                text: 'something went wrong with the network,  please try again later',
+                text: 'This is embarrassing but something went wrong and we are trying to fix it!',
                 icon: 'error',
-                confirmButtonText: 'Cool',
+                confirmButtonText: 'Go Back',
                 willClose: () => {
                     navigate('/')
                 },
@@ -162,9 +142,8 @@ export const TokenDashboardComponent: React.FC = () => {
                             <LaptopOutlined color='#b5b5c3'
                             ></LaptopOutlined>
                             <a target="__blank"
-                                href={tokenData?.basicInfo?.auditCertificateLink}
                                 className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
-                                type={tokenData?.basicInfo?.auditCertificateLink}>Certificate of Trust Link</a></div>
+                                href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>"Certificate of Trust" Link</a></div>
                         <div className="audit-gif">
                             <img
                                 width="100%"
@@ -193,7 +172,7 @@ export const TokenDashboardComponent: React.FC = () => {
 
             <Card title="About" style={{ width: '100%' }}>
                 {loadingState && <div className='loading' > <Spin /></div>}
-                {   !loadingState &&
+                {!loadingState &&
                     <div>
                         <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : '-'}</p>
                         <h1 >Contact Address</h1>
@@ -215,7 +194,7 @@ export const TokenDashboardComponent: React.FC = () => {
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Status">
                                     {tokenData?.basicInfo?.status ? tokenData?.basicInfo?.status : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Deployed Date">{
+                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Released Date">{
                                     (tokenData as Token)?.basicInfo?.deployedDate ? getDate(tokenData?.basicInfo?.deployedDate as string) : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Is Contract Verified?">

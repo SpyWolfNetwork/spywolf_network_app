@@ -13,7 +13,9 @@ export const Container = styled.div`
 `;
 
 export const LogoContainer = styled.div`
-
+      img{
+            border-radius: 100%;
+      }
 `;
 
 

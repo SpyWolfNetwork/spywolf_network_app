@@ -14,7 +14,7 @@ const IconFont = createFromIconfontCN({
     scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',
 });
 
-const TokenMainCardComponent: React.FC<{loading: any}> = (props) => {
+const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [tokenData]: Token[] = useContext(ApplicationContext) as any[];
     const arrow = () => (
         <img width="14px" src={Arrow} />
@@ -34,17 +34,20 @@ const TokenMainCardComponent: React.FC<{loading: any}> = (props) => {
     };
 
 
-    return <Container className={`${tokenData?.basicInfo?.trustLevel !== undefined ? 'showRibbon' : 'hideRibbon'}`}>
-
+    return <Container className={`${(tokenData?.basicInfo?.trustLevel !== undefined || tokenData?.basicInfo?.tag) ? 'showRibbon' : 'hideRibbon'}`}>
+        <span>
+            {tokenData?.basicInfo?.tag}
+        </span>
+        {/* ${ tokenData?.basicInfo?.tag === 'UNVERIFED' ? 'UNVERIFIED' : ('Trust' + tokenData?.level)} */}
         <Badge.Ribbon
             style={
                 {
-                    background: trustLevelTextColor[tokenData?.level ? tokenData?.level : 1],
-                    color: trustLevelBgColor[tokenData?.level ? tokenData?.level : 1]
+                    background: (tokenData?.basicInfo?.tag === 'UNVERIFIED' ||  tokenData?.basicInfo?.tag === 'SCAM') ? '#cf1322' : trustLevelTextColor[tokenData?.level ? tokenData?.level : 1],
+                    color:  (tokenData?.basicInfo?.tag === 'UNVERIFIED' ||  tokenData?.basicInfo?.tag === 'SCAM') ? 'white' : trustLevelBgColor[tokenData?.level ? tokenData?.level : 1]
                 }
-            } text={`Trust ${tokenData?.level}`} placement='start' >
+            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' ||  tokenData?.basicInfo?.tag === 'SCAM') ?  tokenData?.basicInfo?.tag : `Trust ${tokenData?.level}`}`} placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
-            {props.loading}
+                {props.loading}
                 <div className="token-logo-wrapper">
                     <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
                 </div>

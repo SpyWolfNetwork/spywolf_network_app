@@ -62,7 +62,7 @@ function App() {
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink href="#">Learn</CNavLink>
+                  <CNavLink href="/learn">Learn</CNavLink>
                 </CNavItem>
                 <CNavItem>
                   <CNavLink target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
@@ -70,8 +70,8 @@ function App() {
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink href="#">
-                    About
+                  <CNavLink href="/frequently-asked-questions">
+                    FAQ
                   </CNavLink>
                 </CNavItem>
                 <CNavItem className="social">

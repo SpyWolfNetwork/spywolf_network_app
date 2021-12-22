@@ -8,7 +8,9 @@ import {
     Routes,
     useLocation,
 } from "react-router-dom";
+import Faq from "../../modules/faq/pages/faq/sample/faq";
 import { HomeComponent } from "../../modules/home/pages/home";
+import { LearnList } from "../../modules/learn/pages/learn-list/learn-list";
 import { TokenDashboardComponent } from "../../modules/token/pages/dashboard/token-dashboard";
 import Wallet from "../../modules/wallet/pages/wallet";
 import { HomeProvider } from "./providers/home.provider";
@@ -55,6 +57,8 @@ export default function Root() {
                     <Route path="/" element={<HomeProvider><HomeComponent /></HomeProvider>}></Route>
                     <Route path="/wallet" element={<Navigate replace to="/" />}></Route>
                     <Route path="/token" element={<Navigate replace to="/" />}></Route>
+                    <Route path="/learn" element={<LearnList></LearnList>}></Route>
+                    <Route path="/frequently-asked-questions" element={<Faq/>}></Route>
 
                 </Routes>
             </div>

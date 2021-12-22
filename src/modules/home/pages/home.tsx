@@ -18,7 +18,7 @@ import { CardGrid, Container, SearchContainer } from './home.style';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
-
+import spywolfad from '../../../assets/ads/spywolf_ads_army.gif'
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -418,7 +418,7 @@ export const HomeComponent: React.FC = () => {
                     type='ghost' style={{ background: 'transparent !important' }}
                     loading={addressLoading} icon={<SearchOutlined />} > </Button>}
                 onKeyDown={handleSearchEnter}
-                placeholder="Search by Token or Wallet Address..."
+                placeholder="Search by Token Address..."
                 onPaste={searchTokenOrWalletOnPaste}
             />
             {
@@ -467,7 +467,7 @@ export const HomeComponent: React.FC = () => {
 
             </Card>
             <Card id="advertisement" title={<CardTitleSubtitle subtitle="Advertisement" />}>
-                <img src="https://spywolf.co/demo/network/assets/media/projects/show.gif" alt="" />
+                <a href="https://t.me/SpyWolfOfficial" target="__blank"><img src={spywolfad} alt="" /></a>
             </Card>
             <div className="bottom-cards">
                 <Card
@@ -482,7 +482,10 @@ export const HomeComponent: React.FC = () => {
                             onChange={(page: number) => updatePage('latest', page)}
                         ></Pagination>]}
                     extra={
-                        <PoweredBy logo={'https://img1.wsimg.com/isteam/ip/43e267af-5023-40d4-8922-4499b9dac11d/F0B2E632-9521-44A7-BED9-67016D5C6F61.png/:/rs=w:1160,h:1152'} company="RugSeekers" />
+                        <PoweredBy
+                            logo={'https://img1.wsimg.com/isteam/ip/43e267af-5023-40d4-8922-4499b9dac11d/F0B2E632-9521-44A7-BED9-67016D5C6F61.png/:/rs=w:1160,h:1152'}
+                            company="RugSeekers"
+                            link=' https://rugseekers.online/' />
                     }
                 >
                     {
@@ -496,7 +499,11 @@ export const HomeComponent: React.FC = () => {
                     id="potential"
                     title={<CardTitleSubtitle title="Potential Scams" subtitle="Lorem Ipsum"></CardTitleSubtitle>}
                     extra={
-                        <PoweredBy logo={'https://spywolf.co/demo/network/assets/media/projects/eagle.png'} company="EagleEye" />
+                        <PoweredBy
+                            logo={'https://spywolf.co/demo/network/assets/media/projects/eagle.png'}
+                            company="EagleEye"
+                            link="https://eagleeyetoken.com/"
+                        />
                     }
                     actions={[<Pagination
                         current={potentialScamsPage}
