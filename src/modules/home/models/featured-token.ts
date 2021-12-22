@@ -26,6 +26,7 @@ export interface FeaturedTokenDTO {
     scamReason: string[];
     deployedDate?: string;
     scamReasonTooltip?: string;
+    vettedBy: string;
 }
 
 export interface Content {
@@ -51,6 +52,7 @@ export class FeaturedToken {
     website: string;
     scamReasonTooltip?: string;
     alldata?: FeaturedTokenDTO;
+    vettedBy: string
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -69,7 +71,9 @@ export class FeaturedToken {
         this.website = featuredTokenDTO?.website;
         this.telegram = featuredTokenDTO?.telegram;
         this.scamReasonTooltip = featuredTokenDTO.scamReasonTooltip;
+        this.vettedBy = featuredTokenDTO.vettedBy
 
         this.alldata = featuredTokenDTO;
+
     }
 }

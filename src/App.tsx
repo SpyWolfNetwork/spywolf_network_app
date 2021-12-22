@@ -25,10 +25,8 @@ function App() {
     document.addEventListener('scroll', (e) => {
       if (window.scrollY > 0) {
         setWindowScroller(true);
-        console.log('set true')
       } else {
         setWindowScroller(false);
-        console.log('set false')
 
       }
     })
@@ -61,19 +59,19 @@ function App() {
                     Get Audited
                   </CNavLink>
                 </CNavItem>
-                <CNavItem>
+                {/* <CNavItem>
                   <CNavLink href="/learn">Learn</CNavLink>
-                </CNavItem>
+                </CNavItem> */}
                 <CNavItem>
                   <CNavLink target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
                     Buy $SPY
                   </CNavLink>
                 </CNavItem>
-                <CNavItem>
+                {/* <CNavItem>
                   <CNavLink href="/frequently-asked-questions">
                     FAQ
                   </CNavLink>
-                </CNavItem>
+                </CNavItem> */}
                 <CNavItem className="social">
                   <CNavLink href="https://twitter.com/SpyWolfNetwork" target='__blank'>
                     <FaTwitter color={'#a1a5b7'} fontSize={20} />

@@ -8,7 +8,6 @@ export function groupBy(arr: any, key: 'symbol') {
         const groupIndex = acc.findIndex((item: Currency) => item.symbol === symbol);
         const groupFound = groupIndex > 0;
         if (groupFound) {
-            console.log(groupIndex)
             acc[groupIndex].items = [...acc[groupIndex], current];
             return acc;
         }
@@ -32,7 +31,6 @@ export function transfersGroupBy(arr: Transfers.TransfersInfoModel[], key = 'sym
         const groupIndex = acc.findIndex((item: Currency) => item.symbol === symbol);
         const groupFound = groupIndex > 0;
         if (groupFound) {
-            console.log(groupIndex)
             acc[groupIndex].items = [...acc[groupIndex], current];
             return acc;
         }

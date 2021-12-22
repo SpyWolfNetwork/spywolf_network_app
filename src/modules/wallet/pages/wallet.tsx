@@ -140,7 +140,6 @@ const WalletComponent: React.FC = () => {
     }
 
     const updatePeriod = (days: number | string, type: string) => {
-        console.log('received date', days)
         if (days === 'month') {
             const daysInAMonth = getMonthDays();
             const requestTransfersDataBody = {
@@ -203,7 +202,6 @@ const WalletComponent: React.FC = () => {
             ({ data }) => {
                 const res = data.transfers as TransfersResponse;
                 const { transfers } = res;
-                console.log(res, transfers)
                 if (body.isSend) {
                     setSentTransfersPerToken(transfers);
                 } else {

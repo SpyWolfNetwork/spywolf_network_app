@@ -194,7 +194,6 @@ export class UpComingToken {
 
     constructor(tokenResponse: null, featuredToken?: FeaturedTokenDTO, isUpcoming?: boolean) {
         if (!isUpcoming) {
-            console.log(featuredToken)
         }
 
 

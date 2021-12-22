@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr auto 1fr auto;
+  grid-template-columns: 50px minmax(100px, 1fr) minmax(150px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
   column-gap: 1rem;
   margin:1rem 0;
   align-items: center;
@@ -37,8 +37,10 @@ export const ReleaseContainer = styled.div`
 
 export const TrustLevelContainer = styled.div`
       display: flex;
-      max-width: 218px;
       flex-wrap: wrap;
+      width: 100%;
+      justify-content: center;
+      align-items: center;
       /* justify-content: center; */
       /* grid-template-columns: auto auto; */
       .ant-tag{

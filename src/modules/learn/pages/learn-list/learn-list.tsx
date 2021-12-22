@@ -22,7 +22,7 @@ export const LearnList: React.FC = () => {
         >
             <div style={{  background: 'url("https://via.placeholder.com/468x60?text=Placeholder")',  borderRadius: ".475rem", backgroundRepeat:'no-repeat',  backgroundPosition:"center", marginBottom: '15px', backgroundSize: "cover",width: "100%", minWidth: '300px', paddingBottom: '50%' }}>
             </div>
-            <Meta title="Crypto Research Tip #1: Investigate the Website" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam consequat vulputate arcu, sit amet luctus nibh condimentum eget..."></Meta>
+            <Meta title="Crypto Research Tip #1: Investigate the Website" description=""></Meta>
         </Card>
     </Container>
 }

@@ -58,7 +58,6 @@ export const TokenDashboardComponent: React.FC = () => {
     const fetchTokenData = (endpoint: string, addr: { address: string }) => {
         axios.post(endpoint, addr).then(
             ({ data }) => {
-                console.log('data', data)
                 if (data.errorMessage !== undefined) {
                     throw new Error('No Token Data');
                 }

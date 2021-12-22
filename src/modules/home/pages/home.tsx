@@ -87,7 +87,6 @@ export const HomeComponent: React.FC = () => {
     }
 
     const updatePage = (indentifier: string, page: number) => {
-        console.log('identifier:', indentifier, 'page', page);
         const functions: any = {
             featured: updateFeaturedPage,
             recently: updateRecentlyPage,
@@ -98,7 +97,6 @@ export const HomeComponent: React.FC = () => {
         try {
             functions[indentifier](page)
         } catch (e) {
-            console.log(e);
         }
     }
 
@@ -277,7 +275,6 @@ export const HomeComponent: React.FC = () => {
         setAddressLoading(true);
         let addr = '';
         try {
-            console.log('ref', inputRef.state.value)
             if (!inputRef.state.value || inputRef.state.value === undefined) {
                 throw new Error('Empty Address');
             }
@@ -430,7 +427,7 @@ export const HomeComponent: React.FC = () => {
             <Card
                 // style={{minHeight: '938px'}}
                 id="featured"
-                title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle="Lorem Ipsum"></CardTitleSubtitle>}
+                title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle=""></CardTitleSubtitle>}
                 actions={[<Pagination
                     hideOnSinglePage={false}
                     defaultPageSize={10}
@@ -472,7 +469,7 @@ export const HomeComponent: React.FC = () => {
             <div className="bottom-cards">
                 <Card
                     id="latests"
-                    title={<CardTitleSubtitle title="Latests Scams" subtitle="Lorem Ipsum"></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle title="Latests Scams" subtitle=""></CardTitleSubtitle>}
                     actions={[
                         <Pagination
                             current={latestScamsPage}
@@ -481,12 +478,6 @@ export const HomeComponent: React.FC = () => {
                             total={latestScams?.length}
                             onChange={(page: number) => updatePage('latest', page)}
                         ></Pagination>]}
-                    extra={
-                        <PoweredBy
-                            logo={'https://img1.wsimg.com/isteam/ip/43e267af-5023-40d4-8922-4499b9dac11d/F0B2E632-9521-44A7-BED9-67016D5C6F61.png/:/rs=w:1160,h:1152'}
-                            company="RugSeekers"
-                            link=' https://rugseekers.online/' />
-                    }
                 >
                     {
                         latestScams?.slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => <LatestScamsItem token={token}></LatestScamsItem>)
@@ -497,14 +488,7 @@ export const HomeComponent: React.FC = () => {
                 </Card>
                 <Card
                     id="potential"
-                    title={<CardTitleSubtitle title="Potential Scams" subtitle="Lorem Ipsum"></CardTitleSubtitle>}
-                    extra={
-                        <PoweredBy
-                            logo={'https://spywolf.co/demo/network/assets/media/projects/eagle.png'}
-                            company="EagleEye"
-                            link="https://eagleeyetoken.com/"
-                        />
-                    }
+                    title={<CardTitleSubtitle title="Potential Scams" subtitle=""></CardTitleSubtitle>}
                     actions={[<Pagination
                         current={potentialScamsPage}
                         defaultPageSize={6}

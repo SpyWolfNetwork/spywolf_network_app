@@ -5,6 +5,7 @@ import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
+import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
 const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
@@ -25,7 +26,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
-                <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>
+            <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>
         <TrustLevelContainer>
@@ -52,10 +53,9 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         {
             props?.token.deployedDate &&
             <ReleaseContainer>
-                <span className='released-title text-muted fw-bold d-block fs-8'>
-                    Released
-                </span>
-                <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.deployedDate}</span>
+                <PoweredBy
+                    company={props?.token.vettedBy}
+                />
             </ReleaseContainer>
         }
         <ActionsContainer>
