@@ -22,7 +22,7 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
     }
     return <Container>
         <LogoContainer>
-            <img src={'https://spywolf.co/demo/network/assets/media/projects/kodi.png'} width="50px" alt="" />
+            <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
             <Link to={`/token/${props.token.address}`}>
@@ -32,9 +32,9 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
         </InfoContainer>
         <ReleaseContainer>
             <span className='released-title text-muted fw-bold d-block fs-8'>
-                Released
+                Deployed
             </span>
-            <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.releaseDate}</span>
+            <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.deployedDate}</span>
         </ReleaseContainer>
         <TrustLevelContainer>
             <Popover content={<span>Awarded SpyWolf's Certificate of Trust: {props?.token?.trustLevel ? props?.token?.trustLevel : 'L   evel 1'}</span>} >
@@ -56,7 +56,7 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
             }
             {
                 !props?.token?.address &&
-                <Button type="ghost" href={`https://t.me/${props?.token?.telegram}`} target={'_blank'}> <ArrowRightOutlined /> </Button>
+                <Button type="ghost" href={props?.token?.telegram} target={'_blank'}> <ArrowRightOutlined /> </Button>
             }
 
         </ActionsContainer>

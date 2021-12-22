@@ -2,7 +2,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Breadcrumb, Button, Card, Empty, Input, Pagination } from 'antd';
 
 import axios from 'axios';
-import React, { KeyboardEventHandler, useContext, useEffect, useRef, useState } from 'react';
+import React, { ClipboardEvent, ClipboardEventHandler, KeyboardEventHandler, useContext, useEffect, useRef, useState } from 'react';
 import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../../core/routes/providers/models/home-provider.model';
 import CardTitleSubtitle from '../../components/card-title-subtitle/card-title-subtitle';
@@ -199,16 +199,28 @@ export const HomeComponent: React.FC = () => {
     }
 
     const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
-        if (event.code == 'Enter' || event.code == '') {
+        setAddressValidation({
+            err: 0,
+            message: '',
+            active: false
+        })
+
+        if (event.code === 'Enter') {
             setAddressLoading(true);
             let addr = '';
             try {
-                addr = toChecksumAddress(event.currentTarget.value);
-
+                if (!inputRef.state.value || inputRef.state.value === undefined) {
+                    throw new Error('Empty Address');
+                }
+                addr = toChecksumAddress(inputRef.state.value);
+                if (addr === '') {
+                    throw new Error('Invalid token address')
+                }
             } catch (err) {
+                const e: Error = err as Error;
                 setAddressValidation({
                     err: 0,
-                    message: 'Invalid token address!',
+                    message: e.message,
                     active: true
                 })
                 setAddressLoading(false);
@@ -217,100 +229,198 @@ export const HomeComponent: React.FC = () => {
 
 
             try {
-               if(addr !== ''){
+                if (addr !== undefined && addr !== '') {
+                    validadeAddress(addr).then(
+                        ({ data }) => {
+                            setAddressLoading(false);
+                            const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
+                            if (addressCheckResponse == null) {
+                                throw new Error('Invalid Token Address');
+                            }
+                            if (addressCheckResponse.contractType === 'Token') {
+                                navigate(`token/${addr}`);
+                            } else {
+                                throw new Error('Invalid Token Addres');
+
+                            }
+                        },
+
+                    ).catch(e => {
+                        setAddressValidation({
+                            err: 0,
+                            message: 'No tokens were found with that address!',
+                            active: true
+                        })
+                        setAddressLoading(false);
+                    })
+                } else {
+                    throw new Error('Invalid token address');
+
+                }
+            } catch (err) {
+                const e = err as Error;
+                setAddressValidation({
+                    err: 0,
+                    message: e.message,
+                    active: true
+                })
+                setAddressLoading(false);
+
+            }
+        }
+
+    };
+
+    let inputRef: any;
+
+    const searchTokenOrWallet = () => {
+        setAddressLoading(true);
+        let addr = '';
+        try {
+            console.log('ref', inputRef.state.value)
+            if (!inputRef.state.value || inputRef.state.value === undefined) {
+                throw new Error('Empty Address');
+            }
+            addr = toChecksumAddress(inputRef.state.value);
+            if (addr === '') {
+                throw new Error('Invalid token address')
+            }
+        } catch (err) {
+            const e: Error = err as Error;
+            setAddressValidation({
+                err: 0,
+                message: e.message,
+                active: true
+            })
+            setAddressLoading(false);
+
+        }
+
+
+        try {
+            if (addr !== undefined && addr !== '') {
                 validadeAddress(addr).then(
                     ({ data }) => {
                         setAddressLoading(false);
                         const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
-                        setAddressValidation({
-                            err: 0,
-                            message: 'No wallets or tokens were found with that address!',
-                            active: false
-                        })
-                        console.log('<ADRESS>', addressCheckResponse)
                         if (addressCheckResponse == null) {
                             throw new Error('Invalid Token Address');
                         }
                         if (addressCheckResponse.contractType === 'Token') {
                             navigate(`token/${addr}`);
                         } else {
-                            navigate(`wallet/${addr}`);
+                            throw new Error('Invalid Token Addres');
 
                         }
-                    }
-                )
-               }
-            } catch (e) {
-                setAddressValidation({
-                    err: 0,
-                    message: 'No tokens were found with that address!',
-                    active: true
+                    },
+
+                ).catch(e => {
+                    setAddressValidation({
+                        err: 0,
+                        message: 'No tokens were found with that address!',
+                        active: true
+                    })
+                    setAddressLoading(false);
                 })
-                setAddressLoading(false);
+            } else {
+                throw new Error('Invalid token address');
 
             }
+        } catch (err) {
+            const e = err as Error;
+            setAddressValidation({
+                err: 0,
+                message: e.message,
+                active: true
+            })
+            setAddressLoading(false);
 
         }
-    };
-    
-    // let inputRef: any;
-
-    // const searchTokenOrWallet = () => {
-    //     console.log(inputRef)
-    //     setAddressLoading(true);
-    //     let addr = '';
-    //     try {
-    //         addr = toChecksumAddress(inputRef.state.value);
-
-    //     } catch (err) {
-    //         setAddressValidation({
-    //             err: 0,
-    //             message: 'Invalid token address!',
-    //             active: true
-    //         })
-    //         setAddressLoading(false);
-
-    //     }
+    }
 
 
-    //     try {
-    //         validadeAddress(addr).then(
-    //             ({ data }) => {
-    //                 setAddressLoading(false);
-    //                 const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
-    //                 setAddressValidation({
-    //                     err: 0,
-    //                     message: 'No wallets or tokens were found with that address!',
-    //                     active: false
-    //                 })
-    //                 console.log('<ADRESS>', addressCheckResponse)
-    //                 if (addressCheckResponse == null) {
-    //                     throw new Error('Invalid Token Address');
-    //                 }
-    //                 if (addressCheckResponse.contractType === 'Token') {
-    //                     navigate(`token/${addr}`);
-    //                 } else {
-    //                     navigate(`wallet/${addr}`);
+    const searchTokenOrWalletOnPaste = (event: ClipboardEvent<HTMLInputElement>) => {
+        const value = event.clipboardData?.getData('Text');
+        setAddressLoading(true);
+        let addr = '';
+        try {
+            if (!value || value === undefined) {
+                throw new Error('Empty Address');
+            }
+            addr = toChecksumAddress(value);
+            if (addr === '') {
+                throw new Error('Invalid token address')
+            }
+        } catch (err) {
+            const e: Error = err as Error;
+            setAddressValidation({
+                err: 0,
+                message: e.message,
+                active: true
+            })
+            setAddressLoading(false);
 
-    //                 }
-    //             }
-    //         )
-    //     } catch (e) {
-    //         setAddressValidation({
-    //             err: 0,
-    //             message: 'No tokens were found with that address!',
-    //             active: true
-    //         })
-    //         setAddressLoading(false);
+        }
 
-    //     }
-    // }
 
+        try {
+            if (addr !== '') {
+                validadeAddress(addr).then(
+                    ({ data }) => {
+                        setAddressLoading(false);
+                        const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
+                        if (addressCheckResponse == null) {
+                            throw new Error('Invalid Token Address');
+                        }
+                        if (addressCheckResponse.contractType === 'Token') {
+                            navigate(`token/${addr}`);
+                        } else {
+                            throw new Error('Invalid Token Addres');
+
+                        }
+                    },
+
+                ).catch(e => {
+                    setAddressValidation({
+                        err: 0,
+                        message: 'No tokens were found with that address!',
+                        active: true
+                    })
+                    setAddressLoading(false);
+                })
+            } else {
+                throw new Error('Invalid token address');
+
+            }
+        } catch (err) {
+            const e = err as Error;
+            setAddressValidation({
+                err: 0,
+                message: e.message,
+                active: true
+            })
+            setAddressLoading(false);
+
+        }
+    }
+    // 0xa0a24c043175bc736dea5169e1612de2cee9f1ea
+    const handleClipboardEvent = (event: ClipboardEvent<HTMLInputElement>) => {
+        setTimeout(searchTokenOrWalletOnPaste, 300);
+    }
     return <Container>
 
         <SearchContainer>
             <h1 className=' lh-base fw-bolder fs-2x fs-lg-3x mb-5' style={{ textAlign: 'center' }}>Your Daily Source for Crypto Safety</h1>
-            <Input prefix={<Button type='ghost' style={{ background: 'transparent !important' }} loading={addressLoading} icon={<SearchOutlined />} > </Button>} onKeyDown={handleSearchEnter} placeholder="Search by Token or Wallet Address..." />
+            <Input
+                ref={e => { inputRef = e }}
+                prefix={<Button
+                    onClick={searchTokenOrWallet}
+                    type='ghost' style={{ background: 'transparent !important' }}
+                    loading={addressLoading} icon={<SearchOutlined />} > </Button>}
+                onKeyDown={handleSearchEnter}
+                placeholder="Search by Token or Wallet Address..."
+                onPaste={searchTokenOrWalletOnPaste}
+            />
             {
                 addresValidaton?.active && <span className="address-validation-error"> {addresValidaton?.message} </span>
             }
@@ -320,7 +430,7 @@ export const HomeComponent: React.FC = () => {
             <Card
                 // style={{minHeight: '938px'}}
                 id="featured"
-                title={<CardTitleSubtitle fontSize={1} title="Featured Tokens" subtitle="Lorem Ipsum"></CardTitleSubtitle>}
+                title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle="Lorem Ipsum"></CardTitleSubtitle>}
                 actions={[<Pagination
                     hideOnSinglePage={false}
                     defaultPageSize={10}
@@ -345,7 +455,9 @@ export const HomeComponent: React.FC = () => {
                         current={recentlyAddedPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={recentlyAdded?.length}></Pagination>]}>
+                        total={recentlyAdded?.length}
+                        onChange={(page: number) => updatePage('recently', page)}
+                    ></Pagination>]}>
                 {
                     recentlyAdded?.slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => <RecentlyAddedItem token={token}></RecentlyAddedItem>)
                 }
@@ -366,7 +478,9 @@ export const HomeComponent: React.FC = () => {
                             current={latestScamsPage}
                             defaultPageSize={6}
                             defaultCurrent={1}
-                            total={latestScams?.length}></Pagination>]}
+                            total={latestScams?.length}
+                            onChange={(page: number) => updatePage('latest', page)}
+                        ></Pagination>]}
                     extra={
                         <PoweredBy logo={'https://img1.wsimg.com/isteam/ip/43e267af-5023-40d4-8922-4499b9dac11d/F0B2E632-9521-44A7-BED9-67016D5C6F61.png/:/rs=w:1160,h:1152'} company="RugSeekers" />
                     }
@@ -388,7 +502,9 @@ export const HomeComponent: React.FC = () => {
                         current={potentialScamsPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={potentialScams?.length}></Pagination>]}
+                        total={potentialScams?.length}
+                        onChange={(page: number) => updatePage('potential', page)}
+                    ></Pagination>]}
                 >
                     {
                         potentialScams?.slice((potentialScamsPage - 1) * 6, potentialScamsPage * 6).map((token: FeaturedToken) => <PotentialScamsItem token={token}></PotentialScamsItem>)

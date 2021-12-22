@@ -42,7 +42,7 @@ const TokenMainCardComponent: React.FC = () => {
         } text={`Trust level ${tokenData?.level ? tokenData?.level : 1}/3`} placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
                 <div className="token-logo-wrapper">
-                    <img src={'https://assets.coingecko.com/coins/images/18794/large/ahAWxPp.png?1633430523'} alt="" />
+                    <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
                 </div>
                 <div className="actions">
                     <DashedCard>

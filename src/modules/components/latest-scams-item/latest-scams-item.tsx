@@ -1,6 +1,6 @@
 // Dependencies
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Tag } from 'antd';
+import { Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -22,7 +22,7 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
     }
     return <Container>
         <LogoContainer>
-            <img src={'https://spywolf.co/demo/network/assets/media/projects/kodi.png'} width="50px" alt="" />
+            <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
             <a className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
@@ -30,21 +30,31 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         </InfoContainer>
         <TrustLevelContainer>
             {
-                props?.token?.scamReason?.map(reason =>
+                (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
                     <Tag
                         color={'red'}
                     >
-                        {reason}
+                        {props?.token?.scamReason}
                     </Tag>
-                )
-            }
+                )}
+
+            {
+                (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
+                    <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
+                        <Tag
+                            color={'red'}
+                        >
+                            {props?.token?.scamReason}
+                        </Tag>
+                    </Popover>
+                )}
         </TrustLevelContainer>
-            <ReleaseContainer>
-                <span className='released-title text-muted fw-bold d-block fs-8'>
-                    Released
-                </span>
-                <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.releaseDate}</span>
-            </ReleaseContainer>
+        <ReleaseContainer>
+            <span className='released-title text-muted fw-bold d-block fs-8'>
+                Released
+            </span>
+            <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.deployedDate}</span>
+        </ReleaseContainer>
         <ActionsContainer>
             <Link to={`token/${props?.token?.address}`}>
                 <Button type="ghost"> <ArrowRightOutlined /> </Button>

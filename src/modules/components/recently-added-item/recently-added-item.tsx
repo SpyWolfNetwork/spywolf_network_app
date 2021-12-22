@@ -12,7 +12,7 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken }> = (props) => {
 
     return <Container>
         <LogoContainer>
-            <img src={'https://spywolf.co/demo/network/assets/media/projects/kodi.png'} width="50px" alt="" />
+            <img src={props?.token?.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
             <a className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>

@@ -24,6 +24,8 @@ export interface FeaturedTokenDTO {
     isFairlaunch: boolean;
     description: string;
     scamReason: string[];
+    deployedDate?: string;
+    scamReasonTooltip?: string;
 }
 
 export interface Content {
@@ -41,22 +43,23 @@ export class FeaturedToken {
     name: string;
     symbol: string;
     logoPicture: string;
-    releaseDate: string;
+    deployedDate: string;
     trustLevel: string;
     address: string;
     scamReason: string[];
     telegram: string;
     website: string;
+    scamReasonTooltip?: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
         this.symbol = featuredTokenDTO?.symbol;
         this.logoPicture = featuredTokenDTO?.logo;
-        const date = parseISO(featuredTokenDTO?.presaleInfo?.presaleDate);
+        const date = parseISO(featuredTokenDTO?.deployedDate as string);
         if (date && isValid(date)) {
-            this.releaseDate = format(date, 'PP').toString();
+            this.deployedDate = format(date, 'PP').toString();
         }else{
-            this.releaseDate = '';
+            this.deployedDate = '';
         }
 
         this.trustLevel = featuredTokenDTO?.trustLevel;
@@ -64,5 +67,6 @@ export class FeaturedToken {
         this.scamReason = featuredTokenDTO?.scamReason;
         this.website = featuredTokenDTO?.website;
         this.telegram = featuredTokenDTO?.telegram;
+        this.scamReasonTooltip = featuredTokenDTO.scamReasonTooltip;
     }
 }

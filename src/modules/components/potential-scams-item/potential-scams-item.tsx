@@ -22,7 +22,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
     }
     return <Container>
         <LogoContainer>
-            <img src={'https://spywolf.co/demo/network/assets/media/projects/kodi.png'} width="50px" alt="" />
+            <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
         <InfoContainer>
             <Link to={`/token/${props.token.address}`}>
@@ -31,23 +31,33 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>
         <TrustLevelContainer>
-            {/* {
-                props?.token?.scamReason?.map(reason =>
+            {
+                (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
                     <Tag
                         color={'warning'}
                     >
                         {reason}
                     </Tag>
-                )
-            } */}
+                )}
+
+            {
+                (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
+                    <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
+                        <Tag
+                            color={'warning'}
+                        >
+                            {reason}
+                        </Tag>
+                    </Popover>
+                )}
         </TrustLevelContainer>
         {
-            props?.token.releaseDate &&
+            props?.token.deployedDate &&
             <ReleaseContainer>
                 <span className='released-title text-muted fw-bold d-block fs-8'>
                     Released
                 </span>
-                <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.releaseDate}</span>
+                <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.deployedDate}</span>
             </ReleaseContainer>
         }
         <ActionsContainer>
@@ -57,7 +67,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             }
             {
                 props?.token?.telegram &&
-                <Button type="ghost" href={`https://t.me/${props?.token?.telegram}`} target={'__blank'}> <SendOutlined style={{ transform: 'rotate(-35deg)' }} /></Button>
+                <Button type="ghost" href={props?.token?.telegram} target={'__blank'}> <SendOutlined style={{ transform: 'rotate(-35deg)' }} /></Button>
             }
 
         </ActionsContainer>

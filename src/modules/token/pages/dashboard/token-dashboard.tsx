@@ -12,8 +12,14 @@ import { Token } from '../../models/token.model';
 
 import SpywolfGif from '../../../../assets/gifs/kodi-nft-cover.gif'
 import { format, isValid, parseISO } from 'date-fns';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+
+import Swal from 'sweetalert2'
+
+
+
+
 export const TokenDashboardComponent: React.FC = () => {
     const [walletEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_RECEIVED_TOKEN);
     // const [tokßring>();
@@ -31,16 +37,33 @@ export const TokenDashboardComponent: React.FC = () => {
 
         // fetchTransfersReceived(transfersEndpoint, requestTransfersDataBody);
         // fetchTransfersSent(transfersEndpoint, requestTransfersDataBody);
+        setTokenData(null)
         fetchTokenData(walletEndpoint, requestWaletDataBody);
 
     }, [])
 
- 
+    const navigate = useNavigate();
+
     const fetchTokenData = (endpoint: string, addr: { address: string }) => {
         axios.post(endpoint, addr).then(
             ({ data }) => {
+                console.log('data', data)
+                if (data.errorMessage !== undefined) {
+                    throw new Error('No Token Data');
+                }
                 setTokenData(new Token(data));
+
             }
+        ).catch(
+            e => Swal.fire({
+                title: 'Oops!',
+                text: 'something went wrong with the network,  please try again later',
+                icon: 'error',
+                confirmButtonText: 'Cool',
+                willClose: () => {
+                    navigate('/')
+                },
+            })
         );
     }
 
@@ -113,7 +136,7 @@ export const TokenDashboardComponent: React.FC = () => {
                 {
                     !tokenData?.basicInfo?.SpyWolfAudit != undefined &&
                     <span className="text-gray-800 fw-bold mb-5 fs-6">
-                        Audits provide more security to potential investors. If you need an audit for your project, contact <a style={{ color: '#AADADF ' }}>SpyWolf</a>
+                        Audits provide more security to potential investors. If you need an audit for your project, contact <a href="mailto:audits@spywolf.co" style={{ color: '#AADADF ' }}>SpyWolf</a>
                     </span>
                 }
             </Card>

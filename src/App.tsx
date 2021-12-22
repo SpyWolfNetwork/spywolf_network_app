@@ -65,8 +65,8 @@ function App() {
                   <CNavLink href="#">Learn</CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink href="#">
-                    Buy $SPY Token
+                  <CNavLink target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
+                    Buy $SPY
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
@@ -85,7 +85,7 @@ function App() {
                   </CNavLink>
                 </CNavItem>
                 <CNavItem className="social">
-                  <CNavLink href="https://t.me/SpyWolfNetwork" target='__blank'>
+                  <CNavLink href="https://spywolf.medium.com/" target='__blank'>
                     <FaMedium color={'#a1a5b7'} fontSize={20} />
                   </CNavLink>
                 </CNavItem>

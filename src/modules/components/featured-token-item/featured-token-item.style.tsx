@@ -7,6 +7,8 @@ export const Container = styled.div`
   align-items: center;
   border-bottom: 1px dashed #eff2f5;
   padding: 1rem 0;
+  column-gap: 1rem;
+
 
 `;
 
