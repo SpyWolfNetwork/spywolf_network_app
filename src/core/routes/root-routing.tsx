@@ -8,6 +8,7 @@ import {
     Routes,
     useLocation,
 } from "react-router-dom";
+import { Disclaimer } from "../../modules/disclaimer/pages/learn-list/disclaimer";
 import Faq from "../../modules/faq/pages/faq/sample/faq";
 import { HomeComponent } from "../../modules/home/pages/home";
 import { LearnList } from "../../modules/learn/pages/learn-list/learn-list";
@@ -21,6 +22,7 @@ export default function Root() {
     let breadcrumbNameMap: any = {
         '/token': 'Token',
         '/wallet': 'Wallet',
+        '/disclaimer': 'Disclaimer',
     };
 
     const location = useLocation();
@@ -59,6 +61,7 @@ export default function Root() {
                     <Route path="/token" element={<Navigate replace to="/" />}></Route>
                     <Route path="/learn" element={<LearnList></LearnList>}></Route>
                     <Route path="/frequently-asked-questions" element={<Faq/>}></Route>
+                    <Route path="/disclaimer" element={<Disclaimer/>}></Route>
 
                 </Routes>
             </div>

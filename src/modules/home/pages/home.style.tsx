@@ -7,12 +7,12 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 2.25rem!important;
+    padding: 0 3.25rem!important;
 `;
 export const SearchContainer = styled.div`
-    width: 100%;
+    width: fit-content;
     color: #181c32;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -39,7 +39,7 @@ export const SearchContainer = styled.div`
     .ant-input-affix-wrapper{
         padding: .825rem 3.75rem!important;
         min-height: calc(1.5em + 1.65rem + 2px);
-        padding: 0.825rem 1.5rem !important;
+        padding: 0.125rem 1.5rem !important;
         font-size: 1.15rem;
         border-radius: 0.475rem;
         .ant-input-prefix{

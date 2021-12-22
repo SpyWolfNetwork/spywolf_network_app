@@ -38,16 +38,16 @@ function App() {
   return (
     <HashRouter>
       <div className="App">
-        <CNavbar className={`${ windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
+        <CNavbar className={`${windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
           <CContainer fluid>
-          <Button  type="text" className=' d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
-            <span className="svg-icon svg-icon-1">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-               <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black"></path>
-               <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black"></path>
-            </svg>
-         </span>
-          } onClick={() => { setNavbarOpen(!navbarOpen) }} />
+            <Button type="text" className=' d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
+              <span className="svg-icon svg-icon-1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black"></path>
+                  <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black"></path>
+                </svg>
+              </span>
+            } onClick={() => { setNavbarOpen(!navbarOpen) }} />
             <CNavbarBrand href="#">
               <a href="/#/">
                 <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="h-20px h-lg-40px" />
@@ -57,7 +57,7 @@ function App() {
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
                 <CNavItem>
-                  <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="#" active>
+                  <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
                     Get Audited
                   </CNavLink>
                 </CNavItem>
@@ -93,7 +93,7 @@ function App() {
             </CCollapse>
           </CContainer>
         </CNavbar>
-        <div className="breadcumb-navigation" style={{ width: '100%', maxWidth: '1264px', padding: '16px' }}>
+        <div className="breadcumb-navigation" style={{ width: '100%', maxWidth: '1264px', padding: '10px' }}>
 
         </div>
         <Root />
@@ -104,17 +104,14 @@ function App() {
               <a href="https://spywolf.co" target="_blank" className="text-gray-800 text-hover-primary">SpyWolf</a>
             </div>
             <ul className="menu menu-gray-600 menu-hover-primary fw-bold order-1">
+
               <li className="menu-item">
-                <a href="#" target="_blank" className="menu-link px-2">About</a>
+                <Link to="disclaimer">
+                  <a className="menu-link px-2">Disclaimer</a>
+                </Link>
               </li>
               <li className="menu-item">
-                <a href="#" target="_blank" className="menu-link px-2">Disclaimer</a>
-              </li>
-              <li className="menu-item">
-                <a href="#" target="_blank" className="menu-link px-2">Terms and Conditions</a>
-              </li>
-              <li className="menu-item">
-                <a href="#" target="_blank" className="menu-link px-2">Contact Us</a>
+                <a href="mailto:audit@spywolf.co" target="_blank" className="menu-link px-2">Contact Us</a>
               </li>
             </ul>
           </div>
