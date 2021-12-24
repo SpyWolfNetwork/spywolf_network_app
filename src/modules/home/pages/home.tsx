@@ -19,6 +19,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_army.gif'
+import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -428,6 +429,7 @@ export const HomeComponent: React.FC = () => {
                 // style={{minHeight: '938px'}}
                 id="featured"
                 title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle=""></CardTitleSubtitle>}
+                extra={<SolidToolbar/>}
                 actions={[<Pagination
                     hideOnSinglePage={false}
                     defaultPageSize={10}

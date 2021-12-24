@@ -31,8 +31,8 @@ export const InfoContainer = styled.div`
 export const ReleaseContainer = styled.div`
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: flex-end;
+      justify-content: flex-start;
+      align-items: flex-start;
 `;
 
 

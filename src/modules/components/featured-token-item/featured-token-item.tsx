@@ -46,20 +46,6 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
                 </Tag>
             </Popover>
         </TrustLevelContainer>
-        <ActionsContainer>
-
-            {
-                props?.token?.address &&
-                <Link to={`token/${props?.token?.address}`}>
-                    <Button type="ghost"> <ArrowRightOutlined /> </Button>
-                </Link>
-            }
-            {
-                !props?.token?.address &&
-                <Button type="ghost" href={props?.token?.telegram} target={'_blank'}> <ArrowRightOutlined /> </Button>
-            }
-
-        </ActionsContainer>
     </Container>;
 };
 
