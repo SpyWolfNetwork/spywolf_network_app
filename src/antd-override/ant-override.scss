@@ -13,6 +13,11 @@
   padding: 0.5em 0.85em !important;
   line-height: 1 !important;
 }
+.ant-btn{
+  display: flex !important; 
+  align-items: center  !important;
+  justify-content: center  !important;
+}
 .ant-btn-primary {
   background: #aadadf !important;
   border-color: #aadadf !important;
@@ -53,6 +58,7 @@
     border-top: none;
     >li{
       width: fit-content  !important;
+      margin: 0;
     }
   }
   > .ant-card-label {

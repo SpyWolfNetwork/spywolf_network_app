@@ -20,7 +20,8 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
         'Level 2': '#65a0a7',
         'Level 3': '#129edb',
     }
-    return <Container>
+    return <Link to={`/token/${props.token.address}`}>
+        <Container>
         <LogoContainer>
             <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
@@ -46,7 +47,8 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
                 </Tag>
             </Popover>
         </TrustLevelContainer>
-    </Container>;
+    </Container>
+    </Link>
 };
 
 export default FeaturedTokenItem;

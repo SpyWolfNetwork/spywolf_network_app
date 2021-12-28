@@ -3,6 +3,7 @@ import { ArrowRightOutlined, LaptopOutlined, SendOutlined } from '@ant-design/ic
 import { Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
+import { FaTelegram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
@@ -69,7 +70,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             }
             {
                 props?.token?.telegram &&
-                <Button type="ghost" href={props?.token?.telegram} target={'__blank'}> <SendOutlined style={{ transform: 'rotate(-35deg)' }} /></Button>
+                <Button type="ghost" href={props?.token?.telegram} target={'__blank'}><FaTelegram color={'#a1a5b7'} fontSize={20} /></Button>
             }
 
         </ActionsContainer>

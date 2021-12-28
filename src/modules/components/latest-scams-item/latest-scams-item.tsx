@@ -57,11 +57,6 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
                 company={props?.token?.vettedBy ? props?.token?.vettedBy : 'SpyWolf'}
             />
         </ReleaseContainer>
-        <ActionsContainer>
-            <Link to={`token/${props?.token?.address}`}>
-                <Button type="ghost"> <ArrowRightOutlined /> </Button>
-            </Link>
-        </ActionsContainer>
     </Container>;
 };
 

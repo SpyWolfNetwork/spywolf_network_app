@@ -1,8 +1,11 @@
 // Dependencies
+import { SendOutlined } from '@ant-design/icons';
+import { Button } from 'antd';
 import React, { useEffect } from 'react';
+import { FaTelegram } from 'react-icons/fa';
 import { Container } from './card-title-subtitle.style';
 
-const CardTitleSubtitle: React.FC<{ title?: string, subtitle?: string, fontSize?: number }> = (props) => {
+const CardTitleSubtitle: React.FC<{ title?: string, subtitle?: string, fontSize?: number, social?: any[] }> = (props) => {
     useEffect(() => { }, []);
 
     return <Container>
@@ -15,6 +18,9 @@ const CardTitleSubtitle: React.FC<{ title?: string, subtitle?: string, fontSize?
             }
             <span className="text-muted mt-1 fw-bold fs-7">{props.subtitle}</span>
         </h3>
+        {
+            (props?.social && props?.social?.length > 0) && <Button type="ghost" href='telegram' target={'__blank'}><FaTelegram color={'#a1a5b7'} fontSize={20} /></Button>
+        }
     </Container>;
 };
 

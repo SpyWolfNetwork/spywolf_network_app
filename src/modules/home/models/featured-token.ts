@@ -27,6 +27,7 @@ export interface FeaturedTokenDTO {
     deployedDate?: string;
     scamReasonTooltip?: string;
     vettedBy: string;
+    tag: string;
 }
 
 export interface Content {
@@ -53,6 +54,7 @@ export class FeaturedToken {
     scamReasonTooltip?: string;
     alldata?: FeaturedTokenDTO;
     vettedBy: string
+    presaleDate?: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -64,6 +66,16 @@ export class FeaturedToken {
         }else{
             this.deployedDate = '';
         }
+
+        if(featuredTokenDTO.presaleInfo && featuredTokenDTO.presaleInfo.presaleDate){
+            const presaledate = parseISO(featuredTokenDTO?.presaleInfo.presaleDate as string);
+        if (date && isValid(presaledate)) {
+            this.presaleDate = format(presaledate, 'PP').toString();
+        }else{
+            this.presaleDate = '';
+        }
+        }
+
 
         this.trustLevel = featuredTokenDTO?.trustLevel;
         this.address = featuredTokenDTO?.address;

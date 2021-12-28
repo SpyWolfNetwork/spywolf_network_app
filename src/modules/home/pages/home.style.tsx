@@ -94,8 +94,10 @@ export const CardGrid = styled.div`
         column-gap: 1.4em;
         row-gap: 1.4em;
         > div {
+            margin-bottom: 10px;
             width: 100%;
             height: 100%;
+
             .card-title{
                 display: flex;
             }
@@ -107,7 +109,7 @@ export const CardGrid = styled.div`
      #featured{
         grid-column: 1/3;
         grid-row: 1/3;
-  
+        min-height: 890px;
  
     }
     #recently{
@@ -128,8 +130,10 @@ export const CardGrid = styled.div`
         display: flex;
         grid-column: 1/4;
         column-gap: 1.4em;
-
-
+        row-gap: 1.4em;
+        > div {
+            margin-bottom: 10px;
+        }
     }
     #latests{
         grid-column: auto;

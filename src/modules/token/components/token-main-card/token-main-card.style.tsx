@@ -72,4 +72,8 @@ export const Container = styled.div`
             justify-content: center;
         }
     }
+
+    .captcha-wrapper{
+        position: absolute;
+    }
 `;

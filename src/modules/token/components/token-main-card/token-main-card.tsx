@@ -8,12 +8,13 @@ import TokenMainCardHeaderComponent from '../token-main-card-header/token-main-c
 import { Container } from './token-main-card.style';
 
 import { default as Arrow } from '../../../../assets/svg-icons/arr066.svg';
-import Icon from '@ant-design/icons/lib/components/Icon';
-import { createFromIconfontCN, LaptopOutlined, LikeFilled, LikeOutlined, LikeTwoTone, SendOutlined, TwitterOutlined } from '@ant-design/icons';
-const IconFont = createFromIconfontCN({
-    scriptUrl: '//at.alicdn.com/t/font_8d5l8fzk5b87iudi.js',
-});
 
+import logoplaceholder from '../../../../assets/core/no-photo.png'
+
+
+
+import { createFromIconfontCN, LaptopOutlined, LikeFilled, LikeOutlined, LikeTwoTone, SendOutlined, TwitterOutlined } from '@ant-design/icons';
+import { FaArrowAltCircleUp, FaArrowUp } from 'react-icons/fa';
 const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [tokenData]: Token[] = useContext(ApplicationContext) as any[];
     const arrow = () => (
@@ -39,24 +40,32 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
         <Badge.Ribbon
             style={
                 {
-                    background: (tokenData?.basicInfo?.tag === 'UNVERIFIED' ||  tokenData?.basicInfo?.tag === 'SCAM') ? '#cf1322' : trustLevelTextColor[tokenData?.level ? tokenData?.level : 1],
-                    color:  (tokenData?.basicInfo?.tag === 'UNVERIFIED' ||  tokenData?.basicInfo?.tag === 'SCAM') ? 'white' : trustLevelBgColor[tokenData?.level ? tokenData?.level : 1]
+                    background: (tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') ? '#cf1322' : trustLevelTextColor[tokenData?.level ? tokenData?.level : 1],
+                    color: (tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') ? 'white' : trustLevelBgColor[tokenData?.level ? tokenData?.level : 1]
                 }
-            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' ||  tokenData?.basicInfo?.tag === 'SCAM') ?  tokenData?.basicInfo?.tag : `Trust ${tokenData?.level}`}`} placement='start' >
+            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') ? tokenData?.basicInfo?.tag : `Trust ${tokenData?.level}`}`} placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
                 {props.loading}
                 <div className="token-logo-wrapper">
-                    <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
+                    {
+                        !(props.loading && tokenData?.basicInfo?.logo) &&
+                            <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
+                         
+                    }
+                    {
+                            !props.loading && !tokenData?.basicInfo?.logo && <img src={logoplaceholder}></img>
+                    }
                 </div>
-                {/* <div className="actions">
+                <div className="actions">
                     <DashedCard>
-                        <h1 className='fs-4 fw-bolder text-gray-700 votes-quantity'> {tokenData?.basicInfo?.votes !== undefined ? tokenData?.basicInfo?.votes : '-'} <span><Icon component={arrow} alt="" /></span> </h1>
+                        <h1 className='fs-4 fw-bolder text-gray-700 votes-quantity'> {tokenData?.basicInfo?.votes !== undefined ? tokenData?.basicInfo?.votes : '-'} <span><FaArrowUp style={{width:  8}}  /></span> </h1>
                         <span className='fw-bold text-muted votes-label'>Votes</span>
+                        <div className="captcha-wrapper"></div>
                     </DashedCard>
                     <DashedCard>
                         <LikeTwoTone twoToneColor={['#a1a5b7', 'white']} style={{ fontSize: '42px' }} className="like" />
                     </DashedCard>
-                </div> */}
+                </div>
                 <div className="social">
                     {
                         tokenData?.basicInfo?.website &&

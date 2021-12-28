@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 100px 1fr 80px auto ;
+  grid-template-columns: 50px 100px 1fr 100px ;
   column-gap: 1rem;
   margin:1rem 0;
   align-items: center;
@@ -31,6 +31,7 @@ export const ReleaseContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
+      min-width: 100px;
 `;
 
 

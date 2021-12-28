@@ -10,5 +10,7 @@ export interface HomeProviderModel {
     featuredTokensPageState: any[],
     recentlyAddedPageState: any[],
     latestScamsPageState: any[],
-    potentialScamsPageState: any[]
+    potentialScamsPageState: any[],
+    featuredTokensFilterState: any[];
+    featuredUpcomingFilterState: any[];
 }

@@ -1,25 +1,24 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Card, Empty, Input, Pagination } from 'antd';
+import { Button, Card, Empty, Input, Pagination, Switch } from 'antd';
 
 import axios from 'axios';
-import React, { ClipboardEvent, ClipboardEventHandler, KeyboardEventHandler, useContext, useEffect, useRef, useState } from 'react';
+import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../../core/routes/providers/models/home-provider.model';
 import CardTitleSubtitle from '../../components/card-title-subtitle/card-title-subtitle';
 import FeaturedTokenItem from '../../components/featured-token-item/featured-token-item';
 import LatestScamsItem from '../../components/latest-scams-item/latest-scams-item';
 import PotentialScamsItem from '../../components/potential-scams-item/potential-scams-item';
-import PoweredBy from '../../components/powered-by/powered-by';
 import RecentlyAddedItem from '../../components/recently-added-item/recently-added-item';
 import { AddressCheckResponseModel } from '../models/address-check.model';
 import { FeaturedToken, FeaturedTokensResponse } from '../models/featured-token';
 import { CardGrid, Container, SearchContainer } from './home.style';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_army.gif'
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
+import { format, parseISO } from 'date-fns';
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -33,11 +32,17 @@ export const HomeComponent: React.FC = () => {
         featuredTokensPageState,
         recentlyAddedPageState,
         latestScamsPageState,
-        potentialScamsPageState
+        potentialScamsPageState,
+        featuredTokensFilterState,
+        featuredUpcomingFilterState
     }: HomeProviderModel = useContext<any>(HomeContext);
 
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
+    const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
+
+    const [featuredTokensFilter, setFeaturedTokensFilter] = featuredTokensFilterState;
+    const [upcomingTokensFilter, setUpcomingTokensFilter] = featuredTokensFilterState;
 
     const [featuredTokens, setFeaturedTokens] = featuredTokensState;
     const [recentlyAdded, setRecentlyAdded] = recentlyAddedState;
@@ -115,38 +120,9 @@ export const HomeComponent: React.FC = () => {
 
         )
     }
-    // telegram if is recently and have not address  - done;
-    // criar o link de redirecionamento para o telegram com o padrão https://t.me/RhythmBSCwEW - done;
-    // TRUST LEVEL HAS A TOOLTIP WITH TEXT  -- done;
-    // RELEASEDATE ITS GOING TO BE API PROP AND IF DONT HAVE JUST HIDE
-    // 2 TAGS PER ROW - POTENTIAL SCAMS - done;
-    // instead arrow button, use telegram and twitter icons if present ( potential scams ) - done;
-
-    // scroll for transactions (wallet) - default 10 items
-
-    // skip wallet transfer month for now
-
-    // chart tooltip - token price, price in dollar, percentage, 
-
-    // total balance of wallet in the middle ( will be sent )
-
-    // token info to choose between wallet or token; - done;
-
-    //pre sale info will have a "section" - token; - done;
-
-
-    // token tag rules : 
-    /* \
-        if isScam = Tag Scam
-        if isPotencialScam = tag potentially scam
-
-        spywolf audit preset = tag level and if not tag unverified
-
-    */
-
 
     const fetchRecentlyAdded = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/UNVERIFIED').then(
+        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/upcomings').then(
             ({ data }) => {
                 const recentlyAddedResponse: FeaturedTokensResponse = data;
                 const recentlyAdded = recentlyAddedResponse.content.Items.map(
@@ -405,6 +381,30 @@ export const HomeComponent: React.FC = () => {
     const handleClipboardEvent = (event: ClipboardEvent<HTMLInputElement>) => {
         setTimeout(searchTokenOrWalletOnPaste, 300);
     }
+
+    const changeVerifiedOnly = () => {
+        setVerifiedOnly(!verifiedOnly)
+    }
+
+    const filterFeaturedTokensByLevel = (token: FeaturedToken) => (token.trustLevel === featuredTokensFilter) || featuredTokensFilter === 'all'
+
+    const sortByDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
+        const a = new Date(tokenA.deployedDate);
+        const b = new Date(tokenB.deployedDate);
+        console.log(a, b)
+        return (b as any) - (a as any);
+    }
+
+    const sortUpcomingByPresaleDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
+        const a = new Date(tokenA.presaleDate as string);
+        const b = new Date(tokenB.presaleDate as string);
+        return (b as any) - (a as any);
+    }
+
+    const filterUpcomingByVerified = (token: FeaturedToken) => {
+        return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
+    }
+
     return <Container>
 
         <SearchContainer>
@@ -429,17 +429,18 @@ export const HomeComponent: React.FC = () => {
                 // style={{minHeight: '938px'}}
                 id="featured"
                 title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle=""></CardTitleSubtitle>}
-                extra={<SolidToolbar/>}
+                extra={<SolidToolbar onChange={setFeaturedTokensFilter} />}
                 actions={[<Pagination
+                    size="small"
                     hideOnSinglePage={false}
                     defaultPageSize={10}
                     current={featuredTokensPage}
-                    total={featuredTokens?.length}
+                    total={featuredTokens?.filter(filterFeaturedTokensByLevel).length}
                     onChange={(page: number) => updatePage('featured', page)}
                 ></Pagination>]}
             >
                 {
-                    featuredTokens?.slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => <FeaturedTokenItem token={token}></FeaturedTokenItem>)
+                    featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => <FeaturedTokenItem token={token}></FeaturedTokenItem>)
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -449,16 +450,21 @@ export const HomeComponent: React.FC = () => {
             <Card
                 id="recently"
                 title={<span className='card-label fw-bolder fs-3 mb-1'>Upcoming Tokens</span>}
+                extra={
+                    <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}>Verified only?
+                        <Switch size={'small'} onChange={changeVerifiedOnly} />
+                    </span>}
                 actions={[
                     <Pagination
+                        size="small"
                         current={recentlyAddedPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={recentlyAdded?.length}
+                        total={recentlyAdded?.filter(filterUpcomingByVerified).length}
                         onChange={(page: number) => updatePage('recently', page)}
                     ></Pagination>]}>
                 {
-                    recentlyAdded?.slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => <RecentlyAddedItem token={token}></RecentlyAddedItem>)
+                    recentlyAdded?.filter(filterUpcomingByVerified).sort(sortUpcomingByPresaleDate).slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => <RecentlyAddedItem token={token}></RecentlyAddedItem>)
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -471,9 +477,10 @@ export const HomeComponent: React.FC = () => {
             <div className="bottom-cards">
                 <Card
                     id="latests"
-                    title={<CardTitleSubtitle title="Latest Scams" subtitle=""></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle social={[{ title: 'instagram', link: '' }]} title="Latest Scams" subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`}></CardTitleSubtitle>}
                     actions={[
                         <Pagination
+                            size="small"
                             current={latestScamsPage}
                             defaultPageSize={6}
                             defaultCurrent={1}
@@ -492,6 +499,7 @@ export const HomeComponent: React.FC = () => {
                     id="potential"
                     title={<CardTitleSubtitle title="Potential Scams" subtitle=""></CardTitleSubtitle>}
                     actions={[<Pagination
+                        size="small"
                         current={potentialScamsPage}
                         defaultPageSize={6}
                         defaultCurrent={1}

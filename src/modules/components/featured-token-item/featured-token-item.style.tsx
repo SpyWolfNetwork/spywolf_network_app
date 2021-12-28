@@ -8,8 +8,10 @@ export const Container = styled.div`
   border-bottom: 1px dashed #eff2f5;
   padding: 1rem 0;
   column-gap: 1rem;
-
-
+      cursor: pointer;
+      &:hover{
+            background: #f4f7f9;
+      }
 `;
 
 export const LogoContainer = styled.div`

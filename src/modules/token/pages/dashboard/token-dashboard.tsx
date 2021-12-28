@@ -48,8 +48,8 @@ export const TokenDashboardComponent: React.FC = () => {
         // fetchTransfersSent(transfersEndpoint, requestTransfersDataBody);
         setTokenData(null)
 
- 
-            fetchTokenData(walletEndpoint, requestWaletDataBody);
+
+        fetchTokenData(walletEndpoint, requestWaletDataBody);
 
     }, [])
 
@@ -85,13 +85,6 @@ export const TokenDashboardComponent: React.FC = () => {
             key: 'position',
             render: (t: any, r: any, index: any) => <span className='fs-6 fw-bold text-gray-600' >{index + 1}</span>
         },
-        // {
-        //     title: 'Status'.toUpperCase(),
-        //     dataIndex: 'status',
-        //     key: 'status',
-        //     render: () => <Tag color="#e4e6ef"><span style={{ color: '#3f4254', fontWeight: 600, fontSize: '.85rem' }}>Investor</span></Tag>
-
-        // },
         {
             title: 'Amount'.toUpperCase(),
             dataIndex: 'TokenHolderQuantity',
@@ -173,7 +166,7 @@ export const TokenDashboardComponent: React.FC = () => {
                 {loadingState && <div className='loading' > <Spin /></div>}
                 {!loadingState &&
                     <div>
-                        <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : '-'}</p>
+                        <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : 'Are you the project owner? Please click here to add all the missing information about your project!'}</p>
                         <h1 >Contact Address</h1>
                         {tokenAddress && <span className='contact-address'>{tokenAddress}</span>}
                         <div className="descriptions-wrapper">

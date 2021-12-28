@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr 50px;
+  grid-template-columns: 50px 1fr 1fr auto;
   column-gap: 1rem;
   margin:1rem 0;
   align-items: center;
@@ -29,8 +29,9 @@ export const InfoContainer = styled.div`
 export const ReleaseContainer = styled.div`
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      justify-content: flex-end;
       align-items: flex-end;
+
 `;
 
 
