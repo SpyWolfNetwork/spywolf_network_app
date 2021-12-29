@@ -72,8 +72,15 @@ export const Container = styled.div`
             justify-content: center;
         }
     }
-
+    .like-wrapper{
+        position: relative;
+    }
     .captcha-wrapper{
         position: absolute;
+        background: white;
+        z-index: 99;
+        top: 70%;
+        left: 0;
+        top: 0;
     }
 `;

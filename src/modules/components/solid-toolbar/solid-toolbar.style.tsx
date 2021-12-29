@@ -7,7 +7,10 @@ export const Container = styled.div`
         *{
             border: none;
         }
+        display: flex;
+        column-gap: 10px;
         .ant-radio-button-wrapper{
+            column-gap: 10px;
             border-radius: 8px;
             border: none;
             *{
@@ -17,8 +20,8 @@ export const Container = styled.div`
                 background: transparent;
             }
             &:active{
-        color: #a1a5b7 !important;
-        border: none !important;
+                color: #a1a5b7 ;
+                border: none !important;
                 outline: none !important;
             } 
             &:focus-within{
@@ -32,8 +35,8 @@ export const Container = styled.div`
                 outline: none !important;
             }
             outline: none !important;
-        color: #a1a5b7 !important;
-        font-weight: 500;
+            color: #a1a5b7 ;
+            font-weight: 500;
             &-checked{
                 background: #f4f7f9 !important;
                 border: none !important;

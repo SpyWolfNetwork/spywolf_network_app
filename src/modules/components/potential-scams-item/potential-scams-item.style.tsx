@@ -7,12 +7,14 @@ export const Container = styled.div`
   column-gap: 1rem;
   margin:1rem 0;
   align-items: center;
+
 `;
 
 export const LogoContainer = styled.div`
       img{
             border-radius: 100%;
       }
+ 
 
 `;
 
@@ -23,6 +25,9 @@ export const InfoContainer = styled.div`
     max-width: 100px;
     .symbol{
         font-size: 1rem;
+    }
+    a{
+          cursor: initial;
     }
 `;
 

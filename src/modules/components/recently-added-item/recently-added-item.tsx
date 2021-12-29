@@ -15,7 +15,8 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken }> = (props) => {
         navigate(`token/${props?.token?.address}`, { state: { isUpcoming: true } });
     }
 
-    return <Container>
+    return <Link to={`token/${props?.token?.address}`}>
+        <Container>
         <LogoContainer>
             <img src={props?.token?.logoPicture} width="50px" alt="" />
         </LogoContainer>
@@ -38,7 +39,8 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken }> = (props) => {
                 </Tag>
             </Popover>
         </TrustLevelContainer>
-    </Container>;
+    </Container>
+    </Link>
 };
 
 export default RecentlyAddedItem;

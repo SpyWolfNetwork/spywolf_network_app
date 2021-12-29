@@ -21,7 +21,8 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         'Level 2': '#65a0a7',
         'Level 3': '#129edb',
     }
-    return <Container>
+    return <Link to={'token/'+props?.token?.address}>
+        <Container>
         <LogoContainer>
             <img src={props.token.logoPicture} width="50px" alt="" />
         </LogoContainer>
@@ -57,7 +58,8 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
                 company={props?.token?.vettedBy ? props?.token?.vettedBy : 'SpyWolf'}
             />
         </ReleaseContainer>
-    </Container>;
+    </Container>
+    </Link>
 };
 
 export default LatestScamsItem;

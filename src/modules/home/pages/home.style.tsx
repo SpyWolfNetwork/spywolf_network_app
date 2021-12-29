@@ -19,56 +19,7 @@ export const SearchContainer = styled.div`
     flex-direction: column;
     align-items: center;
     max-width: 700px;
-    .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
-    left: -94%;
-    background: transparent;
-    border: none;
-    }
-    .ant-input-affix-wrapper, input{
-        background-color: #f5f8fa;
-        border-color: #f5f8fa;
-        color: #5e6278;
-        font-weight: 500;
-        transition: color .2s ease, background-color .2s ease;
-        .ant-btn::before
-        {
-            background: transparent !important;
-        }
-        .ant-btn{
-            background: transparent !important;
-        }
-    }
-    .ant-input-affix-wrapper{
-        padding: .825rem 3.75rem!important;
-        min-height: calc(1.5em + 1.65rem + 2px);
-        padding: 0.125rem 1.5rem !important;
-        font-size: 1.15rem;
-        border-radius: 0.475rem;
-        .ant-input-prefix{
-            margin-right: 10px !important;
-            svg{
-            height: 1.5rem!important;
-            width: 1.5rem!important;
-
-                fill: #a1a5bc;
-            }
-        }
-        &:hover{
-            outline:none;
-            border-color: transparent;
-        }
-        & input::placeholder{
-            color:#a1a5bc;
-            font-weight: 500;
-        }
-        &:focus-within, input:focus-within{
-            outline: none;
-            box-shadow: none;
-            background-color: #eef3f7;
-            border-color: #eef3f7;
-        }
-    }
-
+   
     .address-validation-error{
         color:#f1416c;
         margin-top: 1.25rem!important;
@@ -137,7 +88,57 @@ export const CardGrid = styled.div`
     }
     #latests{
         grid-column: auto;
-        flex: 1
+        flex: 1;
+        .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
+    left: -94%;
+    background: transparent;
+    border: none;
+    }
+    .ant-input-affix-wrapper, input{
+        background-color: #f5f8fa;
+        border-color: #f5f8fa;
+        color: #5e6278;
+        font-weight: 500;
+        transition: color .2s ease, background-color .2s ease;
+        .ant-btn::before
+        {
+            background: transparent !important;
+        }
+        .ant-btn{
+            background: transparent !important;
+        }
+    }
+    .ant-input-affix-wrapper{
+        padding: .825rem 3.75rem!important;
+        min-height: calc(1.5em + 1.65rem + 2px);
+        padding: 0.125rem 1.5rem !important;
+        font-size: 1.15rem;
+        border-radius: 0.475rem;
+        .ant-input-prefix{
+            margin-right: 10px !important;
+            svg{
+            height: 1.5rem!important;
+            width: 1.5rem!important;
+
+                fill: #a1a5bc;
+            }
+        }
+        &:hover{
+            outline:none;
+            border-color: transparent;
+        }
+        & input::placeholder{
+            color:#a1a5bc;
+            font-weight: 500;
+        }
+        &:focus-within, input:focus-within{
+            outline: none;
+            box-shadow: none;
+            background-color: #eef3f7;
+            border-color: #eef3f7;
+        }
+    }
+        
     }
 
     #potential {

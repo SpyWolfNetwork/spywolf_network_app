@@ -4,7 +4,6 @@ import { Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
 import { FaTelegram } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
@@ -74,7 +73,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             }
 
         </ActionsContainer>
-    </Container >;
+    </Container >
 };
 
 export default PotentialScamsItem;

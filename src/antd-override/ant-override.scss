@@ -13,10 +13,10 @@
   padding: 0.5em 0.85em !important;
   line-height: 1 !important;
 }
-.ant-btn{
-  display: flex !important; 
-  align-items: center  !important;
-  justify-content: center  !important;
+.ant-btn {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 .ant-btn-primary {
   background: #aadadf !important;
@@ -50,23 +50,24 @@
   align-items: space-between !important;
   padding: 1.25rem 2.25rem !important;
   font-size: 1.275rem !important;
-  overflow: auto;
-  .ant-card-actions{
+  // overflow: auto;
+
+  .ant-card-actions {
     width: 100%;
     display: flex;
     justify-content: flex-end;
     border-top: none;
-    >li{
-      width: fit-content  !important;
+    > li {
+      width: fit-content !important;
       margin: 0;
     }
   }
   > .ant-card-label {
     font-size: 1.275rem;
   }
-  .ant-card-head-wrapper{
+  .ant-card-head-wrapper {
     align-items: flex-start !important;
-    .ant-card-extra{
+    .ant-card-extra {
       padding: 0;
     }
   }
@@ -88,6 +89,8 @@
     border-bottom: 1px solid #eff2f5;
     border: none;
     padding: 0 !important;
+    min-height: 0;
+    height: fit-content !important;
     .ant-card-head-title {
       margin: 0 0.75rem 0 0 !important;
       flex-wrap: wrap !important;
@@ -96,7 +99,7 @@
       font-family: Poppins, Helvetica, sans-serif;
       font-size: 1.275rem;
       padding: 0;
-      padding-bottom: 24px;
+      // padding-bottom: 24px;
     }
   }
   .ant-card-head:first-child {
@@ -123,7 +126,7 @@
   border-bottom-right-radius: 0.475rem !important;
   // background: rgba(114, 57, 234, 1) !important;
   min-height: 29px;
-  .ant-ribbon-text{
+  .ant-ribbon-text {
     color: inherit;
   }
 }
@@ -133,7 +136,7 @@
 }
 
 .ant-pagination {
-  margin: 0 0 30px;
+  margin: 0 0 0;
 
   .ant-pagination-item-active:focus-visible,
   .ant-pagination-item-active {
@@ -221,35 +224,103 @@
   background-color: #fff5f8 !important;
 }
 
-
-.ant-popover-inner-content{
+.ant-popover-inner-content {
   max-width: 200px;
 }
-.ant-popover-inner{
+.ant-popover-inner {
   border-radius: 0.475rem !important;
-
 }
-.ant-popover-inner-content{
+.ant-popover-inner-content {
   font-size: 1rem !important;
   font-weight: 400 !important;
-    line-height: 1.5;
-    padding: 0.75rem 1rem !important;
-    text-align: center !important;
-    background-color: #fff;
-    border-radius: 0.475rem !important;
-    box-shadow: 0 0 50px 0 rgb(82 63 105 / 15%) !important;
-    span{
+  line-height: 1.5 !important;
+  padding: 0.75rem 1rem !important;
+  text-align: center !important;
+  background-color: #fff !important;
+  border-radius: 0.475rem !important;
+  box-shadow: 0 0 50px 0 rgb(82 63 105 / 15%) !important;
+  span {
     color: #3f4254 !important;
-
-    }
+  }
 }
 
-.ant-tag{
+.ant-tag {
   font-weight: 600 !important;
   border: none !important;
 }
-.ant-tag.ant-tag-warning{
+.ant-tag.ant-tag-warning {
   background: #fff8dd !important;
   color: #b39019 !important;
+}
 
+
+
+
+.ant-input-affix-wrapper, input{
+  background-color: #f5f8fa  !important;
+  border-color: #f5f8fa  !important;
+  color: #5e6278  !important;
+  font-weight: 500  !important;
+  transition: color .2s ease, background-color .2s ease  !important;
+  .ant-btn::before
+  {
+      background: transparent !important;
+  }
+  .ant-btn{
+      background: transparent !important;
+  }
+}
+
+
+
+.ant-input-affix-wrapper{
+  padding: .825rem 3.75rem !important;
+  min-height: calc(1.5em + 1.65rem + 2px) !important;
+  padding: 0.125rem 1.5rem !important;
+  font-size: 1.15rem !important;
+  border-radius: 0.475rem !important;
+  .ant-input-prefix{
+      margin-right: 10px !important;
+      svg{
+      height: 1.5rem !important;
+      width: 1.5rem !important;
+
+          fill: #a1a5bc !important;
+      }
+  }
+  input:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #eef3f7 !important;
+    border-color: #eef3f7 !important;
+  }
+  &:hover{
+      outline:none !important;
+      border-color: transparent !important;
+  }
+  input::placeholder{
+      color:#a1a5bc !important;
+      font-weight: 500 !important;
+  }
+
+
+  &:focus-within, input:focus-within{
+      outline: none !important;
+      box-shadow: none !important;
+      background-color: #eef3f7 !important;
+      border-color: #eef3f7 !important;
+  }
+}
+
+.ant-switch-checked{
+  background-color: #AADADF !important;
+}
+
+.ant-input{
+  &:focus{
+    outline: none !important;
+    box-shadow: none !important;
+    background-color: #eef3f7 !important;
+    border-color: #eef3f7 !important;
+  }
 }

@@ -2,7 +2,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Empty, Input, Pagination, Switch } from 'antd';
 
 import axios from 'axios';
-import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
+import React, { ClipboardEvent, FormEventHandler, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../../core/routes/providers/models/home-provider.model';
 import CardTitleSubtitle from '../../components/card-title-subtitle/card-title-subtitle';
@@ -17,8 +17,11 @@ import { CardGrid, Container, SearchContainer } from './home.style';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_army.gif'
+import scambanner from '../../../assets/ads/banner-scams.png'
+
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 import { format, parseISO } from 'date-fns';
+import Search from 'antd/lib/input/Search';
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -40,6 +43,8 @@ export const HomeComponent: React.FC = () => {
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
     const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
+    const [latestNameFilter, setLatestNameFilter] = useState<string>('');
+    const [potentialtNameFilter, potentialNameFilter] = useState<string>('');
 
     const [featuredTokensFilter, setFeaturedTokensFilter] = featuredTokensFilterState;
     const [upcomingTokensFilter, setUpcomingTokensFilter] = featuredTokensFilterState;
@@ -247,6 +252,7 @@ export const HomeComponent: React.FC = () => {
     };
 
     let inputRef: any;
+    let searchScamRef: any;
 
     const searchTokenOrWallet = () => {
         setAddressLoading(true);
@@ -405,6 +411,17 @@ export const HomeComponent: React.FC = () => {
         return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
     }
 
+
+    const latestSearch: FormEventHandler<HTMLInputElement> = (e) => {
+        setLatestNameFilter(e.currentTarget.value)
+    }
+
+    const potentialSearch: FormEventHandler<HTMLInputElement> = (e) => {
+        potentialNameFilter(e.currentTarget.value);
+    }
+    // const searchScams = (e) => {
+    //     setLatestNameFilter(searchScamRef.state.value);
+    // }
     return <Container>
 
         <SearchContainer>
@@ -475,40 +492,55 @@ export const HomeComponent: React.FC = () => {
                 <a href="https://t.me/SpyWolfOfficial" target="__blank"><img src={spywolfad} alt="" /></a>
             </Card>
             <div className="bottom-cards">
+                {/* subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`} */}
                 <Card
                     id="latests"
-                    title={<CardTitleSubtitle social={[{ title: 'instagram', link: '' }]} title="Latest Scams" subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`}></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle
+                        banner={{ link: '', src: scambanner }}
+                        title="Latest Scams"
+                        search={true}
+                        searchPlaceholder="Search Scams"
+                        searchChange={latestSearch}
+                    ></CardTitleSubtitle>}
                     actions={[
                         <Pagination
                             size="small"
                             current={latestScamsPage}
                             defaultPageSize={6}
                             defaultCurrent={1}
-                            total={latestScams?.length}
+                            total={latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).length}
                             onChange={(page: number) => updatePage('latest', page)}
                         ></Pagination>]}
                 >
-                    {
-                        latestScams?.slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => <LatestScamsItem token={token}></LatestScamsItem>)
-                    }
-                    {
-                        latestScams?.length === 0 && <div><Empty /></div>
-                    }
+                    <div className="wrap" style={{ marginTop: '50px' }}>
+                        {
+                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => <LatestScamsItem token={token}></LatestScamsItem>)
+                        }
+                        {
+                            latestScams?.length === 0 && <div><Empty /></div>
+                        }
+                    </div>
                 </Card>
                 <Card
                     id="potential"
-                    title={<CardTitleSubtitle title="Potential Scams" subtitle=""></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle 
+                        title="Potential Scams" 
+                        subtitle=""
+                        search={true}
+                        searchPlaceholder="Search Potential Scams"
+                        searchChange={potentialSearch}
+                        ></CardTitleSubtitle>}
                     actions={[<Pagination
                         size="small"
                         current={potentialScamsPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={potentialScams?.length}
+                        total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).length}
                         onChange={(page: number) => updatePage('potential', page)}
                     ></Pagination>]}
                 >
                     {
-                        potentialScams?.slice((potentialScamsPage - 1) * 6, potentialScamsPage * 6).map((token: FeaturedToken) => <PotentialScamsItem token={token}></PotentialScamsItem>)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) => <PotentialScamsItem token={token}></PotentialScamsItem>)
                     }
 
                     {
