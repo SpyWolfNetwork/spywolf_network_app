@@ -397,7 +397,6 @@ export const HomeComponent: React.FC = () => {
     const sortByDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
         const a = new Date(tokenA.deployedDate);
         const b = new Date(tokenB.deployedDate);
-        console.log(a, b)
         return (b as any) - (a as any);
     }
 

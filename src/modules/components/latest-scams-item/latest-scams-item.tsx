@@ -28,7 +28,7 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         </LogoContainer>
         <InfoContainer>
             <Link to={'token/'+props?.token?.address}>
-                <a className='text-dark text-hover-primary  fw-bolder mb-1 fs-6'>{props?.token?.name}</a>
+                <a className='text-dark  fw-bolder mb-1 fs-6'>{props?.token?.name}</a>
             </Link>
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>

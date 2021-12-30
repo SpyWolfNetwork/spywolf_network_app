@@ -72,8 +72,20 @@ export const Container = styled.div`
             justify-content: center;
         }
     }
+    .dashed-like{
+        padding: 5px 8px;
+    }
     .like-wrapper{
         position: relative;
+        width: fit-content;
+        max-width: 60px;
+        h3{
+            line-height: 100%;
+        }
+        span{
+            line-height: 100%;
+
+        }
     }
     .captcha-wrapper{
         position: absolute;

@@ -23,12 +23,12 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [addingCaptcha, setAddingCaptcha] = useState(false);
     const [userIP, setUserIP] = useState('');
     const [votes, setVotes] = useState(0);
+    const [alreadyVoted, setAleradyVoted] = useState(0);
 
     useEffect(() => {
         if (tokenData?.basicInfo?.votes) {
             setVotes(tokenData?.basicInfo?.votes);
         }
-
         axios.get('https://api.ipify.org?format=json').then(
             res => {
                 setUserIP(res.data.ip)
@@ -39,24 +39,27 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                 }).then(
                     res => {
                         setVotes(tokenData?.basicInfo?.votes as any);
-
                         if (tokenData?.basicInfo?.votes) {
-                            console.log('first votes', tokenData?.basicInfo?.votes)
                             setVotes(tokenData?.basicInfo?.votes as any);
                         }
                         window.sessionStorage.setItem('votes', JSON.stringify(res.data.content.Items));
+                        setAleradyVoted(res.data.content.Items.some(item => item.token_address === tokenData?.basicInfo?.address))
                     }
                 )
             }
         )
-        loadCaptchaEnginge(6);
 
-    }, []);
+
+        if (!props.loading) {
+            loadCaptchaEnginge(6);
+        }
+    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address]);
 
     const doSubmit = () => {
+
         let user_captcha_value = (document?.querySelector('.user_captcha_input') as any).value;
 
-        if (validateCaptcha(user_captcha_value, true) == true) {
+        if (validateCaptcha(user_captcha_value, false) == true) {
             axios.get('https://api.ipify.org?format=json').then(
                 res => {
                     const _votes = JSON.parse(window.sessionStorage.getItem('votes') as any);
@@ -72,7 +75,6 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                                 tag: tokenData.basicInfo?.tag
                             })
                             .then(() => {
-                                console.log(votes + 1)
                                 _votes.push({
                                     votingTimestamp: Date.now(),
                                     ipAddress: res.data.ip,
@@ -92,7 +94,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                                     }
                                 })
                             })
-                      
+
                         setAddingCaptcha(false);
 
                     } else {
@@ -116,6 +118,12 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
         }
     };
 
+    const handleVote = () => {
+        if (!alreadyVoted) {
+            setAddingCaptcha(true)
+        }
+    }
+
     const trustLevelBgColor: { [x: string]: string } = {
         'Level 1': '#fff8dd',
         'Level 2': '#E6F4F1',
@@ -130,7 +138,6 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
 
     const handleKeydown: KeyboardEventHandler<HTMLInputElement> | undefined = (e) => {
         if (e.code === 'Enter') {
-            console.log('submite')
             doSubmit();
         }
     }
@@ -148,33 +155,38 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                 {props.loading}
                 <div className="token-logo-wrapper">
                     {
-                        !(props.loading && tokenData?.basicInfo?.logo) &&
+                        !(props.loading && (tokenData?.basicInfo?.logo && (tokenData?.basicInfo?.logo?.length > 0))) &&
                         <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
 
                     }
                     {
-                        !props.loading && !tokenData?.basicInfo?.logo && <img src={logoplaceholder}></img>
+                        !props.loading && (!tokenData?.basicInfo?.logo || (tokenData?.basicInfo?.logo.length === 0)) &&
+                        <img src={logoplaceholder}></img>
                     }
                 </div>
-                <div className="actions">
-                    <DashedCard>
+                {!props.loading && <div className="actions">
+                    <DashedCard className='dashed-like'>
                         <div className="like-wrapper">
-                            <h1 className='fs-4 fw-bolder text-gray-700 votes-quantity'> {tokenData?.basicInfo?.votes !== undefined ? votes ? votes : tokenData?.basicInfo?.votes  : '-'} <span><FaArrowUp style={{ width: 8 }} /></span> </h1>
+                            <h1 className='fs-4 fw-bolder text-gray-700 votes-quantity'> {
+                            tokenData?.basicInfo?.votes !== undefined ? votes ? votes : tokenData?.basicInfo?.votes : '-'} <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
                             <span className='fw-bold text-muted votes-label'>Votes</span>
                             <div className="captcha-wrapper" style={{ opacity: addingCaptcha ? 1 : 0, display: addingCaptcha ? 'block ' : 'none' }}>
                                 <Card>
                                     <LoadCanvasTemplate />
                                     <Input placeholder="Enter captcha value" type="text" onKeyDown={handleKeydown} className="user_captcha_input" />
-                                    <Button type="primary" onClick={doSubmit} style={{ color: '#152B36', marginTop: 10 }}> Submit </Button>
+                                    <div className="captcha-actions" style={{display:'flex'}}>
+                                        <Button type="text" onClick={() => setAddingCaptcha(false)} style={{ color: '#152B36', marginTop: 10 }}> Cancel </Button>
+                                        <Button type="primary" onClick={doSubmit} style={{ color: '#152B36', marginTop: 10 }}> Submit </Button>
+                                    </div>
 
                                 </Card>
                             </div>
                         </div>
                     </DashedCard>
-                    <DashedCard style={{ cursor: 'pointer' }} onClick={() => setAddingCaptcha(true)}>
-                        <LikeTwoTone twoToneColor={['#a1a5b7', 'white']} style={{ fontSize: '42px' }} className="like" />
+                    <DashedCard style={{ cursor: alreadyVoted ? 'not-allowed' : 'pointer', padding: '12px 10px' }} onClick={handleVote}>
+                        <LikeTwoTone twoToneColor={['#a1a5b7', 'white']} style={{ fontSize: '30px', height: 'fit-content'}} className="like" />
                     </DashedCard>
-                </div>
+                </div>}
                 <div className="social">
                     {
                         tokenData?.basicInfo?.website &&

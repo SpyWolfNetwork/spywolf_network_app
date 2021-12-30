@@ -5,7 +5,7 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 50px 100px 1fr 100px ;
   column-gap: 1rem;
-  margin:1rem 0;
+  padding:1rem 0;
   align-items: center;
   cursor: pointer;
       &:hover{

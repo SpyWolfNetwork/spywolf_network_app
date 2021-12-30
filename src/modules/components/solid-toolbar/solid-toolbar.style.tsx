@@ -13,6 +13,8 @@ export const Container = styled.div`
             column-gap: 10px;
             border-radius: 8px;
             border: none;
+            font-size: 1rem !important;
+            font-weight: 600 !important;
             *{
             border: none;
             }

@@ -10,7 +10,6 @@ import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseConta
 
 const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
     useEffect(() => {
-        if (props.token.name == 'Visor.Finance') { console.log(props.token) }
 
     }, []);
     const trustLevelBgColor = {
