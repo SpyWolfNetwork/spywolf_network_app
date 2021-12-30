@@ -15,6 +15,10 @@ export const HomeProvider = (props: any) => {
     const [latestScamsPage, setLatestScamsPage] = useState<number>(1);
     const [potentialScamsPage, setpPotentialScamsPage] = useState<number>(1);
 
+    const [featuredTokensFilter, setFeaturedTokensFilter] = useState<string>('all');
+    const [upcomingTokensFilter, setUpcomingTokensFilter] = useState<boolean>(false);
+
+
 
     const state = {
         featuredTokensState: [featuredTokens, setFeaturedTokens],
@@ -25,6 +29,9 @@ export const HomeProvider = (props: any) => {
         recentlyAddedPageState: [recentlyAddedPage, setRecentlyAddedPage],
         latestScamsPageState: [latestScamsPage, setLatestScamsPage],
         potentialScamsPageState: [potentialScamsPage, setpPotentialScamsPage],
+        featuredTokensFilterState: [featuredTokensFilter, setFeaturedTokensFilter],
+        featuredUpcomingFilterState: [upcomingTokensFilter, setUpcomingTokensFilter]
+
     }
      
     useEffect(() => {

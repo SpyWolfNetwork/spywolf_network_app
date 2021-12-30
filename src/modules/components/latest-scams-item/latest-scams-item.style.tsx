@@ -3,16 +3,35 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 100px 1fr 80px auto ;
+  grid-template-columns: 50px 100px 1fr 100px ;
   column-gap: 1rem;
-  margin:1rem 0;
+  padding:1rem 0;
   align-items: center;
-
+  cursor: pointer;
+      &:hover{
+            background: #f4f7f9;
+      }
 `;
 
 export const LogoContainer = styled.div`
+     position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img{
+            width: 99%;
+            height: 99%;
             border-radius: 100%;
+      }
+      .image-placeholder{
+            background: #cdcdcd;
+            width: 105%;
+            height: 105%;
+            border-radius: 100%;
+            position: absolute;
+            z-index: 1;
+            top: -1px;
+            left: -1px;
       }
 `;
 
@@ -31,6 +50,7 @@ export const ReleaseContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: flex-end;
+      min-width: 100px;
 `;
 
 

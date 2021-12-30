@@ -1,24 +1,27 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Breadcrumb, Button, Card, Empty, Input, Pagination } from 'antd';
+import { Button, Card, Empty, Input, Pagination, Switch } from 'antd';
 
 import axios from 'axios';
-import React, { ClipboardEvent, ClipboardEventHandler, KeyboardEventHandler, useContext, useEffect, useRef, useState } from 'react';
+import React, { ClipboardEvent, FormEventHandler, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../../core/routes/providers/models/home-provider.model';
 import CardTitleSubtitle from '../../components/card-title-subtitle/card-title-subtitle';
 import FeaturedTokenItem from '../../components/featured-token-item/featured-token-item';
 import LatestScamsItem from '../../components/latest-scams-item/latest-scams-item';
 import PotentialScamsItem from '../../components/potential-scams-item/potential-scams-item';
-import PoweredBy from '../../components/powered-by/powered-by';
 import RecentlyAddedItem from '../../components/recently-added-item/recently-added-item';
 import { AddressCheckResponseModel } from '../models/address-check.model';
 import { FeaturedToken, FeaturedTokensResponse } from '../models/featured-token';
 import { CardGrid, Container, SearchContainer } from './home.style';
 
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_army.gif'
+import scambanner from '../../../assets/ads/banner-scams.png'
+
+import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
+import { format, parseISO } from 'date-fns';
+import Search from 'antd/lib/input/Search';
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -32,11 +35,23 @@ export const HomeComponent: React.FC = () => {
         featuredTokensPageState,
         recentlyAddedPageState,
         latestScamsPageState,
-        potentialScamsPageState
+        potentialScamsPageState,
+        featuredTokensFilterState,
+        featuredUpcomingFilterState
     }: HomeProviderModel = useContext<any>(HomeContext);
 
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
+    const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
+    const [latestNameFilter, setLatestNameFilter] = useState<string>('');
+    const [potentialtNameFilter, potentialNameFilter] = useState<string>('');
+    const [featuredImageLoading, setFeaturedImageLoading] = useState<boolean>();
+    const [recentlyImageLoading, setRrecentlymageLoading] = useState<boolean>();
+    const [latestImageLoading, setLatestImageLoading] = useState<boolean>();
+    const [potentialImageLoading, setPotentialImageLoading] = useState<boolean>();
+
+    const [featuredTokensFilter, setFeaturedTokensFilter] = featuredTokensFilterState;
+    const [upcomingTokensFilter, setUpcomingTokensFilter] = featuredTokensFilterState;
 
     const [featuredTokens, setFeaturedTokens] = featuredTokensState;
     const [recentlyAdded, setRecentlyAdded] = recentlyAddedState;
@@ -87,6 +102,7 @@ export const HomeComponent: React.FC = () => {
     }
 
     const updatePage = (indentifier: string, page: number) => {
+        imgLoading(indentifier);
         const functions: any = {
             featured: updateFeaturedPage,
             recently: updateRecentlyPage,
@@ -114,38 +130,9 @@ export const HomeComponent: React.FC = () => {
 
         )
     }
-    // telegram if is recently and have not address  - done;
-    // criar o link de redirecionamento para o telegram com o padrão https://t.me/RhythmBSCwEW - done;
-    // TRUST LEVEL HAS A TOOLTIP WITH TEXT  -- done;
-    // RELEASEDATE ITS GOING TO BE API PROP AND IF DONT HAVE JUST HIDE
-    // 2 TAGS PER ROW - POTENTIAL SCAMS - done;
-    // instead arrow button, use telegram and twitter icons if present ( potential scams ) - done;
-
-    // scroll for transactions (wallet) - default 10 items
-
-    // skip wallet transfer month for now
-
-    // chart tooltip - token price, price in dollar, percentage, 
-
-    // total balance of wallet in the middle ( will be sent )
-
-    // token info to choose between wallet or token; - done;
-
-    //pre sale info will have a "section" - token; - done;
-
-
-    // token tag rules : 
-    /* \
-        if isScam = Tag Scam
-        if isPotencialScam = tag potentially scam
-
-        spywolf audit preset = tag level and if not tag unverified
-
-    */
-
 
     const fetchRecentlyAdded = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/UNVERIFIED').then(
+        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/upcomings').then(
             ({ data }) => {
                 const recentlyAddedResponse: FeaturedTokensResponse = data;
                 const recentlyAdded = recentlyAddedResponse.content.Items.map(
@@ -270,6 +257,7 @@ export const HomeComponent: React.FC = () => {
     };
 
     let inputRef: any;
+    let searchScamRef: any;
 
     const searchTokenOrWallet = () => {
         setAddressLoading(true);
@@ -402,7 +390,89 @@ export const HomeComponent: React.FC = () => {
     }
     // 0xa0a24c043175bc736dea5169e1612de2cee9f1ea
     const handleClipboardEvent = (event: ClipboardEvent<HTMLInputElement>) => {
-        setTimeout(searchTokenOrWalletOnPaste, 300);
+        setTimeout(searchTokenOrWalletOnPaste, 400);
+    }
+
+    const changeVerifiedOnly = () => {
+        setVerifiedOnly(!verifiedOnly)
+    }
+
+    const filterFeaturedTokensByLevel = (token: FeaturedToken) => (token.trustLevel === featuredTokensFilter) || featuredTokensFilter === 'all'
+
+    const sortByDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
+        const a = new Date(tokenA.deployedDate);
+        const b = new Date(tokenB.deployedDate);
+        return (b as any) - (a as any);
+    }
+
+    const sortUpcomingByPresaleDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
+        const a = new Date(tokenA.presaleDate as string);
+        const b = new Date(tokenB.presaleDate as string);
+        return (b as any) - (a as any);
+    }
+
+    const filterUpcomingByVerified = (token: FeaturedToken) => {
+        return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
+    }
+
+
+    const latestSearch: FormEventHandler<HTMLInputElement> = (e) => {
+        imgLoading('latests');
+        setLatestNameFilter(e.currentTarget.value)
+    }
+
+    const potentialSearch: FormEventHandler<HTMLInputElement> = (e) => {
+        imgLoading('potential');
+        potentialNameFilter(e.currentTarget.value);
+    }
+
+    
+    const imgLoading = (indentifier: string) => {
+        
+        const functions: any = {
+            featured: featuredImgLoading,
+            recently: recentlyImgLoading,
+            latest: latestImgLoading,
+            potential: potentialImgLoading
+        }
+
+        try {
+            functions[indentifier]()
+        } catch (e) {
+        }
+    }
+    
+    const featuredImgLoading = () => {
+        setFeaturedImageLoading(true);
+        setTimeout(() => {
+            setFeaturedImageLoading(false);
+
+        }, 400)
+    }
+
+    const recentlyImgLoading = () => {
+        setRrecentlymageLoading(true);
+        setTimeout(() => {
+            setRrecentlymageLoading(false);
+
+        }, 400)
+    }
+
+
+    const latestImgLoading = () => {
+        setLatestImageLoading(true);
+        setTimeout(() => {
+            setLatestImageLoading(false);
+
+        }, 400)
+    }
+
+    const potentialImgLoading = () => {
+        setPotentialImageLoading(true);
+        setTimeout(() => {
+            setPotentialImageLoading(false);
+
+        }, 400)
     }
     return <Container>
 
@@ -428,16 +498,20 @@ export const HomeComponent: React.FC = () => {
                 // style={{minHeight: '938px'}}
                 id="featured"
                 title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle=""></CardTitleSubtitle>}
+                extra={<SolidToolbar onChange={setFeaturedTokensFilter} setLoading={imgLoading} />}
                 actions={[<Pagination
+                    size="small"
                     hideOnSinglePage={false}
                     defaultPageSize={10}
                     current={featuredTokensPage}
-                    total={featuredTokens?.length}
+                    total={featuredTokens?.filter(filterFeaturedTokensByLevel).length}
                     onChange={(page: number) => updatePage('featured', page)}
                 ></Pagination>]}
             >
                 {
-                    featuredTokens?.slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => <FeaturedTokenItem token={token}></FeaturedTokenItem>)
+                    featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => 
+                    <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
+                    )
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -447,16 +521,22 @@ export const HomeComponent: React.FC = () => {
             <Card
                 id="recently"
                 title={<span className='card-label fw-bolder fs-3 mb-1'>Upcoming Tokens</span>}
+                extra={
+                    <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}>Verified only?
+                        <Switch size={'small'} onChange={changeVerifiedOnly} />
+                    </span>}
                 actions={[
                     <Pagination
+                        size="small"
                         current={recentlyAddedPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={recentlyAdded?.length}
+                        total={recentlyAdded?.filter(filterUpcomingByVerified).length}
                         onChange={(page: number) => updatePage('recently', page)}
                     ></Pagination>]}>
                 {
-                    recentlyAdded?.slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => <RecentlyAddedItem token={token}></RecentlyAddedItem>)
+                    recentlyAdded?.filter(filterUpcomingByVerified).sort(sortUpcomingByPresaleDate).slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => 
+                    <RecentlyAddedItem token={token} imageLoading={recentlyImageLoading}></RecentlyAddedItem>)
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -467,38 +547,57 @@ export const HomeComponent: React.FC = () => {
                 <a href="https://t.me/SpyWolfOfficial" target="__blank"><img src={spywolfad} alt="" /></a>
             </Card>
             <div className="bottom-cards">
+                {/* subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`} */}
                 <Card
                     id="latests"
-                    title={<CardTitleSubtitle title="Latest Scams" subtitle=""></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle
+                        banner={{ link: '', src: scambanner }}
+                        title="Latest Scams"
+                        search={true}
+                        searchPlaceholder="Search Scams"
+                        searchChange={latestSearch}
+                    ></CardTitleSubtitle>}
                     actions={[
                         <Pagination
+                            size="small"
                             current={latestScamsPage}
                             defaultPageSize={6}
                             defaultCurrent={1}
-                            total={latestScams?.length}
+                            total={latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).length}
                             onChange={(page: number) => updatePage('latest', page)}
                         ></Pagination>]}
                 >
-                    {
-                        latestScams?.slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => <LatestScamsItem token={token}></LatestScamsItem>)
-                    }
-                    {
-                        latestScams?.length === 0 && <div><Empty /></div>
-                    }
+                    <div className="wrap" style={{ marginTop: '50px' }}>
+                        {
+                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => 
+                            <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)
+                        }
+                        {
+                            latestScams?.length === 0 && <div><Empty /></div>
+                        }
+                    </div>
                 </Card>
                 <Card
                     id="potential"
-                    title={<CardTitleSubtitle title="Potential Scams" subtitle=""></CardTitleSubtitle>}
+                    title={<CardTitleSubtitle
+                        title="Potential Scams"
+                        subtitle=""
+                        search={true}
+                        searchPlaceholder="Search Potential Scams"
+                        searchChange={potentialSearch}
+                    ></CardTitleSubtitle>}
                     actions={[<Pagination
+                        size="small"
                         current={potentialScamsPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={potentialScams?.length}
+                        total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).length}
                         onChange={(page: number) => updatePage('potential', page)}
                     ></Pagination>]}
                 >
                     {
-                        potentialScams?.slice((potentialScamsPage - 1) * 6, potentialScamsPage * 6).map((token: FeaturedToken) => <PotentialScamsItem token={token}></PotentialScamsItem>)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) => 
+                        <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>)
                     }
 
                     {

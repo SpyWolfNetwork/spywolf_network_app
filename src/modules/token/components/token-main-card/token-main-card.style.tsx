@@ -72,4 +72,35 @@ export const Container = styled.div`
             justify-content: center;
         }
     }
+    .dashed-like{
+        padding: 5px 12px;
+        padding-left: 15px;
+    }
+    .like-wrapper{
+        position: relative;
+        width: fit-content;
+        max-width: 60px;
+        h3{
+            line-height: 100%;
+        color: #181c32;
+        }
+        span{
+        color: #181c32;
+            line-height: 100%;
+
+        }
+    }
+    .captcha-wrapper{
+        position: absolute;
+        background: white;
+        z-index: 99;
+        top: 70%;
+        left: 0;
+        top: 0;
+    }
+    .ant-btn{
+        display: flex;
+        align-items: center;
+        padding: 0 10px !important;
+    }
 `;

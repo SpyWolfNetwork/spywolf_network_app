@@ -5,13 +5,30 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 50px minmax(100px, 1fr) minmax(150px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
   column-gap: 1rem;
-  margin:1rem 0;
+  padding: 1rem 0;
   align-items: center;
+
 `;
 
 export const LogoContainer = styled.div`
+    position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       img{
+            width: 99%;
+            height: 99%;
             border-radius: 100%;
+      }
+      .image-placeholder{
+            background: #cdcdcd;
+            width: 105%;
+            height: 105%;
+            border-radius: 100%;
+            position: absolute;
+            z-index: 1;
+            top: -1px;
+            left: -1px;
       }
 
 `;
@@ -23,6 +40,9 @@ export const InfoContainer = styled.div`
     max-width: 100px;
     .symbol{
         font-size: 1rem;
+    }
+    a{
+          cursor: initial;
     }
 `;
 

@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './latest-scams-item.style';
+import logoplaceholder from '../../../assets/core/no-photo.png'
 
-const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
+const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => { }, []);
     const trustLevelBgColor = {
         'Level 1': '#fff8dd',
@@ -21,48 +22,53 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
         'Level 2': '#65a0a7',
         'Level 3': '#129edb',
     }
-    return <Container>
-        <LogoContainer>
-            <img src={props.token.logoPicture} width="50px" alt="" />
-        </LogoContainer>
-        <InfoContainer>
-            <Link to={'token/'+props?.token?.address}>
-                <a className='text-dark text-hover-primary  fw-bolder mb-1 fs-6'>{props?.token?.name}</a>
-            </Link>
-            <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
-        </InfoContainer>
-        <TrustLevelContainer>
-            {
-                (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
-                    <Tag
-                        color={'red'}
-                    >
-                        {props?.token?.scamReason}
-                    </Tag>
-                )}
-
-            {
-                (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
-                    <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
+    return <Link to={'token/' + props?.token?.address}>
+        <Container>
+            <LogoContainer>
+                <img src={props.token.logoPicture} width="50px" alt="" />
+                {
+                  !props.token.logoPicture &&
+                    <img src={logoplaceholder}></img>
+                }
+                {
+                    props.imageLoading && <div className="image-placeholder">
+                    </div>
+                }
+            </LogoContainer>
+            <InfoContainer>
+                <Link to={'token/' + props?.token?.address}>
+                    <a className='text-dark  fw-bolder mb-1 fs-6'>{props?.token?.name}</a>
+                </Link>
+                <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
+            </InfoContainer>
+            <TrustLevelContainer>
+                {
+                    (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
                         <Tag
                             color={'red'}
                         >
                             {props?.token?.scamReason}
                         </Tag>
-                    </Popover>
-                )}
-        </TrustLevelContainer>
-        <ReleaseContainer>
-            <PoweredBy
-                company={props?.token?.vettedBy ? props?.token?.vettedBy : 'SpyWolf'}
-            />
-        </ReleaseContainer>
-        <ActionsContainer>
-            <Link to={`token/${props?.token?.address}`}>
-                <Button type="ghost"> <ArrowRightOutlined /> </Button>
-            </Link>
-        </ActionsContainer>
-    </Container>;
+                    )}
+
+                {
+                    (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
+                        <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
+                            <Tag
+                                color={'red'}
+                            >
+                                {props?.token?.scamReason}
+                            </Tag>
+                        </Popover>
+                    )}
+            </TrustLevelContainer>
+            <ReleaseContainer>
+                <PoweredBy
+                    company={props?.token?.vettedBy ? props?.token?.vettedBy : 'SpyWolf'}
+                />
+            </ReleaseContainer>
+        </Container>
+    </Link>
 };
 
 export default LatestScamsItem;

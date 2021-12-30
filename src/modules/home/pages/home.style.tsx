@@ -19,7 +19,82 @@ export const SearchContainer = styled.div`
     flex-direction: column;
     align-items: center;
     max-width: 700px;
-    .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
+   
+    .address-validation-error{
+        color:#f1416c;
+        margin-top: 1.25rem!important;
+    }
+
+`;
+
+
+export const CardGrid = styled.div`
+    width: 100%;
+    display: block;
+    grid-template-columns: 1fr;
+        grid-template-rows: auto;
+        column-gap: 1.4em;
+        row-gap: 1.4em;
+        .ant-card .ant-card-body{
+            overflow-x: auto !important;
+        }
+    @media ( min-width: 1200px){
+        display: grid;
+        grid-template-columns: repeat(3, minmax(250px, 1fr));
+        grid-template-rows: auto;
+        column-gap: 1.4em;
+        row-gap: 1.4em;
+        > div {
+            margin-bottom: 10px;
+            width: 100%;
+            height: 100%;
+
+            .card-title{
+                display: flex;
+            }
+        
+            .ant-card-action{
+                justify-content: flex-end;
+            }
+        }
+     #featured{
+        grid-column: 1/3;
+        grid-row: 1/3;
+        min-height: 890px;
+       .ant-card{
+        .ant-card-head{
+            margin-bottom: 12px !important;
+        }
+       }
+ 
+    }
+    #recently{
+        grid-column:3;
+        grid-row: 1;
+    }
+    #advertisement{
+        grid-column: 3/3;
+        grid-row: 2/3;
+        justify-content: center;
+        .ant-card-body{
+            justify-content: center;
+            display: flex;
+        }
+
+    }
+    .bottom-cards{
+        display: flex;
+        grid-column: 1/4;
+        column-gap: 1.4em;
+        row-gap: 1.4em;
+        > div {
+            margin-bottom: 10px;
+        }
+    }
+    #latests{
+        grid-column: auto;
+        flex: 1;
+        .ant-input-search > .ant-input-group > .ant-input-group-addon:last-child {
     left: -94%;
     background: transparent;
     border: none;
@@ -68,72 +143,7 @@ export const SearchContainer = styled.div`
             border-color: #eef3f7;
         }
     }
-
-    .address-validation-error{
-        color:#f1416c;
-        margin-top: 1.25rem!important;
-    }
-
-`;
-
-
-export const CardGrid = styled.div`
-    width: 100%;
-    display: block;
-    grid-template-columns: 1fr;
-        grid-template-rows: auto;
-        column-gap: 1.4em;
-        row-gap: 1.4em;
-        .ant-card .ant-card-body{
-            overflow-x: auto !important;
-        }
-    @media ( min-width: 1200px){
-        display: grid;
-        grid-template-columns: repeat(3, minmax(250px, 1fr));
-        grid-template-rows: auto;
-        column-gap: 1.4em;
-        row-gap: 1.4em;
-        > div {
-            width: 100%;
-            height: 100%;
-            .card-title{
-                display: flex;
-            }
         
-            .ant-card-action{
-                justify-content: flex-end;
-            }
-        }
-     #featured{
-        grid-column: 1/3;
-        grid-row: 1/3;
-  
- 
-    }
-    #recently{
-        grid-column:3;
-        grid-row: 1;
-    }
-    #advertisement{
-        grid-column: 3/3;
-        grid-row: 2/3;
-        justify-content: center;
-        .ant-card-body{
-            justify-content: center;
-            display: flex;
-        }
-
-    }
-    .bottom-cards{
-        display: flex;
-        grid-column: 1/4;
-        column-gap: 1.4em;
-
-
-    }
-    #latests{
-        grid-column: auto;
-        flex: 1
     }
 
     #potential {

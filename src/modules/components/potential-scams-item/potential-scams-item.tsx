@@ -3,14 +3,13 @@ import { ArrowRightOutlined, LaptopOutlined, SendOutlined } from '@ant-design/ic
 import { Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { FaTelegram } from 'react-icons/fa';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
-const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
+const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean  }> = (props) => {
     useEffect(() => {
-        if (props.token.name == 'Visor.Finance') { console.log(props.token) }
 
     }, []);
     const trustLevelBgColor = {
@@ -28,6 +27,10 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
 
         <LogoContainer>
             <img src={props.token.logoPicture} width="50px" alt="" />
+            {
+             props.imageLoading && <div className="image-placeholder">
+             </div>
+         }
         </LogoContainer>
         <InfoContainer>
             <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>
@@ -69,11 +72,11 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
             }
             {
                 props?.token?.telegram &&
-                <Button type="ghost" href={props?.token?.telegram} target={'__blank'}> <SendOutlined style={{ transform: 'rotate(-35deg)' }} /></Button>
+                <Button type="ghost" href={props?.token?.telegram} target={'__blank'}><FaTelegram color={'#a1a5b7'} fontSize={20} /></Button>
             }
 
         </ActionsContainer>
-    </Container >;
+    </Container >
 };
 
 export default PotentialScamsItem;
