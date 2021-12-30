@@ -62,3 +62,16 @@ body .App{
 h1, h2, h3, h4, h5, h6{
   color: #181c32 !important;
 }
+
+.hamburger-toggle{
+  display: none !important;
+  @media ( min-width: 991px){
+    display: none !important;
+  }
+}
+
+#toggler{
+    @media ( min-width: 992px){
+      display: none !important;
+    }
+}
