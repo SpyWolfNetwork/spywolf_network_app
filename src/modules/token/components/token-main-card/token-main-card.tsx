@@ -23,7 +23,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [addingCaptcha, setAddingCaptcha] = useState(false);
     const [userIP, setUserIP] = useState('');
     const [votes, setVotes] = useState(0);
-    const [alreadyVoted, setAleradyVoted] = useState(0);
+    const [alreadyVoted, setAlreadyVoted] = useState<boolean>(false);
 
     useEffect(() => {
         if (tokenData?.basicInfo?.votes) {
@@ -43,7 +43,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                             setVotes(tokenData?.basicInfo?.votes as any);
                         }
                         window.sessionStorage.setItem('votes', JSON.stringify(res.data.content.Items));
-                        setAleradyVoted(res.data.content.Items.some(item => item.token_address === tokenData?.basicInfo?.address))
+                        setAlreadyVoted(res.data.content.Items.some(item => item.token_address === tokenData?.basicInfo?.address))
                     }
                 )
             }
@@ -81,6 +81,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                                 })
                                 window.sessionStorage.setItem('votes', JSON.stringify(_votes));
                                 setVotes((votes + 1))
+                                setAlreadyVoted(true);
                             })
                             .catch(e => {
                                 Swal.fire({
