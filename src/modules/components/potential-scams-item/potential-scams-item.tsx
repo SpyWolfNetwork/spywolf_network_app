@@ -8,7 +8,7 @@ import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
-const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
+const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean  }> = (props) => {
     useEffect(() => {
 
     }, []);
@@ -27,6 +27,10 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken }> = (props) => {
 
         <LogoContainer>
             <img src={props.token.logoPicture} width="50px" alt="" />
+            {
+             props.imageLoading && <div className="image-placeholder">
+             </div>
+         }
         </LogoContainer>
         <InfoContainer>
             <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>

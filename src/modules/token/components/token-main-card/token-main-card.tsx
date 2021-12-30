@@ -1,5 +1,5 @@
 // Dependencies
-import { Badge, Button, Card, Input } from 'antd';
+import { Badge, Button, Card, Input, Popover } from 'antd';
 import React, { KeyboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { ApplicationContext } from '../../../../core/routes/providers/application.provider';
 import { Token } from '../../models/token.model';
@@ -15,7 +15,7 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 
 
 import { LaptopOutlined, LikeTwoTone, SendOutlined, TwitterOutlined } from '@ant-design/icons';
-import { FaArrowUp } from 'react-icons/fa';
+import { FaArrowUp, FaLaptop, FaTelegram } from 'react-icons/fa';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
@@ -49,11 +49,10 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
             }
         )
 
-
         if (!props.loading) {
             loadCaptchaEnginge(6);
         }
-    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address]);
+    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address, alreadyVoted]);
 
     const doSubmit = () => {
 
@@ -155,42 +154,54 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                 {props.loading}
                 <div className="token-logo-wrapper">
                     {
-                        !(props.loading && (tokenData?.basicInfo?.logo && (tokenData?.basicInfo?.logo?.length > 0))) &&
+                        !(props.loading && (tokenData?.basicInfo?.logo?.length as any) > 0) &&
                         <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
 
                     }
                     {
-                        !props.loading && (!tokenData?.basicInfo?.logo || (tokenData?.basicInfo?.logo.length === 0)) &&
+                        !props.loading && (!tokenData?.basicInfo?.logo || (tokenData?.basicInfo?.logo?.length === 0)) &&
                         <img src={logoplaceholder}></img>
                     }
                 </div>
                 {!props.loading && <div className="actions">
                     <DashedCard className='dashed-like'>
                         <div className="like-wrapper">
-                            <h1 className='fs-4 fw-bolder text-gray-700 votes-quantity'> {
-                            tokenData?.basicInfo?.votes !== undefined ? votes ? votes : tokenData?.basicInfo?.votes : '-'} <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
-                            <span className='fw-bold text-muted votes-label'>Votes</span>
+                            <h1 className='fs-4 fw-bolder text-gray-900 votes-quantity'> {
+                                tokenData?.basicInfo?.votes !== undefined ? votes ? votes : tokenData?.basicInfo?.votes : '-'} <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
+                            <span className=' fw-bolder text-gray-900 votes-label'>Votes</span>
+
                             <div className="captcha-wrapper" style={{ opacity: addingCaptcha ? 1 : 0, display: addingCaptcha ? 'block ' : 'none' }}>
                                 <Card>
                                     <LoadCanvasTemplate />
                                     <Input placeholder="Enter captcha value" type="text" onKeyDown={handleKeydown} className="user_captcha_input" />
-                                    <div className="captcha-actions" style={{display:'flex'}}>
+                                    <div className="captcha-actions" style={{ width: '100%', justifyContent: "space-between", display: 'flex' }}>
                                         <Button type="text" onClick={() => setAddingCaptcha(false)} style={{ color: '#152B36', marginTop: 10 }}> Cancel </Button>
-                                        <Button type="primary" onClick={doSubmit} style={{ color: '#152B36', marginTop: 10 }}> Submit </Button>
+                                        <Button type="primary" onClick={doSubmit} style={{ padding: '0 10px', color: '#152B36', marginTop: 10 }}> Submit </Button>
                                     </div>
 
                                 </Card>
                             </div>
                         </div>
                     </DashedCard>
-                    <DashedCard style={{ cursor: alreadyVoted ? 'not-allowed' : 'pointer', padding: '12px 10px' }} onClick={handleVote}>
-                        <LikeTwoTone twoToneColor={['#a1a5b7', 'white']} style={{ fontSize: '30px', height: 'fit-content'}} className="like" />
-                    </DashedCard>
+                    {alreadyVoted &&
+                        <Popover content={<span>you already voted, you can vote again tomorrow </span>}>
+                            <DashedCard style={{ cursor: alreadyVoted ? 'initial' : 'pointer', padding: '12px 10px' }} onClick={handleVote}>
+                                <LikeTwoTone twoToneColor={alreadyVoted ? ['#8b8ea2', 'white'] : ['#3f4254', 'white']} style={{ fontSize: '30px', height: 'fit-content' }} className="like" />
+                            </DashedCard>
+                        </Popover>
+                    }
+                    {!alreadyVoted &&
+                        <DashedCard style={{ cursor: alreadyVoted ? 'initial' : 'pointer', padding: '12px 10px' }} onClick={handleVote}>
+                            <LikeTwoTone twoToneColor={alreadyVoted ? ['#8b8ea2', 'white'] : ['#3f4254', 'white']} style={{ fontSize: '30px', height: 'fit-content' }} className="like" />
+                        </DashedCard>
+                    }
                 </div>}
                 <div className="social">
                     {
                         tokenData?.basicInfo?.website &&
-                        <Button href={tokenData?.basicInfo?.website} target="_blank" type="primary" icon={<LaptopOutlined />} size={'large'} />
+                        <Button href={tokenData?.basicInfo?.website} target="_blank" type="primary"
+                            icon={<FaLaptop color={'white'} fontSize={20} />}
+                            size={'large'} />
                     }
                     {
                         tokenData?.basicInfo?.twitter &&
@@ -199,7 +210,9 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
 
                     {
                         tokenData?.basicInfo?.twitter &&
-                        <Button href={tokenData?.basicInfo?.telegram} target="_blank" type="primary" icon={<SendOutlined style={{ transform: 'rotate(-35deg)' }} />} size={'large'} />
+                        <Button href={tokenData?.basicInfo?.telegram} target="_blank" type="primary" icon={
+                            <FaTelegram color={'white'} fontSize={20} />
+                        } size={'large'} />
                     }
 
                 </div>

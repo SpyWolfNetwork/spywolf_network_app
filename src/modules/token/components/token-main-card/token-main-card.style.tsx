@@ -73,7 +73,8 @@ export const Container = styled.div`
         }
     }
     .dashed-like{
-        padding: 5px 8px;
+        padding: 5px 12px;
+        padding-left: 15px;
     }
     .like-wrapper{
         position: relative;
@@ -81,8 +82,10 @@ export const Container = styled.div`
         max-width: 60px;
         h3{
             line-height: 100%;
+        color: #181c32;
         }
         span{
+        color: #181c32;
             line-height: 100%;
 
         }
@@ -94,5 +97,10 @@ export const Container = styled.div`
         top: 70%;
         left: 0;
         top: 0;
+    }
+    .ant-btn{
+        display: flex;
+        align-items: center;
+        padding: 0 10px !important;
     }
 `;

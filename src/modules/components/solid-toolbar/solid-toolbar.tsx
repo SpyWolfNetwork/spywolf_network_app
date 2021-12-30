@@ -1,10 +1,11 @@
 // Dependencies
 import { CheckboxOptionType, Radio } from 'antd';
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Container } from './solid-toolbar.style';
 
-const SolidToolbar: React.FC<{onChange: any}> = (props) => {
+const SolidToolbar: React.FC<{ onChange: any, setLoading: any }> = (props) => {
+    const [activatedItem, setActivatedItem] = useState('all')
     const trustLevelBgColor = {
         'Level 1': '#fff8dd',
         'Level 2': '#E6F4F1',
@@ -19,21 +20,28 @@ const SolidToolbar: React.FC<{onChange: any}> = (props) => {
 
     const options: CheckboxOptionType[] = [
         { label: 'All', value: 'all' },
-        { label: 'Trust Level 3', value: 'Level 3', style: {background: trustLevelBgColor['Level 3'], color: trustLevelTextColor['Level 3']} },
-        { label: 'Trust Level 2', value: 'Level 2', style: {background: trustLevelBgColor['Level 2'], color: trustLevelTextColor['Level 2']}},
-        { label: 'Trust Level 1', value: 'Level 1', style: {background: trustLevelBgColor['Level 1'], color: trustLevelTextColor['Level 1']} },
+        { label: 'Trust Level 3', value: 'Level 3', style: activatedItem === 'Level 3' ? { background: trustLevelBgColor['Level 3'], color: trustLevelTextColor['Level 3'] } : {} },
+        { label: 'Trust Level 2', value: 'Level 2', style: activatedItem === 'Level 2 ' ? { background: trustLevelBgColor['Level 2'], color: trustLevelTextColor['Level 2'] } : {} },
+        { label: 'Trust Level 1', value: 'Level 1', style: activatedItem === 'Level 1 ' ? { background: trustLevelBgColor['Level 1'], color: trustLevelTextColor['Level 1'] } : {} },
 
     ]
-                  
+
     const change = (e: CheckboxChangeEvent) => {
         props.onChange(e.target.value);
-        console.log(e.target)
+        props.setLoading('featured');
+        setActivatedItem(e.target.value)
+
     }
-    useEffect(() => { }, []);
+    useEffect(() => { }, [activatedItem]);
+
+
 
     return <Container>
-        <Radio.Group defaultValue="all" options={options} buttonStyle="solid"  optionType="button" onChange={change}>
-
+        <Radio.Group defaultValue="all" buttonStyle="solid" optionType="button" onChange={change} >
+            <Radio.Button  className='All' value="all">All</Radio.Button>
+            <Radio.Button className='Level3' value="Level 3" >Trust Level 3</Radio.Button>
+            <Radio.Button className='Level2' value="Level 2">Trust Level 2</Radio.Button>
+            <Radio.Button className='Level1' value="Level 1">Trust Level 1</Radio.Button>
         </Radio.Group>
     </Container>;
 };

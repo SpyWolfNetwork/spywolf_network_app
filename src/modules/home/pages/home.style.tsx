@@ -61,6 +61,11 @@ export const CardGrid = styled.div`
         grid-column: 1/3;
         grid-row: 1/3;
         min-height: 890px;
+       .ant-card{
+        .ant-card-head{
+            margin-bottom: 12px !important;
+        }
+       }
  
     }
     #recently{

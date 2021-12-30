@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './featured-token-item.style';
 
-const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
+const FeaturedTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => { }, []);
     const trustLevelBgColor = {
         'Level 1': '#fff8dd',
@@ -24,6 +24,10 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken }> = (props) => {
         <Container>
         <LogoContainer>
             <img src={props.token.logoPicture} width="50px" alt="" />
+         {
+             props.imageLoading && <div className="image-placeholder">
+             </div>
+         }
         </LogoContainer>
         <InfoContainer>
             <Link to={`/token/${props.token.address}`}>

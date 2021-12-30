@@ -45,6 +45,10 @@ export const HomeComponent: React.FC = () => {
     const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
     const [latestNameFilter, setLatestNameFilter] = useState<string>('');
     const [potentialtNameFilter, potentialNameFilter] = useState<string>('');
+    const [featuredImageLoading, setFeaturedImageLoading] = useState<boolean>();
+    const [recentlyImageLoading, setRrecentlymageLoading] = useState<boolean>();
+    const [latestImageLoading, setLatestImageLoading] = useState<boolean>();
+    const [potentialImageLoading, setPotentialImageLoading] = useState<boolean>();
 
     const [featuredTokensFilter, setFeaturedTokensFilter] = featuredTokensFilterState;
     const [upcomingTokensFilter, setUpcomingTokensFilter] = featuredTokensFilterState;
@@ -98,6 +102,7 @@ export const HomeComponent: React.FC = () => {
     }
 
     const updatePage = (indentifier: string, page: number) => {
+        imgLoading(indentifier);
         const functions: any = {
             featured: updateFeaturedPage,
             recently: updateRecentlyPage,
@@ -385,7 +390,7 @@ export const HomeComponent: React.FC = () => {
     }
     // 0xa0a24c043175bc736dea5169e1612de2cee9f1ea
     const handleClipboardEvent = (event: ClipboardEvent<HTMLInputElement>) => {
-        setTimeout(searchTokenOrWalletOnPaste, 300);
+        setTimeout(searchTokenOrWalletOnPaste, 400);
     }
 
     const changeVerifiedOnly = () => {
@@ -412,15 +417,63 @@ export const HomeComponent: React.FC = () => {
 
 
     const latestSearch: FormEventHandler<HTMLInputElement> = (e) => {
+        imgLoading('latests');
         setLatestNameFilter(e.currentTarget.value)
     }
 
     const potentialSearch: FormEventHandler<HTMLInputElement> = (e) => {
+        imgLoading('potential');
         potentialNameFilter(e.currentTarget.value);
     }
-    // const searchScams = (e) => {
-    //     setLatestNameFilter(searchScamRef.state.value);
-    // }
+
+    
+    const imgLoading = (indentifier: string) => {
+        
+        const functions: any = {
+            featured: featuredImgLoading,
+            recently: recentlyImgLoading,
+            latest: latestImgLoading,
+            potential: potentialImgLoading
+        }
+
+        try {
+            functions[indentifier]()
+        } catch (e) {
+        }
+    }
+    
+    const featuredImgLoading = () => {
+        setFeaturedImageLoading(true);
+        setTimeout(() => {
+            setFeaturedImageLoading(false);
+
+        }, 400)
+    }
+
+    const recentlyImgLoading = () => {
+        setRrecentlymageLoading(true);
+        setTimeout(() => {
+            setRrecentlymageLoading(false);
+
+        }, 400)
+    }
+
+
+    const latestImgLoading = () => {
+        setLatestImageLoading(true);
+        setTimeout(() => {
+            setLatestImageLoading(false);
+
+        }, 400)
+    }
+
+    const potentialImgLoading = () => {
+        setPotentialImageLoading(true);
+        setTimeout(() => {
+            setPotentialImageLoading(false);
+
+        }, 400)
+    }
     return <Container>
 
         <SearchContainer>
@@ -445,7 +498,7 @@ export const HomeComponent: React.FC = () => {
                 // style={{minHeight: '938px'}}
                 id="featured"
                 title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle=""></CardTitleSubtitle>}
-                extra={<SolidToolbar onChange={setFeaturedTokensFilter} />}
+                extra={<SolidToolbar onChange={setFeaturedTokensFilter} setLoading={imgLoading} />}
                 actions={[<Pagination
                     size="small"
                     hideOnSinglePage={false}
@@ -456,7 +509,9 @@ export const HomeComponent: React.FC = () => {
                 ></Pagination>]}
             >
                 {
-                    featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => <FeaturedTokenItem token={token}></FeaturedTokenItem>)
+                    featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => 
+                    <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
+                    )
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -480,7 +535,8 @@ export const HomeComponent: React.FC = () => {
                         onChange={(page: number) => updatePage('recently', page)}
                     ></Pagination>]}>
                 {
-                    recentlyAdded?.filter(filterUpcomingByVerified).sort(sortUpcomingByPresaleDate).slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => <RecentlyAddedItem token={token}></RecentlyAddedItem>)
+                    recentlyAdded?.filter(filterUpcomingByVerified).sort(sortUpcomingByPresaleDate).slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => 
+                    <RecentlyAddedItem token={token} imageLoading={recentlyImageLoading}></RecentlyAddedItem>)
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -513,7 +569,8 @@ export const HomeComponent: React.FC = () => {
                 >
                     <div className="wrap" style={{ marginTop: '50px' }}>
                         {
-                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => <LatestScamsItem token={token}></LatestScamsItem>)
+                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => 
+                            <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)
                         }
                         {
                             latestScams?.length === 0 && <div><Empty /></div>
@@ -522,13 +579,13 @@ export const HomeComponent: React.FC = () => {
                 </Card>
                 <Card
                     id="potential"
-                    title={<CardTitleSubtitle 
-                        title="Potential Scams" 
+                    title={<CardTitleSubtitle
+                        title="Potential Scams"
                         subtitle=""
                         search={true}
                         searchPlaceholder="Search Potential Scams"
                         searchChange={potentialSearch}
-                        ></CardTitleSubtitle>}
+                    ></CardTitleSubtitle>}
                     actions={[<Pagination
                         size="small"
                         current={potentialScamsPage}
@@ -539,7 +596,8 @@ export const HomeComponent: React.FC = () => {
                     ></Pagination>]}
                 >
                     {
-                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) => <PotentialScamsItem token={token}></PotentialScamsItem>)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) => 
+                        <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>)
                     }
 
                     {

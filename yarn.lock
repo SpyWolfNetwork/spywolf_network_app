@@ -10144,7 +10144,7 @@ react-async-hook@^4.0.0:
   resolved "https://registry.yarnpkg.com/react-async-hook/-/react-async-hook-4.0.0.tgz#1f0467586654e1f33b7433bd98c300a0c5f9b3d0"
   integrity sha512-97lgjFkOcHCTYSrsKBpsXg3iVWM0LnzedB749iP76sb3/8Ouu4nHIkCLEOrQWHVYqrYxjF05NN6GHoXWFkB3Kw==
 
-react-async-script@^1.1.1:
+react-async-script@^1.1.1, react-async-script@^1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/react-async-script/-/react-async-script-1.2.0.tgz#ab9412a26f0b83f5e2e00de1d2befc9400834b21"
   integrity sha512-bCpkbm9JiAuMGhkqoAiC0lLkb40DJ0HOEJIku+9JDjxX3Rcs+ztEOG13wbrOskt3n2DTrjshhaQ/iay+SnGg5Q==
@@ -10195,6 +10195,14 @@ react-error-overlay@^6.0.9:
   version "6.0.10"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.10.tgz#0fe26db4fa85d9dbb8624729580e90e7159a59a6"
   integrity sha512-mKR90fX7Pm5seCOfz8q9F+66VCc1PGsWSBxKbITjfKVQHMNF2zudxHnMdJiB1fRCb+XsbQV9sO9DCkgsMQgBIA==
+
+react-google-recaptcha-enterprise@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-google-recaptcha-enterprise/-/react-google-recaptcha-enterprise-1.0.3.tgz#951cd4bed19ec2ba40c5974b4cc6ef3eea47ed90"
+  integrity sha512-pRtKoYTVGCAPGk1TdNfmlZE1l8U0WNUe98h/MV5c0AsYxFRw5U167DldKc/Gfhv4a8pSCiqM8+ZdWQVQnW1vEg==
+  dependencies:
+    prop-types "^15.5.0"
+    react-async-script "^1.2.0"
 
 react-google-recaptcha@^2.1.0:
   version "2.1.0"

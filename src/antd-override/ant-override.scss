@@ -150,11 +150,13 @@
     color: #5e6278;
     border-radius: 0.475rem;
     height: 2.5rem;
-    min-width: 2.5rem;
     font-weight: 500;
-    font-size: 1.075rem;
+    font-size: 0.9rem;
     border: none;
     margin-right: 4px;
+    max-width: 22px !important;
+    min-width: 22px !important;
+    height: 22px !important;
   }
   .anticon {
     vertical-align: 0;
