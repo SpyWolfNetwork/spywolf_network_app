@@ -16,7 +16,7 @@ import { CardGrid, Container, SearchContainer } from './home.style';
 
 import { useLocation, useNavigate } from 'react-router-dom';
 
-import spywolfad from '../../../assets/ads/spywolf_ads_army.gif'
+import spywolfad from '../../../assets/ads/spywolf_ads_army.png'
 import scambanner from '../../../assets/ads/banner-scams.png'
 
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
@@ -544,7 +544,7 @@ export const HomeComponent: React.FC = () => {
 
             </Card>
             <Card id="advertisement" title={<CardTitleSubtitle subtitle="Advertisement" />}>
-                <a href="https://t.me/SpyWolfOfficial" target="__blank"><img src={spywolfad} alt="" /></a>
+                <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
             </Card>
             <div className="bottom-cards">
                 {/* subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`} */}

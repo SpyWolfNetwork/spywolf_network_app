@@ -13,7 +13,7 @@ searchChange?: any, searchPlaceholder?: string }> = (props) => {
     return <Container>
         {
             props.banner !== undefined &&
-            < a href="https://spywolf.co/" target="__blank"> <img src={scambanner} alt="" /></a>
+            < a href="https://t.me/SpyWolfNetwork" target="__blank"> <img src={scambanner} alt="" /></a>
         }
         <div className="header">
             <h3 className="card-title align-items-start flex-column">
