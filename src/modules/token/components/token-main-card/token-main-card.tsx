@@ -25,10 +25,14 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [votes, setVotes] = useState(0);
     const [alreadyVoted, setAlreadyVoted] = useState<boolean>(false);
 
-    useEffect(() => {
+    useEffect( () => {
         if (tokenData?.basicInfo?.votes) {
             setVotes(tokenData?.basicInfo?.votes);
         }
+   
+    }, [tokenData])
+
+    useEffect(() => {
         axios.get('https://api.ipify.org?format=json').then(
             res => {
                 setUserIP(res.data.ip)
@@ -38,10 +42,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                     ipAddress: res.data.ip
                 }).then(
                     res => {
-                        setVotes(tokenData?.basicInfo?.votes as any);
-                        if (tokenData?.basicInfo?.votes) {
-                            setVotes(tokenData?.basicInfo?.votes as any);
-                        }
+                 
                         window.sessionStorage.setItem('votes', JSON.stringify(res.data.content.Items));
                         setAlreadyVoted(res.data.content.Items.some(item => item.token_address === tokenData?.basicInfo?.address))
                     }
@@ -52,7 +53,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
         if (!props.loading) {
             loadCaptchaEnginge(6);
         }
-    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address, alreadyVoted]);
+    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address, alreadyVoted,votes]);
 
     const doSubmit = () => {
 
@@ -64,6 +65,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                     const _votes = JSON.parse(window.sessionStorage.getItem('votes') as any);
 
                     if (!_votes.some(vote => vote.token_address === tokenData.basicInfo?.address)) {
+                        setVotes(votes + 1)
                         axios.post('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/voting_data',
                             {
                                 httpMethod: "POST",
@@ -74,13 +76,13 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                                 tag: tokenData.basicInfo?.tag
                             })
                             .then(() => {
+                                console.log('votes', votes)
                                 _votes.push({
                                     votingTimestamp: Date.now(),
                                     ipAddress: res.data.ip,
                                     token_address: tokenData.basicInfo?.address
                                 })
                                 window.sessionStorage.setItem('votes', JSON.stringify(_votes));
-                                setVotes((votes + 1))
                                 setAlreadyVoted(true);
                             })
                             .catch(e => {
@@ -155,20 +157,16 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                 {props.loading}
                 <div className="token-logo-wrapper">
                     {
-                        !(props.loading && (tokenData?.basicInfo?.logo?.length as any) > 0) &&
-                        <img width={'100%'} src={tokenData?.basicInfo?.logo} alt="" />
-
+                        !props.loading &&
+                        <img width={'100%'} src={tokenData?.basicInfo?.logo ?  tokenData?.basicInfo?.logo : logoplaceholder} alt="" />
                     }
-                    {
-                        !props.loading && (!tokenData?.basicInfo?.logo || (tokenData?.basicInfo?.logo?.length === 0)) &&
-                        <img src={logoplaceholder}></img>
-                    }
+               
                 </div>
                 {!props.loading && <div className="actions">
                     <DashedCard className='dashed-like'>
                         <div className="like-wrapper">
                             <h1 className='fs-4 fw-bolder text-gray-900 votes-quantity'> {
-                                tokenData?.basicInfo?.votes !== undefined ? votes ? votes : tokenData?.basicInfo?.votes : '-'} <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
+                                 votes } <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
                             <span className=' fw-bolder text-gray-900 votes-label'>Votes</span>
 
                             <div className="captcha-wrapper" style={{ opacity: addingCaptcha ? 1 : 0, display: addingCaptcha ? 'block ' : 'none' }}>
