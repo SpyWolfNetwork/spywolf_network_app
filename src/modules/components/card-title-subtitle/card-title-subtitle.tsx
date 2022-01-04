@@ -3,6 +3,7 @@ import { SearchOutlined, SendOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
 import React, { useEffect } from 'react';
 import { FaTelegram } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import scambanner from '../../../assets/ads/banner-scams.png'
 import { Container } from './card-title-subtitle.style';
 
@@ -13,7 +14,9 @@ searchChange?: any, searchPlaceholder?: string }> = (props) => {
     return <Container>
         {
             props.banner !== undefined &&
-            < a href="https://t.me/SpyWolfNetwork" target="__blank"> <img src={scambanner} alt="" /></a>
+           <Link to="/reward">
+                < a > <img width="100%" src={scambanner} alt="" /></a>
+           </Link>
         }
         <div className="header">
             <h3 className="card-title align-items-start flex-column">

@@ -20,8 +20,6 @@ import spywolfad from '../../../assets/ads/spywolf_ads_army.png'
 import scambanner from '../../../assets/ads/banner-scams.png'
 
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
-import { format, parseISO } from 'date-fns';
-import Search from 'antd/lib/input/Search';
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -44,7 +42,7 @@ export const HomeComponent: React.FC = () => {
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
     const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
     const [latestNameFilter, setLatestNameFilter] = useState<string>('');
-    const [potentialtNameFilter, potentialNameFilter] = useState<string>('');
+    const [potentialtNameFilter, setPotentialNameFilter] = useState<string>('');
     const [featuredImageLoading, setFeaturedImageLoading] = useState<boolean>();
     const [recentlyImageLoading, setRrecentlymageLoading] = useState<boolean>();
     const [latestImageLoading, setLatestImageLoading] = useState<boolean>();
@@ -71,14 +69,7 @@ export const HomeComponent: React.FC = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    useEffect(() => {
-        fetchFeaturedTokens();
-        fetchRecentlyAdded();
-        fetchLatestScams();
-        fetchPotentialScams();
-
-
-    }, [])
+    useEffect(() => { }, [])
 
 
     const updateFeaturedPage = (page: number) => {
@@ -116,67 +107,6 @@ export const HomeComponent: React.FC = () => {
         }
     }
 
-
-    const fetchFeaturedTokens = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/TRUSTED').then(
-            ({ data }) => {
-                const featuredTokensResponse: FeaturedTokensResponse = data;
-                const featuredTokens = featuredTokensResponse.content.Items.map(
-                    tokenResponse => new FeaturedToken(tokenResponse)
-                )
-                setFeaturedTokens(featuredTokens)
-
-            }
-
-        )
-    }
-
-    const fetchRecentlyAdded = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/upcomings').then(
-            ({ data }) => {
-                const recentlyAddedResponse: FeaturedTokensResponse = data;
-                const recentlyAdded = recentlyAddedResponse.content.Items.map(
-                    tokenResponse => new FeaturedToken(tokenResponse)
-                )
-                setRecentlyAdded(recentlyAdded)
-
-            }
-
-        )
-
-    }
-
-
-    const fetchLatestScams = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/SCAM').then(
-            ({ data }) => {
-                const latestScamsResponse: FeaturedTokensResponse = data;
-                const latestScams = latestScamsResponse.content.Items.map(
-                    tokenResponse => new FeaturedToken(tokenResponse)
-                )
-                setLatestScams(latestScams)
-
-            }
-
-        )
-
-    }
-
-
-    const fetchPotentialScams = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/POTENTIAL_SCAM').then(
-            ({ data }) => {
-                const potentialScamsResponse: FeaturedTokensResponse = data;
-                const potentialScams = potentialScamsResponse.content.Items.map(
-                    tokenResponse => new FeaturedToken(tokenResponse)
-                )
-                setPotentialScams(potentialScams)
-
-            }
-
-        )
-
-    }
 
     const validadeAddress = (address: string) => {
         return axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokenorwalletinfo/${address}`)
@@ -405,12 +335,6 @@ export const HomeComponent: React.FC = () => {
         return (b as any) - (a as any);
     }
 
-    const sortUpcomingByPresaleDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
-        const a = new Date(tokenA.presaleDate as string);
-        const b = new Date(tokenB.presaleDate as string);
-        return (b as any) - (a as any);
-    }
-
     const filterUpcomingByVerified = (token: FeaturedToken) => {
         return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
     }
@@ -423,12 +347,12 @@ export const HomeComponent: React.FC = () => {
 
     const potentialSearch: FormEventHandler<HTMLInputElement> = (e) => {
         imgLoading('potential');
-        potentialNameFilter(e.currentTarget.value);
+        setPotentialNameFilter(e.currentTarget.value);
     }
 
-    
+
     const imgLoading = (indentifier: string) => {
-        
+
         const functions: any = {
             featured: featuredImgLoading,
             recently: recentlyImgLoading,
@@ -441,7 +365,7 @@ export const HomeComponent: React.FC = () => {
         } catch (e) {
         }
     }
-    
+
     const featuredImgLoading = () => {
         setFeaturedImageLoading(true);
         setTimeout(() => {
@@ -508,11 +432,13 @@ export const HomeComponent: React.FC = () => {
                     onChange={(page: number) => updatePage('featured', page)}
                 ></Pagination>]}
             >
-                {
-                    featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) => 
-                    <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
-                    )
-                }
+                <div className="content-wrapper">
+                    {
+                        featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) =>
+                            <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
+                        )
+                    }
+                </div>
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
                 }
@@ -535,8 +461,8 @@ export const HomeComponent: React.FC = () => {
                         onChange={(page: number) => updatePage('recently', page)}
                     ></Pagination>]}>
                 {
-                    recentlyAdded?.filter(filterUpcomingByVerified).sort(sortUpcomingByPresaleDate).slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) => 
-                    <RecentlyAddedItem token={token} imageLoading={recentlyImageLoading}></RecentlyAddedItem>)
+                    recentlyAdded?.filter(filterUpcomingByVerified).slice((recentlyAddedPage - 1) * 6, recentlyAddedPage * 6).map((token: FeaturedToken) =>
+                        <RecentlyAddedItem token={token} imageLoading={recentlyImageLoading}></RecentlyAddedItem>)
                 }
                 {
                     recentlyAdded?.length === 0 && <div><Empty /></div>
@@ -563,14 +489,14 @@ export const HomeComponent: React.FC = () => {
                             current={latestScamsPage}
                             defaultPageSize={6}
                             defaultCurrent={1}
-                            total={latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).length}
+                            total={latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).length}
                             onChange={(page: number) => updatePage('latest', page)}
                         ></Pagination>]}
                 >
                     <div className="wrap" style={{ marginTop: '50px' }}>
                         {
-                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter)).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) => 
-                            <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)
+                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) =>
+                                <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)
                         }
                         {
                             latestScams?.length === 0 && <div><Empty /></div>
@@ -591,13 +517,13 @@ export const HomeComponent: React.FC = () => {
                         current={potentialScamsPage}
                         defaultPageSize={6}
                         defaultCurrent={1}
-                        total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).length}
+                        total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).length}
                         onChange={(page: number) => updatePage('potential', page)}
                     ></Pagination>]}
                 >
                     {
-                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter)).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) => 
-                        <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) =>
+                            <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>)
                     }
 
                     {

@@ -124,7 +124,7 @@ export const TokenDashboardComponent: React.FC = () => {
             <Card title="Audit Information">
                 {loadingState && <div className='loading'> <Spin /></div>}
                 {
-                    tokenData?.basicInfo?.SpyWolfAudit != undefined &&
+                   tokenData?.basicInfo?.SpyWolfAudit !== undefined &&
                     <div>
                         <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
                             <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{'SpyWolf'}</Descriptions.Item>
@@ -146,7 +146,21 @@ export const TokenDashboardComponent: React.FC = () => {
                     </div>
                 }
                 {
-                    (!loadingState && !tokenData?.basicInfo?.SpyWolfAudit != undefined) &&
+                    ((tokenData?.basicInfo?.SpyWolfAudit === undefined) && (tokenData?.basicInfo?.OtherCompanyAudit !== undefined)) && <div>
+                        <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
+                            <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{(tokenData?.basicInfo?.OtherCompanyAudit as any).companyName}</Descriptions.Item>
+                            {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
+                        </Descriptions>
+                        <div className="audit-link">
+                            <LaptopOutlined color='#b5b5c3'
+                            ></LaptopOutlined>
+                            <a target="__blank"
+                                className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
+                                href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>"Certificate of Trust" Link</a></div>
+                    </div>
+                }
+                {
+                    (!loadingState && tokenData?.basicInfo?.SpyWolfAudit === undefined && tokenData?.basicInfo?.OtherCompanyAudit === undefined) &&
                     <span className="text-gray-800 fw-bold mb-5 fs-6">
                         Audits provide more security to potential investors. If you need an audit for your project, contact <a href="mailto:audits@spywolf.co" style={{ color: '#AADADF ' }}>SpyWolf</a>
                     </span>
@@ -166,7 +180,7 @@ export const TokenDashboardComponent: React.FC = () => {
                 {loadingState && <div className='loading' > <Spin /></div>}
                 {!loadingState &&
                     <div>
-                        <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span> }</p>
+                        <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span>}</p>
                         <h1 >Contact Address</h1>
                         {tokenAddress && <span className='contact-address'>{tokenAddress}</span>}
                         <div className="descriptions-wrapper">

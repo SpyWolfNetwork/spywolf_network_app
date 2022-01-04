@@ -18,10 +18,11 @@ export const Container = styled.div`
         justify-content: space-between;
         flex-direction: row;
         height: fit-content;
+        flex-wrap: wrap;
         h3{
             display: flex;
             max-width: 100%;
-            width: 100%;
+            width: fit-content;
             flex-wrap: wrap;
             overflow: hidden;
         }

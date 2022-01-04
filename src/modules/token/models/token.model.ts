@@ -47,6 +47,11 @@ export interface SpyWolfAudit {
     certificateOfTrustGif: string;
 }
 
+export interface OtherCompanyAuditModel {
+    auditLink: string;
+    companyName: string;
+}
+
 export interface Item {
     website: string;
     presaleInfo: Partial<PresaleInfo>;
@@ -68,6 +73,7 @@ export interface Item {
     status: string;
     deployedDate: string;
     tag: any;
+    OtherCompanyAudit?: OtherCompanyAuditModel;
 }
 
 export interface Content {
@@ -149,12 +155,20 @@ export class Token {
         // scamReasonTooltip?: string;        if (!isUpcoming) {
         this.level = 'Upcoming';
 
+        const hasAudit = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.some(item => {
+            return item.OtherCompanyAudit !== undefined
+        })
+
+        const otherAudit: Item | undefined = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.filter(item => {
+            return item.OtherCompanyAudit !== undefined
+        })[0]
+
         this.currentMarketCap = tokenResponse?.smartContractInfo?.marketCapInDollar;
         this.currentPrice = tokenResponse ? (tokenResponse?.tokenPrice?.priceInBNB * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
         this.lastchange = 'empty'
         this.currentLiquidity = tokenResponse ? (tokenResponse?.smartContractInfo?.liquidityBalance * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
         this.contractAddress = tokenResponse?.tokenPrice?.address;
-        this.basicInfo = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
+        this.basicInfo = (hasAudit && tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0].SpyWolfAudit === undefined)? otherAudit : tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
         this.topHolders = tokenResponse?.smartContractInfo?.topHolders;
         this.currency = tokenResponse?.smartContractInfo?.currency;
         this.isVerified = tokenResponse?.smartContractInfo?.isVerified;

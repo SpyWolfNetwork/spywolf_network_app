@@ -30,13 +30,18 @@ export const SearchContainer = styled.div`
 
 export const CardGrid = styled.div`
     width: 100%;
-    display: block;
+    display: grid;
     grid-template-columns: 1fr;
         grid-template-rows: auto;
         column-gap: 1.4em;
         row-gap: 1.4em;
         .ant-card .ant-card-body{
             overflow-x: auto !important;
+        }
+        .bottom-cards{
+        display: grid !important;
+    }
+    .content-wrapper{
         }
     @media ( min-width: 1200px){
         display: grid;
@@ -61,11 +66,7 @@ export const CardGrid = styled.div`
         grid-column: 1/3;
         grid-row: 1/3;
         min-height: 890px;
-       .ant-card{
-        .ant-card-head{
-            margin-bottom: 12px !important;
-        }
-       }
+
  
     }
     #recently{
@@ -83,7 +84,7 @@ export const CardGrid = styled.div`
 
     }
     .bottom-cards{
-        display: flex;
+        display: grid !important;
         grid-column: 1/4;
         column-gap: 1.4em;
         row-gap: 1.4em;

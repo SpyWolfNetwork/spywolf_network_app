@@ -76,7 +76,6 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                                 tag: tokenData.basicInfo?.tag
                             })
                             .then(() => {
-                                console.log('votes', votes)
                                 _votes.push({
                                     votingTimestamp: Date.now(),
                                     ipAddress: res.data.ip,

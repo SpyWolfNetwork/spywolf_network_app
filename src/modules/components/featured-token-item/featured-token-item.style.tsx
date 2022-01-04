@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr 1fr 50px;
+  grid-template-columns: 50px 1fr 1fr 1fr;
   align-items: center;
   border-bottom: 1px dashed #eff2f5;
   padding: 1rem 0;
@@ -11,6 +11,10 @@ export const Container = styled.div`
       cursor: pointer;
       &:hover{
             background: #f4f7f9;
+      }
+      @media (max-width: 1200px){
+            grid-template-columns: 50px 1fr 1fr;
+
       }
 `;
 
@@ -51,6 +55,9 @@ export const ReleaseContainer = styled.div`
       flex-direction: column;
       justify-content: flex-start;
       align-items: flex-start;
+      @media (max-width: 1200px){
+            display: none;
+      }
 `;
 
 

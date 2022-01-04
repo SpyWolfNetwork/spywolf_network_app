@@ -66,9 +66,17 @@
     font-size: 1.275rem;
   }
   .ant-card-head-wrapper {
-    align-items: flex-start !important;
+    align-items: center !important;
+    flex-wrap: wrap;
+    .ant-card-head-title{
+      min-width: fit-content;
+    }
     .ant-card-extra {
       padding: 0;
+      @media (max-width: 460px){
+        margin: 0 !important;
+        float: left;
+      }
     }
   }
 
@@ -76,6 +84,7 @@
     width: 100% !important;
     padding: 0 !important;
     height: 100%;
+    margin-top: 15px !important;
     > h1 {
       font-size: 1.275rem !important;
       @include bold(demi-bold);
@@ -264,6 +273,7 @@
   color: #5e6278  !important;
   font-weight: 500  !important;
   transition: color .2s ease, background-color .2s ease  !important;
+  padding: .75rem 1rem !important;
   .ant-btn::before
   {
       background: transparent !important;
@@ -300,8 +310,9 @@
       outline:none !important;
       border-color: transparent !important;
   }
+
   input::placeholder{
-      color:#a1a5bc !important;
+      color:#5e6278 !important;
       font-weight: 500 !important;
   }
 
@@ -325,4 +336,18 @@
     background-color: #eef3f7 !important;
     border-color: #eef3f7 !important;
   }
+} 
+input::placeholder{
+      color:#a1a5b9 !important;
+      font-weight: 500 !important;
+  }
+  .card-title{
+    margin: 0 !important;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    width: fit-content;
+    .card-label{
+          margin: 0 !important;
+    }
 }

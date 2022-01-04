@@ -57,6 +57,28 @@ export const ReleaseContainer = styled.div`
 export const TrustLevelContainer = styled.div`
       display: flex;
       justify-content: center;
+      align-items: center;
+      height: 100%;
+      .tag{
+            display: none;
+      }
+      .icon{      
+            display: block;
+            .verified{
+                  color: #68ae68;
+            }
+            .unverified{
+                  color: #d59e37;
+            }
+      }
+      @media (min-width: 1200px){
+            .tag{
+                  display: flex;
+            }
+            .icon{
+                  display: none;
+            }
+      }
 
 `;
 

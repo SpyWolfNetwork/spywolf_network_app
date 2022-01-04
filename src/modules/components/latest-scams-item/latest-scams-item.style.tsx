@@ -3,10 +3,14 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 100px 1fr 100px ;
+  grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) 100px ;
   column-gap: 1rem;
   padding:1rem 0;
   align-items: center;
+  .card-title{
+        margin: 0 !important;
+  }
+  
   cursor: pointer;
       &:hover{
             background: #f4f7f9;
