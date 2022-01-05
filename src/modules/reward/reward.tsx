@@ -383,7 +383,7 @@ const RewardComponent: React.FC = () => {
                 <Steps.Step title="Type your wallet address" description="Our system will inspect your tokens." />
                 <Steps.Step title="See list of scams" description="Find out which tokens scammed you" />
                 <Steps.Step title="$SPY transactions" description={<span>
-                    "(Make sure you <a style={{ color: '#5eaab3' }} target="__blank" href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">bought SPYs </a> already)."
+                    (Make sure you <a style={{ color: '#5eaab3' }} target="__blank" href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">bought SPYs </a> already)
                 </span>} />
                 <Steps.Step title="See your reward!" description="Based on your highest transaction" />
                 <Steps.Step title="Complete" description="You'll Receive your SPYs within 24 hrs!" />
@@ -402,14 +402,14 @@ const RewardComponent: React.FC = () => {
 
                     <div className="search-wrapper">
                         <span className='fs-4 fw-bold mb-3' style={{ textAlign: 'center' }}>
-                            Let's start by finding your scammed tokens
+                            Let us inspect the wallet that has the scammed tokens
                         </span>
                         <Input
                             onKeyDown={handleSearchEnter}
                             prefix={<Button
                                 type='ghost' style={{ background: 'transparent !important' }}
                                 loading={addressLoading} icon={<SearchOutlined />} > </Button>}
-                            placeholder="Search by Token Address..."
+                            placeholder="Input Wallet Address"
                             onPaste={searchTokenOrWalletOnPaste}
                         />
                         {
