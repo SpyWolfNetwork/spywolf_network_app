@@ -200,7 +200,7 @@ export const TokenDashboardComponent: React.FC = () => {
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Status">
                                     {tokenData?.basicInfo?.status ? tokenData?.basicInfo?.status : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Released Date">{
+                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Release Date">{
                                     (tokenData as Token)?.basicInfo?.deployedDate ? getDate(tokenData?.basicInfo?.deployedDate as string) : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Is Contract Verified?">
