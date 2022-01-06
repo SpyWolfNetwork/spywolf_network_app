@@ -55,6 +55,7 @@ export class FeaturedToken {
     alldata?: FeaturedTokenDTO;
     vettedBy: string
     presaleDate?: string;
+    tag?: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -76,7 +77,10 @@ export class FeaturedToken {
         }
         }
 
+        if(featuredTokenDTO.tag){
+            this.tag = featuredTokenDTO.tag;
 
+        }
         this.trustLevel = featuredTokenDTO?.trustLevel;
         this.address = featuredTokenDTO?.address;
         this.scamReason = featuredTokenDTO?.scamReason;

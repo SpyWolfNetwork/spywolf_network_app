@@ -25,11 +25,11 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [votes, setVotes] = useState(0);
     const [alreadyVoted, setAlreadyVoted] = useState<boolean>(false);
 
-    useEffect( () => {
+    useEffect(() => {
         if (tokenData?.basicInfo?.votes) {
             setVotes(tokenData?.basicInfo?.votes);
         }
-   
+
     }, [tokenData])
 
     useEffect(() => {
@@ -42,7 +42,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                     ipAddress: res.data.ip
                 }).then(
                     res => {
-                 
+
                         window.sessionStorage.setItem('votes', JSON.stringify(res.data.content.Items));
                         setAlreadyVoted(res.data.content.Items.some(item => item.token_address === tokenData?.basicInfo?.address))
                     }
@@ -53,7 +53,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
         if (!props.loading) {
             loadCaptchaEnginge(6);
         }
-    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address, alreadyVoted,votes]);
+    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address, alreadyVoted, votes]);
 
     const doSubmit = () => {
 
@@ -129,12 +129,14 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
         'Level 1': '#fff8dd',
         'Level 2': '#E6F4F1',
         'Level 3': '#f8f5ff',
+        'verified': 'white'
     };
 
     const trustLevelTextColor: { [x: string]: string } = {
         'Level 1': '#b39019 ',
         'Level 2': '#65a0a7 ',
         'Level 3': '#7e6aa7 ',
+        'verified': '#54af85'
     };
 
     const handleKeydown: KeyboardEventHandler<HTMLInputElement> | undefined = (e) => {
@@ -142,30 +144,48 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
             doSubmit();
         }
     }
+    const ribbonStyleBG = () => {
+        if (tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') {
+            return '#cf1322';
+        }
+        if (!tokenData?.level) {
+            return trustLevelTextColor[tokenData?.basicInfo?.tag.toLowerCase()];
+        }
+        return trustLevelTextColor[tokenData?.level ? tokenData?.level : 1];
+    }
+    const ribbonStyleColor = () => {
+        if (tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') {
+            return 'white';
+        }
+        if (!tokenData?.level) {
+            return trustLevelBgColor[tokenData?.basicInfo?.tag.toLowerCase()];
+        }
+        return trustLevelBgColor[tokenData?.level ? tokenData?.level : 1];
+    }
 
     return <Container className={`${(tokenData?.basicInfo?.trustLevel !== undefined || tokenData?.basicInfo?.tag) ? 'showRibbon' : 'hideRibbon'}`}>
         {/* ${ tokenData?.basicInfo?.tag === 'UNVERIFED' ? 'UNVERIFIED' : ('Trust' + tokenData?.level)} */}
         <Badge.Ribbon
             style={
                 {
-                    background: (tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') ? '#cf1322' : trustLevelTextColor[tokenData?.level ? tokenData?.level : 1],
-                    color: (tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') ? 'white' : trustLevelBgColor[tokenData?.level ? tokenData?.level : 1]
+                    background: ribbonStyleBG(),
+                    color: ribbonStyleColor()
                 }
-            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM') ? tokenData?.basicInfo?.tag : `Trust ${tokenData?.level}`}`} placement='start' >
+            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM' || tokenData?.basicInfo?.trustLevel === undefined) ? tokenData?.basicInfo?.tag : `Trust ${tokenData?.level}`}`} placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
                 {props.loading}
                 <div className="token-logo-wrapper">
                     {
                         !props.loading &&
-                        <img width={'100%'} src={tokenData?.basicInfo?.logo ?  tokenData?.basicInfo?.logo : logoplaceholder} alt="" />
+                        <img width={'100%'} src={tokenData?.basicInfo?.logo ? tokenData?.basicInfo?.logo : logoplaceholder} alt="" />
                     }
-               
+
                 </div>
                 {!props.loading && <div className="actions">
                     <DashedCard className='dashed-like'>
                         <div className="like-wrapper">
                             <h1 className='fs-4 fw-bolder text-gray-900 votes-quantity'> {
-                                 votes } <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
+                                votes} <span><FaArrowUp style={{ marginLeft: '10px', width: 8, color: '#17b8ff' }} /></span> </h1>
                             <span className=' fw-bolder text-gray-900 votes-label'>Votes</span>
 
                             <div className="captcha-wrapper" style={{ opacity: addingCaptcha ? 1 : 0, display: addingCaptcha ? 'block ' : 'none' }}>

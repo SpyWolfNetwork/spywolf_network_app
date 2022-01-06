@@ -43,7 +43,7 @@ export interface AuditedTokenResponseModel {
 
 export class AuditedToken{
     address: string;
-    logopicture: string;
+    logoPicture: string;
     name: string;
     symbol: string;
     tag: string;
@@ -51,7 +51,7 @@ export class AuditedToken{
 
     constructor( incomingToken: AuditedTokenItemModel ){
         this.address = incomingToken.address;
-        this.logopicture = incomingToken.logo;
+        this.logoPicture = incomingToken.logo;
         this.name = incomingToken.name;
         this.symbol = incomingToken.symbol;
         this.tag = incomingToken.tag;

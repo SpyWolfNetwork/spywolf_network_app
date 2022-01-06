@@ -53,7 +53,7 @@ const UnverifiedTokens: React.FC = () => {
         >
             {
                 auditedTokens && auditedTokens?.map(token => <SwiperSlide style={{width: 'fit-content'}}>
-                    <TokenSlideItem token={token} />
+                    <TokenSlideItem token={token} tagColor='green' />
                 </SwiperSlide>)
             }
         </Swiper>

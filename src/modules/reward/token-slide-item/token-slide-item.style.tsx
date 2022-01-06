@@ -20,6 +20,9 @@ export const AuditTokenSlideWrapper = styled.div`
     .name{
         text-align: center;
         max-width: 100px;
+        max-height: 100px;
+        line-height: 100%;
+        margin-top: 5px;
     }
 `;
 

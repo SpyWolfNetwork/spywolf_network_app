@@ -475,7 +475,7 @@ export const HomeComponent: React.FC = () => {
             <Card id="advertisement" title={<CardTitleSubtitle subtitle="Advertisement" />}>
                 <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
             </Card>
-            <Card id="unverified" title={<CardTitleSubtitle title="Unverified Tokens"/>}>
+            <Card id="verified" title={<CardTitleSubtitle title="Verified Tokens"/>}>
                 <UnverifiedTokens/>
             </Card>
             <div className="bottom-cards">
