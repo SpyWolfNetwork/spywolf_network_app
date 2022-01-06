@@ -135,7 +135,7 @@ export const TokenDashboardComponent: React.FC = () => {
                             ></LaptopOutlined>
                             <a target="__blank"
                                 className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
-                                href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>"Certificate of Trust" Link</a></div>
+                                href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified'? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
                         <div className="audit-gif">
                             <img
                                 width="100%"
@@ -156,7 +156,7 @@ export const TokenDashboardComponent: React.FC = () => {
                             ></LaptopOutlined>
                             <a target="__blank"
                                 className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
-                                href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>"Certificate of Trust" Link</a></div>
+                                href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>{tokenData.basicInfo.tag.toLowerCase() === 'verified'? 'Audit' : '"Certificate of Trust"'} Link</a></div>
                     </div>
                 }
                 {

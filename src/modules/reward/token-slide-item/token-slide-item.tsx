@@ -10,7 +10,7 @@ const TokenSlideItem: React.FC<{ token: Partial<FeaturedToken>, logoSize?: strin
     useEffect(() => { }, []);
 
     return <Container>
-        <AuditTokenSlideWrapper>
+        <AuditTokenSlideWrapper style={{ width: '80px' }}>
                 <div className="logo">
                     <img width={props.logoSize ? props.logoSize : '100px'} src={props.token.logoPicture} alt="" />
                 </div>

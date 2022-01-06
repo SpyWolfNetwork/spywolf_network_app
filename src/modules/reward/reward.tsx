@@ -1,6 +1,6 @@
 // Dependencies
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Card, Input, Spin, Steps, Switch } from 'antd';
+import { Button, Card, Input, Pagination, Spin, Steps, Switch } from 'antd';
 import axios from 'axios';
 import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -8,16 +8,18 @@ import Swal from 'sweetalert2';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { HomeContext } from '../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../core/routes/providers/models/home-provider.model';
- import { AddressCheckResponseModel } from '../home/models/address-check.model';
+import { AddressCheckResponseModel } from '../home/models/address-check.model';
 import { FeaturedToken } from '../home/models/featured-token';
 import { DashedCard } from '../token/components/token-info-highlight/token-info-highlight.style';
 import { ResultFinalItemModel, ScamTokensResponseModel } from './models/scam-tokens.model';
 import { SpyCharityInfoModel } from './models/spy-info.model';
 import { Container } from './reward.style';
-import SwiperCore, { Autoplay } from 'swiper'
+import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 'swiper'
 import TokenSlideItem from './token-slide-item/token-slide-item';
 
-SwiperCore.use([Autoplay])
+SwiperCore.use([Autoplay, Navigation, Pagination, Scrollbar, A11y]);
+
+
 const RewardComponent: React.FC = () => {
     const formatter = new Intl.NumberFormat('en-US', {
         maximumFractionDigits: 3,
@@ -398,40 +400,8 @@ const RewardComponent: React.FC = () => {
         </Card>
         <Card >
             {
-                step1 && <div className='content'> <div className="title-wrapper">
-                    <h1 className='fs-2hx text-dark mb-2'>
-                        "Scam Survivor" Charity
-                    </h1>
-                    <span className='fs-2 fw-bold mb-20 earn-extra-cta'>
-                        Earn an extra 10% when you buy $SPY
-                    </span>
-                </div>
-                    <div className="slider-space">
-                        <Swiper
-                            onBeforeInit={(swipper) => {
-                                setSwipe(swipper)
-                                setTimeout(swipper.slideNext, 2000)
-                            }}
-                   
-                            loop={true}
-                            autoplay={{
-                                delay: 2000,
-                                pauseOnMouseEnter: true
-                            }}
-                            slidesPerView={3}
-                            onSlideChange={() => console.log('slide change')}
-                            onSwiper={(swiper) => console.log(swiper)}
-                            slidesOffsetBefore={40}
-                            effect={'fade'}
-                        >
-                            {
-                                latestScams && latestScams?.map(token => <SwiperSlide style={{ width: 'fit-content !important' }}>
-                                    <TokenSlideItem logoSize={'50px'} token={token} tagColor='red' />
-                                </SwiperSlide>)
-                            }
-                        </Swiper>
-                    </div>
-                    <div className="search-wrapper">
+                step1 && <div className='content'>
+                    <div className="search-wrapper" style={{ marginBottom: '1.2rem' }}>
                         <span className='fs-4 fw-bold mb-3' style={{ textAlign: 'center' }}>
                             Let us inspect the wallet that has the scammed tokens
                         </span>
@@ -455,6 +425,40 @@ const RewardComponent: React.FC = () => {
                             </div>
                         }
                     </div>
+                    <div className="title-wrapper">
+                        <h1 className='fs-2hx text-dark mb-2'>
+                            "Scam Survivor" Charity
+                        </h1>
+                        <span className='fs-2 fw-bold mb-20 earn-extra-cta'>
+                            Earn an extra 10% when you buy $SPY
+                        </span>
+                    </div>
+                    <div className="slider-space">
+                        <Swiper
+                            onBeforeInit={(swipper) => {
+                                setSwipe(swipper)
+                                setTimeout(swipper.slideNext, 2200)
+                            }}
+                            onAfterInit={swiper => {
+                            }}
+                            loop={true}
+                            autoplay={{
+                                delay: 1000,
+                                pauseOnMouseEnter: false,
+                                disableOnInteraction: false,
+                            }}
+                            slidesPerView={3}
+                            slidesOffsetBefore={40}
+                            effect='fade'
+                        >
+                            {
+                                latestScams && latestScams?.map(token => <SwiperSlide style={{ width: '80px !important' }}>
+                                    <TokenSlideItem  logoSize={'50px'} token={token} tagColor='red' />
+                                </SwiperSlide>)
+                            }
+                        </Swiper>
+                    </div>
+
                 </div>
             }
 
