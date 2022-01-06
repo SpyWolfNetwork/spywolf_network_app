@@ -18,8 +18,12 @@ export const Container = styled.div`
         flex-direction: column;
         align-items: flex-start;
         text-align: left;
+        flex-wrap: wrap;
+        max-width: 231px;
         .name {
             margin: 0 !important;
+            flex-wrap: wrap;
+            white-space: pre-wrap;
         }
 
     }

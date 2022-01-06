@@ -132,4 +132,14 @@ export const Container = styled.div`
         text-align: center;
         padding: 2rem 0;
     }
+
+    .slider-space{
+        width: 50%;
+        display: flex;
+        align-items: center;
+
+    }
+    .earn-extra-cta{
+        margin-bottom: 1rem !important;
+    }
 `;

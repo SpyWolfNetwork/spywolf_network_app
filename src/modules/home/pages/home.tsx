@@ -22,6 +22,9 @@ import scambanner from '../../../assets/ads/banner-scams.png'
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 
 
+import UnverifiedTokens from '../components/unverified-tokens/unverified-tokens';
+
+
 const { toChecksumAddress } = require('ethereum-checksum-address');
 
 export const HomeComponent: React.FC = () => {
@@ -471,6 +474,9 @@ export const HomeComponent: React.FC = () => {
             </Card>
             <Card id="advertisement" title={<CardTitleSubtitle subtitle="Advertisement" />}>
                 <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
+            </Card>
+            <Card id="verified" title={<CardTitleSubtitle title="Verified Tokens"/>}>
+                <UnverifiedTokens/>
             </Card>
             <div className="bottom-cards">
                 {/* subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`} */}

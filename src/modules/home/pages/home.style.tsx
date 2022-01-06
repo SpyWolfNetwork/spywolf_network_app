@@ -73,6 +73,10 @@ export const CardGrid = styled.div`
         grid-column:3;
         grid-row: 1;
     }
+    #verified{
+        grid-column:1/4;
+        min-height: 300px;
+    }
     #advertisement{
         grid-column: 3/3;
         grid-row: 2/3;
