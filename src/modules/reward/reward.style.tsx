@@ -134,9 +134,13 @@ export const Container = styled.div`
     }
 
     .slider-space{
-        width: 50%;
+        width: 100%;
         display: flex;
         align-items: center;
+        @media ( min-width: 976px){
+            width: 50%;
+
+        }
 
     }
     .earn-extra-cta{

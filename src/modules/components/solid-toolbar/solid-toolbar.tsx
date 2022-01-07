@@ -40,29 +40,12 @@ const SolidToolbar: React.FC<{ onChange: any, setLoading: any }> = (props) => {
 
     }
 
-
-    const changeLevel1 = () => {
-        props.onChange('Level 1');
+    const onchange = (e) => {
+        props.onChange(e);
         props.setLoading('featured');
-        setActivatedItem('Level 1')
+        setActivatedItem(e)
 
     }
-
-
-    const changeLevel2 = () => {
-        props.onChange('Level 2');
-        props.setLoading('featured');
-        setActivatedItem('Level 2')
-
-    }
-
-    const changeLevel3 = () => {
-        props.onChange('Level 3');
-        props.setLoading('featured');
-        setActivatedItem('Level 3')
-
-    }
-    useEffect(() => { }, [activatedItem]);
 
 
 
@@ -73,12 +56,12 @@ const SolidToolbar: React.FC<{ onChange: any, setLoading: any }> = (props) => {
             <Radio.Button className='Level2' value="Level 2">Trust Level 2</Radio.Button>
             <Radio.Button className='Level1' value="Level 1">Trust Level 1</Radio.Button>
         </Radio.Group>
-            <Select  defaultActiveFirstOption={true} defaultValue={'all'}>
-                <option className='All' value="all" onClick={changeAll} >All</option>
-                <option className='Level3' value="Level 3" onClick={changeLevel3}>Trust Level 3</option>
-                <option className='Level2' value="Level 2" onClick={changeLevel2}>Trust Level 2</option>
-                <option className='Level1' value="Level 1" onClick={changeLevel1}>Trust Level 1</option>
-            </Select>
+        <Select defaultActiveFirstOption={true} defaultValue={'all'} onChange={onchange}>
+            <option className='All' value="all" onClick={changeAll} >All</option>
+            <option className='Level3' value="Level 3" >Trust Level 3</option>
+            <option className='Level2' value="Level 2" >Trust Level 2</option>
+            <option className='Level1' value="Level 1">Trust Level 1</option>
+        </Select>
 
     </Container>;
 };

@@ -10,8 +10,9 @@ export const AuditTokenSlideWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
     width: fit-content;
-    max-height: 200px;
+    max-height: 150px;
     .logo{
         img{
             border-radius: 50%;
