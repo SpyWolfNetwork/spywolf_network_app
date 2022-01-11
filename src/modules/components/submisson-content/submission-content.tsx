@@ -174,6 +174,18 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                                 }
                             })
                         }
+                    ).catch(
+                        res => {
+                            Swal.fire({
+                                title: 'Oops!',
+                                text: 'something went wrong!',
+                                icon: 'error',
+                                confirmButtonText: 'Try Again',
+                                willClose: () => {
+                                    setVisibleModal(false)
+                                }
+                            })
+                        }
                     )
                 }
             )
@@ -212,6 +224,18 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                                 timer: 5000,
                                 didClose: () => {
                                     navigate('/')
+                                    setVisibleModal(false)
+                                }
+                            })
+                        }
+                    ).catch(
+                        res => {
+                            Swal.fire({
+                                title: 'Oops!',
+                                text: 'something went wrong!',
+                                icon: 'error',
+                                confirmButtonText: 'Try Again',
+                                willClose: () => {
                                     setVisibleModal(false)
                                 }
                             })
@@ -476,7 +500,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                         </Form.Item>
                     </div>
 
-                    <Form.Item name="releaseDate" label="Release Date" rules={[{ required: false }]}>
+                    <Form.Item name="releaseDate" label="Release Date" rules={[{ required: true }]}>
                         <DatePicker suffixIcon={
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path opacity="0.3" d="M21 22H3C2.4 22 2 21.6 2 21V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5V21C22 21.6 21.6 22 21 22Z" fill="black"></path>
