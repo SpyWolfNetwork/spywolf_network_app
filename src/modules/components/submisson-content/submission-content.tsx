@@ -145,7 +145,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     telegram: formdata.telegram ? formdata.telegram : '',
                     website: formdata.website ? formdata.website : '',
                     symbol: formdata.symbol ? `$${formdata.symbol}` : '',
-                    status: !formdata.presale ? 'LAUNCHED' : 'NOT LAUNCHED',
+                    status: formdata.releaseDate._d > new Date() ? 'NOT LAUNCHED' : 'LAUNCHED',
                     address: formdata.address ? formdata.address : '',
                     logo: formdata.logo ? formdata.logo : '',
                     name: formdata.name ? formdata.name : '',
