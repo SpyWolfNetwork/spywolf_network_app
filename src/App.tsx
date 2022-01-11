@@ -23,9 +23,9 @@ function App() {
   const [navbarOpen, setNavbarOpen] = useState<boolean>();
   const [windowScroller, setWindowScroller] = useState<boolean>();
 
-  const { ctx, ctxDisabled } = useContext(ApplicationContext) as any;
+  const {  ctxDisabled, ctxModal } = useContext(ApplicationContext) as any;
 
-  const [visibleModal, setVisibleModal] = ctx;
+  const [visibleModal, setVisibleModal] = ctxModal;
   const [buttonDisabled, setButtonDisabled] = ctxDisabled;
 
   let navbarRef: HTMLDivElement | null;

@@ -14,9 +14,9 @@ import { AddressCheckResponseModel } from '../../home/models/address-check.model
 import { Container } from './submission-content.style';
 
 const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
-    const { ctx, ctxDisabled } = useContext(ApplicationContext) as any;
+    const { ctxModal, ctxDisabled } = useContext(ApplicationContext) as any;
 
-    const [visibleModal, setVisibleModal] = ctx;
+    const [visibleModal, setVisibleModal] = ctxModal;
     const [buttonDisabled, setButtonDisabled] = ctxDisabled;
 
     const [formOption, setFormOption] = useState();
@@ -26,13 +26,13 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
     const [scamForm] = Form.useForm();
 
     const checkValidation = () => {
-        const { address, presale, name, symbol, telegram, hardcap, softcap, presalelink } = tokenForm.getFieldsValue();
+        const { address, presale, name, symbol, telegram, hardcap, softcap, presalelink,releaseDate } = tokenForm.getFieldsValue();
         if (presale) {
-            const formIsInvalid = !!address && !!name && !!symbol && !!telegram && !!hardcap && !!softcap && !!presalelink;
+            const formIsInvalid = !!address && !!name && !!symbol && !!telegram && !!hardcap && !!softcap && !!presalelink && !!releaseDate;
             setButtonDisabled(!formIsInvalid || addresValidation?.active || hardcapValidation?.active || softcapValidation?.active)
 
         } else {
-            const formIsInvalid = !!address && !!name && !!symbol && !!telegram;
+            const formIsInvalid = !!address && !!name && !!symbol && !!telegram && !!releaseDate;
             setButtonDisabled(!formIsInvalid || addresValidation?.active || hardcapValidation?.active || softcapValidation?.active)
         }
     }
@@ -103,6 +103,14 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
             checkValidationScam();
         }
     }, [formOption])
+
+    const handleDatePickerChange = () => {
+        if (formOption === 'token') {
+            checkValidation();
+        } else {
+            checkValidationScam();
+        }
+    }
 
 
     const formChange = (form) => {
@@ -501,7 +509,9 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     </div>
 
                     <Form.Item name="releaseDate" label="Release Date" rules={[{ required: true }]}>
-                        <DatePicker suffixIcon={
+                        <DatePicker 
+                        onChange={handleDatePickerChange}
+                        suffixIcon={
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
                                 <path opacity="0.3" d="M21 22H3C2.4 22 2 21.6 2 21V5C2 4.4 2.4 4 3 4H21C21.6 4 22 4.4 22 5V21C22 21.6 21.6 22 21 22Z" fill="black"></path>
                                 <path d="M6 6C5.4 6 5 5.6 5 5V3C5 2.4 5.4 2 6 2C6.6 2 7 2.4 7 3V5C7 5.6 6.6 6 6 6ZM11 5V3C11 2.4 10.6 2 10 2C9.4 2 9 2.4 9 3V5C9 5.6 9.4 6 10 6C10.6 6 11 5.6 11 5ZM15 5V3C15 2.4 14.6 2 14 2C13.4 2 13 2.4 13 3V5C13 5.6 13.4 6 14 6C14.6 6 15 5.6 15 5ZM19 5V3C19 2.4 18.6 2 18 2C17.4 2 17 2.4 17 3V5C17 5.6 17.4 6 18 6C18.6 6 19 5.6 19 5Z" fill="black"></path>

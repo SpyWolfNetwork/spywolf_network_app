@@ -21,7 +21,9 @@ import { RiBarChartFill } from 'react-icons/ri';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
-    const [tokenData]: Token[] = useContext(ApplicationContext) as any[];
+
+    const { ctx } = useContext(ApplicationContext) as any;
+    const [tokenData, setTokenData] = ctx;
     const [addingCaptcha, setAddingCaptcha] = useState(false);
     const [userIP, setUserIP] = useState('');
     const [votes, setVotes] = useState(0);

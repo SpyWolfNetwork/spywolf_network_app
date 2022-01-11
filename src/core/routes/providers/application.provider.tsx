@@ -15,7 +15,8 @@ export const ApplicationProvider = (props: any) => {
     return (
         <ApplicationContext.Provider value={
             {
-                ctx: [tokenData, setTokenData, visibleModal, setVisibleModal],
+                ctx: [tokenData, setTokenData],
+                ctxModal: [ visibleModal, setVisibleModal],
                 ctxDisabled: [buttonDisabled, setButtonDisabled]
             }}>
             {props.children}

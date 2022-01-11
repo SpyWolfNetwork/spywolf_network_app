@@ -26,8 +26,8 @@ import { differenceInDays } from 'date-fns/esm';
 export const TokenDashboardComponent: React.FC = () => {
     const [walletEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_RECEIVED_TOKEN);
 
-    const [tokenData]: Token[] = useContext(ApplicationContext) as any;
-    const [_, setTokenData] = useContext<Token[] | any>(ApplicationContext);
+    const { ctx } = useContext(ApplicationContext) as any;
+    const [tokenData, setTokenData] = ctx;
     const [tokenAddress, setTokenAddress]: any = useState();
     const [loadingState, setLoadingState]: any = useState<boolean>();
 
@@ -136,7 +136,7 @@ export const TokenDashboardComponent: React.FC = () => {
                             ></LaptopOutlined>
                             <a target="__blank"
                                 className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
-                                href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified'? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
+                                href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified' ? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
                         <div className="audit-gif">
                             <img
                                 width="100%"

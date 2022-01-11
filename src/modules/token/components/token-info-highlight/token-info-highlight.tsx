@@ -5,7 +5,9 @@ import { Token } from '../../models/token.model';
 import { Container, DashedCard } from './token-info-highlight.style';
 
 const TokenInfoHighlight: React.FC = () => {
-    const [tokenData]: Token[] = useContext(ApplicationContext) as any[];
+  
+    const { ctx } = useContext(ApplicationContext) as any;
+    const [tokenData, setTokenData] = ctx;
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
