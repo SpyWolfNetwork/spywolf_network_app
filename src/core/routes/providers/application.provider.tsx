@@ -5,13 +5,20 @@ export const ApplicationContext = React.createContext({});
 
 export const ApplicationProvider = (props: any) => {
     const [tokenData, setTokenData] = useState<Token>();
+    const [visibleModal, setVisibleModal] = useState<Token>();
+    const [buttonDisabled, setButtonDisabled] = useState<Token>();
 
     useEffect(() => {
     });
 
 
     return (
-        <ApplicationContext.Provider value={[tokenData, setTokenData]}>
+        <ApplicationContext.Provider value={
+            {
+                ctx: [tokenData, setTokenData],
+                ctxModal: [ visibleModal, setVisibleModal],
+                ctxDisabled: [buttonDisabled, setButtonDisabled]
+            }}>
             {props.children}
         </ApplicationContext.Provider>
     )

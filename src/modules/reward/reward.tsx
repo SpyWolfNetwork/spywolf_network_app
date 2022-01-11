@@ -25,8 +25,7 @@ const RewardComponent: React.FC = () => {
         maximumFractionDigits: 3,
     });
     const { latestScamsState, recentlyAddedState, featuredTokensState, potentialScamsState } = useContext(HomeContext) as HomeProviderModel;
-    const [currentAddress, setCurrentAddress] = useState<string>();
-
+    
     const [latestScams] = latestScamsState;
     const [recentlyTokens] = recentlyAddedState;
     const [featuredTokens] = featuredTokensState;
@@ -36,33 +35,34 @@ const RewardComponent: React.FC = () => {
     const [step3, setStep3] = useState<boolean>(false);
     const [step4, setStep4] = useState<boolean>(false);
     const [step5, setStep5] = useState<boolean>(false);
-
+    
     const [step1Loading, setStep1Loading] = useState<boolean>(false);
     const [step2Loading, setStep2Loading] = useState<boolean>(false);
     const [step3Loading, setStep3Loading] = useState<boolean>(false);
     const [step4Loading, setStep4Loading] = useState<boolean>(true);
-
-
+    
+    
     const [disableClaim, setDisableClaim] = useState<boolean>(false);
-
-
+    
+    
     const [currentStep, setCurrentStep] = useState<number>(0);
-
+    
     const [twitterUrl, setTwitterUrl] = useState<string | null>(null);
-
-
+    
+    
     const [tweetToggle, setTweetToggle] = useState<boolean>(false);
-
-
+    
+    
     const [walletAddress, setWalletAddress] = useState<boolean>(false);
-
-
+    
+    
     const [spyCharityInfo, setspyCharityInfo] = useState<SpyCharityInfoModel>();
 
     const [scamsData, setFirstData] = useState<ResultFinalItemModel[]>([]);
-
-
-
+    
+    
+    
+    const [currentAddress, setCurrentAddress] = useState<string>();
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
     const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -126,7 +126,7 @@ const RewardComponent: React.FC = () => {
                 }
                 addr = toChecksumAddress(event.currentTarget.value);
                 if (addr === '') {
-                    throw new Error('Invalid wallet address')
+                    throw new Error('Please make sure to input a correct Wallet Address')
                 }
             } catch (err) {
                 const e: Error = err as Error;
@@ -147,7 +147,7 @@ const RewardComponent: React.FC = () => {
                             setAddressLoading(false);
                             const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
                             if (addressCheckResponse == null) {
-                                throw new Error('Invalid Wallet Address');
+                                throw new Error('Please make sure to input a correct Wallet Address');
                             }
                             if (addressCheckResponse.contractType === 'wallet') {
                                 setCurrentAddress(addr)
@@ -195,7 +195,7 @@ const RewardComponent: React.FC = () => {
                                             }
                                         })
                             } else {
-                                throw new Error('Invalid Wallet Addres');
+                                throw new Error('Please make sure to input a correct Wallet Address');
 
                             }
                         },
@@ -203,13 +203,13 @@ const RewardComponent: React.FC = () => {
                     ).catch(e => {
                         setAddressValidation({
                             err: 0,
-                            message: 'No Wallet were found with that address!',
+                            message: 'Please make sure to input a correct Wallet Address',
                             active: true
                         })
                         setAddressLoading(false);
                     })
                 } else {
-                    throw new Error('Invalid wallet address');
+                    throw new Error('Please make sure to input a correct Wallet Address');
 
                 }
             } catch (err) {
@@ -236,7 +236,7 @@ const RewardComponent: React.FC = () => {
             }
             addr = toChecksumAddress(value);
             if (addr === '') {
-                throw new Error('Invalid token address')
+                throw new Error('Please make sure to input a correct Wallet Address')
             }
         } catch (err) {
             const e: Error = err as Error;
@@ -257,7 +257,7 @@ const RewardComponent: React.FC = () => {
                         const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
                         if (addressCheckResponse == null) {
                             setAddressLoading(false);
-                            throw new Error('Invalid Wallet Address');
+                            throw new Error('Please make sure to input a correct Wallet Address');
                         }
                         if (addressCheckResponse.contractType === 'wallet') {
                             setCurrentAddress(addr)
@@ -303,7 +303,7 @@ const RewardComponent: React.FC = () => {
                                         }
                                     })
                         } else {
-                            throw new Error('Invalid Wallet Addres');
+                            throw new Error('Please make sure to input a correct Wallet Address');
 
                         }
                     },
@@ -311,13 +311,13 @@ const RewardComponent: React.FC = () => {
                 ).catch(e => {
                     setAddressValidation({
                         err: 0,
-                        message: 'No Wallet were found with that address!',
+                        message: 'Please make sure to input a correct Wallet Address!',
                         active: true
                     })
                     setAddressLoading(false);
                 })
             } else {
-                throw new Error('Invalid wallet address');
+                throw new Error('Please make sure to input a correct Wallet Address');
 
             }
         } catch (err) {
@@ -386,6 +386,8 @@ const RewardComponent: React.FC = () => {
     const [nextEl, setNextEl] = useState<HTMLElement | null>(null)
     const [swipe, setSwipe] = useState<any>();
 
+
+    
     return <Container>
         <Card className="steppers">
             <Steps direction="vertical" current={currentStep}>
@@ -400,10 +402,40 @@ const RewardComponent: React.FC = () => {
         </Card>
         <Card >
             {
-                step1 && <div className='content'>
-                    <div className="search-wrapper" style={{ marginBottom: '1.2rem' }}>
+                step1 && <div className='content'> <div className="title-wrapper">
+                    <h1 className='fs-2hx text-dark mb-2'>
+                        "Scam Survivor" Charity
+                    </h1>
+                    <span className='fs-2 fw-bold mb-20 earn-extra-cta'>
+                        All scam victims get an extra 10% in their $ SPY transaction
+                    </span>
+                </div>
+                    <div className="slider-space">
+                        <Swiper
+                            onBeforeInit={(swipper) => {
+                                setSwipe(swipper)
+                                setTimeout(swipper.slideNext, 2000)
+                            }}
+                   
+                            loop={true}
+                            autoplay={{
+                                delay: 2000,
+                                pauseOnMouseEnter: true
+                            }}
+                            slidesPerView={3}
+                            slidesOffsetBefore={40}
+                            effect={'fade'}
+                        >
+                            {
+                                latestScams && latestScams?.map(token => <SwiperSlide style={{ width: 'fit-content !important' }}>
+                                    <TokenSlideItem logoSize={'50px'} token={token} tagColor='red' />
+                                </SwiperSlide>)
+                            }
+                        </Swiper>
+                    </div>
+                    <div className="search-wrapper">
                         <span className='fs-4 fw-bold mb-3' style={{ textAlign: 'center' }}>
-                            Let us inspect the wallet that has the scammed tokens
+                            Add wallet that contains the scammed tokens
                         </span>
 
                         <Input

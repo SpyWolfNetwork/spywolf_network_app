@@ -16,10 +16,14 @@ import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-s
 
 import { LaptopOutlined, LikeTwoTone, SendOutlined, TwitterOutlined } from '@ant-design/icons';
 import { FaArrowUp, FaLaptop, FaTelegram } from 'react-icons/fa';
+import { RiBarChartFill } from 'react-icons/ri';
+
 import axios from 'axios';
 import Swal from 'sweetalert2';
 const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
-    const [tokenData]: Token[] = useContext(ApplicationContext) as any[];
+
+    const { ctx } = useContext(ApplicationContext) as any;
+    const [tokenData, setTokenData] = ctx;
     const [addingCaptcha, setAddingCaptcha] = useState(false);
     const [userIP, setUserIP] = useState('');
     const [votes, setVotes] = useState(0);
@@ -230,6 +234,13 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                         tokenData?.basicInfo?.twitter &&
                         <Button href={tokenData?.basicInfo?.telegram} target="_blank" type="primary" icon={
                             <FaTelegram color={'white'} fontSize={20} />
+                        } size={'large'} />
+                    }
+
+                    {
+                        tokenData?.basicInfo &&
+                        <Button href={`https://poocoin.app/tokens/${tokenData?.basicInfo?.address}`} target="_blank" type="primary" icon={
+                            <RiBarChartFill color={'white'} fontSize={20} />
                         } size={'large'} />
                     }
 

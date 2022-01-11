@@ -61,7 +61,8 @@ export const ReleaseContainer = styled.div`
 export const TrustLevelContainer = styled.div`
       width: 100%;
       display: flex;
-      justify-content: center;
+      justify-content: flex-start;
+      padding-left: 15%;
 
 `;
 

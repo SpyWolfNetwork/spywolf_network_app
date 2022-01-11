@@ -45,8 +45,6 @@ const UnverifiedTokens: React.FC = () => {
             spaceBetween={100}
             slidesPerView={'auto'}
             navigation={{ prevEl, nextEl }}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
             slidesOffsetAfter={50}
             slidesOffsetBefore={50}
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px minmax(100px, 1fr) minmax(150px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
+  grid-template-columns: 50px minmax(90px, 1fr) minmax(180px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
   column-gap: 1rem;
   padding: 1rem 0;
   align-items: center;
@@ -60,9 +60,7 @@ export const TrustLevelContainer = styled.div`
       flex-wrap: wrap;
       width: 100%;
       justify-content: center;
-      align-items: center;
-      /* justify-content: center; */
-      /* grid-template-columns: auto auto; */
+      justify-content: flex-start;
       .ant-tag{
             display: flex;
             justify-content: center;

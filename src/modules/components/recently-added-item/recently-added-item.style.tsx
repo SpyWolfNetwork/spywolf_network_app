@@ -50,6 +50,7 @@ export const ReleaseContainer = styled.div`
       flex-direction: column;
       justify-content: flex-end;
       align-items: flex-end;
+      text-align: end;
 
 `;
 
