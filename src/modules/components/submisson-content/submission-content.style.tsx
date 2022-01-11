@@ -23,6 +23,13 @@ export const Container = styled.div`
         &:hover, &:active, &.active{
         border: 1px dashed  #AADADF !important;
             background: #f5f8fa!important;
+            svg{
+                path{
+                    fill: #AADADF !important;
+    
+                }
+                
+            }
         }
     }
   .submit-section-wrapper{
@@ -30,7 +37,14 @@ export const Container = styled.div`
         align-items: flex-start !important;
         column-gap: 20px;
         justify-content: flex-start !important;
- 
+        svg{
+            path{
+                transition: all 300ms;
+            fill: #a1a5b7;
+
+            }
+            
+        }
         .text-wrapper{
             display: flex;
             flex-direction: column;

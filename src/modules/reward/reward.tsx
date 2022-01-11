@@ -25,7 +25,7 @@ const RewardComponent: React.FC = () => {
         maximumFractionDigits: 3,
     });
     const { latestScamsState, recentlyAddedState, featuredTokensState, potentialScamsState } = useContext(HomeContext) as HomeProviderModel;
-    
+
     const [latestScams] = latestScamsState;
     const [recentlyTokens] = recentlyAddedState;
     const [featuredTokens] = featuredTokensState;
@@ -35,33 +35,33 @@ const RewardComponent: React.FC = () => {
     const [step3, setStep3] = useState<boolean>(false);
     const [step4, setStep4] = useState<boolean>(false);
     const [step5, setStep5] = useState<boolean>(false);
-    
+
     const [step1Loading, setStep1Loading] = useState<boolean>(false);
     const [step2Loading, setStep2Loading] = useState<boolean>(false);
     const [step3Loading, setStep3Loading] = useState<boolean>(false);
     const [step4Loading, setStep4Loading] = useState<boolean>(true);
-    
-    
+
+
     const [disableClaim, setDisableClaim] = useState<boolean>(false);
-    
-    
+
+
     const [currentStep, setCurrentStep] = useState<number>(0);
-    
+
     const [twitterUrl, setTwitterUrl] = useState<string | null>(null);
-    
-    
+
+
     const [tweetToggle, setTweetToggle] = useState<boolean>(false);
-    
-    
+
+
     const [walletAddress, setWalletAddress] = useState<boolean>(false);
-    
-    
+
+
     const [spyCharityInfo, setspyCharityInfo] = useState<SpyCharityInfoModel>();
 
     const [scamsData, setFirstData] = useState<ResultFinalItemModel[]>([]);
-    
-    
-    
+
+
+
     const [currentAddress, setCurrentAddress] = useState<string>();
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
@@ -387,7 +387,7 @@ const RewardComponent: React.FC = () => {
     const [swipe, setSwipe] = useState<any>();
 
 
-    
+
     return <Container>
         <Card className="steppers">
             <Steps direction="vertical" current={currentStep}>
@@ -410,29 +410,7 @@ const RewardComponent: React.FC = () => {
                         All scam victims get an extra 10% in their $ SPY transaction
                     </span>
                 </div>
-                    <div className="slider-space">
-                        <Swiper
-                            onBeforeInit={(swipper) => {
-                                setSwipe(swipper)
-                                setTimeout(swipper.slideNext, 2000)
-                            }}
-                   
-                            loop={true}
-                            autoplay={{
-                                delay: 2000,
-                                pauseOnMouseEnter: true
-                            }}
-                            slidesPerView={3}
-                            slidesOffsetBefore={40}
-                            effect={'fade'}
-                        >
-                            {
-                                latestScams && latestScams?.map(token => <SwiperSlide style={{ width: 'fit-content !important' }}>
-                                    <TokenSlideItem logoSize={'50px'} token={token} tagColor='red' />
-                                </SwiperSlide>)
-                            }
-                        </Swiper>
-                    </div>
+
                     <div className="search-wrapper">
                         <span className='fs-4 fw-bold mb-3' style={{ textAlign: 'center' }}>
                             Add wallet that contains the scammed tokens
@@ -457,14 +435,6 @@ const RewardComponent: React.FC = () => {
                             </div>
                         }
                     </div>
-                    <div className="title-wrapper">
-                        <h1 className='fs-2hx text-dark mb-2'>
-                            "Scam Survivor" Charity
-                        </h1>
-                        <span className='fs-2 fw-bold mb-20 earn-extra-cta'>
-                            Earn an extra 10% when you buy $SPY
-                        </span>
-                    </div>
                     <div className="slider-space">
                         <Swiper
                             onBeforeInit={(swipper) => {
@@ -485,7 +455,7 @@ const RewardComponent: React.FC = () => {
                         >
                             {
                                 latestScams && latestScams?.map(token => <SwiperSlide style={{ width: '80px !important' }}>
-                                    <TokenSlideItem  logoSize={'50px'} token={token} tagColor='red' />
+                                    <TokenSlideItem logoSize={'50px'} token={token} tagColor='red' />
                                 </SwiperSlide>)
                             }
                         </Swiper>
