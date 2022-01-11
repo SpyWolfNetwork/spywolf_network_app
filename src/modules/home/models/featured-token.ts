@@ -1,4 +1,4 @@
-import { format, formatISO, isValid, parseISO } from "date-fns";
+import { format,  isValid, parseISO } from "date-fns";
 
 export interface PresaleInfo {
     link: string;
@@ -28,6 +28,7 @@ export interface FeaturedTokenDTO {
     scamReasonTooltip?: string;
     vettedBy: string;
     tag: string;
+    releaseDate: string
 }
 
 export interface Content {
@@ -56,6 +57,7 @@ export class FeaturedToken {
     vettedBy: string
     presaleDate?: string;
     tag?: string;
+    releaseDate: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -87,8 +89,8 @@ export class FeaturedToken {
         this.website = featuredTokenDTO?.website;
         this.telegram = featuredTokenDTO?.telegram;
         this.scamReasonTooltip = featuredTokenDTO.scamReasonTooltip;
-        this.vettedBy = featuredTokenDTO.vettedBy
-
+        this.vettedBy = featuredTokenDTO.vettedBy;
+        this.releaseDate = featuredTokenDTO.releaseDate;
         this.alldata = featuredTokenDTO;
 
     }

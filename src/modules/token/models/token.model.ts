@@ -72,6 +72,7 @@ export interface Item {
     trustLevel: string;
     status: string;
     deployedDate: string;
+    releaseDate: string;
     tag: any;
     OtherCompanyAudit?: OtherCompanyAuditModel;
 }

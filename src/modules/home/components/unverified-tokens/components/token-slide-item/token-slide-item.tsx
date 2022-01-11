@@ -14,7 +14,7 @@ const TokenSlideItem: React.FC<{ token: Partial<FeaturedToken>, logoSize?: strin
         <AuditTokenSlideWrapper>
             <Link to={'/token/' + props?.token?.address}>
                 <div className="logo">
-                    <img width={props.logoSize ? props.logoSize : '100px'} src={props.token.logoPicture} alt="" />
+                    <img width={props.logoSize ? props.logoSize : '70px'} src={props.token.logoPicture} alt="" />
                 </div>
             </Link>
             <Link to={'/token/' + props?.token?.address}>

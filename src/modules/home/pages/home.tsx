@@ -472,7 +472,7 @@ export const HomeComponent: React.FC = () => {
                 }
 
             </Card>
-            <Card id="advertisement" title={<CardTitleSubtitle subtitle="Advertisement" />}>
+            <Card id="advertisement" title={<a href={'mailto:contact@spywolf.co'}><CardTitleSubtitle subtitle="Advertise with us" /></a>}>
                 <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
             </Card>
             <Card id="verified" title={<CardTitleSubtitle title="Verified Tokens"/>}>

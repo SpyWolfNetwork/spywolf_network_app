@@ -10,13 +10,24 @@ import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { HashRouter, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
+import Modal from 'antd/lib/modal/Modal';
+import SubmissionHeader from './modules/components/submission-header/submission-header';
+import SubmissionContent from './modules/components/submisson-content/submission-content';
+import axios from 'axios';
+import { ApplicationContext } from './core/routes/providers/application.provider';
 
 
 
 function App() {
   const [navbarOpen, setNavbarOpen] = useState<boolean>();
   const [windowScroller, setWindowScroller] = useState<boolean>();
+
+  const { ctx, ctxDisabled } = useContext(ApplicationContext) as any;
+
+  const [visibleModal, setVisibleModal] = ctx;
+  const [buttonDisabled, setButtonDisabled] = ctxDisabled;
+
   let navbarRef: HTMLDivElement | null;
   useEffect(() => {
     if (window.scrollY > 0) {
@@ -32,6 +43,15 @@ function App() {
     })
   }
     , [])
+
+  const [sendSubmit, setSendSubmit] = useState<boolean>();
+  const submit = () => {
+    setSendSubmit(true)
+    setTimeout(() => {
+      setSendSubmit(false)
+    }, 300)
+
+  }
 
   return (
     <HashRouter>
@@ -87,6 +107,7 @@ function App() {
                     <FaMedium color={'#a1a5b7'} fontSize={20} />
                   </CNavLink>
                 </CNavItem>
+                <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important' }} >Submit</Button>
               </CNavbarNav>
             </CCollapse>
           </CContainer>
@@ -115,6 +136,32 @@ function App() {
           </div>
         </div>
       </div>
+
+      <Modal
+        title={
+          <SubmissionHeader></SubmissionHeader>
+        }
+        visible={visibleModal}
+        width={'100%'}
+        centered={true}
+        style={{ width: '100%', maxWidth: '650px', margin: 0 }}
+        okText="Submit"
+        onOk={
+          submit
+        }
+        destroyOnClose={true}
+        onCancel={
+          () => setVisibleModal(false)
+        }
+        closable={true}
+        okButtonProps={{
+          disabled: buttonDisabled
+        }}
+      >
+        <SubmissionContent submitProp={sendSubmit}></SubmissionContent>
+      </Modal>
+
+
     </HashRouter>
   );
 }

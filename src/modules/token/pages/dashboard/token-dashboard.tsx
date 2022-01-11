@@ -18,6 +18,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2'
 import { HomeContext, HomeProvider } from '../../../../core/routes/providers/home.provider';
 import { FeaturedToken } from '../../../home/models/featured-token';
+import { differenceInDays } from 'date-fns/esm';
 
 
 
@@ -121,10 +122,10 @@ export const TokenDashboardComponent: React.FC = () => {
         <MainSection>
             <TokenMainCardComponent loading={loadingState && <div className='loading'> <Spin /></div>}>
             </TokenMainCardComponent>
-            <Card title="Audit Information">
-                {loadingState && <div className='loading'> <Spin /></div>}
-                {
-                   tokenData?.basicInfo?.SpyWolfAudit !== undefined &&
+            {
+                tokenData?.basicInfo?.SpyWolfAudit !== undefined &&
+                <Card title={`Trust ${tokenData?.level} Award`}>
+
                     <div>
                         <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
                             <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{'SpyWolf'}</Descriptions.Item>
@@ -144,28 +145,40 @@ export const TokenDashboardComponent: React.FC = () => {
                             {/* <img width="100%" height="100%" src={SpywolfGif} alt="" /> */}
                         </div>
                     </div>
-                }
-                {
-                    ((tokenData?.basicInfo?.SpyWolfAudit === undefined) && (tokenData?.basicInfo?.OtherCompanyAudit !== undefined)) && <div>
-                        <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                            <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{(tokenData?.basicInfo?.OtherCompanyAudit as any).companyName}</Descriptions.Item>
-                            {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
-                        </Descriptions>
-                        <div className="audit-link">
-                            <LaptopOutlined color='#b5b5c3'
-                            ></LaptopOutlined>
-                            <a target="__blank"
-                                className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
-                                href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>{tokenData.basicInfo.tag.toLowerCase() === 'verified'? 'Audit' : '"Certificate of Trust"'} Link</a></div>
-                    </div>
-                }
-                {
-                    (!loadingState && tokenData?.basicInfo?.SpyWolfAudit === undefined && tokenData?.basicInfo?.OtherCompanyAudit === undefined) &&
+                </Card>
+            }
+
+            {(!loadingState && tokenData?.basicInfo?.SpyWolfAudit === undefined && tokenData?.basicInfo?.OtherCompanyAudit === undefined) &&
+                <Card title='Audit Information'>
                     <span className="text-gray-800 fw-bold mb-5 fs-6">
                         Audits provide more security to potential investors. If you need an audit for your project, contact <a href="mailto:audits@spywolf.co" style={{ color: '#AADADF ' }}>SpyWolf</a>
                     </span>
-                }
-            </Card>
+                </Card>
+            }
+            {(tokenData?.basicInfo?.OtherCompanyAudit !== undefined) &&
+                <Card title="Audit Information">
+                    <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
+                        <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{(tokenData?.basicInfo?.OtherCompanyAudit as any).companyName}</Descriptions.Item>
+                        {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
+                    </Descriptions>
+                    <div className="audit-link">
+                        <LaptopOutlined color='#b5b5c3'
+                        ></LaptopOutlined>
+                        <a target="__blank"
+                            className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
+                            href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>Audit Link</a>
+                    </div>
+
+                </Card>
+            }
+            {loadingState &&
+                <Card >
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <Spin />
+                    </div>
+                </Card>
+            }
+
 
         </MainSection>
 
@@ -198,10 +211,13 @@ export const TokenDashboardComponent: React.FC = () => {
                                     {tokenData?.currency?.decimals ? tokenData?.currency?.decimals : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Status">
-                                    {tokenData?.basicInfo?.status ? tokenData?.basicInfo?.status : '-'}
+                                    {tokenData?.basicInfo?.releaseDate ? differenceInDays(
+                                        new Date(tokenData?.basicInfo?.releaseDate as string),
+                                        new Date()
+                                    ) < 1 ? 'NOT LAUNCHED' : 'LAUNCHED' : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Release Date">{
-                                    (tokenData as Token)?.basicInfo?.deployedDate ? getDate(tokenData?.basicInfo?.deployedDate as string) : '-'}
+                                    (tokenData as Token)?.basicInfo?.deployedDate ? getDate(tokenData?.basicInfo?.releaseDate as string) : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Is Contract Verified?">
                                     {tokenData ? tokenData?.isVerified ? 'Yes' : 'No' : '-'}
