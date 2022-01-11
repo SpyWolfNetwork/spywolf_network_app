@@ -138,7 +138,7 @@ export const Container = styled.div`
         display: flex;
         align-items: center;
         @media ( min-width: 976px){
-            width: 50%;
+            width: 100%;
 
         }
 
