@@ -441,17 +441,37 @@ const RewardComponent: React.FC = () => {
                                 setSwipe(swipper)
                                 setTimeout(swipper.slideNext, 2200)
                             }}
-                            onAfterInit={swiper => {
-                            }}
-                            loop={true}
                             autoplay={{
                                 delay: 1000,
                                 pauseOnMouseEnter: false,
                                 disableOnInteraction: false,
                             }}
-                            slidesPerView={3}
                             slidesOffsetBefore={40}
-                            effect='fade'
+                            slidesPerView={4}
+                            breakpoints={
+                                {
+                                    0: {
+                                        slidesPerView: 3
+                                    },
+                                    360: {
+                                        slidesPerView: 3
+                                    },
+                                    460: {
+                                        slidesPerView: 4
+                                    },
+                                    560: {
+                                        slidesPerView: 5
+                                    },
+                                    700: {
+                                        slidesPerView: 5
+                                    },
+                                    860: {
+                                        slidesPerView: 5
+                                    }
+                                }
+                            }
+                            loop={true}
+                            centeredSlidesBounds={true}
                         >
                             {
                                 latestScams && latestScams?.map(token => <SwiperSlide style={{ width: '80px !important' }}>
