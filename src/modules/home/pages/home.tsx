@@ -23,6 +23,8 @@ import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 
 
 import UnverifiedTokens from '../components/unverified-tokens/unverified-tokens';
+import AmaTokenItem from '../../components/ama-token-item/ama-token-item';
+import moment from 'moment';
 
 
 const { toChecksumAddress } = require('ethereum-checksum-address');
@@ -38,12 +40,15 @@ export const HomeComponent: React.FC = () => {
         latestScamsPageState,
         potentialScamsPageState,
         featuredTokensFilterState,
-        featuredUpcomingFilterState
+        amaTokensState,
+        amaTokensPageState,
+        AmaTokensFilterState
     }: HomeProviderModel = useContext<any>(HomeContext);
 
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
     const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
+    const [pastOnly, setPastOnly] = useState<boolean>(false);
     const [latestNameFilter, setLatestNameFilter] = useState<string>('');
     const [potentialtNameFilter, setPotentialNameFilter] = useState<string>('');
     const [featuredImageLoading, setFeaturedImageLoading] = useState<boolean>();
@@ -52,12 +57,12 @@ export const HomeComponent: React.FC = () => {
     const [potentialImageLoading, setPotentialImageLoading] = useState<boolean>();
 
     const [featuredTokensFilter, setFeaturedTokensFilter] = featuredTokensFilterState;
-    const [upcomingTokensFilter, setUpcomingTokensFilter] = featuredTokensFilterState;
 
     const [featuredTokens, setFeaturedTokens] = featuredTokensState;
     const [recentlyAdded, setRecentlyAdded] = recentlyAddedState;
     const [latestScams, setLatestScams] = latestScamsState;
     const [potentialScams, setPotentialScams] = potentialScamsState;
+    const [amaTokens, setAmaTokens] = amaTokensState;
 
 
     const [recentlyAddedPage, setRecentlyAddedPage] = recentlyAddedPageState;
@@ -68,6 +73,9 @@ export const HomeComponent: React.FC = () => {
     const [latestScamsPage, setLatestScamsPage] = latestScamsPageState;
 
     const [potentialScamsPage, setPotentialScamsPage] = potentialScamsPageState;
+
+    const [amaTokensPage, setAmaTokensPage] = amaTokensPageState;
+
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -95,13 +103,19 @@ export const HomeComponent: React.FC = () => {
 
     }
 
+    const updateAMAPage = (page: number) => {
+        setAmaTokensPage(page);
+
+    }
+
     const updatePage = (indentifier: string, page: number) => {
         imgLoading(indentifier);
         const functions: any = {
             featured: updateFeaturedPage,
             recently: updateRecentlyPage,
             latest: updateLatestPage,
-            potential: updatePotentialPage
+            potential: updatePotentialPage,
+            ama: updateAMAPage
         }
 
         try {
@@ -330,6 +344,10 @@ export const HomeComponent: React.FC = () => {
         setVerifiedOnly(!verifiedOnly)
     }
 
+
+    const changePastOnly = () => {
+        setPastOnly(!pastOnly)
+    }
     const filterFeaturedTokensByLevel = (token: FeaturedToken) => (token.trustLevel === featuredTokensFilter) || featuredTokensFilter === 'all'
 
     const sortByDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
@@ -341,7 +359,9 @@ export const HomeComponent: React.FC = () => {
     const filterUpcomingByVerified = (token: FeaturedToken) => {
         return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
     }
-
+    const filterByPast = (token: FeaturedToken) => {
+        return pastOnly ? moment.utc(token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) < 0 : moment.utc(token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) > 0;
+    }
 
     const latestSearch: FormEventHandler<HTMLInputElement> = (e) => {
         imgLoading('latests');
@@ -401,8 +421,8 @@ export const HomeComponent: React.FC = () => {
 
         }, 400)
     }
-    return <Container>
 
+    return <Container>
         <SearchContainer>
             <h1 className=' lh-base fw-bolder fs-2x fs-lg-3x mb-5' style={{ textAlign: 'center' }}>Your Daily Source for Crypto Safety</h1>
             <Input
@@ -472,12 +492,37 @@ export const HomeComponent: React.FC = () => {
                 }
 
             </Card>
-            <Card id="advertisement" title={<a href={'mailto:contact@spywolf.co'}><CardTitleSubtitle subtitle="Advertise with us" /></a>}>
-                <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
+            <Card id="amas" title={'Upcoming AMAs'}
+                extra={
+                    <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}> See Past Ama's?
+                        <Switch size={'small'} onChange={changePastOnly} />
+                    </span>}
+                actions={[
+                    <Pagination
+                        size="small"
+                        current={recentlyAddedPage}
+                        defaultPageSize={6}
+                        defaultCurrent={1}
+                        total={recentlyAdded?.filter(filterByPast).length}
+                        onChange={(page: number) => updatePage('ama', page)}
+                    ></Pagination>]}>
+                {
+                    // .filter(filterByPast)
+
+                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 6, amaTokensPage * 6).map((token: FeaturedToken) =>
+                        <AmaTokenItem token={token} imageLoading={recentlyImageLoading}></AmaTokenItem>)
+                }
             </Card>
-            <Card id="verified" title={<CardTitleSubtitle title="Verified Tokens"/>}>
-                <UnverifiedTokens/>
-            </Card>
+            <div className="bottom-cards">
+                <Card id="verified-inline" title={<CardTitleSubtitle title="Verified Tokens" />}>
+                    <UnverifiedTokens />
+                </Card>
+                <Card id="advertisement-inline" title={<a href={'mailto:contact@spywolf.co'}><CardTitleSubtitle subtitle="Advertise with us" /></a>}>
+                    <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                        <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
+                    </div>
+                </Card>
+            </div>
             <div className="bottom-cards">
                 {/* subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`} */}
                 <Card

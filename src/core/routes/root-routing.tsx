@@ -25,6 +25,7 @@ export default function Root() {
         '/wallet': 'Wallet',
         '/disclaimer': 'Disclaimer',
         '/reward': 'Reward',
+        '/frequently-asked-questions': 'Frequently Asked Question',
     };
 
     const location = useLocation();

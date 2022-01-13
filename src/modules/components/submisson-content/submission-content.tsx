@@ -142,7 +142,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                 resourcePath: "/tokens_info/{category}/{value}",
                 isScam: false,
                 item: {
-                    telegram: formdata.telegram ? formdata.telegram : '',
+                    telegram: formdata.telegram ?  `https://t.me/${formdata.telegram}` : '',
                     website: formdata.website ? formdata.website : '',
                     symbol: formdata.symbol ? `$${formdata.symbol}` : '',
                     status: formdata.releaseDate._d > new Date() ? 'NOT LAUNCHED' : 'LAUNCHED',
@@ -205,7 +205,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                 resourcePath: "/tokens_info/{category}/{value}",
                 isScam: true,
                 item: {
-                    telegram: formdata.telegram ? formdata.telegram : '',
+                    telegram: formdata.telegram ?  `https://t.me/${formdata.telegram}` : '',
                     website: formdata.website ? formdata.website : '',
                     scamReasonTooltip: formdata.description ? formdata.description : '',
                     symbol: formdata.symbol ? `$${formdata.symbol}` : '',

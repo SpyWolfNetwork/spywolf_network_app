@@ -28,7 +28,8 @@ export interface FeaturedTokenDTO {
     scamReasonTooltip?: string;
     vettedBy: string;
     tag: string;
-    releaseDate: string
+    releaseDate: string;
+    AMADate?: any;
 }
 
 export interface Content {
@@ -57,7 +58,8 @@ export class FeaturedToken {
     vettedBy: string
     presaleDate?: string;
     tag?: string;
-    releaseDate: string;
+    releaseDate?: string;
+    AMADate?: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -82,6 +84,9 @@ export class FeaturedToken {
         if(featuredTokenDTO.tag){
             this.tag = featuredTokenDTO.tag;
 
+        }
+        if(featuredTokenDTO.AMADate){
+            this.AMADate = featuredTokenDTO.AMADate;
         }
         this.trustLevel = featuredTokenDTO?.trustLevel;
         this.address = featuredTokenDTO?.address;

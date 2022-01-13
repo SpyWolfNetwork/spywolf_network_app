@@ -11,13 +11,16 @@ export const HomeProvider = (props: any) => {
     const [recentlyAdded, setRecentlyAdded] = useState<FeaturedToken[]>();
     const [latestScams, setLatestScams] = useState<FeaturedToken[]>();
     const [potentialScams, setPotentialScams] = useState<FeaturedToken[]>();
+    const [amaTokens, setAmaTokens] = useState<FeaturedToken[]>();
 
     const [featuredTokensPage, setFeaturedTokensPage] = useState<number>(1);
     const [recentlyAddedPage, setRecentlyAddedPage] = useState<number>(1);
     const [latestScamsPage, setLatestScamsPage] = useState<number>(1);
     const [potentialScamsPage, setPotentialScamsPage] = useState<number>(1);
+    const [amaTokensPage, setAmaTokensPage] = useState<number>(1);
 
     const [featuredTokensFilter, setFeaturedTokensFilter] = useState<string>('all');
+    const [amaTokensFilter, setAmaTokensFilter] = useState<boolean>(false);
     const [upcomingTokensFilter, setUpcomingTokensFilter] = useState<boolean>(false);
 
 
@@ -25,14 +28,17 @@ export const HomeProvider = (props: any) => {
     const state = {
         featuredTokensState: [featuredTokens, setFeaturedTokens],
         recentlyAddedState: [recentlyAdded, setRecentlyAdded],
+        amaTokensState: [amaTokens, setAmaTokens],
         latestScamsState: [latestScams, setLatestScams],
         potentialScamsState: [potentialScams, setPotentialScams],
         featuredTokensPageState: [featuredTokensPage, setFeaturedTokensPage],
         recentlyAddedPageState: [recentlyAddedPage, setRecentlyAddedPage],
         latestScamsPageState: [latestScamsPage, setLatestScamsPage],
         potentialScamsPageState: [potentialScamsPage, setPotentialScamsPage],
+        amaTokensPageState: [amaTokensPage, setAmaTokensPage],
         featuredTokensFilterState: [featuredTokensFilter, setFeaturedTokensFilter],
-        featuredUpcomingFilterState: [upcomingTokensFilter, setUpcomingTokensFilter]
+        featuredUpcomingFilterState: [upcomingTokensFilter, setUpcomingTokensFilter],
+        AmaTokensFilterState: [amaTokensFilter, setAmaTokensFilter]
 
     }
      
@@ -41,6 +47,7 @@ export const HomeProvider = (props: any) => {
         fetchRecentlyAdded();
         fetchLatestScams();
         fetchPotentialScams();
+        fetchAmaAdded();
     }, []);
 
 
@@ -66,6 +73,23 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setRecentlyAdded(recentlyAdded)
+
+            }
+
+        )
+
+    }
+
+    
+    const fetchAmaAdded = () => {
+        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/amas').then(
+            ({ data }) => {
+                console.log(data)
+                const amaTokensResponse: FeaturedTokensResponse = data;
+                const amaTokens = amaTokensResponse?.content?.Items.map(
+                    tokenResponse => new FeaturedToken(tokenResponse)
+                )
+                setAmaTokens(amaTokens)
 
             }
 

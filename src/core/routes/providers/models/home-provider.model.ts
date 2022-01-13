@@ -13,4 +13,8 @@ export interface HomeProviderModel {
     potentialScamsPageState: any[],
     featuredTokensFilterState: any[];
     featuredUpcomingFilterState: any[];
+    amaTokensState: any[];
+    amaTokensPageState: any[];
+    AmaTokensFilterState: any[];
+    
 }
