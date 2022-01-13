@@ -14,26 +14,11 @@ import { enUS } from 'date-fns/esm/locale';
 import { formatDistance } from 'date-fns/esm';
 import moment, { updateLocale } from 'moment';
 
-const formatRelativeLocale = {
-    lastWeek: "'Last Week'",
-    yesterday: "'Yesterday'",
-    today: "'Today' ",
-    tomorrow: "'Tomorrow'",
-    nextWeek: "'Next Week'",
-    month: "'In a Month'",
-    other: 'PP', // Difference: Add time to the date
-};
-
-const locale = {
-    ...enUS,
-    formatRelative: token =>
-        formatRelativeLocale[token],
-
-};
 
 
 const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => {
+        moment.utc();
         moment.updateLocale("en", {
             relativeTime: {
                 s: "Today",
@@ -83,8 +68,9 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
                     Release
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
-                    {(props?.token?.presaleDate) &&
-                        moment(new Date(props?.token?.releaseDate as string)).fromNow(true)
+                    {(props?.token?.releaseDate) &&
+                    //   moment.utc( new Date(props?.token?.releaseDate).toISOString() ).fromNow(true)
+                      moment.utc(props?.token?.releaseDate as string).hour(0).minutes(0).second(0).from(moment.utc().hour(0).minutes(0).second(0), true)
                     }
                 </span>
             </ReleaseContainer>

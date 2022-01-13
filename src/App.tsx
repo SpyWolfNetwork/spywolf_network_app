@@ -87,11 +87,11 @@ function App() {
                     Buy $SPY
                   </CNavLink>
                 </CNavItem>
-                {/* <CNavItem>
-                  <CNavLink href="/frequently-asked-questions">
+                <CNavItem>
+                  <CNavLink href="/#/frequently-asked-questions">
                     FAQ
                   </CNavLink>
-                </CNavItem> */}
+                </CNavItem>
                 <CNavItem className="social">
                   <CNavLink href="https://twitter.com/SpyWolfNetwork" target='__blank'>
                     <FaTwitter color={'#a1a5b7'} fontSize={20} />
@@ -107,6 +107,7 @@ function App() {
                     <FaMedium color={'#a1a5b7'} fontSize={20} />
                   </CNavLink>
                 </CNavItem>
+           
                 <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important' }} >Submit</Button>
               </CNavbarNav>
             </CCollapse>
