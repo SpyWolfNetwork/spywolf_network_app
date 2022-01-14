@@ -517,7 +517,7 @@ export const HomeComponent: React.FC = () => {
                 <Card id="verified-inline" title={<CardTitleSubtitle title="Verified Tokens" />}>
                     <UnverifiedTokens />
                 </Card>
-                <Card id="advertisement-inline" title={<a href={'mailto:contact@spywolf.co'}><CardTitleSubtitle subtitle="Advertise with us" /></a>}>
+                <Card id="advertisement-inline">
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
                     </div>
@@ -538,7 +538,7 @@ export const HomeComponent: React.FC = () => {
                         <Pagination
                             size="small"
                             current={latestScamsPage}
-                            defaultPageSize={6}
+                            defaultPageSize={4}
                             defaultCurrent={1}
                             total={latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).length}
                             onChange={(page: number) => updatePage('latest', page)}
@@ -546,7 +546,7 @@ export const HomeComponent: React.FC = () => {
                 >
                     <div className="wrap" style={{ marginTop: '50px' }}>
                         {
-                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) =>
+                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).slice((latestScamsPage - 1) * 4, latestScamsPage * 4).map((token: FeaturedToken) =>
                                 <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)
                         }
                         {

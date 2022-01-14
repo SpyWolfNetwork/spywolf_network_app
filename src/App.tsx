@@ -2,7 +2,7 @@ import './App.scss';
 import './AppOverride.scss';
 import './antd-override/ant-override.scss';
 import Root from './core/routes/root-routing';
-import { Breadcrumb, Button } from 'antd';
+import { Breadcrumb, Button, Input } from 'antd';
 import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavbarToggler, CNavItem, CNavLink } from '@coreui/react';
 
 import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
@@ -23,7 +23,7 @@ function App() {
   const [navbarOpen, setNavbarOpen] = useState<boolean>();
   const [windowScroller, setWindowScroller] = useState<boolean>();
 
-  const {  ctxDisabled, ctxModal } = useContext(ApplicationContext) as any;
+  const { ctxDisabled, ctxModal } = useContext(ApplicationContext) as any;
 
   const [visibleModal, setVisibleModal] = ctxModal;
   const [buttonDisabled, setButtonDisabled] = ctxDisabled;
@@ -71,7 +71,10 @@ function App() {
                 <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="h-20px h-lg-40px" />
               </a>
             </CNavbarBrand>
-
+            <CNavItem style={{width: '100%'}}>
+              <Input style={{width: '100%'}}
+              />
+            </CNavItem>
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
                 <CNavItem>
@@ -79,9 +82,7 @@ function App() {
                     Get Audited
                   </CNavLink>
                 </CNavItem>
-                {/* <CNavItem>
-                  <CNavLink href="/learn">Learn</CNavLink>
-                </CNavItem> */}
+
                 <CNavItem>
                   <CNavLink target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
                     Buy $SPY
@@ -107,7 +108,7 @@ function App() {
                     <FaMedium color={'#a1a5b7'} fontSize={20} />
                   </CNavLink>
                 </CNavItem>
-           
+
                 <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important' }} >Submit</Button>
               </CNavbarNav>
             </CCollapse>

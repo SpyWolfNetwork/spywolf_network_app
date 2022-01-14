@@ -16,6 +16,7 @@ import { SpyCharityInfoModel } from './models/spy-info.model';
 import { Container } from './reward.style';
 import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 'swiper'
 import TokenSlideItem from './token-slide-item/token-slide-item';
+import moment from 'moment';
 
 SwiperCore.use([Autoplay, Navigation, Pagination, Scrollbar, A11y]);
 
@@ -56,9 +57,12 @@ const RewardComponent: React.FC = () => {
     const [walletAddress, setWalletAddress] = useState<boolean>(false);
 
 
-    const [spyCharityInfo, setspyCharityInfo] = useState<SpyCharityInfoModel>();
+    const [spyCharityInfo, setspyCharityInfo] = useState<SpyCharityInfoModel | null>(null);
 
     const [scamsData, setFirstData] = useState<ResultFinalItemModel[]>([]);
+
+
+    const [scamDateInPlataform, setScamDateInPlataform] = useState<string>();
 
 
 
@@ -81,7 +85,13 @@ const RewardComponent: React.FC = () => {
                             setStep3Loading(true)
                             setCurrentStep(1)
                             const data: ScamTokensResponseModel = res.data;
-                            setFirstData(data.resultFinal);
+                            setFirstData(data.resultArray);
+                            const sortedByDate: any[] = data.resultArray.sort(
+                                (a, b) => {
+                                    return (new Date(b.transferDate) as any)   - (new Date(a.transferDate) as any)
+                                }
+                            );
+                            setScamDateInPlataform(sortedByDate[0]);
                             axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/inspectwallet/spy_txs/${currentAddress}`).then(
                                 res => {
                                     setspyCharityInfo(res.data)
@@ -156,7 +166,7 @@ const RewardComponent: React.FC = () => {
                                         res => {
                                             setAddressLoading(false);
                                             if (res.data['checkWalletForCharity'] === undefined) {
-                                                if (res.data.resultFinal.length > 0) {
+                                                if (res.data.resultArray.length > 0) {
                                                     setStep1(false)
                                                     setStep2(true)
 
@@ -266,7 +276,7 @@ const RewardComponent: React.FC = () => {
                                     res => {
                                         setAddressLoading(false);
                                         if (res.data['checkWalletForCharity'] === undefined) {
-                                            if (res.data.resultFinal.length > 0) {
+                                            if (res.data.resultArray.length > 0) {
                                                 setStep1(false)
                                                 setStep2(true)
                                             } else {
@@ -512,7 +522,7 @@ const RewardComponent: React.FC = () => {
                         {
                             (step3 && spyCharityInfo == null) &&
                             <div className='me-5 fw-bold' style={{ marginTop: '20px ​!importan' }}>
-                                <label className="fs-5">We did not find SPYs on your wallet, to claim your reward you need to buy SPY</label>
+                                <label className="fs-5">This promo only works with SPY transactions made after the scam was reported in our platform, you can</label>
                                 <Button type='primary' target="__blank" style={{ width: '50%', marginTop: '20px !important', color: '#1b3311', margin: '20px auto' }} href='https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c'>Buy $SPY</Button>
                             </div>
 
@@ -543,9 +553,16 @@ const RewardComponent: React.FC = () => {
 
                         </div>
                     }
+                    {/* {
+                        (step3 && spyCharityInfo == null) &&
+                        <div className="mb-0 fv-row fv-plugins-icon-container mt-15 text-center ">
+                            <div className="fs-4 fw-bold mb-2">This promo only works with SPY transactions made after the scam was reported in our platform, you can <a  target="__target" href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">buy SPY here</a>
+                            </div>
+                        </div>
+                    } */}
 
                     {
-                        (step4 && spyCharityInfo != null) && <div className="conten">
+                        (step4 && spyCharityInfo != null) && <div className="content">
                             <div className="text-center mb-10 xmt-15 ">
                                 <div className="mb-10">
                                     <h3 className="fs-2hx text-dark mb-2">Your Reward 🤑</h3>
