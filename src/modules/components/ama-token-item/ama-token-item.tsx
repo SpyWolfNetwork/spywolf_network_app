@@ -118,25 +118,44 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                     When
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
-                    {(props?.token?.AMADate) &&
-                        moment.utc(props?.token?.AMADate as string).hour(0).minutes(0).second(0).from(moment.utc().hour(0).minutes(0).second(0), true)
+                    {
+                        (moment().utc().hour(0).minutes(0).second(0).milliseconds(0).isBefore(props?.token?.AMADate)
+                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== 0
+                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1)
+                        && 'In '
+
+                    }
+
+                    {((props?.token?.AMADate) && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1) &&
+                        moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).milliseconds(0).from(moment.utc(new Date()).hour(0).minutes(0).second(0).milliseconds(0), true)
+
+                    }
+
+                    {((props?.token?.AMADate)
+                        && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') === -1)
+                        && 'Yesterday'
+                    }
+                    {
+                        (moment().utc().hour(0).minutes(0).second(0).milliseconds(0).isAfter(props?.token?.AMADate)
+                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== 0
+                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1
+                        )
+                        && ' ago'
                     }
                 </span>
             </ReleaseContainer>
         </Link>
         <TrustLevelContainer >
-            {
-                moment.utc(props?.token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) >= 0 &&
-                <div>
-                    {
-                        moment.utc(props?.token?.AMADate as string).diff(moment.utc().hour(0).minutes(0).second(0)) === 0 ?
-                            <Button className={'today'} href={'https://t.me/SpyWolfNetwork'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
-                            :
-                            <Button type="ghost" target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
 
-                    }
-                </div>
-            }
+            <div>
+                {
+                    moment.utc(props?.token?.AMADate as string).diff(moment.utc().hour(0).minutes(0).second(0)) === 0 ?
+                        <Button className={'today'} href={'https://t.me/SpyWolfNetwork'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
+                        :
+                        <Button type="ghost" target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
+
+                }
+            </div>
 
 
         </TrustLevelContainer>

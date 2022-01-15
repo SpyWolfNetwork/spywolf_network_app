@@ -62,7 +62,7 @@ const RewardComponent: React.FC = () => {
     const [scamsData, setFirstData] = useState<ResultFinalItemModel[]>([]);
 
 
-    const [scamDateInPlataform, setScamDateInPlataform] = useState<string>();
+    const [scamDateInPlataform, setScamDateInPlataform] = useState<ResultFinalItemModel>();
 
 
 
@@ -76,6 +76,15 @@ const RewardComponent: React.FC = () => {
     const location = useLocation();
     useEffect(() => {
         if (step2) {
+
+            const sortedByDate: any[] = latestScams.slice().sort(
+                (a, b) => {
+                    return (new Date(a.savingTime) as any) - (new Date(b.savingTime) as any)
+                }
+            );
+            setScamDateInPlataform(sortedByDate[0]);
+            const savingTime = moment(sortedByDate[0]?.savingTime).format('yyy-MM-DD');
+
             axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/inspectwallet/${currentAddress}`)
                 .then(
                     res => {
@@ -85,14 +94,14 @@ const RewardComponent: React.FC = () => {
                             setStep3Loading(true)
                             setCurrentStep(1)
                             const data: ScamTokensResponseModel = res.data;
-                            setFirstData(data.resultArray);
-                            const sortedByDate: any[] = data.resultArray.sort(
-                                (a, b) => {
-                                    return (new Date(b.transferDate) as any)   - (new Date(a.transferDate) as any)
+                            setFirstData(data.resultFinal);
+
+                            axios.post(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/inspectwallet/spy_txs/`,
+                                {
+                                    address: currentAddress,
+                                    scamInPlatformDate: savingTime
                                 }
-                            );
-                            setScamDateInPlataform(sortedByDate[0]);
-                            axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/inspectwallet/spy_txs/${currentAddress}`).then(
+                            ).then(
                                 res => {
                                     setspyCharityInfo(res.data)
                                     setStep3(true)
@@ -166,7 +175,7 @@ const RewardComponent: React.FC = () => {
                                         res => {
                                             setAddressLoading(false);
                                             if (res.data['checkWalletForCharity'] === undefined) {
-                                                if (res.data.resultArray.length > 0) {
+                                                if (res.data.resultFinal.length > 0) {
                                                     setStep1(false)
                                                     setStep2(true)
 
@@ -276,7 +285,7 @@ const RewardComponent: React.FC = () => {
                                     res => {
                                         setAddressLoading(false);
                                         if (res.data['checkWalletForCharity'] === undefined) {
-                                            if (res.data.resultArray.length > 0) {
+                                            if (res.data.resultFinal.length > 0) {
                                                 setStep1(false)
                                                 setStep2(true)
                                             } else {
@@ -357,13 +366,14 @@ const RewardComponent: React.FC = () => {
             scamTX: scamsData[0].scamTX,
             scamTokenAddress: scamsData[0].address,
             spyAmount: spyCharityInfo?.spyAmount,
+
         };
         if (tweetToggle) {
             claimData.charityAmount = spyCharityInfo?.charityAmountWithTweet;
             claimData['tweetLink'] = twitterUrl;
         }
 
-        if (inputRef.value.includes('twitter.com')) {
+        if (twitterUrl?.includes('twitter.com')) {
             axios.post('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/claim', claimData).then(
                 () => {
                     Swal.fire(
@@ -502,17 +512,17 @@ const RewardComponent: React.FC = () => {
                         <div className="text-muted fw-bold fs-6">{currentAddress}
                         </div>
                     </div>
-                    {(scamsData.length === 0) &&
+                    {(scamsData?.length === 0) &&
                         <div className="spin-content">
                             <Spin />
                             <br></br>
                             <span>Searching...</span>
                         </div>
                     }
-                    {(step2 && scamsData.length > 0) && <div className="content">
+                    {(step2 && scamsData?.length > 0) && <div className="content">
                         <div className="fs-4 fw-bold mb-5">These are the projects that scammed you </div>
                         <div className="tokens">
-                            {scamsData.map(r =>
+                            {scamsData?.map(r =>
                                 <DashedCard className="token" style={{ height: 'fit-content' }}>
                                     <img className="logo" width={50} height={50} src={(latestScams?.find((latest: FeaturedToken) => latest.address === r.address) as FeaturedToken).logoPicture} />
                                     <div className="tokenname text-gray-800 fs-7">{(latestScams?.find((latest: FeaturedToken) => latest.address === r.address) as FeaturedToken).name}</div>
@@ -522,7 +532,7 @@ const RewardComponent: React.FC = () => {
                         {
                             (step3 && spyCharityInfo == null) &&
                             <div className='me-5 fw-bold' style={{ marginTop: '20px ​!importan' }}>
-                                <label className="fs-5">This promo only works with SPY transactions made after the scam was reported in our platform, you can</label>
+                                <label className="fs-5">This promo only works with SPY transactions made after the scam was reported in our platform.</label>
                                 <Button type='primary' target="__blank" style={{ width: '50%', marginTop: '20px !important', color: '#1b3311', margin: '20px auto' }} href='https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c'>Buy $SPY</Button>
                             </div>
 

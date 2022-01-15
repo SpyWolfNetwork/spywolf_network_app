@@ -147,6 +147,9 @@
 .ant-pagination {
   margin: 0 0 0;
 
+  .ant-select{
+    display: none !important;
+  }
   .ant-pagination-item-active:focus-visible,
   .ant-pagination-item-active {
     z-index: 3;

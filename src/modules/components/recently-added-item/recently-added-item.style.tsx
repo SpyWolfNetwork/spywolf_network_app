@@ -7,6 +7,7 @@ export const Container = styled.div`
   column-gap: 1rem;
   margin:1rem 0;
   align-items: center;
+  
   cursor: pointer;
       &:hover{
             background: #f4f7f9;

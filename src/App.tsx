@@ -71,10 +71,7 @@ function App() {
                 <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="h-20px h-lg-40px" />
               </a>
             </CNavbarBrand>
-            <CNavItem style={{width: '100%'}}>
-              <Input style={{width: '100%'}}
-              />
-            </CNavItem>
+          
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
                 <CNavItem>

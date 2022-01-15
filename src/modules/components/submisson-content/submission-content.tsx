@@ -114,7 +114,6 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
 
     const formChange = (form) => {
-        console.log('123', scamForm.getFieldsValue())
         setIsPresale(tokenForm.getFieldValue('presale'));
         if (formOption === 'token') {
             checkValidation();
@@ -151,7 +150,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     logo: formdata.logo ? formdata.logo : '',
                     name: formdata.name ? formdata.name : '',
                     votes: 0,
-                    twitter: formdata.twitter ? formdata.twitter : '',
+                    twitter: formdata.twitter ? 'https://twitter.com/' + formdata.twitter : '',
                     releaseDate: formdata.releaseDate ? format(formdata.releaseDate._d, 'yyy-MM-dd') : '',
                     isFairlaunch: formdata.presale ? false : true,
                     description: formdata.description ? formdata.description : ''
@@ -214,7 +213,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     address: formdata.address ? formdata.address : '',
                     logo: formdata.logo ? formdata.logo : '',
                     name: formdata.name ? formdata.name : '',
-                    twitter: formdata.twitter ? formdata.twitter : '',
+                    twitter: formdata.twitter ? 'https://twitter.com/' + formdata.twitter  : '',
                     description: formdata.description ? formdata.description : '',
                     scamDate: formdata.scamDate ? format(formdata.scamDate._d, 'yyy-MM-dd') : '',
                     scamReason: [
@@ -499,7 +498,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                             <Input onClick={() => { }} ref={twitterRef} addonBefore="https://twiter.com/" placeholder='Handle' />
                         </Form.Item>
                         <Form.Item name="telegram" label="Telegram Handle" rules={[{ required: true }]}>
-                            <Input ref={telegramRef} addonBefore="https://t.me.com/" placeholder='Handle' />
+                            <Input ref={telegramRef} addonBefore="https://t.me/" placeholder='Handle' />
                         </Form.Item>
                     </div>
 
@@ -625,10 +624,10 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     </Form.Item>
                     <div className="row-group">
                         <Form.Item name="twitter" label="Twitter Handle" rules={[{ required: false }]}>
-                            <Input addonBefore="http://twiter.com/" placeholder='Handle' />
+                            <Input addonBefore="https://twiter.com/" placeholder='Handle' />
                         </Form.Item>
                         <Form.Item name="telegram" label="Telegram Handle" rules={[{ required: true }]}>
-                            <Input addonBefore="http://t.me.com/" placeholder='Handle' />
+                            <Input addonBefore="https://t.me.com/" placeholder='Handle' />
                         </Form.Item>
                     </div>
                 </Form>

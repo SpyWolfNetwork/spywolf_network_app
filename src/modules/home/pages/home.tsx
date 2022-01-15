@@ -53,6 +53,7 @@ export const HomeComponent: React.FC = () => {
     const [potentialtNameFilter, setPotentialNameFilter] = useState<string>('');
     const [featuredImageLoading, setFeaturedImageLoading] = useState<boolean>();
     const [recentlyImageLoading, setRrecentlymageLoading] = useState<boolean>();
+    const [amaImageLoading, setAmaImageLoading] = useState<boolean>();
     const [latestImageLoading, setLatestImageLoading] = useState<boolean>();
     const [potentialImageLoading, setPotentialImageLoading] = useState<boolean>();
 
@@ -360,7 +361,7 @@ export const HomeComponent: React.FC = () => {
         return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
     }
     const filterByPast = (token: FeaturedToken) => {
-        return pastOnly ? moment.utc(token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) < 0 : moment.utc(token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) > 0;
+        return pastOnly ? moment.utc(token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) < 0 : true;
     }
 
     const latestSearch: FormEventHandler<HTMLInputElement> = (e) => {
@@ -380,7 +381,8 @@ export const HomeComponent: React.FC = () => {
             featured: featuredImgLoading,
             recently: recentlyImgLoading,
             latest: latestImgLoading,
-            potential: potentialImgLoading
+            potential: potentialImgLoading,
+            ama: amaImgLoading
         }
 
         try {
@@ -398,6 +400,14 @@ export const HomeComponent: React.FC = () => {
     }
 
     const recentlyImgLoading = () => {
+        setRrecentlymageLoading(true);
+        setTimeout(() => {
+            setRrecentlymageLoading(false);
+
+        }, 400)
+    }
+
+    const amaImgLoading = () => {
         setRrecentlymageLoading(true);
         setTimeout(() => {
             setRrecentlymageLoading(false);
@@ -500,17 +510,17 @@ export const HomeComponent: React.FC = () => {
                 actions={[
                     <Pagination
                         size="small"
-                        current={recentlyAddedPage}
-                        defaultPageSize={6}
+                        current={amaTokensPage}
+                        defaultPageSize={4}
                         defaultCurrent={1}
-                        total={recentlyAdded?.filter(filterByPast).length}
+                        total={amaTokens?.filter(filterByPast).length}
                         onChange={(page: number) => updatePage('ama', page)}
                     ></Pagination>]}>
                 {
                     // .filter(filterByPast)
 
-                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 6, amaTokensPage * 6).map((token: FeaturedToken) =>
-                        <AmaTokenItem token={token} imageLoading={recentlyImageLoading}></AmaTokenItem>)
+                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 4, amaTokensPage * 4).map((token: FeaturedToken) =>
+                        <AmaTokenItem token={token} imageLoading={amaImageLoading}></AmaTokenItem>)
                 }
             </Card>
             <div className="bottom-cards">
@@ -538,7 +548,7 @@ export const HomeComponent: React.FC = () => {
                         <Pagination
                             size="small"
                             current={latestScamsPage}
-                            defaultPageSize={4}
+                            defaultPageSize={6}
                             defaultCurrent={1}
                             total={latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).length}
                             onChange={(page: number) => updatePage('latest', page)}
@@ -546,7 +556,7 @@ export const HomeComponent: React.FC = () => {
                 >
                     <div className="wrap" style={{ marginTop: '50px' }}>
                         {
-                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).slice((latestScamsPage - 1) * 4, latestScamsPage * 4).map((token: FeaturedToken) =>
+                            latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) =>
                                 <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)
                         }
                         {

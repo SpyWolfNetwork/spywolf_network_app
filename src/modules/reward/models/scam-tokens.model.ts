@@ -7,5 +7,5 @@ export interface ResultFinalItemModel {
 }
 
 export interface ScamTokensResponseModel {
-    resultArray: ResultFinalItemModel[];
+    resultFinal: ResultFinalItemModel[];
 }
