@@ -46,7 +46,7 @@ export const CardGrid = styled.div`
     @media ( min-width: 1200px){
         display: grid;
         grid-template-columns: repeat(3, minmax(250px, 1fr));
-        grid-template-rows: 1fr 1fr;
+        grid-template-rows: auto;
         column-gap: 1.4em;
         row-gap: 1.4em;
         > div {
@@ -65,15 +65,14 @@ export const CardGrid = styled.div`
      #featured{
         grid-column: 1/3;
         grid-row: 1/3;
-        min-height: 890px;
-
+        height: 100%;
  
     }
     #recently{
         grid-column:3;
         grid-row:1;
         flex: 1;
-        height: fit-content;
+        height: 100%;
     }
     #verified{
         grid-column:1/4;
@@ -93,6 +92,7 @@ export const CardGrid = styled.div`
         grid-column: 3/3;
         grid-row: 2;
         flex: 1;
+        min-height: 350px;
         height: 100%;
     }
     .bottom-cards{

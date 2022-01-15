@@ -62,7 +62,10 @@ export const TrustLevelContainer = styled.div`
       width: 100%;
       display: flex;
       justify-content: flex-start;
-      padding-left: 15%;
+      max-width: 100px;
+      span{
+            white-space:pre-wrap;
+      }
 
 `;
 

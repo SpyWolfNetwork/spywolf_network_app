@@ -19,7 +19,7 @@ export const AuditTokenSlideWrapper = styled.div`
     }
     .name{
         text-align: center;
-        max-width: 100px;
+        max-width: 80px;
     }
 `;
 

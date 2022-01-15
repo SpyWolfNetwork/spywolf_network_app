@@ -84,7 +84,6 @@ export const HomeProvider = (props: any) => {
     const fetchAmaAdded = () => {
         axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/amas').then(
             ({ data }) => {
-                console.log(data)
                 const amaTokensResponse: FeaturedTokensResponse = data;
                 const amaTokens = amaTokensResponse?.content?.Items.map(
                     tokenResponse => new FeaturedToken(tokenResponse)

@@ -30,6 +30,7 @@ export interface FeaturedTokenDTO {
     tag: string;
     releaseDate: string;
     AMADate?: any;
+    savingTime?: string
 }
 
 export interface Content {
@@ -60,6 +61,7 @@ export class FeaturedToken {
     tag?: string;
     releaseDate?: string;
     AMADate?: string;
+    savingTime?: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
@@ -87,6 +89,10 @@ export class FeaturedToken {
         }
         if(featuredTokenDTO.AMADate){
             this.AMADate = featuredTokenDTO.AMADate;
+        }
+
+        if(featuredTokenDTO.savingTime){
+            this.savingTime = featuredTokenDTO.savingTime;
         }
         this.trustLevel = featuredTokenDTO?.trustLevel;
         this.address = featuredTokenDTO?.address;

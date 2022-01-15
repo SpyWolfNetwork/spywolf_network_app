@@ -28,12 +28,13 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
                 hh: "Today",
                 d: "Tomorrow",
                 dd: "%d days",
-                M: "Next Month",
+                M: "a Month",
                 MM: "%d months",
-                y: "Next Year",
+                y: "a Year",
                 yy: "%d years",
                 w: 'a week',
-                ww: '$d weeks'
+                ww: '$d weeks',
+                past: ''
             },
             calendar: {
                 lastDay: '[Yesterday]',
@@ -68,9 +69,29 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
                     Release
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
-                    {(props?.token?.releaseDate) &&
-                    //   moment.utc( new Date(props?.token?.releaseDate).toISOString() ).fromNow(true)
-                      moment.utc(props?.token?.releaseDate as string).hour(0).minutes(0).second(0).from(moment.utc().hour(0).minutes(0).second(0), true)
+                    {
+                        (moment().utc().hour(0).minutes(0).second(0).milliseconds(0).isBefore(props?.token?.releaseDate)
+                            && moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== 0
+                            && moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1)
+                        && 'In '
+
+                    }
+
+                    {((props?.token?.releaseDate) && moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1) &&
+                        moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).milliseconds(0).from(moment.utc(new Date()).hour(0).minutes(0).second(0).milliseconds(0), true)
+
+                    }
+
+                    {((props?.token?.releaseDate)
+                        && moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') === -1)
+                        && 'Yesterday'
+                    }
+                    {
+                        (moment().utc().hour(0).minutes(0).second(0).milliseconds(0).isAfter(props?.token?.releaseDate)
+                            && moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== 0
+                            && moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1
+                        )
+                        && ' ago'
                     }
                 </span>
             </ReleaseContainer>

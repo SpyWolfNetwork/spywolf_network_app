@@ -93,4 +93,20 @@ export const Container = styled.div`
         .ant-row{
             margin: 10px 0;
         }
+        .ant-select-item, .ant-select-selector{
+                    background: #f4f7f9 !important;
+                    border: none !important;
+                    outline: none !important;
+                    color: black !important;
+                    min-width: 120px;
+                    height: fit-content !important;
+                    min-height: 42px;
+                    align-items: center;
+                    input{
+                        padding: 0.75rem 2rem !important;
+                        height: 100%;
+                        min-height: 42px !important;
+                    }
+                }
+              
 `;

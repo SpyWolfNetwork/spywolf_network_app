@@ -14,7 +14,7 @@ searchChange?: any, searchPlaceholder?: string }> = (props) => {
     return <Container>
         {
             props.banner !== undefined &&
-           <Link to="/reward">
+           <Link to="/charity">
                 < a > <img width="100%" src={scambanner} alt="" /></a>
            </Link>
         }

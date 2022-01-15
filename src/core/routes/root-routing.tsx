@@ -24,7 +24,7 @@ export default function Root() {
         '/token': 'Token',
         '/wallet': 'Wallet',
         '/disclaimer': 'Disclaimer',
-        '/reward': 'Reward',
+        '/charity': 'Reward',
         '/frequently-asked-questions': 'Frequently Asked Question',
     };
 
@@ -65,7 +65,7 @@ export default function Root() {
                     <Route path="/learn" element={<LearnList></LearnList>}></Route>
                     <Route path="/frequently-asked-questions" element={<Faq/>}></Route>
                     <Route path="/disclaimer" element={<Disclaimer/>}></Route>
-                    <Route path="/reward" element={<HomeProvider><RewardComponent/></HomeProvider>}></Route>
+                    <Route path="/charity" element={<HomeProvider><RewardComponent/></HomeProvider>}></Route>
                     
                 </Routes>
             </div>
