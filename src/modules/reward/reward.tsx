@@ -94,8 +94,14 @@ const RewardComponent: React.FC = () => {
                             setStep3Loading(true)
                             setCurrentStep(1)
                             const data: ScamTokensResponseModel = res.data;
-                            setFirstData(data.resultFinal);
-
+                            const array: any[] = [];
+                            data.resultFinal.forEach(result => {
+                                const hasItem = array.some((item: any) => item.address === result.address)
+                                if (!hasItem) {
+                                    array.push(result);
+                                }
+                            })
+                            setFirstData(array);
                             axios.post(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/inspectwallet/spy_txs/`,
                                 {
                                     address: currentAddress,
@@ -578,15 +584,18 @@ const RewardComponent: React.FC = () => {
                                     <h3 className="fs-2hx text-dark mb-2">Your Reward 🤑</h3>
                                     <div className="fs-2 fw-bold">{!tweetToggle ? formatter.format(spyCharityInfo?.charityAmount as any) : formatter.format(spyCharityInfo?.charityAmountWithTweet as any)} SPY</div>
                                 </div>
-                                <div className="d-flex flex-stack mb-4 " >
+                                <div className="d-flex flex-stack mb-4 " style={{justifyContent: 'center'}} >
                                     <div className="me-5 fw-bold">
-                                        <label className="fs-5">Want an extra  {spyCharityInfo ? formatter.format(spyCharityInfo?.charityAmountWithTweet - spyCharityInfo?.charityAmount) : 0} SPY? Tweet the link to this form!</label>
-                                        <Switch onChange={handleTweetToggle}></Switch>
+                                        <label className="fs-5">Want an extra  {spyCharityInfo ? formatter.format(spyCharityInfo?.charityAmountWithTweet - spyCharityInfo?.charityAmount) : 0} SPY?  </label>
+                                        <Switch style={{ marginLeft: '10px' }} onChange={handleTweetToggle}></Switch>
                                     </div>
                                 </div>
                                 {
                                     tweetToggle &&
-                                    <Input style={{ marginBottom: '2rem' }} type="text" onInput={handleTwitterInput} className="form-control form-control-solid" placeholder="Paste the Tweet URL here..." name="invite_teammates" />
+                                    <div>
+                                        <span>Tweet about us to help other victims claim their rewards</span>
+                                        <Input style={{ marginBottom: '2rem' }} type="text" onInput={handleTwitterInput} className="form-control form-control-solid" placeholder="Paste the Tweet URL here..." name="invite_teammates" />
+                                    </div>
                                 }
                                 <Button style={{ margin: '0 auto' }} disabled={tweetToggle && !twitterUrl?.includes('twitter.com/')} className="btn btn-primary mb-5" onClick={claim}>Claim Now</Button>
                             </div>
