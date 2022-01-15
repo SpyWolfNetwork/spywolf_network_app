@@ -376,32 +376,41 @@ const RewardComponent: React.FC = () => {
         };
         if (tweetToggle) {
             claimData.charityAmount = spyCharityInfo?.charityAmountWithTweet;
-            claimData['tweetLink'] = twitterUrl;
+            claimData['tweetLink'] = twitterUrl?.toLowerCase();
+            if (!twitterUrl?.toLowerCase().includes('twitter.com')) {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'Invalid Twitter url, please check it again.',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again',
+                })
+                return;
+            }
         }
-
-        if (twitterUrl?.includes('twitter.com')) {
-            axios.post('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/claim', claimData).then(
-                () => {
-                    Swal.fire(
-                        {
-                            titleText: `It's all set!`,
-                            text: 'you will received your SPYs in the next 24h, thank you for trusting SpyWolf',
-                            willClose: () => {
-                                navigate('/')
-                            }
-
+        axios.post('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/charity/claim', claimData).then(
+            () => {
+                Swal.fire(
+                    {
+                        titleText: `It's all set!`,
+                        text: 'you will received your SPYs in the next 24h, thank you for trusting SpyWolf',
+                        willClose: () => {
+                            navigate('/')
                         }
-                    )
-                }
-            );
-        } else {
-            Swal.fire({
-                title: 'Oops!',
-                text: 'Invalid url, please check again.',
-                icon: 'error',
-                confirmButtonText: 'Try Again',
-            })
-        }
+
+                    }
+                )
+            }
+        ).catch(
+            e => {
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'Something went wrong!',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again',
+                })
+            }
+        );
+
     }
 
     const handleTwitterInput = e => {
@@ -584,7 +593,7 @@ const RewardComponent: React.FC = () => {
                                     <h3 className="fs-2hx text-dark mb-2">Your Reward 🤑</h3>
                                     <div className="fs-2 fw-bold">{!tweetToggle ? formatter.format(spyCharityInfo?.charityAmount as any) : formatter.format(spyCharityInfo?.charityAmountWithTweet as any)} SPY</div>
                                 </div>
-                                <div className="d-flex flex-stack mb-4 " style={{justifyContent: 'center'}} >
+                                <div className="d-flex flex-stack mb-4 " style={{ justifyContent: 'center' }} >
                                     <div className="me-5 fw-bold">
                                         <label className="fs-5">Want an extra  {spyCharityInfo ? formatter.format(spyCharityInfo?.charityAmountWithTweet - spyCharityInfo?.charityAmount) : 0} SPY?  </label>
                                         <Switch style={{ marginLeft: '10px' }} onChange={handleTweetToggle}></Switch>
