@@ -214,10 +214,10 @@ export const TokenDashboardComponent: React.FC = () => {
                                     {tokenData?.basicInfo?.releaseDate ? differenceInDays(
                                         new Date(tokenData?.basicInfo?.releaseDate as string),
                                         new Date()
-                                    ) < 1 ? 'NOT LAUNCHED' : 'LAUNCHED' : '-'}
+                                    ) >= 0 ? 'NOT LAUNCHED' : 'LAUNCHED' : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Release Date">{
-                                    (tokenData as Token)?.basicInfo?.deployedDate ? getDate(tokenData?.basicInfo?.releaseDate as string) : '-'}
+                                    (tokenData as Token)?.basicInfo?.releaseDate ? getDate(tokenData?.basicInfo?.releaseDate as string) : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Is Contract Verified?">
                                     {tokenData ? tokenData?.isVerified ? 'Yes' : 'No' : '-'}

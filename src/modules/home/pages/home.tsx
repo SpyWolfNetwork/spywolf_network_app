@@ -351,10 +351,14 @@ export const HomeComponent: React.FC = () => {
     }
     const filterFeaturedTokensByLevel = (token: FeaturedToken) => (token.trustLevel === featuredTokensFilter) || featuredTokensFilter === 'all'
 
-    const sortByDate = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
-        const a = new Date(tokenA.releaseDate as string);
-        const b = new Date(tokenB.releaseDate  as string);
-        return (b as any) - (a as any);
+    const sortTrustedByLevel = (tokenA: FeaturedToken, tokenB: FeaturedToken) => {
+        const levelmap = {
+            'Level 1': 1,
+            'Level 2': 2,
+            'Level 3': 3,
+            'undefined' : 4
+        }
+        return levelmap[tokenB.trustLevel] - levelmap[tokenA.trustLevel];
     }
 
     const filterUpcomingByVerified = (token: FeaturedToken) => {
@@ -467,7 +471,7 @@ export const HomeComponent: React.FC = () => {
             >
                 <div className="content-wrapper">
                     {
-                        featuredTokens?.sort(sortByDate).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) =>
+                        featuredTokens?.sort(sortTrustedByLevel).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) =>
                             <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
                         )
                     }
