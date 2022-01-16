@@ -44,11 +44,10 @@ export interface FeaturedTokensResponse {
     content: Content;
 }
 
-export class FeaturedToken {
+export class  FeaturedToken {
     name: string;
     symbol: string;
     logoPicture: string;
-    deployedDate: string;
     trustLevel: string;
     address: string;
     scamReason: string[];
@@ -67,11 +66,12 @@ export class FeaturedToken {
         this.name = featuredTokenDTO?.name;
         this.symbol = featuredTokenDTO?.symbol;
         this.logoPicture = featuredTokenDTO?.logo;
-        const date = parseISO(featuredTokenDTO?.deployedDate as string);
+        const date = parseISO(featuredTokenDTO?.releaseDate as string);
         if (date && isValid(date)) {
-            this.deployedDate = format(date, 'PP').toString();
+            this.releaseDate = format(date, 'PP').toString();
+            console.log('relasedate', this.releaseDate)
         }else{
-            this.deployedDate = '';
+            this.releaseDate = '';
         }
 
         if(featuredTokenDTO.presaleInfo && featuredTokenDTO.presaleInfo.presaleDate){
@@ -101,7 +101,6 @@ export class FeaturedToken {
         this.telegram = featuredTokenDTO?.telegram;
         this.scamReasonTooltip = featuredTokenDTO.scamReasonTooltip;
         this.vettedBy = featuredTokenDTO.vettedBy;
-        this.releaseDate = featuredTokenDTO.releaseDate;
         this.alldata = featuredTokenDTO;
 
     }

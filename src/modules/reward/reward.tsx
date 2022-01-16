@@ -372,7 +372,7 @@ const RewardComponent: React.FC = () => {
             scamTX: scamsData[0].scamTX,
             scamTokenAddress: scamsData[0].address,
             spyAmount: spyCharityInfo?.spyAmount,
-
+            spyTXHash: spyCharityInfo?.spyTXHash
         };
         if (tweetToggle) {
             claimData.charityAmount = spyCharityInfo?.charityAmountWithTweet;

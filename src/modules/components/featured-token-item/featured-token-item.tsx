@@ -39,7 +39,7 @@ const FeaturedTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
             <span className='released-title text-muted fw-bold d-block fs-8'>
                 Released
             </span>
-            <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.deployedDate}</span>
+            <span className='text-dark fw-bolder d-block fs-7'>{props?.token?.releaseDate}</span>
         </ReleaseContainer>
         <TrustLevelContainer>
             <Popover content={<span>Awarded SpyWolf's Certificate of Trust: {props?.token?.trustLevel ? props?.token?.trustLevel : 'L   evel 1'}</span>} >
