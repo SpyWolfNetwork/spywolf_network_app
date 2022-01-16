@@ -1,3 +1,4 @@
+import { FeaturedToken } from "../../home/models/featured-token";
 import { Currency, TokenGroup, Transfers } from "../models/dto/wallet.model";
 
 export function groupBy(arr: any, key: 'symbol') {
@@ -45,3 +46,26 @@ export function transfersGroupBy(arr: Transfers.TransfersInfoModel[], key = 'sym
     }, []);
 
 }
+
+// export function groupByLevel(arr: FeaturedToken[], key = 'level') {
+//     return arr.reduce((acc: any[], current: FeaturedToken) => {
+//         const symbol = current[key];
+//         // const currencyPriceInBnb = current.currencyPriceInBnb;
+//         // const priceInWallet = current.priceInWallet;
+//         const groupIndex = acc.findIndex((item: FeaturedToken) => item.symbol === symbol);
+//         const groupFound = groupIndex > 0;
+//         if (groupFound) {
+//             acc[groupIndex].items = [...acc[groupIndex], current];
+//             return acc;
+//         }
+
+//         const newGroup: Transfers.TransfersGroup = {
+//             symbol,
+//             // priceInWallet,
+//             // currencyPriceInBnb,
+//             transfers: [current]
+//         };
+//         return [...acc, newGroup];
+//     }, []);
+
+// }
