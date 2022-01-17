@@ -202,7 +202,7 @@ const RewardComponent: React.FC = () => {
                                                 const charityData = res.data.checkWalletForCharity;
                                                 const status = charityData.Items[0].status;
                                                 const charityAmount = charityData.Items[0].charityAmount;
-                                                const txHash = charityData.Items[0].charityTX;
+                                                const txHash = charityData.Items[0].spyTXHash;
                                                 if (status === 'PENDING') {
                                                     setAddressValidation({
                                                         err: 0,
@@ -310,7 +310,7 @@ const RewardComponent: React.FC = () => {
                                             const charityData = res.data.checkWalletForCharity;
                                             const status = charityData.Items[0].status;
                                             const charityAmount = charityData.Items[0].charityAmount;
-                                            const txHash = charityData.Items[0].charityTX;
+                                            const txHash = charityData.Items[0].spyTXHash;
                                             if (status === 'PENDING') {
                                                 setAddressValidation({
                                                     err: 0,
