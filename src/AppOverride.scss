@@ -12,14 +12,15 @@ body .App{
   z-index: 99;
   position: sticky;
   top: 0;
-  max-height: 65px;
+  max-height: 70px;
   border-bottom: 1px solid #eff2f5;
+  // padding: 30px 0 40px 0;
   .container-fluid {
     max-width: 1320px;
     display: flex;
     justify-content: flex-start;
     border-bottom: none;
-    padding: 0 2.25rem !important;
+    padding: 0 1.25rem !important;
     background: white;
   }
   &.sticky {
@@ -78,4 +79,8 @@ h1, h2, h3, h4, h5, h6{
 
 .submitButton{
   color: #152B36 !important;
+}
+.container-fluid{
+  display: flex;
+  align-items: center !important;
 }

@@ -19,6 +19,9 @@ import Swal from 'sweetalert2'
 import { HomeContext, HomeProvider } from '../../../../core/routes/providers/home.provider';
 import { FeaturedToken } from '../../../home/models/featured-token';
 import { differenceInDays } from 'date-fns/esm';
+import { FaCopy } from 'react-icons/fa';
+import ClipboardJS from 'clipboard';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 
 
@@ -38,7 +41,13 @@ export const TokenDashboardComponent: React.FC = () => {
     let { tokenid } = useParams();
 
     const { state } = useLocation();
+
+    const [copyConfirm, setCopyConfirm]: any = useState<boolean>(false);
+
+
+
     useEffect(() => {
+        new ClipboardJS('.copybutton');
         setLoadingState(true);
         setTokenAddress(tokenid);
         const requestWaletDataBody = {
@@ -97,7 +106,15 @@ export const TokenDashboardComponent: React.FC = () => {
             title: 'Wallet'.toUpperCase(),
             key: 'TokenHolderAddress',
             dataIndex: 'TokenHolderAddress',
-            render: (t: any) => <span className='fs-6 fw-bold text-gray-600' >{!t.includes('0x0000') ? t : <Tag color={'red'}>Burn Wallet</Tag>}</span>
+            render: (t: any) => <span  className='fs-6 fw-bold text-gray-600 contact-address-absolute' >{!t.includes('0x0000') ? t : <Tag color={'red'}>Burn Wallet</Tag>}
+                <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
+                    navigator.clipboard.writeText(t);
+                    setCopyConfirm(true)
+                    setTimeout(() => setCopyConfirm(false), 500)
+                }} >
+                    {!copyConfirm && <FaCopy color="#181c32"></FaCopy>}
+                    {copyConfirm && <AiFillCheckCircle color="#181c32"></AiFillCheckCircle>}
+                </span> </span>
         },
         {
             title: 'Actions'.toUpperCase(),
@@ -195,7 +212,16 @@ export const TokenDashboardComponent: React.FC = () => {
                     <div>
                         <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span>}</p>
                         <h1 >Contact Address</h1>
-                        {tokenAddress && <span className='contact-address'>{tokenAddress}</span>}
+                        {tokenAddress && <span className='contact-address'>{tokenAddress}
+                            <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
+                                navigator.clipboard.writeText(tokenAddress);
+                                setCopyConfirm(true)
+                                setTimeout(() => setCopyConfirm(false), 1000)
+                            }} >
+                                {!copyConfirm && <FaCopy color="#181c32"></FaCopy>}
+                                {copyConfirm && <AiFillCheckCircle color="#181c32"></AiFillCheckCircle>}
+                            </span>
+                        </span>}
                         <div className="descriptions-wrapper">
                             <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
                                 <Descriptions.Item labelStyle={{ width: '175px' }} label="Name">

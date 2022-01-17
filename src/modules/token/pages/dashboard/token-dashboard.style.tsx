@@ -94,8 +94,36 @@ export const MainContent = styled.div`
 
     .contact-address{
         ${text_muted()}
+        .copybutton{
+            display: none;
+            cursor: pointer;
+        }
+  
     }
 
+
+    .contact-address:hover{
+            .copybutton{
+                display: initial !important;
+            }
+        }
+
+    .contact-address-absolute{
+        ${text_muted()}
+        position: relative;
+        padding-right: 20px;
+        .copybutton{
+            display: none;
+            cursor: pointer;
+            position: absolute;
+        }
+  
+    }
+    .contact-address-absolute:hover{
+            .copybutton{
+                display: initial !important;
+            }
+        }
     .descriptions-wrapper{
         display: flex;
         flex-wrap: wrap;

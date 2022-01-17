@@ -69,7 +69,6 @@ export class  FeaturedToken {
         const date = parseISO(featuredTokenDTO?.releaseDate as string);
         if (date && isValid(date)) {
             this.releaseDate = format(date, 'PP').toString();
-            console.log('relasedate', this.releaseDate)
         }else{
             this.releaseDate = '';
         }

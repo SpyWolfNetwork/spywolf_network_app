@@ -7,23 +7,8 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 3.25rem!important;
-  height: 100%;
-
-`;
-export const SearchContainer = styled.div`
-    width: fit-content;
-    color: #181c32;
-    margin-bottom: 30px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    max-width: 700px;
-   
-    .address-validation-error{
-        color:#f1416c;
-        margin-top: 1.25rem!important;
-    }
+    padding: 0 1.1rem!important;
+    height: 100%;
 
 `;
 
