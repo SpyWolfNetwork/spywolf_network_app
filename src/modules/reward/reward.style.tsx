@@ -123,7 +123,9 @@ export const Container = styled.div`
             }
         }
     }
-
+    .ant-steps-item-title{
+        line-height: 100% !important;
+    }
     .spin-content{
         display: flex;
         flex-direction: column;
@@ -146,5 +148,18 @@ export const Container = styled.div`
     .earn-extra-cta{
         margin-bottom: 1rem !important;
     }
-   
+    .contact-address{
+        position: relative;
+        .copybutton{
+            position: absolute;
+            right: -20px;
+            display: none;
+            cursor: pointer;
+        }
+    }
+    .contact-address:hover{
+        .copybutton{
+            display: initial;
+        }
+    }
 `;

@@ -2,13 +2,13 @@ import './App.scss';
 import './AppOverride.scss';
 import './antd-override/ant-override.scss';
 import Root from './core/routes/root-routing';
-import { Breadcrumb, Button, Input } from 'antd';
+import { Badge, Breadcrumb, Button, Input, Popover } from 'antd';
 import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavbarToggler, CNavItem, CNavLink } from '@coreui/react';
 
 import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { HashRouter, useLocation } from 'react-router-dom';
+import { HashRouter, useLocation, useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useRef, useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
@@ -16,6 +16,8 @@ import SubmissionHeader from './modules/components/submission-header/submission-
 import SubmissionContent from './modules/components/submisson-content/submission-content';
 import axios from 'axios';
 import { ApplicationContext } from './core/routes/providers/application.provider';
+import SearchAdressInput from './modules/components/search-address/search-address';
+import moment from 'moment';
 
 
 
@@ -29,6 +31,8 @@ function App() {
   const [buttonDisabled, setButtonDisabled] = ctxDisabled;
 
   let navbarRef: HTMLDivElement | null;
+
+
   useEffect(() => {
     if (window.scrollY > 0) {
       setWindowScroller(true);
@@ -71,9 +75,18 @@ function App() {
                 <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="h-20px h-lg-40px" />
               </a>
             </CNavbarBrand>
-          
+            <SearchAdressInput></SearchAdressInput>
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
+                <Popover  content={'get up to 10% rewards on your next $SPY purchase'} >
+                  <Badge count="NEW" offset={[-15, 5]}  style={{ fontSize: '10px' }} status='success'>
+                    <CNavItem>
+                      <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
+                        Got Scammed?
+                      </CNavLink>
+                    </CNavItem>
+                  </Badge>
+                </Popover>
                 <CNavItem>
                   <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
                     Get Audited
@@ -106,7 +119,7 @@ function App() {
                   </CNavLink>
                 </CNavItem>
 
-                <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important' }} >Submit</Button>
+                <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
               </CNavbarNav>
             </CCollapse>
           </CContainer>
@@ -118,7 +131,7 @@ function App() {
         <div className="footer py-4 d-flex flex-lg-column" id="kt_footer">
           <div className="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">
             <div className="text-dark order-2 order-md-1">
-              <span className="text-muted fw-bold me-1">© 2021</span>
+              <span className="text-muted fw-bold me-1">© {moment().year()}</span>
               <a href="https://spywolf.co" target="_blank" className="text-gray-800 text-hover-primary">SpyWolf</a>
             </div>
             <ul className="menu menu-gray-600 menu-hover-primary fw-bold order-1">

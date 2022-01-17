@@ -17,6 +17,8 @@ import { Container } from './reward.style';
 import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 'swiper'
 import TokenSlideItem from './token-slide-item/token-slide-item';
 import moment from 'moment';
+import { FaCopy } from 'react-icons/fa';
+import { AiFillCheckCircle } from 'react-icons/ai';
 
 SwiperCore.use([Autoplay, Navigation, Pagination, Scrollbar, A11y]);
 
@@ -60,6 +62,8 @@ const RewardComponent: React.FC = () => {
     const [spyCharityInfo, setspyCharityInfo] = useState<SpyCharityInfoModel | null>(null);
 
     const [scamsData, setFirstData] = useState<ResultFinalItemModel[]>([]);
+
+    const [copyConfirm, setCopyConfirm] = useState<boolean>(false);
 
 
     const [scamDateInPlataform, setScamDateInPlataform] = useState<ResultFinalItemModel>();
@@ -113,11 +117,12 @@ const RewardComponent: React.FC = () => {
                                     setStep3(true)
                                     setStep3Loading(true)
                                     setCurrentStep(2)
-                                    setInterval(() => {
-                                        setStep4(true)
-                                        setCurrentStep(3)
-                                    }, 3000)
-
+                                    if (res.data && res.data !== undefined) {
+                                        setInterval(() => {
+                                            setStep4(true)
+                                            setCurrentStep(3)
+                                        }, 3000)
+                                    }
                                 }
                             )
                         }
@@ -524,7 +529,16 @@ const RewardComponent: React.FC = () => {
                 <div className="content spin-content">
                     <div className="pb-10 pb-lg-15 text-center mt-6">
                         <h2 className="fw-bolder text-dark">Your Address</h2>
-                        <div className="text-muted fw-bold fs-6">{currentAddress}
+                        <div className="text-muted fw-bold fs-6 contact-address">
+                            {currentAddress}
+                            <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
+                                navigator.clipboard.writeText(currentAddress ? currentAddress : '');
+                                setCopyConfirm(true)
+                                setTimeout(() => setCopyConfirm(false), 1000)
+                            }} >
+                                {!copyConfirm && <FaCopy color="#181c32"></FaCopy>}
+                                {copyConfirm && <AiFillCheckCircle color="#181c32"></AiFillCheckCircle>}
+                            </span>
                         </div>
                     </div>
                     {(scamsData?.length === 0) &&

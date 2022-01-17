@@ -19,7 +19,7 @@ const Faq: React.FC = () => {
                         About SpyWolf Network
                     </h2>
 
-                    <Collapse defaultActiveKey={['1']} ghost>
+                    <Collapse   ghost>
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="What is the goal of this portal?" key="1">
                             <p>SpyWolf Network aims to educate and help crypto investors during their
                                 research process to avoid falling into the hands of crypto criminals.
@@ -67,7 +67,7 @@ const Faq: React.FC = () => {
                         Audits by SpyWolf
                     </h2>
 
-                    <Collapse defaultActiveKey={['1']} ghost>
+                    <Collapse ghost>
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="Why is an audit important in crypto?" key="1">
                             <p>
                                 There are very few regulations in the crypto space. Just about anyone with some coding skills can create a project and a digital token to raise millions of dollars within minutes and instantly disappear with everybody's funds.
@@ -118,7 +118,7 @@ const Faq: React.FC = () => {
                         $SPY Token
                     </h2>
 
-                    <Collapse defaultActiveKey={['1']} ghost>
+                    <Collapse ghost>
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="What is the SPY token for?" key="1">
                             <p>When you hold SPY, you are directly contributing into the search, tracking and potentially stopping of crypto criminals and their future projects as well as helping alert the community about potential scams and educate them on how to identify them, while getting a financial incentive for holding long-term.</p>
                         </CollapsePanel>
@@ -140,7 +140,7 @@ const Faq: React.FC = () => {
                         About SpyWolf
                     </h2>
 
-                    <Collapse defaultActiveKey={['1']} ghost>
+                    <Collapse ghost>
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="What is SpyWolf's background?" key="1">
                             <p>SpyWolf is a team of crypto security experts that have been performing audits for projects for several months in order to ensure safety in the crypto space.
                             </p>
