@@ -278,7 +278,7 @@ export const HomeComponent: React.FC = () => {
             </Card>
             <Card id="amas" title={'Upcoming AMAs'}
                 extra={
-                    <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}> See Past Ama's?
+                    <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}> See Past AMAs?
                         <Switch size={'small'} onChange={changePastOnly} />
                     </span>}
                 actions={[
