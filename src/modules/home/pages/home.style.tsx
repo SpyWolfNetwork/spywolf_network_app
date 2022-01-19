@@ -41,7 +41,7 @@ export const CardGrid = styled.div`
             grid-template-columns: 1fr 1fr;
             grid-column: 1/4;
             column-gap: 1.4em;
-            @media (max-width: 967px){
+            @media (max-width: 1200px){
                 grid-template-columns: 1fr;
                 grid-column: 1;
                 grid-template-rows: 1fr 1fr;
@@ -107,6 +107,7 @@ export const CardGrid = styled.div`
 
     .bottom-cards{
         display: grid !important;
+        grid-template-columns: 1fr 1fr 1fr;
         grid-column: 1/4;
         column-gap: 1.4em;
         row-gap: 1.4em;
@@ -114,11 +115,11 @@ export const CardGrid = styled.div`
             margin-bottom: 10px;
         }
         #verified-inline{
-            grid-column: 1/2;
+            grid-column: 1/3;
 
         }
         #advertisement-inline{
-            grid-column: 2/2;
+            grid-column: 3;
 
         }
     }
