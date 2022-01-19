@@ -20,14 +20,38 @@ export const CardGrid = styled.div`
         grid-template-rows: auto;
         column-gap: 1.4em;
         row-gap: 1.4em;
+        .ant-card{
+            padding: 0 !important;
+
+        }
+        .ant-card-head{
+            padding: 1.25em 1.25em 0 1.25em !important;
+        }
         .ant-card .ant-card-body{
             overflow-x: auto !important;
         }
         .bottom-cards{
-        display: grid !important;
-    }
+            display: grid !important;
+            row-gap: 1.4em;
+        }
     .content-wrapper{
         }
+        .inline-cards{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-column: 1/4;
+            column-gap: 1.4em;
+            @media (max-width: 967px){
+                grid-template-columns: 1fr;
+                grid-column: 1;
+                grid-template-rows: 1fr 1fr;
+                row-gap: 1.4em !important;
+                #latests{
+                    margin-bottom: 20px !important;
+                }
+            }
+        }
+ 
     @media ( min-width: 1200px){
         display: grid;
         grid-template-columns: repeat(3, minmax(250px, 1fr));
@@ -80,6 +104,7 @@ export const CardGrid = styled.div`
         min-height: 350px;
         height: 100%;
     }
+
     .bottom-cards{
         display: grid !important;
         grid-column: 1/4;

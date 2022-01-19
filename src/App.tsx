@@ -79,9 +79,9 @@ function App() {
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
                 <Popover  content={'get up to 10% rewards on your next $SPY purchase'} >
-                  <Badge count="NEW" offset={[-15, 5]}  style={{ fontSize: '10px' }} status='success'>
+                  <Badge count="NEW" offset={[-15, 7]}  style={{ fontSize: '10px' }} status='success'>
                     <CNavItem>
-                      <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
+                      <CNavLink style={{fontSize: '13px'}} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
                         Got Scammed?
                       </CNavLink>
                     </CNavItem>

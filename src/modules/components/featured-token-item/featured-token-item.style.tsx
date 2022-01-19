@@ -6,8 +6,9 @@ export const Container = styled.div`
   grid-template-columns: 50px 1fr 1fr 1fr;
   align-items: center;
   border-bottom: 1px dashed #eff2f5;
-  padding: 1rem 0;
+  padding: 1rem ;
   column-gap: 1rem;
+
       cursor: pointer;
       &:hover{
             background: #f4f7f9;

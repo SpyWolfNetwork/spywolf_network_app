@@ -318,6 +318,12 @@ const RewardComponent: React.FC = () => {
                                                     active: true
                                                 })
 
+                                            }else if(status === 'REJECTED'){
+                                                setAddressValidation({
+                                                    err: 0,
+                                                    message: charityData.Items[0].message,
+                                                    active: true
+                                                })
                                             } else {
                                                 setAddressValidation({
                                                     err: 0,
