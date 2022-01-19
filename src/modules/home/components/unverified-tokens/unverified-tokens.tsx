@@ -43,18 +43,17 @@ const UnverifiedTokens: React.FC = () => {
         <Swiper
             onBeforeInit={(swipper) => setSwipe(swipper)}
             navigation={{ prevEl, nextEl }}
-            slidesOffsetBefore={40}
             slidesPerView={2}
             breakpoints={
                 {
                     0: {
-                        slidesPerView: 2
+                        slidesPerView: 1
                     },
                     360: {
                         slidesPerView: 2
                     },
                     460: {
-                        slidesPerView: 2
+                        slidesPerView: 3
                     },
                     560: {
                         slidesPerView: 3
@@ -71,7 +70,7 @@ const UnverifiedTokens: React.FC = () => {
             centeredSlidesBounds={true}
         >
             {
-                auditedTokens && auditedTokens?.map(token => <SwiperSlide >
+                auditedTokens && auditedTokens?.map(token => <SwiperSlide style={{width: '130px', display: 'flex', justifyContent: 'center'}}>
                     <TokenSlideItem token={token} tagColor='green' />
                 </SwiperSlide>)
             }

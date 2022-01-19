@@ -175,7 +175,8 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                     background: ribbonStyleBG(),
                     color: ribbonStyleColor()
                 }
-            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM' || tokenData?.basicInfo?.trustLevel === undefined) ? tokenData?.basicInfo?.tag : `Trust ${tokenData?.level}`}`} placement='start' >
+            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM' || tokenData?.basicInfo?.trustLevel === undefined) ? ` ${tokenData?.basicInfo?.tag == 'SCAM' ? 'SCAM' : tokenData?.basicInfo?.tag[0].toUpperCase() +  tokenData?.basicInfo?.tag.slice(1).toLowerCase()}`: `Trust ${tokenData?.level}`}`} 
+            placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
                 {props.loading}
                 <div className="token-logo-wrapper">

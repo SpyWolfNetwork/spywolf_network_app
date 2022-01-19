@@ -142,7 +142,7 @@ export const HomeComponent: React.FC = () => {
             'Level 1': 1,
             'Level 2': 2,
             'Level 3': 3,
-            'undefined' : 4
+            'undefined': 4
         }
         return levelmap[tokenB.trustLevel] - levelmap[tokenA.trustLevel];
     }
@@ -307,9 +307,9 @@ export const HomeComponent: React.FC = () => {
                     </div>
                 </Card>
             </div>
-            <div className="bottom-cards">
-                {/* subtitle={`Were you scammed by any of these tokens? Join our ${'"Scams Survirvor"'} Telegram`} */}
+            <div className="inline-cards">
                 <Card
+                    className='first-card'
                     id="latests"
                     title={<CardTitleSubtitle
                         banner={{ link: '', src: scambanner }}
