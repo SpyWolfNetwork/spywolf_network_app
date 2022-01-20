@@ -145,13 +145,13 @@ export const TokenDashboardComponent: React.FC = () => {
 
                     <div>
                         <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                            <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{'SpyWolf'}</Descriptions.Item>
+                            <Descriptions.Item labelStyle={{ width: 'fit-content !important' }}  label="Company">{'SpyWolf'}</Descriptions.Item>
                             {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
                         </Descriptions>
                         <div className="audit-link">
                             <LaptopOutlined color='#b5b5c3'
                             ></LaptopOutlined>
-                            <a target="__blank"
+                            <a style={{fontSize: '14px'}} target="__blank"
                                 className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
                                 href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified' ? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
                         <div className="audit-gif">
@@ -175,13 +175,13 @@ export const TokenDashboardComponent: React.FC = () => {
             {(tokenData?.basicInfo?.OtherCompanyAudit !== undefined) &&
                 <Card title="Audit Information">
                     <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                        <Descriptions.Item labelStyle={{ width: '175px' }} label="Company">{(tokenData?.basicInfo?.OtherCompanyAudit as any).companyName}</Descriptions.Item>
+                        <Descriptions.Item labelStyle={{ width: 'fit-content !important' }} label="Company">{(tokenData?.basicInfo?.OtherCompanyAudit as any).companyName}</Descriptions.Item>
                         {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
                     </Descriptions>
                     <div className="audit-link">
                         <LaptopOutlined color='#b5b5c3'
                         ></LaptopOutlined>
-                        <a target="__blank"
+                        <a style={{fontSize: '14px'}} target="__blank"
                             className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
                             href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>Audit Link</a>
                     </div>
@@ -224,28 +224,28 @@ export const TokenDashboardComponent: React.FC = () => {
                         </span>}
                         <div className="descriptions-wrapper">
                             <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Name">
+                                <Descriptions.Item label="Name">
                                     {tokenData?.currency?.name ? tokenData?.currency?.name : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Symbol">
+                                <Descriptions.Item label="Symbol">
                                     {tokenData?.currency?.symbol ? tokenData?.currency?.symbol : '-'}
                                 </Descriptions.Item>
                                 {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Network">
                             {(tokenData as Token)?.currency?.tokenType ? (tokenData as Token)?.currency?.tokenType : '-'}
                         </Descriptions.Item> */}
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Decimals">
+                                <Descriptions.Item label="Decimals">
                                     {tokenData?.currency?.decimals ? tokenData?.currency?.decimals : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Status">
+                                <Descriptions.Item  label="Status">
                                     {tokenData?.basicInfo?.releaseDate ? differenceInDays(
                                         new Date(tokenData?.basicInfo?.releaseDate as string),
                                         new Date()
                                     ) >= 0 ? 'NOT LAUNCHED' : 'LAUNCHED' : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Release Date">{
+                                <Descriptions.Item label="Release Date">{
                                     (tokenData as Token)?.basicInfo?.releaseDate ? getDate(tokenData?.basicInfo?.releaseDate as string) : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Is Contract Verified?">
+                                <Descriptions.Item label="Is Contract Verified?">
                                     {tokenData ? tokenData?.isVerified ? 'Yes' : 'No' : '-'}
                                 </Descriptions.Item>
                                 {
@@ -269,22 +269,22 @@ export const TokenDashboardComponent: React.FC = () => {
                                 }
                             </Descriptions>
                             <Descriptions column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Transfer Count">
+                                <Descriptions.Item label="Transfer Count">
                                     {tokenData?.statisticInfo?.count ? tokenData?.statisticInfo?.count : '-'}
                                 </Descriptions.Item>
 
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Total Amount">
+                                <Descriptions.Item label="Total Amount">
                                     {tokenData?.statisticInfo?.amount ? tokenData?.statisticInfo?.amount : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="First Transfer">
+                                <Descriptions.Item  label="First Transfer">
                                     {tokenData?.statisticInfo?.min_date ? getDate(tokenData?.statisticInfo?.min_date) : '-'}
 
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ width: '175px' }} label="Last Transfer">
+                                <Descriptions.Item label="Last Transfer">
                                     {tokenData?.statisticInfo?.min_date ? getDate(tokenData?.statisticInfo?.max_date) : '-'}
 
                                 </Descriptions.Item>
-                                <Descriptions.Item labelStyle={{ minWidth: '175px' }} label="Age">
+                                <Descriptions.Item  label="Age">
                                     {tokenData?.statisticInfo?.days ? `${tokenData?.statisticInfo?.days} days` : '-'}
                                 </Descriptions.Item>
                             </Descriptions>

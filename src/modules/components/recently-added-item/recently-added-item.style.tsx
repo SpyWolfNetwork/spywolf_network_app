@@ -7,7 +7,10 @@ export const Container = styled.div`
   column-gap: 1rem;
   padding: 1rem;
   align-items: center;
-  
+  @media (max-width: 1200px){
+            padding: 1rem 0.5rem ;
+
+  }
   cursor: pointer;
       &:hover{
             background: #f4f7f9;

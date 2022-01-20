@@ -2,11 +2,18 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
+&.past{
+      opacity: 0.5;
+}
   display: grid;
   grid-template-columns: 50px 1fr 1fr auto;
   column-gap: 1rem;
   padding: 1rem ;
   align-items: center;
+  @media (max-width: 1200px){
+            padding:1rem 0.5rem ;
+
+  }
   cursor: pointer;
       &:hover{
             background: #f4f7f9;

@@ -9,7 +9,7 @@ import { FeaturedToken } from '../../home/models/featured-token';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './recently-added-item.style';
 import { AiFillWarning } from 'react-icons/ai';
 import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
-import { format, formatRelative } from 'date-fns';
+import { differenceInDays, differenceInHours, format, formatRelative } from 'date-fns';
 import { enUS } from 'date-fns/esm/locale';
 import { formatDistance } from 'date-fns/esm';
 import moment, { updateLocale } from 'moment';
@@ -18,6 +18,12 @@ import moment, { updateLocale } from 'moment';
 
 const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => {
+        // const diff = differenceInDays(moment.utc(props?.token?.releaseDate as any ).hour(0).minutes(0).millisecond(0).toDate(), moment().utc().toDate());
+        // const diff2 = differenceInHours(moment.utc(props?.token?.releaseDate as any ).toDate(), moment().utc().toDate());
+        // console.log(moment.utc(props?.token?.releaseDate as any ).hours(0).minutes(0).milliseconds(0) .toDate())
+        // console.log(moment().utc().hours(0).minutes(0).milliseconds(0).toDate())
+        // console.log(diff)
+        // console.log(diff+1)
         moment.utc();
         moment.updateLocale("en", {
             relativeTime: {
@@ -100,7 +106,7 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
                     <Tag
                         color={props.token.alldata?.tag === 'UNVERIFIED' ? 'red' : 'green'}
                     >
-                        {`${props?.token?.alldata?.tag[0]?.toUpperCase() as any + props?.token?.alldata?.tag?.slice(1) as any}`}
+                        {`${props?.token?.alldata?.tag[0]?.toUpperCase() as any + props?.token?.alldata?.tag?.slice(1).toLowerCase() as any}`}
                     </Tag>
 
 

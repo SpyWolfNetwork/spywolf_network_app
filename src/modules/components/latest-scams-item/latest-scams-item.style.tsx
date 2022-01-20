@@ -4,6 +4,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: grid;
   grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) 100px ;
+  @media (max-width: 480px){
+      grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr);
+  }
+  @media (max-width: 1200px){
+            padding: 1rem 0.5rem ;
+
+  }
   column-gap: 1rem;
   padding:1rem;
   align-items: center;
@@ -55,6 +62,9 @@ export const ReleaseContainer = styled.div`
       justify-content: center;
       align-items: flex-end;
       min-width: 100px;
+      @media (max-width: 480px){
+            display: none;
+      }
 `;
 
 

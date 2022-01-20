@@ -2,18 +2,19 @@
 import { ArrowRightOutlined } from '@ant-design/icons';
 import { Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { tokenToString } from 'typescript';
 import { FeaturedToken } from '../../home/models/featured-token';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './ama-token-item.style';
 import { AiFillWarning } from 'react-icons/ai';
 import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
-import { format, formatRelative } from 'date-fns';
+import { differenceInDays, format, formatRelative } from 'date-fns';
 import { enUS } from 'date-fns/esm/locale';
 import { formatDistance } from 'date-fns/esm';
 import moment, { updateLocale } from 'moment';
 import { MdKeyboardVoice } from 'react-icons/md';
+import { FaPlay } from 'react-icons/fa';
 
 const formatRelativeLocale = {
     lastWeek: "'Last Week'",
@@ -34,8 +35,17 @@ const locale = {
 
 
 const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
+    const [applyOpacity, setApplyOpacity] = useState('');
+    const [diffDays, setDiffDays] = useState(0);
     useEffect(() => {
+        const diff = differenceInDays(moment.utc(props?.token?.AMADate as any ).hour(0).minutes(0).millisecond(0).toDate(), moment().utc().toDate());
+        setDiffDays(diff)
+        if(diff <= 0 ){
+            setApplyOpacity('past')
+        }else{
+            setApplyOpacity('')
 
+        }
         moment.updateLocale("en", {
             relativeTime: {
                 s: "Today",
@@ -95,7 +105,7 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
             }
         })
     }, [props.token])
-    return <Container>
+    return <Container className={`${applyOpacity}`}>
         <Link to={`token/${props?.token?.address}`}>
             <LogoContainer>
                 <img src={props?.token?.logoPicture} width="50px" alt="" />
@@ -149,10 +159,10 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
 
             <div>
                 {
-                    moment.utc(props?.token?.AMADate as string).diff(moment.utc().hour(0).minutes(0).second(0)) === 0 ?
+                   diffDays === 0 ?
                         <Button className={'today'} href={'https://t.me/SpyWolfNetwork'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
                         :
-                        <Button type="ghost" target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
+                        <Button type="ghost" target={'__blank'}> <FaPlay size={15} />  </Button>
 
                 }
             </div>

@@ -8,12 +8,13 @@ export const Container = styled.div`
   border-bottom: 1px dashed #eff2f5;
   padding: 1rem ;
   column-gap: 1rem;
-
-      cursor: pointer;
-      &:hover{
-            background: #f4f7f9;
+  
+  cursor: pointer;
+  &:hover{
+        background: #f4f7f9;
       }
       @media (max-width: 1200px){
+            padding: 1rem 0.5rem ;
             grid-template-columns: 50px 1fr 1fr;
 
       }

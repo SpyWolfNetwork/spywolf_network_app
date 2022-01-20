@@ -1,5 +1,4 @@
-
-body .App{
+body .App {
   min-height: 100vh;
   height: 100%;
 }
@@ -22,6 +21,7 @@ body .App{
     border-bottom: none;
     padding: 0 1.25rem !important;
     background: white;
+    row-gap: 20px;
   }
   &.sticky {
     background: white;
@@ -32,7 +32,7 @@ body .App{
     font-size: 1em;
     padding: 0.5rem;
     &.social {
-      padding: 0 !important;
+      padding: 0 5px !important;
     }
     .nav-link {
       margin: 0 !important;
@@ -60,27 +60,79 @@ body .App{
   column-gap: 5px;
 }
 
-h1, h2, h3, h4, h5, h6{
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: #181c32 !important;
 }
 
-.hamburger-toggle{
+.hamburger-toggle {
   display: none !important;
-  @media ( min-width: 991px){
+  @media (min-width: 991px) {
     display: none !important;
   }
 }
 
-#toggler{
-    @media ( min-width: 992px){
-      display: none !important;
-    }
+#toggler {
+  @media (min-width: 992px) {
+    display: none !important;
+  }
 }
 
-.submitButton{
-  color: #152B36 !important;
+.submitButton {
+  color: #152b36 !important;
+  @media (max-width: 978px){
+    margin-bottom: 20px;
+  }
 }
-.container-fluid{
+.container-fluid {
   display: flex;
   align-items: center !important;
+}
+.ant-badge-count {
+  font-size: 8px  !important;
+  border-radius: 5px !important;
+  font-weight: 600  !important;
+  background-color: #00c59c  !important;
+}
+
+.inline-icons{
+  @media (max-width: 978px){
+    margin-bottom: 10px;
+  }
+}
+.navbar-brand{
+  display: grid;
+  grid-template-columns: minmax(230px, 120px) minmax(400px, 400px);
+  grid-template-rows: 1fr;
+  column-gap: 10px;
+  row-gap: 10px;
+  max-width: 660px;
+  @media (max-width: 978px){
+    max-width: 100%;
+    grid-template-columns: auto 30px;
+    grid-template-rows: 1fr;
+    .input{
+      grid-column: 1/3;
+    } 
+  }
+}
+
+.togglers{
+  display: flex;
+  flex-direction: row-reverse;
+  column-gap: 10px;
+  align-items: center;
+  button{
+    margin-bottom: 0 !important;
+  }
+}
+
+.togglers{
+  @media (min-width: 992px) {
+    display: none !important;
+  }
 }
