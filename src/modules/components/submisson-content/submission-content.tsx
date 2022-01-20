@@ -146,7 +146,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     website: formdata.website ? formdata.website : '',
                     symbol: formdata.symbol ? `$${formdata.symbol}` : '',
                     status: formdata.releaseDate._d > new Date() ? 'NOT LAUNCHED' : 'LAUNCHED',
-                    address: formdata.address ? formdata.address : '',
+                    address: formdata.address ? toChecksumAddress(formdata.address) : '',
                     logo: formdata.logo ? formdata.logo : '',
                     name: formdata.name ? formdata.name : '',
                     votes: 0,
@@ -210,10 +210,10 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                     scamReasonTooltip: formdata.description ? formdata.description : '',
                     symbol: formdata.symbol ? `$${formdata.symbol}` : '',
                     status: formdata.releaseDate ? formdata.releaseDate > new Date() ? 'NOT LAUNCHED' : 'LAUNCHED' : 'LAUNCHED',
-                    address: formdata.address ? formdata.address : '',
+                    address: formdata.address ? toChecksumAddress(formdata.address) : '',
                     logo: formdata.logo ? formdata.logo : '',
                     name: formdata.name ? formdata.name : '',
-                    twitter: formdata.twitter ? 'https://twitter.com/' + formdata.twitter  : '',
+                    twitter: formdata.twitter ? 'https://twitter.com/' + formdata.twitter : '',
                     description: formdata.description ? formdata.description : '',
                     scamDate: formdata.scamDate ? format(formdata.scamDate._d, 'yyy-MM-dd') : '',
                     scamReason: [
@@ -266,7 +266,6 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
 
 
-    const [currentAddress, setCurrentAddress] = useState<string>();
     const [addresValidation, setAddressValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
     const [softcapValidation, setSoftcapValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
     const [hardcapValidation, setHardcapValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
