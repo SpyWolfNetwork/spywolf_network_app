@@ -106,7 +106,7 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
                     <Tag
                         color={props.token.alldata?.tag === 'UNVERIFIED' ? 'red' : 'green'}
                     >
-                        {`${props?.token?.alldata?.tag[0]?.toUpperCase() as any + props?.token?.alldata?.tag?.slice(1) as any}`}
+                        {`${props?.token?.alldata?.tag[0]?.toUpperCase() as any + props?.token?.alldata?.tag?.slice(1).toLowerCase() as any}`}
                     </Tag>
 
 
