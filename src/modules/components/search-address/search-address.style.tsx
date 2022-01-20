@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-max-width: 400px;
     width: 100%;
     min-height:  40px !important;
 `;
@@ -14,7 +13,6 @@ export const SearchContainer = styled.div`
     align-items: center;
     width: 100%;
     min-height:  40px !important;
-    max-width: 400px;
     position: relative;
     .ant-input-affix-wrapper{
         min-height: 40px !important;
