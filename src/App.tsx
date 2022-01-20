@@ -103,6 +103,7 @@ function App() {
                     FAQ
                   </CNavLink>
                 </CNavItem>
+                <div className="inline-icons" style={{display: 'flex'}}>
                 <CNavItem className="social">
                   <CNavLink href="https://twitter.com/SpyWolfNetwork" target='__blank'>
                     <FaTwitter color={'#a1a5b7'} fontSize={20} />
@@ -118,6 +119,7 @@ function App() {
                     <FaMedium color={'#a1a5b7'} fontSize={20} />
                   </CNavLink>
                 </CNavItem>
+                </div>
 
                 <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
               </CNavbarNav>

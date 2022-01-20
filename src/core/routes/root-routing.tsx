@@ -9,6 +9,7 @@ import {
     useLocation,
 } from "react-router-dom";
 import { Disclaimer } from "../../modules/disclaimer/pages/learn-list/disclaimer";
+import { Container } from "./routing.style";
 import Faq from "../../modules/faq/pages/faq/sample/faq";
 import { HomeComponent } from "../../modules/home/pages/home";
 import { LearnList } from "../../modules/learn/pages/learn-list/learn-list";
@@ -49,7 +50,7 @@ export default function Root() {
 
 
     return (
-        <div style={{ width: '100%',  height:'100%',flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
+        <Container style={{ width: '100%',  height:'100%',flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
             <Breadcrumb style={{ width: "100%", maxWidth: "1320px", padding: '0 2.25rem ' }}>
                 {breadcrumbItems}
             </Breadcrumb>
@@ -69,7 +70,7 @@ export default function Root() {
                     
                 </Routes>
             </div>
-        </div>
+        </Container>
 
     );
 }

@@ -55,8 +55,9 @@ export const Container = styled.div`
         display: flex;
         flex-wrap: wrap;
         .ant-descriptions{
-            min-width: 360px;
             flex: 1;
+            width: fit-content !important;
+            min-width: fit-content !important;
         }
     }
 `;
@@ -174,7 +175,16 @@ export const MainContent = styled.div`
                 }
             }
         }
-     
+        .ant-descriptions-item-label{
+            width: 75px !important;
+
+            @media (min-width: 400px){
+                width: 175px !important;
+            }
+        }
+     ant-descriptions-item-container{
+         width: fit-content;
+     }
     }
 
 

@@ -3,11 +3,17 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px minmax(90px, 1fr) minmax(180px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
+  grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
   column-gap: 1rem;
   padding: 1rem;
   align-items: center;
+  @media (max-width: 480px){
+      grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) minmax(auto, 94px);;
+  }
+  @media (max-width: 1200px){
+            padding: 1rem 0.5rem ;
 
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -52,19 +58,19 @@ export const ReleaseContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      @media (max-width: 480px){
+            display: none;
+      }
 `;
 
 
 export const TrustLevelContainer = styled.div`
-      display: flex;
-      flex-wrap: wrap;
       width: 100%;
-      justify-content: center;
+      display: flex;
       justify-content: flex-start;
-      .ant-tag{
-            display: flex;
-            justify-content: center;
-            width: fit-content;
+      max-width: 100px;
+      span{
+            white-space:pre-wrap;
       }
 
 `;

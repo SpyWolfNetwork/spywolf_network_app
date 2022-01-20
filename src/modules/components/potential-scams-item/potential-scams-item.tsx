@@ -40,6 +40,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
             {
                 (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
                     <Tag
+                    style={{whiteSpace: 'pre-wrap'}}
                         color={'warning'}
                     >
                         {reason}
