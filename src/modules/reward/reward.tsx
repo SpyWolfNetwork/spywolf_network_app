@@ -202,7 +202,7 @@ const RewardComponent: React.FC = () => {
                                                 const charityData = res.data.checkWalletForCharity;
                                                 const status = charityData.Items[0].status;
                                                 const charityAmount = charityData.Items[0].charityAmount;
-                                                const txHash = charityData.Items[0].spyTXHash;
+                                                const txHash = charityData.Items[0].charityTX;
                                                 if (status === 'PENDING') {
                                                     setAddressValidation({
                                                         err: 0,
@@ -310,7 +310,7 @@ const RewardComponent: React.FC = () => {
                                             const charityData = res.data.checkWalletForCharity;
                                             const status = charityData.Items[0].status;
                                             const charityAmount = charityData.Items[0].charityAmount;
-                                            const txHash = charityData.Items[0].spyTXHash;
+                                            const txHash = charityData.Items[0].charityTX;
                                             if (status === 'PENDING') {
                                                 setAddressValidation({
                                                     err: 0,
@@ -383,7 +383,8 @@ const RewardComponent: React.FC = () => {
             scamTX: scamsData[0].scamTX,
             scamTokenAddress: scamsData[0].address,
             spyAmount: spyCharityInfo?.spyAmount,
-            spyTXHash: spyCharityInfo?.spyTXHash
+            spyTXHash: spyCharityInfo?.spyTXHash,
+            charityTX: null
         };
         if (tweetToggle) {
             claimData.charityAmount = spyCharityInfo?.charityAmountWithTweet;
