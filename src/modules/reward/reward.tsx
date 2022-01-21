@@ -438,12 +438,12 @@ const RewardComponent: React.FC = () => {
     return <Container>
         <Card className="steppers">
             <Steps direction="vertical" current={currentStep}>
-                <Steps.Step title="Type your wallet address" description="Our system will inspect your tokens." />
+                <Steps.Step title="Type your wallet address" description="Our system will inspect your tokens" />
                 <Steps.Step title="See list of scams" description="Find out which tokens scammed you" />
                 <Steps.Step title="$SPY transactions" description={<span>
                     (Make sure you <a style={{ color: '#5eaab3' }} target="__blank" href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">bought SPYs </a> already)
                 </span>} />
-                <Steps.Step title="See your reward!" description="Based on your highest transaction" />
+                <Steps.Step title="See your reward!" description="Based on your next transaction" />
                 <Steps.Step title="Complete" description="You'll Receive your SPYs within 24 hrs!" />
             </Steps>
         </Card>

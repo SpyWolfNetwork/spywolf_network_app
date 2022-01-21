@@ -65,7 +65,7 @@ function App() {
 
             <CNavbarBrand style={{ width: '100%' }}>
               <a href="/#/">
-                <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="logo h-lg-40px" />
+                <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="brand-logo h-lg-40px" />
               </a>
               <div className="togglers">
                 <Button type="text" id="toggler" className='hamburger-toggle d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
@@ -86,7 +86,7 @@ function App() {
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
                 <Popover content={'get up to 10% rewards on your next $SPY purchase'} >
-                  <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px' }} status='success'>
+                  <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px', lineHeight:"19px", height: '18px', minHeight: '18px' }} status='success'>
                     <CNavItem>
                       <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
                         Got Scammed?

@@ -27,7 +27,9 @@ export const Container = styled.div`
     row-gap: 60px;
     width: 100%;
     @media (max-width: 991px){
-        display: block;
+        display: flex;
+        flex-direction: column;
+        row-gap: 50px;
     }
     .section{
         width: 100%;
