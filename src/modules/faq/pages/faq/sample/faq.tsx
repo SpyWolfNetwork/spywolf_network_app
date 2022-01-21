@@ -35,7 +35,7 @@ const Faq: React.FC = () => {
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="I am a scam survivor. How do I use the 10% reward promo?" key="3">
                             <p>First of all, sorry that you have fallen for a scam. We would like to reward you with an extra 10% when you buy $SPY, our anti-scam token. All you need to do is input the wallet the has the scammed tokens and your purchased SPYs into this form and you will receive your reward within 24 hours!</p>
                         </CollapsePanel>
-                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="What future updates will we see?" key="3">
+                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="What future updates will we see?" key="4">
                             <p>We are constantly adding new fetures to this portal. From adding tons of new data to adding sections and pages.
                                 <br></br>
                                 <br></br>
@@ -97,14 +97,14 @@ const Faq: React.FC = () => {
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="Does every project get a Certificate of Trust NFT?" key="3">
                             <p>
                                 No, we only award the NFT to projects that score over 90/100 in our point system. Even then, there is a slight chance of a project to do something malicious to hurt their investors.
-
-                            </p>
+        <br></br>
                             <a className="primary-link" href="https://opensea.io/assets/matic/0x2953399124f0cbb46d2cbacd8a89cf0599974963/99844844277068474025626073867816441448450620712689519536016720659450041466881" target={'__blank'}>
                                 See example
 
                             </a>
+                            </p>
                         </CollapsePanel>
-                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="I'm ready to audit my project. How do I contact you?" key="3">
+                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="I'm ready to audit my project. How do I contact you?" key="4">
                             <p>You can contact our team at audit@spywolf.co or by joining our <a className="primary-link" href="https://t.me/SpyWolfNetwork" target={'__blank'}>Telegram group.</a></p>
                         </CollapsePanel>
 
@@ -128,8 +128,11 @@ const Faq: React.FC = () => {
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="What are some upcoming associated projects?" key="3">
                             <p>We have a scam investigation pool platform coming out soon as well as a launchpad and an educational platform. All set to come out this year!</p>
                         </CollapsePanel>
-                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="How do I buy SPY?" key="3">
-                            <p>You can currently buy $SPY on the PancakeSwap exchange. Click here to buy.</p>
+                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="How do I buy SPY?" key="4">
+                            <p>You can currently buy $SPY on the PancakeSwap exchange. <a className="primary-link" href="https://pancakeswap.finance/swap?outputCurrency=0xC2D0f6b7513994A1Ba86CEf3AAc181a371A4CA0c" target={'__blank'}>
+                                Click here
+
+                            </a> to buy.</p>
                         </CollapsePanel>
                     </Collapse>
 
@@ -181,7 +184,7 @@ const Faq: React.FC = () => {
                             </a>.</p>
 
                         </CollapsePanel>
-                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="How can I learn more about SpyWolf?" key="3">
+                        <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="How can I learn more about SpyWolf?" key="4">
                             <p>You can visit our website at <a className="primary-link" href="" target={'__blank'}>
                                 spywolf.co
 
