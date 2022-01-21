@@ -10,10 +10,8 @@ import { GlobalOutlined, LaptopOutlined } from '@ant-design/icons'
 import { ApplicationContext } from '../../../../core/routes/providers/application.provider';
 import { Token } from '../../models/token.model';
 
-import SpywolfGif from '../../../../assets/gifs/kodi-nft-cover.gif'
 import { format, isValid, parseISO } from 'date-fns';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 
 import Swal from 'sweetalert2'
 import { HomeContext, HomeProvider } from '../../../../core/routes/providers/home.provider';
@@ -48,6 +46,7 @@ export const TokenDashboardComponent: React.FC = () => {
 
     useEffect(() => {
         new ClipboardJS('.copybutton');
+        console.log('init')
         setLoadingState(true);
         setTokenAddress(tokenid);
         const requestWaletDataBody = {
@@ -66,8 +65,11 @@ export const TokenDashboardComponent: React.FC = () => {
     const navigate = useNavigate();
 
     const fetchTokenData = (endpoint: string, addr: { address: string }) => {
+        console.log('fetch init')
+
         axios.post(endpoint, addr).then(
             ({ data }) => {
+                console.log('tentei dar load')
                 if (data.errorMessage !== undefined) {
                     throw new Error('No Token Data');
                 }
@@ -76,15 +78,18 @@ export const TokenDashboardComponent: React.FC = () => {
 
             }
         ).catch(
-            e => Swal.fire({
-                title: 'Oops!',
-                text: 'This is embarrassing but something went wrong and we are trying to fix it!',
-                icon: 'error',
-                confirmButtonText: 'Go Back',
-                willClose: () => {
-                    navigate('/')
-                },
-            })
+            e => {
+                console.log(e)
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'This is embarrassing but something went wrong and we are trying to fix it!',
+                    icon: 'error',
+                    confirmButtonText: 'Go Back',
+                    willClose: () => {
+                        navigate('/')
+                    },
+                })
+            }
         );
     }
 
@@ -158,7 +163,8 @@ export const TokenDashboardComponent: React.FC = () => {
                             <img
                                 width="100%"
                                 height="100%"
-                                src={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif ? tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif : SpywolfGif} alt="" />
+                                src={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif} alt="" 
+                                />
                             {/* <img width="100%" height="100%" src={SpywolfGif} alt="" /> */}
                         </div>
                     </div>

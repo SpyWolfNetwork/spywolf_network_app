@@ -63,9 +63,9 @@ function App() {
         <CNavbar className={`${windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
           <CContainer fluid>
 
-            <CNavbarBrand href="#" style={{ width: '100%' }}>
+            <CNavbarBrand style={{ width: '100%' }}>
               <a href="/#/">
-                <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="h-20px h-lg-40px" />
+                <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="logo h-lg-40px" />
               </a>
               <div className="togglers">
                 <Button type="text" id="toggler" className='hamburger-toggle d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
@@ -88,25 +88,25 @@ function App() {
                 <Popover content={'get up to 10% rewards on your next $SPY purchase'} >
                   <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px' }} status='success'>
                     <CNavItem>
-                      <CNavLink style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
+                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
                         Got Scammed?
                       </CNavLink>
                     </CNavItem>
                   </Badge>
                 </Popover>
                 <CNavItem>
-                  <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
+                  <CNavLink  onClick={() => { setNavbarOpen(!navbarOpen) }}  className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
                     Get Audited
                   </CNavLink>
                 </CNavItem>
 
                 <CNavItem>
-                  <CNavLink target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
+                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
                     Buy $SPY
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink href="/#/frequently-asked-questions">
+                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  href="/#/frequently-asked-questions">
                     FAQ
                   </CNavLink>
                 </CNavItem>
@@ -128,7 +128,7 @@ function App() {
                   </CNavItem>
                 </div>
 
-                <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
+                <Button onClick={() => setVisibleModal(true)} className="submitButton submit-desktop" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
               </CNavbarNav>
             </CCollapse>
           </CContainer>

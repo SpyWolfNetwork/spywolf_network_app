@@ -9,7 +9,7 @@ const Faq: React.FC = () => {
 
     return <Container>
         <Card style={{ width: '100%' }} title={
-            <h1 className='section-title fs-2x text-gray-800 w-bolder mb-6'>
+            <h1 className='section-title fs-2x text-gray-800 w-bolder mb-6' style={{whiteSpace: 'pre-wrap'}}>
                 Frequently Asked Questions
             </h1>
         }>

@@ -84,55 +84,74 @@ h6 {
 
 .submitButton {
   color: #152b36 !important;
-  @media (max-width: 978px){
+  @media (max-width: 978px) {
     margin-bottom: 20px;
   }
 }
+
 .container-fluid {
   display: flex;
   align-items: center !important;
 }
 .ant-badge-count {
-  font-size: 8px  !important;
+  font-size: 8px !important;
   border-radius: 5px !important;
-  font-weight: 600  !important;
-  background-color: #00c59c  !important;
+  font-weight: 600 !important;
+  background-color: #00c59c !important;
 }
 
-.inline-icons{
-  @media (max-width: 978px){
+.inline-icons {
+  @media (max-width: 978px) {
     margin-bottom: 10px;
   }
 }
-.navbar-brand{
+.navbar-brand {
   display: grid;
   grid-template-columns: minmax(230px, 120px) minmax(400px, 400px);
   grid-template-rows: 1fr;
   column-gap: 10px;
   row-gap: 10px;
   max-width: 660px;
-  @media (max-width: 978px){
+  @media (max-width: 1200px) {
+  grid-template-columns: minmax(230px, 120px) 1fr;
+
+  }
+  @media (max-width: 991px) {
     max-width: 100%;
     grid-template-columns: auto 30px;
     grid-template-rows: 1fr;
-    .input{
+    .input {
       grid-column: 1/3;
-    } 
+    }
   }
 }
 
-.togglers{
+.togglers {
   display: flex;
   flex-direction: row-reverse;
   column-gap: 10px;
   align-items: center;
-  button{
+  button {
     margin-bottom: 0 !important;
   }
 }
 
-.togglers{
+.togglers {
   @media (min-width: 992px) {
     display: none !important;
+  }
+}
+.ant-btn.submit-desktop {
+  @media (max-width: 991px) {
+    display: none !important;
+  }
+}
+
+
+.logo{
+  height: 40px;
+  @media (max-width: 991px) {
+    max-width: 200px;
+    height: 35px;
   }
 }

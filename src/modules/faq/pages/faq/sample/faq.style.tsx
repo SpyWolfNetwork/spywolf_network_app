@@ -24,6 +24,9 @@ margin-top: 50px;
     column-gap: 30px;
     row-gap: 60px;
     width: 100%;
+    @media (max-width: 991px){
+        display: block;
+    }
     .section{
         width: 100%;
         .section-title{
