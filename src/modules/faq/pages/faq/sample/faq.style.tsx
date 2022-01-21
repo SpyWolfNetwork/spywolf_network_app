@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-margin-top: 20px;
+    max-width: 1320px;
+    width: 100%;
+    margin-top: 20px;
     width: 100%;
     .ant-card-body{
         padding: 2rem 2.25rem !important;
