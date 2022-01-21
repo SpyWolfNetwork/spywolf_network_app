@@ -7,6 +7,7 @@ const TokenListItem: React.FC<{ currency: Currency, token: Transfer, rule: strin
     const [transferValue, setTransferValue] = useState<number>();
 
     useEffect(() => {
+        
         setTransferValue((token as any)['sum_' + props.rule])
     }, []);
 

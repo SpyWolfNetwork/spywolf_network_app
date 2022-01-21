@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import Card from '../../../shared/components/card/card';
 import OrderToolbar from '../components/order-toolbar/order-toolbar';
 import { Container } from './wallet.style';
@@ -8,7 +8,7 @@ import { Container } from './wallet.style';
 import axios from 'axios';
 import { Transfers, WalletDTO } from '../models/dto/wallet.model';
 
-import { Card, Collapse, Descriptions, Empty, Pagination, Popover, Spin } from "antd";
+import { Card, Collapse,  Empty, Pagination,  Spin } from "antd";
 
 import "antd/dist/antd.css";
 import CollapsePanel from 'antd/lib/collapse/CollapsePanel';
@@ -16,16 +16,14 @@ import ArrowIcon from '../../../shared/components/arrow-icon/arrow.';
 import WalletAddress from '../components/wallet-address/wallet-address';
 import TokenListItem from '../components/token-list-item/received-tokens';
 
-import { Bar, ResponsiveBar } from '@nivo/bar'
-import { chartmock } from '../mocks/chart.mock';
-import { RectSeries } from 'react-vis';
+import {  ResponsiveBar } from '@nivo/bar'
 import { Wallet } from '../models/classes/wallet.model';
 
 
 import ArrowRed from '../../../assets/png-icons/arrow_red.png';
 import ArrowGreen from '../../../assets/png-icons/arrow_green.png';
 // import { format } from 'path';
-import { Block, Transfer, Transfers as TransfersResponse } from '../models/dto/currency-transaction.dto';
+import {  Transfer, Transfers as TransfersResponse } from '../models/dto/currency-transaction.dto';
 import { ChartCurrencyData } from '../models/classes/chart-data';
 import { useParams } from 'react-router-dom';
 
@@ -46,7 +44,6 @@ const WalletComponent: React.FC = () => {
     const [transactionsPerTokenEndpoint] = useState<any>(process.env.REACT_APP_TRANSACTIONS_PER_TOKEN_ENDPOINT);
     const [walletEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_RECEIVED_TOKEN);
     const [transfersEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_SENT_TOKEN);
-    let keys: string[] | undefined = [];
 
     const [chartData, setChartData] = useState<any>();
 
@@ -83,6 +80,7 @@ const WalletComponent: React.FC = () => {
     });
 
     useEffect(() => {
+        setLoading(loading)
         setWalletAddress(walletid as string);
         const requestTransfersDataBody = {
             address: (walletid as string),
@@ -92,14 +90,6 @@ const WalletComponent: React.FC = () => {
             address: (walletid as string),
         }
 
-        const transactionPerTokenDataBody = {
-            isSend: true,
-            address: "0x377e0d8e62788cab207d56c097b89d225a182d31",
-            currency: "0xf8a0bf9cf54bb92f17374d9e9a321e6a111a51bd",
-            from: "2021-11-06",
-            till: "2021-12-05T23:59:59"
-
-        }
 
         fetchTransfersReceived(transfersEndpoint, requestTransfersDataBody);
         fetchTransfersSent(transfersEndpoint, requestTransfersDataBody);

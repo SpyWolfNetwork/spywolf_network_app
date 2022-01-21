@@ -2,7 +2,9 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
-margin-top: 50px;
+    max-width: 1320px;
+    width: 100%;
+    margin-top: 20px;
     width: 100%;
     .ant-card-body{
         padding: 2rem 2.25rem !important;
@@ -24,6 +26,9 @@ margin-top: 50px;
     column-gap: 30px;
     row-gap: 60px;
     width: 100%;
+    @media (max-width: 991px){
+        display: block;
+    }
     .section{
         width: 100%;
         .section-title{
