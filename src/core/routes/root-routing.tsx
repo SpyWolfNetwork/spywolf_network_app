@@ -25,7 +25,7 @@ export default function Root() {
         '/token': 'Token',
         '/wallet': 'Wallet',
         '/disclaimer': 'Disclaimer',
-        '/charity': 'Reward',
+        '/charity': 'Charity',
         '/frequently-asked-questions': 'Frequently Asked Question',
     };
 
