@@ -1,29 +1,19 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/alt-text */
 // Dependencies
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { Badge, Button, Popover, Tag } from 'antd';
-import { spawn } from 'child_process';
+import { Badge,  Popover, Tag } from 'antd';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
-import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './latest-scams-item.style';
+import { Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './latest-scams-item.style';
 import logoplaceholder from '../../../assets/core/no-photo.png'
 import { differenceInDays } from 'date-fns';
 import moment from 'moment';
 
 const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => { }, []);
-    const trustLevelBgColor = {
-        'Level 1': '#fff8dd',
-        'Level 2': '#E6F4F1',
-        'Level 3': '#f1faff',
-    }
 
-    const trustLevelTextColor = {
-        'Level 1': '#b39019',
-        'Level 2': '#65a0a7',
-        'Level 3': '#129edb',
-    }
     return <Link to={'token/' + props?.token?.address}>
         <Container>
             {

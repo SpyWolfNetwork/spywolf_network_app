@@ -1,37 +1,17 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 // Dependencies
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { Badge, Button, Popover, Tag } from 'antd';
-import { spawn } from 'child_process';
+import { Badge, Button  } from 'antd';
 import React, { useEffect, useState } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { tokenToString } from 'typescript';
+import { Link, useNavigate } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
-import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './ama-token-item.style';
-import { AiFillWarning } from 'react-icons/ai';
-import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
-import { differenceInDays, format, formatRelative } from 'date-fns';
-import { enUS } from 'date-fns/esm/locale';
-import { formatDistance } from 'date-fns/esm';
-import moment, { updateLocale } from 'moment';
+import {  Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './ama-token-item.style';
+import { differenceInDays } from 'date-fns';
+import moment from 'moment';
 import { MdKeyboardVoice } from 'react-icons/md';
 import { FaPlay } from 'react-icons/fa';
 
-const formatRelativeLocale = {
-    lastWeek: "'Last Week'",
-    yesterday: "'Yesterday'",
-    today: "'Today' ",
-    tomorrow: "'Tomorrow'",
-    nextWeek: "'Next Week'",
-    month: "'In a Month'",
-    other: 'PP', // Difference: Add time to the date
-};
 
-const locale = {
-    ...enUS,
-    formatRelative: token =>
-        formatRelativeLocale[token],
-
-};
 
 
 const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {

@@ -1,8 +1,7 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Badge, Button, Card, Empty, Input, Pagination, Switch } from 'antd';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Card, Empty, Pagination, Switch } from 'antd';
 
-import axios from 'axios';
-import React, { ClipboardEvent, FormEventHandler, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
+import React, { FormEventHandler, useContext, useEffect, useState } from 'react';
 import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../../core/routes/providers/models/home-provider.model';
 import CardTitleSubtitle from '../../components/card-title-subtitle/card-title-subtitle';
@@ -10,8 +9,7 @@ import FeaturedTokenItem from '../../components/featured-token-item/featured-tok
 import LatestScamsItem from '../../components/latest-scams-item/latest-scams-item';
 import PotentialScamsItem from '../../components/potential-scams-item/potential-scams-item';
 import RecentlyAddedItem from '../../components/recently-added-item/recently-added-item';
-import { AddressCheckResponseModel } from '../models/address-check.model';
-import { FeaturedToken, FeaturedTokensResponse } from '../models/featured-token';
+import { FeaturedToken } from '../models/featured-token';
 import { CardGrid, Container } from './home.style';
 
 import { useLocation, useNavigate } from 'react-router-dom';
@@ -25,9 +23,6 @@ import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 import UnverifiedTokens from '../components/unverified-tokens/unverified-tokens';
 import AmaTokenItem from '../../components/ama-token-item/ama-token-item';
 import moment from 'moment';
-
-
-const { toChecksumAddress } = require('ethereum-checksum-address');
 
 export const HomeComponent: React.FC = () => {
     const {
@@ -45,8 +40,6 @@ export const HomeComponent: React.FC = () => {
         AmaTokensFilterState
     }: HomeProviderModel = useContext<any>(HomeContext);
 
-    const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
-    const [addressLoading, setAddressLoading] = useState<boolean>(false);
     const [verifiedOnly, setVerifiedOnly] = useState<boolean>(false);
     const [pastOnly, setPastOnly] = useState<boolean>(false);
     const [latestNameFilter, setLatestNameFilter] = useState<string>('');
@@ -77,9 +70,6 @@ export const HomeComponent: React.FC = () => {
 
     const [amaTokensPage, setAmaTokensPage] = amaTokensPageState;
 
-
-    const navigate = useNavigate();
-    const location = useLocation();
 
     useEffect(() => { }, [])
 

@@ -1,10 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
-import { Button, Card, DatePicker, Form, Input, Select, Switch } from 'antd';
+import { Button,  DatePicker, Form, Input, Select, Switch } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { useForm } from 'rc-field-form';
 import React, { KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { FaGhost } from 'react-icons/fa';
 import { GiTwoCoins } from 'react-icons/gi';
@@ -297,7 +297,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
     }
 
     const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
-        if (addresValidation?.active == true) {
+        if (addresValidation?.active === true) {
             setAddressValidation({
                 err: 0,
                 message: '',
@@ -462,7 +462,6 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
             }
         } catch (err) {
-            console.log(err)
             const e = err as Error;
             setAddressValidation({
                 err: 0,
@@ -489,7 +488,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
     }
 
     return <Container>
-        <Button className={`submit-section-toggle submit-token ${formOption == 'token' ? 'active' : ''}`} onClick={() => { changeFormOption('token') }}>
+        <Button className={`submit-section-toggle submit-token ${formOption === 'token' ? 'active' : ''}`} onClick={() => { changeFormOption('token') }}>
             <div className="submit-section-wrapper">
                 <div className="icon svg-icon svg-icon-3hx">
                     <GiTwoCoins></GiTwoCoins>
@@ -502,7 +501,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                 </div>
             </div>
         </Button>
-        <Button className={`submit-section-toggle submit-scam ${formOption == 'scam' ? 'active' : ''}`} onClick={() => { changeFormOption('scam') }}>
+        <Button className={`submit-section-toggle submit-scam ${formOption === 'scam' ? 'active' : ''}`} onClick={() => { changeFormOption('scam') }}>
             <div className="submit-section-wrapper">
                 <span className="icon svg-icon svg-icon-3hx">
                     <FaGhost ></FaGhost>

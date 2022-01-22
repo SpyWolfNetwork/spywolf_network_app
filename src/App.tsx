@@ -1,20 +1,21 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react/jsx-no-target-blank */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import './App.scss';
 import './AppOverride.scss';
 import './antd-override/ant-override.scss';
 import Root from './core/routes/root-routing';
-import { Badge, Breadcrumb, Button, Input, Popover } from 'antd';
-import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavbarToggler, CNavItem, CNavLink } from '@coreui/react';
+import { Badge,  Button,  Popover } from 'antd';
+import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavItem, CNavLink } from '@coreui/react';
 
 import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { HashRouter, useLocation, useNavigate } from 'react-router-dom';
+import { HashRouter} from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 import SubmissionHeader from './modules/components/submission-header/submission-header';
 import SubmissionContent from './modules/components/submisson-content/submission-content';
-import axios from 'axios';
 import { ApplicationContext } from './core/routes/providers/application.provider';
 import SearchAdressInput from './modules/components/search-address/search-address';
 import moment from 'moment';

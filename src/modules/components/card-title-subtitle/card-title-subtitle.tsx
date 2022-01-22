@@ -1,8 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
-import { SearchOutlined, SendOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
+import {  Input } from 'antd';
 import React, { useEffect } from 'react';
-import { FaTelegram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 import { Container } from './card-title-subtitle.style';
@@ -20,10 +19,10 @@ searchChange?: any, searchPlaceholder?: string }> = (props) => {
         }
         <div className="header">
             <h3 className="card-title align-items-start flex-column">
-                {props.fontSize == 1 &&
+                {props.fontSize === 1 &&
                     <span className="card-label fw-bolder fs-1 mb-1" style={{ fontSize: props?.fontSize }}>{props.title}</span>
                 }
-                {props.fontSize != 1 &&
+                {props.fontSize !== 1 &&
                     <span className="card-label fw-bolder fs-3 mb-1" style={{ fontSize: props?.fontSize }}>{props.title}</span>
                 }
                 <span className="text-muted mt-1 fw-bold fs-7">{props.subtitle}</span>

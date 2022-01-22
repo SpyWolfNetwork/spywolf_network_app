@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import React, { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../../../core/routes/providers/application.provider';
-import { Token } from '../../models/token.model';
 import { Container, DashedCard } from './token-info-highlight.style';
 
 const TokenInfoHighlight: React.FC = () => {

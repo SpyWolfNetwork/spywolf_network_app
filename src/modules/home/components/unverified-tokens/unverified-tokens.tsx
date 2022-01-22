@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper React components
@@ -8,7 +9,6 @@ import 'swiper/swiper.min.css';
 import { AuditedToken, AuditedTokenResponseModel } from '../../models/audited-token.model';
 import TokenSlideItem from './components/token-slide-item/token-slide-item';
 import { Container } from './unverified-tokens.style';
-import SwiperCore, { Navigation, Pagination, Scrollbar, A11y } from 'swiper';
 
 const UnverifiedTokens: React.FC = () => {
     const [auditedTokens, setAuditedTokens] = useState<AuditedToken[]>();

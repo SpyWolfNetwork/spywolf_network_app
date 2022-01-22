@@ -1,7 +1,6 @@
 
 import { Button, Card } from 'antd';
 import Meta from 'antd/lib/card/Meta';
-import axios from 'axios';
 import React from 'react';
 import { Container } from '../../../components/card-title-subtitle/card-title-subtitle.style';
 

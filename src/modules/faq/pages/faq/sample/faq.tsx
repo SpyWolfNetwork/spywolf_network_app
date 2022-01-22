@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
 import { Card, Collapse } from 'antd';
 import CollapsePanel from 'antd/lib/collapse/CollapsePanel';

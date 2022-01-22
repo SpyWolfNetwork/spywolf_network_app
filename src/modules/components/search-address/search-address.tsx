@@ -2,10 +2,8 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
 import axios from 'axios';
-import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { HomeContext } from '../../../core/routes/providers/home.provider';
-import { HomeProviderModel } from '../../../core/routes/providers/models/home-provider.model';
+import React, { ClipboardEvent, KeyboardEventHandler,  useEffect, useState } from 'react';
+import {  useNavigate } from 'react-router-dom';
 import { AddressCheckResponseModel } from '../../home/models/address-check.model';
 import { Container, SearchContainer } from './search-address.style';
 
@@ -96,7 +94,6 @@ const SearchAdressInput: React.FC = () => {
     };
 
     let inputRef: any;
-    let searchScamRef: any;
 
     const searchTokenOrWallet = () => {
         setAddressLoading(true);
@@ -227,11 +224,6 @@ const SearchAdressInput: React.FC = () => {
 
         }
     }
-    // 0xa0a24c043175bc736dea5169e1612de2cee9f1ea
-    const handleClipboardEvent = (event: ClipboardEvent<HTMLInputElement>) => {
-        setTimeout(searchTokenOrWalletOnPaste, 400);
-    }
-
     return <Container>
         <SearchContainer>
             <Input

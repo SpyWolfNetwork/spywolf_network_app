@@ -1,7 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
-import { ArrowRightOutlined, LaptopOutlined, SendOutlined } from '@ant-design/icons';
+import { LaptopOutlined } from '@ant-design/icons';
 import { Badge, Button, Popover, Tag } from 'antd';
-import { spawn } from 'child_process';
 import { differenceInDays } from 'date-fns';
 import moment from 'moment';
 import React, { useEffect } from 'react';
@@ -14,17 +14,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
     useEffect(() => {
 
     }, []);
-    const trustLevelBgColor = {
-        'Level 1': '#fff8dd',
-        'Level 2': '#E6F4F1',
-        'Level 3': '#f1faff',
-    }
 
-    const trustLevelTextColor = {
-        'Level 1': '#b39019',
-        'Level 2': '#65a0a7',
-        'Level 3': '#129edb',
-    }
     return <Container>
 
 {
