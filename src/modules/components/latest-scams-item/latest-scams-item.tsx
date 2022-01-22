@@ -1,6 +1,6 @@
 // Dependencies
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Popover, Tag } from 'antd';
+import { Badge, Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
@@ -8,6 +8,8 @@ import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './latest-scams-item.style';
 import logoplaceholder from '../../../assets/core/no-photo.png'
+import { differenceInDays } from 'date-fns';
+import moment from 'moment';
 
 const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => { }, []);
@@ -24,17 +26,34 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
     }
     return <Link to={'token/' + props?.token?.address}>
         <Container>
-            <LogoContainer>
-                <img src={props.token.logoPicture} width="50px" alt="" />
-                {
-                  !props.token.logoPicture &&
-                    <img src={logoplaceholder}></img>
-                }
-                {
-                    props.imageLoading && <div className="image-placeholder">
-                    </div>
-                }
-            </LogoContainer>
+            {
+                differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
+                    <Badge count="NEW" offset={[-40, -10]} style={{ fontSize: '10px' }}  >   <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        {
+                            !props.token.logoPicture &&
+                            <img src={logoplaceholder}></img>
+                        }
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+                    </Badge>
+                    :
+                    <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        {
+                            !props.token.logoPicture &&
+                            <img src={logoplaceholder}></img>
+                        }
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+            }
+
             <InfoContainer>
                 <Link to={'token/' + props?.token?.address}>
                     <a className='text-dark  fw-bolder mb-1 fs-6'>{props?.token?.name}</a>
@@ -69,6 +88,7 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
             </ReleaseContainer>
         </Container>
     </Link>
+
 };
 
 export default LatestScamsItem;

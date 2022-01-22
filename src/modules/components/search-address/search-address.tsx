@@ -11,20 +11,6 @@ import { Container, SearchContainer } from './search-address.style';
 
 const SearchAdressInput: React.FC = () => {
     useEffect(() => { }, []);
-    const {
-        featuredTokensState,
-        recentlyAddedState,
-        latestScamsState,
-        potentialScamsState,
-        featuredTokensPageState,
-        recentlyAddedPageState,
-        latestScamsPageState,
-        potentialScamsPageState,
-        featuredTokensFilterState,
-        amaTokensState,
-        amaTokensPageState,
-        AmaTokensFilterState
-    }: HomeProviderModel = useContext<any>(HomeContext);
     const { toChecksumAddress } = require('ethereum-checksum-address');
 
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()

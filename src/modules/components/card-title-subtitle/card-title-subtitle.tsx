@@ -4,7 +4,7 @@ import { Button, Input } from 'antd';
 import React, { useEffect } from 'react';
 import { FaTelegram } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import scambanner from '../../../assets/ads/banner-scams.png'
+import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 import { Container } from './card-title-subtitle.style';
 
 const CardTitleSubtitle: React.FC<{ title?: string, subtitle?: string, fontSize?: number, banner?: any, search?: boolean,

@@ -22,17 +22,21 @@ export const CardGrid = styled.div`
         row-gap: 1.4em;
         .ant-card{
             padding: 0 !important;
-
+  
         }
         .ant-card-head{
             padding: 1.25em 1.25em 0 1.25em !important;
         }
         .ant-card .ant-card-body{
             overflow-x: auto !important;
+ 
+            padding-top: 15px !important;
+
         }
         .bottom-cards{
             display: grid !important;
             row-gap: 1.4em;
+
         }
     .content-wrapper{
         }

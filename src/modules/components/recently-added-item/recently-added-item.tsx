@@ -1,6 +1,6 @@
 // Dependencies
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Popover, Tag } from 'antd';
+import { Badge, Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -59,13 +59,27 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
 
     return <Link to={`token/${props?.token?.address}`}>
         <Container>
-            <LogoContainer>
-                <img src={props?.token?.logoPicture} width="50px" alt="" />
-                {
-                    props.imageLoading && <div className="image-placeholder">
-                    </div>
-                }
-            </LogoContainer>
+            {
+                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
+                    <Badge count="NEW" offset={[-40, -10]} style={{ fontSize: '10px' }} >   <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+                    </Badge>
+                    :
+                    <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+            }
+
             <InfoContainer>
                 <a onClick={handleNavigate} className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
                 <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>

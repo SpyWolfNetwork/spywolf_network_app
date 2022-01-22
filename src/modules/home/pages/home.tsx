@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Card, Empty, Input, Pagination, Switch } from 'antd';
+import { Badge, Button, Card, Empty, Input, Pagination, Switch } from 'antd';
 
 import axios from 'axios';
 import React, { ClipboardEvent, FormEventHandler, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
@@ -233,7 +233,7 @@ export const HomeComponent: React.FC = () => {
                 actions={[<Pagination
                     size="small"
                     hideOnSinglePage={false}
-                    defaultPageSize={10}
+                    defaultPageSize={12}
                     current={featuredTokensPage}
                     total={featuredTokens?.filter(filterFeaturedTokensByLevel).length}
                     onChange={(page: number) => updatePage('featured', page)}
@@ -241,7 +241,7 @@ export const HomeComponent: React.FC = () => {
             >
                 <div className="content-wrapper">
                     {
-                        featuredTokens?.sort(sortTrustedByLevel).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 10, featuredTokensPage * 10).map((token: FeaturedToken) =>
+                        featuredTokens?.sort(sortTrustedByLevel).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 12, featuredTokensPage * 12).map((token: FeaturedToken) =>
                             <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
                         )
                     }

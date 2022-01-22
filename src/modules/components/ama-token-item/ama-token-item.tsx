@@ -1,6 +1,6 @@
 // Dependencies
 import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Popover, Tag } from 'antd';
+import { Badge, Button, Popover, Tag } from 'antd';
 import { spawn } from 'child_process';
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useNavigate } from 'react-router-dom';
@@ -107,13 +107,27 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
     }, [props.token])
     return <Container className={`${applyOpacity}`}>
         <Link to={`token/${props?.token?.address}`}>
-            <LogoContainer>
-                <img src={props?.token?.logoPicture} width="50px" alt="" />
-                {
-                    props.imageLoading && <div className="image-placeholder">
-                    </div>
-                }
-            </LogoContainer>
+        {
+                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
+                    <Badge count="NEW" offset={[-40, -10]} style={{ fontSize: '10px' }} >   <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+                    </Badge>
+                    :
+                    <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+            }
+
         </Link>
         <Link to={`token/${props?.token?.address}`}>
             <InfoContainer>
