@@ -14,7 +14,7 @@ searchChange?: any, searchPlaceholder?: string }> = (props) => {
         {
             props.banner !== undefined &&
            <Link to="/charity">
-                < a > <img width="100%" src={scambanner} alt="" /></a>
+                < a > <img className="scam-title-banner" width="100%" src={scambanner} alt="" /></a>
            </Link>
         }
         <div className="header">

@@ -20,6 +20,11 @@ export const CardGrid = styled.div`
         grid-template-rows: auto;
         column-gap: 1.4em;
         row-gap: 1.4em;
+        .scam-wrapper{
+            @media (min-width: 991px){
+                margin-top: 50px;
+            }
+        }
         .ant-card{
             padding: 0 !important;
   

@@ -27,5 +27,9 @@ export const Container = styled.div`
             overflow: hidden;
         }
     }
-  
+    .scam-title-banner{
+        @media (max-width: 991px){
+            display: none;
+        }
+    }
 `;
