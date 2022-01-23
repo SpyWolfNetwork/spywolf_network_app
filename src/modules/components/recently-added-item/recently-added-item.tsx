@@ -51,7 +51,7 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
         <Container>
             {
                 props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
-                    <Badge count="NEW" offset={[-40, -10]} style={{ fontSize: '10px' }} >   <LogoContainer>
+                    <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '2px !important', padding:'2px !important'  }} >   <LogoContainer>
                         <img src={props.token.logoPicture} width="50px" alt="" />
                         {
                             props.imageLoading && <div className="image-placeholder">

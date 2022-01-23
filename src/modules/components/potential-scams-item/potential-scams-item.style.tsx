@@ -14,6 +14,12 @@ export const Container = styled.div`
             padding: 1rem 0.5rem ;
 
   }
+  .ant-badge-count{
+      font-size: 6px !important;
+      padding: 4px !important;
+      line-height: 6px;
+      height: 14px;
+  }
 `;
 
 export const LogoContainer = styled.div`

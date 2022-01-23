@@ -3,9 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 
-&.past{
-      opacity: 0.5;
-}
+
   display: grid;
   grid-template-columns: 50px 1fr 1fr auto;
   column-gap: 1rem;
@@ -19,6 +17,12 @@ export const Container = styled.div`
       &:hover{
             background: #f4f7f9;
       }
+      .ant-badge-count{
+      font-size: 6px !important;
+      padding: 4px !important;
+      line-height: 6px;
+      height: 14px;
+  }
 `;
 
 export const LogoContainer = styled.div`
@@ -26,6 +30,9 @@ export const LogoContainer = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      &.past{
+      opacity: 0.5;
+}
       img{
             width: 99%;
             height: 99%;
@@ -50,6 +57,9 @@ export const InfoContainer = styled.div`
     .symbol{
         font-size: 1rem;
     }
+    &.past{
+      opacity: 0.5;
+}
 `;
 
 
@@ -59,7 +69,9 @@ export const ReleaseContainer = styled.div`
       justify-content: center;
       align-items: center;
       text-align: end;
-
+      &.past{
+            opacity: 0.5;
+      }
 `;
 
 
@@ -68,6 +80,11 @@ export const TrustLevelContainer = styled.div`
       justify-content: center;
       align-items: center;
       height: 100%;
+      .ant-btn-ghost{
+            svg{
+                  fill: #a1a5b7;
+            }
+      }
       .ant-btn-ghost.today{
             background:  #b8ffb8 !important;
             svg{
@@ -94,6 +111,7 @@ export const TrustLevelContainer = styled.div`
                   display: none;
             }
       }
+  
 
 `;
 
