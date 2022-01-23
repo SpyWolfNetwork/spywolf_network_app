@@ -13,7 +13,7 @@ import { FaPlay } from 'react-icons/fa';
 
 
 
-const tagNewConstraint = -7;
+const tagNewConstraint = -14;
 
 const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     const [applyOpacity, setApplyOpacity] = useState('');

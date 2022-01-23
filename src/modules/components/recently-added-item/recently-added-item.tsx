@@ -11,7 +11,7 @@ import moment from 'moment';
 import { AiFillWarning } from 'react-icons/ai';
 
 
-const tagNewConstraint = -7;
+const tagNewConstraint = -14;
 const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => {
         moment.utc();

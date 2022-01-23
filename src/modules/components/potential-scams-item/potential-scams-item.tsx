@@ -10,7 +10,7 @@ import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
-const tagNewConstraint = -7;
+const tagNewConstraint = -14;
 
 const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean  }> = (props) => {
     useEffect(() => {

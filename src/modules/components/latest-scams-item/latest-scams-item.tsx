@@ -11,7 +11,7 @@ import logoplaceholder from '../../../assets/core/no-photo.png'
 import { differenceInDays } from 'date-fns';
 import moment from 'moment';
 
-const tagNewConstraint = -7;
+const tagNewConstraint = -14;
 
 const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => { }, []);
