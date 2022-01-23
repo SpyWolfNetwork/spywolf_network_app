@@ -14,6 +14,12 @@ export const Container = styled.div`
   column-gap: 1rem;
   padding:1rem;
   align-items: center;
+  .ant-badge-count{
+      font-size: 6px !important;
+      padding: 4px !important;
+      line-height: 6px;
+      height: 14px;
+  }
   .card-title{
         margin: 0 !important;
   }

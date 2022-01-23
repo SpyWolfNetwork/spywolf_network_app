@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react-hooks/exhaustive-deps */
 // Dependencies
-import { Badge, Button  } from 'antd';
+import { Badge, Button } from 'antd';
 import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
-import {  Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './ama-token-item.style';
+import { Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './ama-token-item.style';
 import { differenceInDays } from 'date-fns';
 import moment from 'moment';
 import { MdKeyboardVoice } from 'react-icons/md';
@@ -18,11 +18,11 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
     const [applyOpacity, setApplyOpacity] = useState('');
     const [diffDays, setDiffDays] = useState(0);
     useEffect(() => {
-        const diff = differenceInDays(moment.utc(props?.token?.AMADate as any ).hour(0).minutes(0).millisecond(0).toDate(), moment().utc().toDate());
+        const diff = differenceInDays(moment.utc(props?.token?.AMADate as any).hour(0).minutes(0).millisecond(0).toDate(), moment().utc().toDate());
         setDiffDays(diff)
-        if(diff <= 0 ){
+        if (diff <= 0) {
             setApplyOpacity('past')
-        }else{
+        } else {
             setApplyOpacity('')
 
         }
@@ -85,20 +85,21 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
             }
         })
     }, [props.token])
-    return <Container className={`${applyOpacity}`}>
+    return <Container >
         <Link to={`token/${props?.token?.address}`}>
-        {
+            {
                 props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
-                    <Badge count="NEW" offset={[-40, -10]} style={{ fontSize: '10px' }} >   <LogoContainer>
-                        <img src={props.token.logoPicture} width="50px" alt="" />
-                        {
-                            props.imageLoading && <div className="image-placeholder">
-                            </div>
-                        }
-                    </LogoContainer>
+                    <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '10px' }} >
+                        <LogoContainer className={`${applyOpacity}`} >
+                            <img src={props.token.logoPicture} width="50px" alt="" />
+                            {
+                                props.imageLoading && <div className="image-placeholder">
+                                </div>
+                            }
+                        </LogoContainer>
                     </Badge>
                     :
-                    <LogoContainer>
+                    <LogoContainer className={`${applyOpacity}`} >
                         <img src={props.token.logoPicture} width="50px" alt="" />
 
                         {
@@ -110,14 +111,14 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
 
         </Link>
         <Link to={`token/${props?.token?.address}`}>
-            <InfoContainer>
+            <InfoContainer className={`${applyOpacity}`}>
                 <a onClick={handleNavigate} className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
                 <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
             </InfoContainer>
         </Link>
         <Link to={`token/${props?.token?.address}`}>
 
-            <ReleaseContainer>
+            <ReleaseContainer className={`${applyOpacity}`}>
                 <span className='released-title text-muted fw-bold d-block fs-8'>
                     When
                 </span>
@@ -150,18 +151,15 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
             </ReleaseContainer>
         </Link>
         <TrustLevelContainer >
-
             <div>
                 {
-                   diffDays === 0 ?
+                    diffDays === 0 ?
                         <Button className={'today'} href={'https://t.me/SpyWolfNetwork'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
                         :
                         <Button type="ghost" target={'__blank'}> <FaPlay size={15} />  </Button>
 
                 }
             </div>
-
-
         </TrustLevelContainer>
     </Container >
 };
