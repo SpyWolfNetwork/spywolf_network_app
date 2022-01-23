@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
-import { Button, Card, DatePicker, Form, Input, Select, Switch } from 'antd';
+import { Button,  DatePicker, Form, Input, Select, Switch } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
 import { format } from 'date-fns';
-import { useForm } from 'rc-field-form';
 import React, { KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { FaGhost } from 'react-icons/fa';
 import { GiTwoCoins } from 'react-icons/gi';
@@ -20,10 +21,17 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
     const [buttonDisabled, setButtonDisabled] = ctxDisabled;
 
     const [formOption, setFormOption] = useState();
-    const [softcapValue, setSoftcapValue] = useState();
     const [isPresale, setIsPresale] = useState<boolean>(false);
     const [tokenForm] = Form.useForm();
     const [scamForm] = Form.useForm();
+
+
+
+    const [addresValidation, setAddressValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
+    const [softcapValidation, setSoftcapValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
+    const [hardcapValidation, setHardcapValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
+    const [addressLoading, setAddressLoading] = useState<boolean>(false);
+    const { toChecksumAddress } = require('ethereum-checksum-address');
 
     const checkValidation = () => {
         const { address, presale, name, symbol, telegram, hardcap, softcap, presalelink, releaseDate } = tokenForm.getFieldsValue();
@@ -48,6 +56,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
             setButtonDisabled(!formIsInvalid || addresValidation?.active || hardcapValidation?.active || softcapValidation?.active)
         }
     }
+
     const handleSoftcapChange = (e) => {
         const inputFormRef = tokenForm.getFieldInstance('softcap');
         if (inputFormRef && inputFormRef.state && inputFormRef.state.value && inputFormRef.state.value.includes('-')) {
@@ -102,7 +111,8 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
         } else {
             checkValidationScam();
         }
-    }, [formOption])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [formOption, addresValidation])
 
     const handleDatePickerChange = () => {
         if (formOption === 'token') {
@@ -225,16 +235,30 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                 res => {
                     axios.post('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/submit', submitObj).then(
                         res => {
-                            Swal.fire({
-                                title: 'Thank you for submiting a scam  ',
-                                text: 'our team will review the request, once done you will see it on the platform,  now you will be redirected to the main page',
-                                icon: 'success',
-                                timer: 5000,
-                                didClose: () => {
-                                    navigate('/')
-                                    setVisibleModal(false)
-                                }
-                            })
+                            if (res.data.content) {
+                                Swal.fire({
+                                    title: 'Thank you for submiting a scam  ',
+                                    text: 'our team will review the request, once done you will see it on the platform,  now you will be redirected to the main page',
+                                    icon: 'success',
+                                    timer: 5000,
+                                    didClose: () => {
+                                        navigate('/')
+                                        setVisibleModal(false)
+                                    }
+                                })
+                            } else {
+                                Swal.fire({
+                                    title: 'Wait',
+                                    text: ' This token has already been submitted, it may be pending for approval',
+                                    icon: 'success',
+                                    timer: 5000,
+                                    didClose: () => {
+                                        setVisibleModal(false)
+                                        setButtonDisabled(true)
+                                    }
+                                })
+
+                            }
                         }
                     ).catch(
                         res => {
@@ -266,23 +290,20 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
 
 
-    const [addresValidation, setAddressValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
-    const [softcapValidation, setSoftcapValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
-    const [hardcapValidation, setHardcapValidation] = useState<{ err: number, message: string, active: boolean, button?: any }>()
-    const [addressLoading, setAddressLoading] = useState<boolean>(false);
-    const { toChecksumAddress } = require('ethereum-checksum-address');
-
     const validadeAddress = (address: string) => {
+
         return axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokenorwalletinfo/${address}`)
 
     }
 
     const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
-        setAddressValidation({
-            err: 0,
-            message: '',
-            active: false
-        })
+        if (addresValidation?.active === true) {
+            setAddressValidation({
+                err: 0,
+                message: '',
+                active: false
+            })
+        }
 
         if (event.code === 'Enter') {
             setAddressLoading(true);
@@ -308,20 +329,39 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
             try {
                 if (addr !== undefined && addr !== '') {
-                    validadeAddress(addr).then(
-                        ({ data }) => {
-                            setAddressLoading(false);
-                            const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
-                            if (addressCheckResponse == null) {
-                                throw new Error('Please make sure to input a correct token Address');
-                            }
-                            if (addressCheckResponse.contractType.toLocaleLowerCase() === 'token') {
+                    axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/submit/${addr}`).then(
+                        res => {
+                            if (!res.data.content) {
+                                setAddressValidation({
+                                    err: 0,
+                                    message: 'This token has already been submitted, it may be pending for approval',
+                                    active: true
+                                })
+                                setAddressLoading(false);
                             } else {
-                                throw new Error('Please make sure to input a correct token Address');
+                                validadeAddress(addr).then(
+                                    ({ data }) => {
+                                        setAddressLoading(false);
+                                        const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
+                                        if (addressCheckResponse == null) {
+                                            throw new Error('Please make sure to input a correct token Address');
+                                        }
+                                        if (addressCheckResponse.contractType.toLocaleLowerCase() === 'token') {
+                                        } else {
+                                            throw new Error('Please make sure to input a correct token Address');
 
+                                        }
+                                    }
+                                ).catch(e => {
+                                    setAddressValidation({
+                                        err: 0,
+                                        message: 'Please make sure to input a correct token Address',
+                                        active: true
+                                    })
+                                    setAddressLoading(false);
+                                })
                             }
-                        },
-
+                        }
                     ).catch(e => {
                         setAddressValidation({
                             err: 0,
@@ -374,21 +414,41 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
         try {
             if (addr !== undefined && addr !== '') {
-                validadeAddress(addr).then(
-                    ({ data }) => {
-                        const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
-                        if (addressCheckResponse == null) {
+                axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/submit/${addr}`).then(
+                    res => {
+                        if (res.data.content) {
+                            setAddressValidation({
+                                err: 0,
+                                message: 'This token has already been submitted, it may be pending for approval',
+                                active: true
+                            })
                             setAddressLoading(false);
-                            throw new Error('Please make sure to input a correct token Address');
-                        }
-                        if (addressCheckResponse.contractType.toLocaleLowerCase() === 'token') {
-
                         } else {
-                            throw new Error('Please make sure to input a correct token Address');
+                            validadeAddress(addr).then(
+                                ({ data }) => {
 
+                                    const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
+                                    if (addressCheckResponse == null) {
+                                        setAddressLoading(false);
+                                        throw new Error('Please make sure to input a correct token Address');
+                                    }
+                                    if (addressCheckResponse.contractType.toLocaleLowerCase() !== 'token') {
+                                        throw new Error('Please make sure to input a correct token Address');
+
+                                    }
+                                }
+                            ).catch(
+                                e => {
+                                    setAddressValidation({
+                                        err: 0,
+                                        message: 'Please make sure to input a correct token Address! ',
+                                        active: true
+                                    })
+                                    setAddressLoading(false);
+                                }
+                            )
                         }
                     },
-
                 ).catch(e => {
                     setAddressValidation({
                         err: 0,
@@ -428,7 +488,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
     }
 
     return <Container>
-        <Button className={`submit-section-toggle submit-token ${formOption == 'token' ? 'active' : ''}`} onClick={() => { changeFormOption('token') }}>
+        <Button className={`submit-section-toggle submit-token ${formOption === 'token' ? 'active' : ''}`} onClick={() => { changeFormOption('token') }}>
             <div className="submit-section-wrapper">
                 <div className="icon svg-icon svg-icon-3hx">
                     <GiTwoCoins></GiTwoCoins>
@@ -441,7 +501,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                 </div>
             </div>
         </Button>
-        <Button className={`submit-section-toggle submit-scam ${formOption == 'scam' ? 'active' : ''}`} onClick={() => { changeFormOption('scam') }}>
+        <Button className={`submit-section-toggle submit-scam ${formOption === 'scam' ? 'active' : ''}`} onClick={() => { changeFormOption('scam') }}>
             <div className="submit-section-wrapper">
                 <span className="icon svg-icon svg-icon-3hx">
                     <FaGhost ></FaGhost>

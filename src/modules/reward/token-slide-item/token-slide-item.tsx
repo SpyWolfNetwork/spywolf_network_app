@@ -1,7 +1,6 @@
 // Dependencies
 import { Popover, Tag } from 'antd';
 import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 
 import { AuditTokenSlideWrapper, Container } from './token-slide-item.style';

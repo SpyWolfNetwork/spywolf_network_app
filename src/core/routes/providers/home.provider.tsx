@@ -1,8 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FeaturedToken, FeaturedTokensResponse } from '../../../modules/home/models/featured-token';
-import { Token } from '../../../modules/token/models/token.model';
-import { HomeProviderModel, HomeProviderStateModel } from './models/home-provider.model';
 
 export const HomeContext = React.createContext({});
 

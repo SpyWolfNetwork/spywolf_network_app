@@ -1,11 +1,10 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Popover, Tag } from 'antd';
-import { spawn } from 'child_process';
+import { Popover, Tag } from 'antd';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
-import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './featured-token-item.style';
+import {  Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './featured-token-item.style';
 
 const FeaturedTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => { }, []);

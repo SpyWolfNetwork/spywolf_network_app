@@ -1,29 +1,19 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
-import { ArrowRightOutlined } from '@ant-design/icons';
-import { Button, Popover, Tag } from 'antd';
-import { spawn } from 'child_process';
+import { Badge,  Popover, Tag } from 'antd';
 import React, { useEffect } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-import { tokenToString } from 'typescript';
+import { Link,  useNavigate } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
-import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './recently-added-item.style';
-import { AiFillWarning } from 'react-icons/ai';
+import {  Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './recently-added-item.style';
 import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
-import { differenceInDays, differenceInHours, format, formatRelative } from 'date-fns';
-import { enUS } from 'date-fns/esm/locale';
-import { formatDistance } from 'date-fns/esm';
-import moment, { updateLocale } from 'moment';
+import { differenceInDays } from 'date-fns';
+import moment from 'moment';
+import { AiFillWarning } from 'react-icons/ai';
 
 
 
 const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => {
-        // const diff = differenceInDays(moment.utc(props?.token?.releaseDate as any ).hour(0).minutes(0).millisecond(0).toDate(), moment().utc().toDate());
-        // const diff2 = differenceInHours(moment.utc(props?.token?.releaseDate as any ).toDate(), moment().utc().toDate());
-        // console.log(moment.utc(props?.token?.releaseDate as any ).hours(0).minutes(0).milliseconds(0) .toDate())
-        // console.log(moment().utc().hours(0).minutes(0).milliseconds(0).toDate())
-        // console.log(diff)
-        // console.log(diff+1)
         moment.utc();
         moment.updateLocale("en", {
             relativeTime: {
@@ -59,13 +49,27 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
 
     return <Link to={`token/${props?.token?.address}`}>
         <Container>
-            <LogoContainer>
-                <img src={props?.token?.logoPicture} width="50px" alt="" />
-                {
-                    props.imageLoading && <div className="image-placeholder">
-                    </div>
-                }
-            </LogoContainer>
+            {
+                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
+                    <Badge count="NEW" offset={[-40, -10]} style={{ fontSize: '10px' }} >   <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+                    </Badge>
+                    :
+                    <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+            }
+
             <InfoContainer>
                 <a onClick={handleNavigate} className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
                 <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>

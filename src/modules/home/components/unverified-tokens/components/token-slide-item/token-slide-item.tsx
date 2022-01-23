@@ -3,7 +3,6 @@ import { Popover, Tag } from 'antd';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import { AuditedToken } from '../../../../models/audited-token.model';
 import { FeaturedToken } from '../../../../models/featured-token';
 import { AuditTokenSlideWrapper, Container } from './token-slide-item.style';
 

@@ -1,4 +1,4 @@
-import { FeaturedToken, FeaturedTokenDTO } from "../../home/models/featured-token";
+import {  FeaturedTokenDTO } from "../../home/models/featured-token";
 
 export interface Currency {
     symbol: string;

@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Card, Input, Pagination, Spin, Steps, Switch } from 'antd';

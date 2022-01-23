@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Card, Descriptions, Spin, Table, Tag } from 'antd';
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
@@ -11,11 +12,9 @@ import { ApplicationContext } from '../../../../core/routes/providers/applicatio
 import { Token } from '../../models/token.model';
 
 import { format, isValid, parseISO } from 'date-fns';
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import {  useNavigate, useParams } from 'react-router-dom';
 
 import Swal from 'sweetalert2'
-import { HomeContext, HomeProvider } from '../../../../core/routes/providers/home.provider';
-import { FeaturedToken } from '../../../home/models/featured-token';
 import { differenceInDays } from 'date-fns/esm';
 import { FaCopy } from 'react-icons/fa';
 import ClipboardJS from 'clipboard';
@@ -32,13 +31,9 @@ export const TokenDashboardComponent: React.FC = () => {
     const [tokenAddress, setTokenAddress]: any = useState();
     const [loadingState, setLoadingState]: any = useState<boolean>();
 
-    const { recentlyAddedState } = useContext(HomeContext) as any;
-
-    const [recentlyAdded, setRecentlyAdded] = recentlyAddedState;
 
     let { tokenid } = useParams();
 
-    const { state } = useLocation();
 
     const [copyConfirm, setCopyConfirm]: any = useState<boolean>(false);
 
@@ -46,7 +41,6 @@ export const TokenDashboardComponent: React.FC = () => {
 
     useEffect(() => {
         new ClipboardJS('.copybutton');
-        console.log('init')
         setLoadingState(true);
         setTokenAddress(tokenid);
         const requestWaletDataBody = {
@@ -65,11 +59,8 @@ export const TokenDashboardComponent: React.FC = () => {
     const navigate = useNavigate();
 
     const fetchTokenData = (endpoint: string, addr: { address: string }) => {
-        console.log('fetch init')
-
         axios.post(endpoint, addr).then(
             ({ data }) => {
-                console.log('tentei dar load')
                 if (data.errorMessage !== undefined) {
                     throw new Error('No Token Data');
                 }
@@ -79,7 +70,6 @@ export const TokenDashboardComponent: React.FC = () => {
             }
         ).catch(
             e => {
-                console.log(e)
                 Swal.fire({
                     title: 'Oops!',
                     text: 'This is embarrassing but something went wrong and we are trying to fix it!',

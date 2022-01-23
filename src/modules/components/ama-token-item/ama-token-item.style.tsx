@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 
 export const Container = styled.div`
+
 &.past{
       opacity: 0.5;
 }

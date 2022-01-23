@@ -1,5 +1,4 @@
-import { Currency, Transfers, WalletDTO } from "../dto/wallet.model";
-import { Wallet } from "./wallet.model";
+import { Currency,  WalletDTO } from "../dto/wallet.model";
 
 export class ChartCurrencyData {
     walletAmount: number;

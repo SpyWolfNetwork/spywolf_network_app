@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import React, { useEffect, useState } from 'react';
 import { Transfer, Currency } from '../../models/dto/currency-transaction.dto';
@@ -18,7 +20,7 @@ const TokenListItem: React.FC<{ currency: Currency, token: Transfer, rule: strin
 
         </td>
         <td>
-            <span className="badge badge-light-primary fw-bold me-1">{ props?.rule == 'in' ? 'Received from' : 'Sent to' }</span>
+            <span className="badge badge-light-primary fw-bold me-1">{ props?.rule === 'in' ? 'Received from' : 'Sent to' }</span>
 
         </td>
         <td>
