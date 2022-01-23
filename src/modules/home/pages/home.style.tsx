@@ -9,7 +9,22 @@ export const Container = styled.div`
     align-items: center;
     padding: 0 1.1rem!important;
     height: 100%;
-
+    .top-banner-wrapper{
+        display: none;
+        margin: 40px 0 ;
+        position: relative;
+        width: 100%;
+        padding-bottom: 20%;
+        @media (max-width: 991px) {
+            display: block;
+        }
+        .mobile-scam-banner{
+            position: absolute;
+            width: calc(100% + 40px);
+            left: -20px;
+            top: 0;
+        }
+    }
 `;
 
 
@@ -20,6 +35,11 @@ export const CardGrid = styled.div`
         grid-template-rows: auto;
         column-gap: 1.4em;
         row-gap: 1.4em;
+        .scam-wrapper{
+            @media (min-width: 991px){
+                margin-top: 50px;
+            }
+        }
         .ant-card{
             padding: 0 !important;
   

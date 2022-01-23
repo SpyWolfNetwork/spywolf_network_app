@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -5,12 +6,12 @@ import './App.scss';
 import './AppOverride.scss';
 import './antd-override/ant-override.scss';
 import Root from './core/routes/root-routing';
-import { Badge,  Button,  Popover } from 'antd';
+import { Badge, Button, Popover } from 'antd';
 import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavItem, CNavLink } from '@coreui/react';
 
 import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 
-import { HashRouter} from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
@@ -19,6 +20,7 @@ import SubmissionContent from './modules/components/submisson-content/submission
 import { ApplicationContext } from './core/routes/providers/application.provider';
 import SearchAdressInput from './modules/components/search-address/search-address';
 import moment from 'moment';
+import scambanner from './assets/ads/banner-scams.png'
 
 
 
@@ -77,7 +79,7 @@ function App() {
                     </svg>
                   </span>
                 } onClick={() => { setNavbarOpen(!navbarOpen) }} />
-                <Button  onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
+                <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
               </div>
               <div className="input">
                 <SearchAdressInput ></SearchAdressInput>
@@ -87,27 +89,27 @@ function App() {
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
                 <Popover content={'get up to 10% rewards on your next $SPY purchase'} >
-                  <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px', lineHeight:"19px", height: '18px', minHeight: '18px' }} status='success'>
+                  <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
                     <CNavItem>
-                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
+                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
                         Got Scammed?
                       </CNavLink>
                     </CNavItem>
                   </Badge>
                 </Popover>
                 <CNavItem>
-                  <CNavLink  onClick={() => { setNavbarOpen(!navbarOpen) }}  className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
+                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
                     Get Audited
                   </CNavLink>
                 </CNavItem>
 
                 <CNavItem>
-                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
+                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
                     Buy $SPY
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }}  href="/#/frequently-asked-questions">
+                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} href="/#/frequently-asked-questions">
                     FAQ
                   </CNavLink>
                 </CNavItem>
@@ -137,6 +139,7 @@ function App() {
         <div className="breadcumb-navigation" style={{ width: '100%', maxWidth: '1264px', padding: '10px' }}>
 
         </div>
+
         <Root />
         <div className="footer py-4 d-flex flex-lg-column" id="kt_footer">
           <div className="container-xxl d-flex flex-column flex-md-row align-items-center justify-content-between">

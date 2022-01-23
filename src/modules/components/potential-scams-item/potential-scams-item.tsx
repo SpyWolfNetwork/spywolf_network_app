@@ -10,6 +10,8 @@ import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
+const tagNewConstraint = -14;
+
 const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean  }> = (props) => {
     useEffect(() => {
 
@@ -18,7 +20,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
     return <Container>
 
 {
-                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
+                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > tagNewConstraint ?
                     <Badge count="NEW"  offset={[-10, 5]}  style={{ fontSize: '10px' }} >   <LogoContainer>
                         <img src={props.token.logoPicture} width="50px" alt="" />
                         {

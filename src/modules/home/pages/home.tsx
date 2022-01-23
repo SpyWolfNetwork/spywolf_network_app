@@ -11,11 +11,11 @@ import PotentialScamsItem from '../../components/potential-scams-item/potential-
 import RecentlyAddedItem from '../../components/recently-added-item/recently-added-item';
 import { FeaturedToken } from '../models/featured-token';
 import { CardGrid, Container } from './home.style';
+import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_army.png'
-import scambanner from '../../../assets/ads/banner-scams.png'
 
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 
@@ -213,7 +213,11 @@ export const HomeComponent: React.FC = () => {
     }
 
     return <Container>
-
+        <div className="top-banner-wrapper">
+            <Link to="/charity">
+                <img className="mobile-scam-banner" src={scambanner} width="100%"></img>
+            </Link>
+        </div>
         <CardGrid>
             <Card
                 // style={{minHeight: '938px'}}
@@ -318,7 +322,7 @@ export const HomeComponent: React.FC = () => {
                             onChange={(page: number) => updatePage('latest', page)}
                         ></Pagination>]}
                 >
-                    <div className="wrap" style={{ marginTop: '50px' }}>
+                    <div className="scam-wrapper">
                         {
                             latestScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(latestNameFilter.toLowerCase())).slice((latestScamsPage - 1) * 6, latestScamsPage * 6).map((token: FeaturedToken) =>
                                 <LatestScamsItem token={token} imageLoading={latestImageLoading}></LatestScamsItem>)

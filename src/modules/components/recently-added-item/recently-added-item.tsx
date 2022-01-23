@@ -11,7 +11,7 @@ import moment from 'moment';
 import { AiFillWarning } from 'react-icons/ai';
 
 
-
+const tagNewConstraint = -14;
 const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     useEffect(() => {
         moment.utc();
@@ -50,7 +50,7 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
     return <Link to={`token/${props?.token?.address}`}>
         <Container>
             {
-                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > -7 ?
+                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > tagNewConstraint ?
                     <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '2px !important', padding:'2px !important'  }} >   <LogoContainer>
                         <img src={props.token.logoPicture} width="50px" alt="" />
                         {
