@@ -11,9 +11,9 @@ import PotentialScamsItem from '../../components/potential-scams-item/potential-
 import RecentlyAddedItem from '../../components/recently-added-item/recently-added-item';
 import { FeaturedToken } from '../models/featured-token';
 import { CardGrid, Container } from './home.style';
-import scambanner from '../../../assets/ads/banner-scams.png'
+import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_army.png'
 
@@ -213,6 +213,11 @@ export const HomeComponent: React.FC = () => {
     }
 
     return <Container>
+        <div className="top-banner-wrapper">
+            <Link to="/charity">
+                <img className="mobile-scam-banner" src={scambanner} width="100%"></img>
+            </Link>
+        </div>
         <CardGrid>
             <Card
                 // style={{minHeight: '938px'}}

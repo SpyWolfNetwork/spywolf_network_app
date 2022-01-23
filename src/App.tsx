@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable @typescript-eslint/no-unused-vars */
@@ -138,7 +139,6 @@ function App() {
         <div className="breadcumb-navigation" style={{ width: '100%', maxWidth: '1264px', padding: '10px' }}>
 
         </div>
-        <img className="mobile-scam-banner" src={scambanner} width="100%"></img>
 
         <Root />
         <div className="footer py-4 d-flex flex-lg-column" id="kt_footer">

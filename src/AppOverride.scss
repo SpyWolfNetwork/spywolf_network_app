@@ -155,11 +155,3 @@ h6 {
     height: 35px;
   }
 }
-
-.mobile-scam-banner{
-  display: none;
-  padding-top: 30px;
-  @media (max-width: 991px) {
-    display: block;
-  }
-}
