@@ -3,14 +3,31 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
     width: 100%;
-    padding: 20px 0;
+    padding: 10px 0;
   border-bottom: 1px solid #eff2f5;
-
+  display: flex;
+  align-items: center;
+    min-height: 81px;
     .swiper-slide{
+    }
+    .ticker__element{
+        display: flex;
+    }
+    .ticker{
+        width: 100%;
+        display: flex;
+        transition: all 300ms;
+    }
+    .items-wrapper{
+        display: flex;
+        align-items: center;
+        column-gap: 40px;
+        margin-right: 40px;
     }
     .item{
         display: flex;
-        column-gap: 5px;
+        margin-right: 40px;
+        column-gap: 5px;    
         .price{
             font-weight: 600;
             font-size: 13px;

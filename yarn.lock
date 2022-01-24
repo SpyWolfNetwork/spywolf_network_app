@@ -10381,6 +10381,11 @@ react-simple-captcha@^8.2.4:
     react-dom "^17.0.1"
     react-html-parser "^2.0.2"
 
+react-ticker@^1.3.1:
+  version "1.3.1"
+  resolved "https://registry.yarnpkg.com/react-ticker/-/react-ticker-1.3.1.tgz#491e737d54570f0ef1e2f45de8818f1a542b5b62"
+  integrity sha512-UduxYg9zlTvyTrrMalM5USOQu8Z3QOoU0pGIiiQGXj0nKZ+Y0uqV2m5MFKkb9eX+Dg3FVFs0Sp4rr74ZBR7eag==
+
 react-vis@^1.11.7:
   version "1.11.7"
   resolved "https://registry.yarnpkg.com/react-vis/-/react-vis-1.11.7.tgz#909902af00158895d14da1adfe1d0dc0045228ff"
