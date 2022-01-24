@@ -21,6 +21,7 @@ import { ApplicationContext } from './core/routes/providers/application.provider
 import SearchAdressInput from './modules/components/search-address/search-address';
 import moment from 'moment';
 import scambanner from './assets/ads/banner-scams.png'
+import TickerComponent from './modules/components/ticker/ticker';
 
 
 
@@ -136,6 +137,7 @@ function App() {
             </CCollapse>
           </CContainer>
         </CNavbar>
+        <TickerComponent></TickerComponent>
         <div className="breadcumb-navigation" style={{ width: '100%', maxWidth: '1264px', padding: '10px' }}>
 
         </div>

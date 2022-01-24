@@ -9,6 +9,7 @@ import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, use
 import { useLocation, useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 'swiper'
 import { HomeContext } from '../../core/routes/providers/home.provider';
 import { HomeProviderModel } from '../../core/routes/providers/models/home-provider.model';
 import { AddressCheckResponseModel } from '../home/models/address-check.model';
@@ -17,7 +18,6 @@ import { DashedCard } from '../token/components/token-info-highlight/token-info-
 import { ResultFinalItemModel, ScamTokensResponseModel } from './models/scam-tokens.model';
 import { SpyCharityInfoModel } from './models/spy-info.model';
 import { Container } from './reward.style';
-import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 'swiper'
 import TokenSlideItem from './token-slide-item/token-slide-item';
 import moment from 'moment';
 import { FaCopy } from 'react-icons/fa';

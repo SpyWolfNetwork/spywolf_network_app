@@ -16,7 +16,7 @@ export const Container = styled.div`
       padding: 4px !important;
       line-height: 6px;
       height: 14px;
-      z-index: 9999;
+      z-index: 3;
 
   }
   cursor: pointer;
