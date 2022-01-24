@@ -1,6 +1,7 @@
 @import "./mixins.scss";
 
 .ant-descriptions {
+  min-width: 300px !important;
   .ant-descriptions-item {
     .ant-descriptions-item-label {
       @include muted-text();

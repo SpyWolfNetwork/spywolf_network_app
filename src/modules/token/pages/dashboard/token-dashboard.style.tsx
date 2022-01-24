@@ -58,6 +58,7 @@ export const Container = styled.div`
             flex: 1;
             width: fit-content !important;
             min-width: fit-content !important;
+            
         }
     }
 `;
@@ -129,7 +130,13 @@ export const MainContent = styled.div`
         display: flex;
         flex-wrap: wrap;
         .ant-descriptions{
-            min-width: 360px;
+  min-width: 300px !important;
+
+  @media (max-width: 991px){
+  min-width: fit-content !important;
+
+
+  }
             flex: 1;
             .ant-descriptions-item{
                 .ant-card.presale-card{
@@ -142,7 +149,7 @@ export const MainContent = styled.div`
                         padding: 0 !important;
                     }
                     .ant-descriptions{
-                        min-width: 0;
+            min-width: 0 !important;
                         margin: 0 !important;
                         margin-top: 0 !important;
                         .ant-descriptions-item-label, .ant-descriptions-item-content{
