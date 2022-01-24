@@ -18,7 +18,6 @@ const TickerComponent: React.FC = () => {
         axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/ticker').then(
             ({ data }) => {
                 setTokens(data);
-                console.log(data)
                 setTokens(data.resultArray.map(
                     token => {
                         let price = token.priceToday;
@@ -51,20 +50,20 @@ const TickerComponent: React.FC = () => {
                 tokens?.map(token =>
                     <div className="items-wrapper">
 
-                        <Popover content={<span>{token.symbol}</span>} >
-                            <div className="item">
+                        <div className="item">
+                            <Popover content={<span>{token.symbol}</span>} >
                                 <div className="logo">
                                     <img style={{ borderRadius: '100%' }} width={20} src={token.logo} alt="" />
                                 </div>
-                                <div className="price">
-                                    {new Intl.NumberFormat('en-US', {
-                                        maximumFractionDigits: token.numberOfDigits,
-                                        style: 'currency',
-                                        currency: 'USD'
-                                    }).format(token?.price)}</div>
-                                <div className="increase" style={{ color: `${(token.variation > 0) ? 'green' : 'red'}` }}>{Number(token?.variation).toFixed(1)}%</div>
-                            </div>
-                        </Popover>
+                            </Popover>
+                            <div className="price">
+                                {new Intl.NumberFormat('en-US', {
+                                    maximumFractionDigits: token.numberOfDigits,
+                                    style: 'currency',
+                                    currency: 'USD'
+                                }).format(token?.price)}</div>
+                            <div className="increase" style={{ color: `${(token.variation > 0) ? 'green' : 'red'}` }}>{Number(token?.variation).toFixed(1)}%</div>
+                        </div>
                     </div>
                 )
             }
