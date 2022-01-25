@@ -159,7 +159,7 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                     diffDays === 0 ?
                         <Button className={'today'} href={'https://t.me/SpyWolfNetwork'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
                         :
-                        <Button type="ghost" target={'__blank'}> <FaPlay size={15} />  </Button>
+                        <Button type="ghost" target={'__blank'} href={props.token.AMALink}> <FaPlay size={15} />  </Button>
 
                 }
             </div>

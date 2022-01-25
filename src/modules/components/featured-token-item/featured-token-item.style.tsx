@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr 1fr;
+  grid-template-columns: 50px minmax(100px, auto) 1fr 1fr 1fr;
   align-items: center;
   border-bottom: 1px dashed #eff2f5;
   padding: 1rem ;
@@ -15,7 +15,7 @@ export const Container = styled.div`
       }
       @media (max-width: 1200px){
             padding: 1rem 0.5rem ;
-            grid-template-columns: 50px 1fr 1fr;
+            grid-template-columns: 50px 1fr 1fr 1fr;
 
       }
 `;
@@ -72,4 +72,9 @@ export const TrustLevelContainer = styled.div`
 export const ActionsContainer = styled.div`
       display: flex;
       justify-content: flex-end;
+`;
+
+export const KYCBadge = styled.div`
+      display: flex;
+      justify-content: center;
 `;

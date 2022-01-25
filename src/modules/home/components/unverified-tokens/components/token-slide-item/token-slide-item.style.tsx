@@ -21,5 +21,11 @@ export const AuditTokenSlideWrapper = styled.div`
         text-align: center;
         max-width: 80px;
     }
+    .tag{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        row-gap: 10px;
+    }
 `;
 

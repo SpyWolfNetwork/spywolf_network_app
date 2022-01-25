@@ -4,7 +4,7 @@ import { Badge,  Popover, Tag } from 'antd';
 import React, { useEffect } from 'react';
 import { Link,  useNavigate } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
-import {  Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './recently-added-item.style';
+import {  Container, InfoContainer, KYCBadge, LogoContainer, ReleaseContainer, TrustLevelContainer } from './recently-added-item.style';
 import { IoCheckmarkDoneCircleSharp } from 'react-icons/io5';
 import { differenceInDays } from 'date-fns';
 import moment from 'moment';
@@ -74,6 +74,14 @@ const RecentlyAddedItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean
                 <a onClick={handleNavigate} className='text-dark fw-bolder text-hover-primary mb-1 fs-6'>{props?.token?.name}</a>
                 <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
             </InfoContainer>
+            <KYCBadge>
+                {
+                    props.token.alldata?.KYC &&
+                    <Tag color="purple">
+                        KYC
+                    </Tag>
+                }
+            </KYCBadge>
             <ReleaseContainer>
                 <span className='released-title text-muted fw-bold d-block fs-8'>
                     Release

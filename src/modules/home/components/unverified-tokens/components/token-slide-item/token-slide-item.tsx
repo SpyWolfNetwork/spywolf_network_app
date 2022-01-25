@@ -22,6 +22,12 @@ const TokenSlideItem: React.FC<{ token: Partial<FeaturedToken>, logoSize?: strin
             </Link>
             <div className="symbol text-muted fs-6 fw-bold mt-1">{props.token.symbol}</div>
             <div className="tag">
+                {
+                    props.token.alldata?.KYC &&
+                    <Tag color="purple">
+                        KYC
+                    </Tag>
+                }
                 <Popover content={(props?.token?.scamReasonTooltip ? props?.token?.scamReasonTooltip : 'Want to be a trusted project? Contact SpyWolf for an audit!')}>
                     <Tag color={props.tagColor}>
                         {'Verified'}

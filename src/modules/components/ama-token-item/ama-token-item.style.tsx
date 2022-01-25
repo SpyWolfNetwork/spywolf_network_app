@@ -23,6 +23,7 @@ export const Container = styled.div`
       line-height: 6px;
       height: 14px;
       z-index: 3;
+      box-shadow: none;
   }
 `;
 

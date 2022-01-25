@@ -7,6 +7,7 @@ import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 's
 import { Container } from './ticker.style';
 import Ticker from 'react-ticker'
 import { Popover } from 'antd';
+import { Link } from 'react-router-dom';
 const TickerComponent: React.FC = () => {
     const [tokens, setTokens] = useState<any[]>([]);
     const [stopped, setStopped] = useState<any>();
@@ -27,6 +28,7 @@ const TickerComponent: React.FC = () => {
                         }
                         return {
                             logo: token.logo,
+                            address: token.address,
                             symbol: token.symbol,
                             price: price,
                             variation: token.increase,
@@ -44,26 +46,29 @@ const TickerComponent: React.FC = () => {
 
     }
         onMouseLeave={() => setStopped(false)}
+        onTouchStart={() => setStopped(true)}
+        onTouchEnd={() => setStopped(false)}
     >
         {<Ticker mode="chain" move={!stopped} speed={7}>
             {() =>
                 tokens?.map(token =>
                     <div className="items-wrapper">
-
-                        <div className="item">
-                            <Popover content={<span>{token.symbol}</span>} >
-                                <div className="logo">
-                                    <img style={{ borderRadius: '100%' }} width={20} src={token.logo} alt="" />
-                                </div>
-                            </Popover>
-                            <div className="price">
-                                {new Intl.NumberFormat('en-US', {
-                                    maximumFractionDigits: token.numberOfDigits,
-                                    style: 'currency',
-                                    currency: 'USD'
-                                }).format(token?.price)}</div>
-                            <div className="increase" style={{ color: `${(token.variation > 0) ? 'green' : 'red'}` }}>{Number(token?.variation).toFixed(1)}%</div>
-                        </div>
+                        <Link onClick={()=>setStopped(false)} to={`/token/${token.address}`}>
+                            <div className="item">
+                                <Popover content={<span>{token.symbol}</span>} >
+                                    <div className="logo">
+                                        <img style={{ borderRadius: '100%' }} width={20} src={token.logo} alt="" />
+                                    </div>
+                                </Popover>
+                                <div className="price">
+                                    {new Intl.NumberFormat('en-US', {
+                                        maximumFractionDigits: token.numberOfDigits,
+                                        style: 'currency',
+                                        currency: 'USD'
+                                    }).format(token?.price)}</div>
+                                <div className="increase" style={{ color: `${(token.variation > 0) ? 'green' : 'red'}` }}>{Number(token?.variation).toFixed(1)}%</div>
+                            </div>
+                        </Link>
                     </div>
                 )
             }

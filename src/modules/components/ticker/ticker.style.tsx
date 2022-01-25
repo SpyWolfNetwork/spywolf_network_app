@@ -7,7 +7,6 @@ export const Container = styled.div`
   border-bottom: 1px solid #eff2f5;
   display: flex;
   align-items: center;
-    min-height: 81px;
     .swiper-slide{
     }
     .ticker__element{
@@ -29,6 +28,7 @@ export const Container = styled.div`
         margin-right: 40px;
         column-gap: 5px;    
         .price{
+            color: black;
             font-weight: 600;
             font-size: 13px;
         }

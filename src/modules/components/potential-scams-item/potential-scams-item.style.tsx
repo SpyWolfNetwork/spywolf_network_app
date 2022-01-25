@@ -3,12 +3,12 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
+  grid-template-columns: 50px minmax(100px, 1fr) 1fr minmax(100px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
   column-gap: 1rem;
   padding: 1rem;
   align-items: center;
   @media (max-width: 480px){
-      grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) minmax(auto, 94px);;
+      grid-template-columns: 50px minmax(100px, 1fr) 1fr minmax(100px, 1fr) minmax(auto, 94px);;
   }
   @media (max-width: 1200px){
             padding: 1rem 0.5rem ;
@@ -20,6 +20,7 @@ export const Container = styled.div`
       line-height: 6px;
       height: 14px;
       z-index: 3;
+      box-shadow: none;
   }
 `;
 
@@ -86,4 +87,10 @@ export const ActionsContainer = styled.div`
       display: flex;
       justify-content: flex-end;
       column-gap: 5px;
+`;
+
+
+export const KYCBadge = styled.div`
+      display: flex;
+      justify-content: center;
 `;

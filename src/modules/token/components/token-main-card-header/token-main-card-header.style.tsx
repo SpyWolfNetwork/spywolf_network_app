@@ -27,4 +27,8 @@ export const Container = styled.div`
         }
 
     }
+    .ant-tag{
+        line-height: 1.675rem !important;
+        height: fit-content;
+    }
 `;

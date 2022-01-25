@@ -54,7 +54,7 @@ export const TokenDashboardComponent: React.FC = () => {
 
         fetchTokenData(walletEndpoint, requestWaletDataBody);
 
-    }, [])
+    }, [tokenid])
 
     const navigate = useNavigate();
 
