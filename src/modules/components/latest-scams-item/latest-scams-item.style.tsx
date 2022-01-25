@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr) 100px ;
+  grid-template-columns: 50px minmax(100px, 1fr) 1fr minmax(100px, 1fr) 100px ;
   @media (max-width: 480px){
-      grid-template-columns: 50px minmax(100px, 1fr) minmax(100px, 1fr);
+      grid-template-columns: 50px minmax(100px, 1fr) 1fr minmax(100px, 1fr);
   }
   @media (max-width: 1200px){
             padding: 1rem 0.5rem ;
@@ -20,6 +20,7 @@ export const Container = styled.div`
       line-height: 6px;
       height: 14px;
       z-index: 3;
+      box-shadow: none;
   }
   .card-title{
         margin: 0 !important;
@@ -89,4 +90,8 @@ export const TrustLevelContainer = styled.div`
 export const ActionsContainer = styled.div`
       display: flex;
       justify-content: flex-end;
+`;
+export const KYCBadge = styled.div`
+      display: flex;
+      justify-content: center;
 `;

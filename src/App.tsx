@@ -121,7 +121,7 @@ function App() {
                     </CNavLink>
                   </CNavItem>
                   <CNavItem className="social">
-                    <CNavLink href="https://t.me/SpyWolfNetwork" target='__blank'>
+                    <CNavLink href="https://t.me/SpyWolfOfficial" target='__blank'>
                       <FaTelegram color={'#a1a5b7'} fontSize={20} />
                     </CNavLink>
                   </CNavItem>

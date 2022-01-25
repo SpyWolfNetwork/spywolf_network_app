@@ -30,7 +30,9 @@ export interface FeaturedTokenDTO {
     tag: string;
     releaseDate: string;
     AMADate?: any;
+    AMALink?: string;
     savingTime?: string
+    KYC?: boolean;
 }
 
 export interface Content {
@@ -60,6 +62,7 @@ export class  FeaturedToken {
     tag?: string;
     releaseDate?: string;
     AMADate?: string;
+    AMALink?: string;
     savingTime?: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
@@ -92,6 +95,11 @@ export class  FeaturedToken {
 
         if(featuredTokenDTO.savingTime){
             this.savingTime = featuredTokenDTO.savingTime;
+        }
+
+        
+        if(featuredTokenDTO.AMALink){
+            this.AMALink = featuredTokenDTO.AMALink;
         }
         this.trustLevel = featuredTokenDTO?.trustLevel;
         this.address = featuredTokenDTO?.address;

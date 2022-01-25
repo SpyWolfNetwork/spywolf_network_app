@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr auto;
+  grid-template-columns: 50px 1fr 1fr 1fr auto;
   column-gap: 1rem;
   padding: 1rem;
   align-items: center;
@@ -17,6 +17,7 @@ export const Container = styled.div`
       line-height: 6px;
       height: 14px;
       z-index: 3;
+      box-shadow: none;
 
   }
   cursor: pointer;
@@ -98,4 +99,9 @@ export const TrustLevelContainer = styled.div`
 export const ActionsContainer = styled.div`
       display: flex;
       justify-content: flex-end;
+`;
+
+export const KYCBadge = styled.div`
+      display: flex;
+      justify-content: center;
 `;

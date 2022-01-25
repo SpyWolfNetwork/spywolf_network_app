@@ -11,10 +11,10 @@ export const Container = styled.div`
     height: 100%;
     .top-banner-wrapper{
         display: none;
-        margin: 40px 0 ;
+        margin-bottom: 30px;
         position: relative;
         width: 100%;
-        padding-bottom: 20%;
+        padding-bottom: 22.5%;
         @media (max-width: 991px) {
             display: block;
         }
