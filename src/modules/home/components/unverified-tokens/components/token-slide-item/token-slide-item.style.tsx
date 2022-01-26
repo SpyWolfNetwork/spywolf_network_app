@@ -13,6 +13,7 @@ export const AuditTokenSlideWrapper = styled.div`
     width: fit-content;
     max-height: 200px;
     .logo{
+        margin-bottom: 10px;
         img{
             border-radius: 50%;
         }
@@ -26,6 +27,9 @@ export const AuditTokenSlideWrapper = styled.div`
         flex-direction: column;
         align-items: center;
         row-gap: 10px;
+        .ant-tag{
+            margin-right: 0;
+        }
     }
 `;
 

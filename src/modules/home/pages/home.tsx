@@ -292,7 +292,7 @@ export const HomeComponent: React.FC = () => {
                 }
             </Card>
             <div className="bottom-cards">
-                <Card id="verified-inline" title={<CardTitleSubtitle title="Verified Tokens" />}>
+                <Card id="verified-inline" title={<CardTitleSubtitle title="Audited Tokens" />}>
                     <UnverifiedTokens />
                 </Card>
                 <Card id="advertisement-inline">

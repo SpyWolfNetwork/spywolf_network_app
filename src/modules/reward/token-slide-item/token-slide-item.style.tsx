@@ -25,5 +25,8 @@ export const AuditTokenSlideWrapper = styled.div`
         line-height: 100%;
         margin-top: 5px;
     }
+    .ant-tag{
+        margin-right: 0;
+    }
 `;
 
