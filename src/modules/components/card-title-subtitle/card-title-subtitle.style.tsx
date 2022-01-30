@@ -25,6 +25,7 @@ export const Container = styled.div`
             width: fit-content;
             flex-wrap: wrap;
             overflow: hidden;
+            white-space: initial;
         }
     }
     .scam-title-banner{

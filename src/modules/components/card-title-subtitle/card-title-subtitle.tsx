@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 import { Container } from './card-title-subtitle.style';
 
-const CardTitleSubtitle: React.FC<{ title?: string, subtitle?: string, fontSize?: number, banner?: any, search?: boolean,
+const CardTitleSubtitle: React.FC<{ title?: any, subtitle?: any, fontSize?: number, banner?: any, search?: boolean,
 searchChange?: any, searchPlaceholder?: string }> = (props) => {
     useEffect(() => { }, []);
 
