@@ -33,7 +33,7 @@ export const SearchContainer = styled.div`
         margin-top: 1.25rem!important;
     }
     .ant-input::placeholder{
-        color: #a1a5b9 !important; 
+        /* color: #a1a5b9 !important;  */
     }
 
 `;

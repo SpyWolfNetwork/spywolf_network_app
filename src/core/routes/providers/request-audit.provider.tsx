@@ -6,7 +6,7 @@ export const RequestAuditContext = React.createContext({});
 
 export const RequestAuditProvider = (props: any) => {
     const ORIGINAL_PRICES = {
-        audit: 0,
+        audit: 1.5,
         ama: 2,
         kyc: 3,
         ad: 2,
@@ -18,7 +18,7 @@ export const RequestAuditProvider = (props: any) => {
 
 
     const ORIGINAL_DISCOUNT_PRICES = {
-        audit: 0,
+        audit: 1.5,
         ama: 1.5,
         kyc: 2,
         ad: 0,
@@ -30,7 +30,7 @@ export const RequestAuditProvider = (props: any) => {
 
 
     const PROMO_PRICES = {
-        audit: 0,
+        audit: 1.5,
         ama: 3,
         kyc: 3,
         ad: 2,
@@ -95,14 +95,14 @@ export const RequestAuditProvider = (props: any) => {
                 }
                 _prices = applyDiscount('ad', _prices)
             }
-            if (totalItemsSelecteds > 0) {
+            if (totalItemsSelecteds > 1) {
                 if (products.kyc) {
                     _discount = (_discount + (ORIGINAL_PRICES['kyc'] - discountPrices['kyc']));
                 }
                 _prices = applyDiscount('kyc', _prices)
 
             }
-            if (totalItemsSelecteds > 0) {
+            if (totalItemsSelecteds > 1) {
                 if (products.ama) {
                     _discount = (_discount + (ORIGINAL_PRICES['ama'] - discountPrices['ama']));
                 }

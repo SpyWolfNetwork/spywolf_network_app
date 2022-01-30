@@ -5,17 +5,23 @@ import { useForm } from 'antd/lib/form/Form';
 import axios from 'axios';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { IoAlertCircleSharp } from 'react-icons/io5';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
 import { RequestAuditContext } from '../../../../core/routes/providers/request-audit.provider';
 import AddressInputComponent from '../../../components/address-input/address-input';
 import SearchAdressInput from '../../../components/search-address/search-address';
 import { Container } from './audit-form.style';
 
+
 const AuditForm: React.FC = () => {
+    const { toChecksumAddress } = require('ethereum-checksum-address');
+
     useEffect(() => {
 
 
     }, []);
 
+    const navigate = useNavigate();
 
     const [auditForm] = useForm();
     const { formDataState, cartData, productCart, pricesState } = useContext<any>(RequestAuditContext) as any;
@@ -60,19 +66,20 @@ const AuditForm: React.FC = () => {
     const submit = () => {
         const values = auditForm.getFieldsValue();
         if (!disableSubmit) {
+            setDisableSubmit(true)
             try {
                 const payload = {
                     email: values.email,
                     adLap: "2 weeks",
                     totalPrice: `${totalPrice} BNB`,
-                    contractAddress: smartContractAddress,
+                    contractAddress: toChecksumAddress(smartContractAddress),
                     telegram: `https://t.me/${values.telegram}`,
                     website: values.website,
                     contactPersonTelegram: `https://t.me/${values.telegram}`,
                     paymentTXHash: values.txHash
                 }
                 if (products.audit) {
-                    payload['auditPrice'] = `${products.deadline} BNB`
+                    payload['auditPrice'] = `${products.deadline ? products.deadline : prices['audit']} BNB`
                 }
 
                 if (products.ama) {
@@ -89,7 +96,8 @@ const AuditForm: React.FC = () => {
                     payload['adPrice'] = `${prices['ad']} BNB`
 
                 }
-                if (products.deadline) {
+                console.log('audit', products.audit, 'deadline', products.deadline)
+                if (products.aduit && products.deadline) {
                     if (products.deadline === 3) {
                         payload['auditDeliveryTime'] = `24 Hours`;
                     }
@@ -106,7 +114,25 @@ const AuditForm: React.FC = () => {
                 }
                 axios.post('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/services',
                     payload
-                )
+                ).then(() => {
+                    Swal.fire({
+                        title: 'Thank you',
+                        text: 'Request Received Correctly, an agent will contact you shortly',
+                        icon: 'success',
+                        timer: 4000,
+                        didClose: () => {
+                            navigate('../')
+                        }
+                    })
+                }).catch(e => {
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: 'Something went wrong!',
+                        icon: 'error',
+                        confirmButtonText: 'Try Again',
+
+                    })
+                })
             } catch (err) {
                 console.log(err)
             }
@@ -123,7 +149,7 @@ const AuditForm: React.FC = () => {
     }
 
     return <Container>
-        <Form onChange={formChange} form={auditForm} >
+        <Form onChange={formChange} form={auditForm} preserve={false} >
             <div className="inline">
                 <Form.Item label={'Your Email'} extra="*Your invoice will be sent here." name={'email'}  >
                     <Input placeholder='jon@gmail.com'></Input>
@@ -161,14 +187,6 @@ const AuditForm: React.FC = () => {
             <Form.Item label={'Transaction Hash(txHash)'} name={'txHash'}  >
                 <Input placeholder='0xC2D0f6b7513994A1Ba86CEf3AAc181a371A4CA0c'></Input>
             </Form.Item>
-
-            <div className="inline">
-                <span>Need to speak with a sales rep before sending payment?
-                </span>
-                <Form.Item name={'salesrep'} valuePropName='checked' initialValue={false}>
-                    <Switch ></Switch>
-                </Form.Item>
-            </div>
             <span>Once you submit your information, a team member will contact you to answer any questions you may have, finalize the payment and get started!
             </span>
 

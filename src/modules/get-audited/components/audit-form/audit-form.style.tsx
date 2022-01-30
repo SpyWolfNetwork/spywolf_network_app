@@ -40,4 +40,14 @@ height: fit-content;
           height: fit-content !important;
       }
   }
+    .ant-input::placeholder{
+        color: #cdced1 !important; 
+      
+    }
+    .ant-input{
+        &:focus::placeholder{
+            transition: color 300ms ease;
+        color: transparent !important; 
+        }
+    }
 `;

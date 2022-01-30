@@ -35,20 +35,33 @@ const AuditSelectorsComponent: React.FC = () => {
 
 
     const formChange = (form) => {
-        const { audit, kyc, ama, ad } = selectorsForm.getFieldsValue();
+        setProducts(selectorsForm.getFieldsValue());
+        const { audit, kyc, ama, ad, deadline } = selectorsForm.getFieldsValue();
         if (audit && kyc && ama && !ad) {
             selectorsForm.setFieldsValue({
                 ...selectorsForm.getFieldsValue(), ad: true
             })
             setDisableAD(true)
-        } else if (!ad) (
+        }
+        if (!audit) {
             selectorsForm.setFieldsValue({
-                ...selectorsForm.getFieldsValue()
+                ...selectorsForm.getFieldsValue(), deadline: 1.5
             })
-        )
+        }
+        setProducts(selectorsForm.getFieldsValue());
+        if (audit && deadline === undefined) {
+            console.log('deadline updated')
+            setTimeout(() => {
+                selectorsForm.setFieldsValue({
+                    ...selectorsForm.getFieldsValue(), deadline: 1.5
+                })
+                console.log(selectorsForm.getFieldsValue())
+                setProducts(selectorsForm.getFieldsValue());
+
+            }, 300)
+        }
         setDisableAD(false)
         setAuditChecked(selectorsForm.getFieldsValue().audit);
-        setProducts(selectorsForm.getFieldsValue());
     }
 
 
@@ -67,7 +80,7 @@ const AuditSelectorsComponent: React.FC = () => {
                 {
                     selectorsForm.getFieldsValue().audit &&
                     <Form.Item name='deadline' initialValue={AUDIT_4DAYS_PRICE}>
-                        <Radio.Group defaultValue={AUDIT_4DAYS_PRICE}>
+                        <Radio.Group value={0} defaultValue={AUDIT_4DAYS_PRICE}>
                             <Space direction="vertical">
                                 <Radio value={AUDIT_24H_PRICE}>
                                     <div className="chekbox-title">
