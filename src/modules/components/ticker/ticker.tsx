@@ -1,9 +1,7 @@
 // Dependencies
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { Swiper, SwiperSlide } from 'swiper/react';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import SwiperCore, { A11y, Autoplay, EffectFade, Navigation, Scrollbar } from 'swiper';
 import { Container } from './ticker.style';
 import Ticker from 'react-ticker'
 import { Popover } from 'antd';

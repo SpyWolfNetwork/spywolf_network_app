@@ -11,7 +11,7 @@ import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavItem, CNa
 
 import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
@@ -62,7 +62,7 @@ function App() {
   }
 
   return (
-    <HashRouter>
+    <BrowserRouter>
       <div className="App">
         <CNavbar className={`${windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
           <CContainer fluid>
@@ -92,25 +92,28 @@ function App() {
                 <Popover content={'get up to 10% rewards on your next $SPY purchase'} >
                   <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
                     <CNavItem>
-                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/#/charity" active>
+                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/charity" active>
                         Got Scammed?
                       </CNavLink>
                     </CNavItem>
                   </Badge>
                 </Popover>
                 <CNavItem>
-                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="https://spywolf.co/" target="_blank" active>
-                    Get Audited
-                  </CNavLink>
+                  <Badge count="NEW" offset={[-15, 1]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
+                    <Link to="/request-audit">
+                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
+                      Get Audit + KYC
+                      </CNavLink>
+                    </Link>
+                  </Badge>
                 </CNavItem>
-
                 <CNavItem>
                   <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
                     Buy $SPY
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} href="/#/frequently-asked-questions">
+                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} href="/frequently-asked-questions">
                     FAQ
                   </CNavLink>
                 </CNavItem>
@@ -189,7 +192,7 @@ function App() {
       </Modal>
 
 
-    </HashRouter>
+    </BrowserRouter>
   );
 }
 

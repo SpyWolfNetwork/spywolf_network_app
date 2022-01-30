@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 // Dependencies
 import { Tag } from 'antd';
 import React, { useContext, useEffect } from 'react';
@@ -9,7 +10,6 @@ const TokenMainCardHeaderComponent: React.FC<{ info: Token }> = (props) => {
     const { ctx } = useContext(ApplicationContext) as any;
     
     const [tokenData] = ctx;
-    useEffect(() => { console.log(tokenData)}, []);
 
     return <Container>
             {

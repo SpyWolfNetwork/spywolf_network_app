@@ -106,14 +106,18 @@ h6 {
 }
 .navbar-brand {
   display: grid;
-  grid-template-columns: minmax(230px, 120px) minmax(400px, 400px);
+  grid-template-columns: minmax(230px, 120px) minmax(380px, 380px);
   grid-template-rows: 1fr;
   column-gap: 10px;
   row-gap: 10px;
-  max-width: 660px;
-  @media (max-width: 1200px) {
-  grid-template-columns: minmax(230px, 120px) 1fr;
-
+  max-width: 42%;
+  @media (max-width: 1300px) {
+    grid-template-columns: minmax(230px, 120px) 1fr;
+    max-width: 42%;
+  }
+  @media (max-width: 1100px) {
+    grid-template-columns: minmax(230px, 120px) 1fr;
+    max-width: 35%;
   }
   @media (max-width: 991px) {
     max-width: 100%;
@@ -146,8 +150,7 @@ h6 {
   }
 }
 
-
-.brand-logo{
+.brand-logo {
   height: 40px;
   @media (max-width: 991px) {
     max-width: 200px;

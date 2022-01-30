@@ -14,6 +14,8 @@ import RewardComponent from "../../modules/reward/reward";
 import { TokenDashboardComponent } from "../../modules/token/pages/dashboard/token-dashboard";
 import Wallet from "../../modules/wallet/pages/wallet";
 import { HomeProvider } from "./providers/home.provider";
+import GetAuditedComponent from "../../modules/get-audited/get-audited";
+import { RequestAuditProvider } from "./providers/request-audit.provider";
 
 
 
@@ -24,6 +26,7 @@ export default function Root() {
         '/disclaimer': 'Disclaimer',
         '/charity': 'Charity',
         '/frequently-asked-questions': 'Frequently Asked Question',
+        '/request-service': 'Request an audit',
     };
 
     const location = useLocation();
@@ -47,11 +50,11 @@ export default function Root() {
 
 
     return (
-        <Container style={{ width: '100%',  height:'100%',flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
+        <Container style={{ width: '100%', height: '100%', flexDirection: 'column', alignItems: 'center', display: 'flex' }}>
             <Breadcrumb style={{ width: "100%", maxWidth: "1320px", padding: '0 2.25rem ' }}>
                 {breadcrumbItems}
             </Breadcrumb>
-            <div style={{ width: '100%', height:'100%',justifyContent: 'center', display: 'flex' }}>
+            <div style={{ width: '100%', height: '100%', justifyContent: 'center', display: 'flex' }}>
                 <Routes >
                     <Route path="/wallet/:walletid" element={<Wallet />}>
                     </Route>
@@ -61,10 +64,11 @@ export default function Root() {
                     <Route path="/wallet" element={<Navigate replace to="/" />}></Route>
                     <Route path="/token" element={<Navigate replace to="/" />}></Route>
                     <Route path="/learn" element={<LearnList></LearnList>}></Route>
-                    <Route path="/frequently-asked-questions" element={<Faq/>}></Route>
-                    <Route path="/disclaimer" element={<Disclaimer/>}></Route>
-                    <Route path="/charity" element={<HomeProvider><RewardComponent/></HomeProvider>}></Route>
-                    
+                    <Route path="/frequently-asked-questions" element={<Faq />}></Route>
+                    <Route path="/disclaimer" element={<Disclaimer />}></Route>
+                    <Route path="/charity" element={<HomeProvider><RewardComponent /></HomeProvider>}></Route>
+                    <Route path="/request-audit" element={<RequestAuditProvider><GetAuditedComponent /></RequestAuditProvider>}></Route>
+
                 </Routes>
             </div>
         </Container>
