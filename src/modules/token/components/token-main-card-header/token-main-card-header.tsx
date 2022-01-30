@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 // Dependencies
 import { Tag } from 'antd';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { ApplicationContext } from '../../../../core/routes/providers/application.provider';
 import { Token } from '../../models/token.model';
 import { Container } from './token-main-card-header.style';

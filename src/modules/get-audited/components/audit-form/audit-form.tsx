@@ -96,8 +96,7 @@ const AuditForm: React.FC = () => {
                     payload['adPrice'] = `${prices['ad']} BNB`
 
                 }
-                console.log('audit', products.audit, 'deadline', products.deadline)
-                if (products.aduit && products.deadline) {
+                if (products.audit && products.deadline) {
                     if (products.deadline === 3) {
                         payload['auditDeliveryTime'] = `24 Hours`;
                     }
@@ -130,11 +129,15 @@ const AuditForm: React.FC = () => {
                         text: 'Something went wrong!',
                         icon: 'error',
                         confirmButtonText: 'Try Again',
-
                     })
                 })
             } catch (err) {
-                console.log(err)
+                Swal.fire({
+                    title: 'Oops!',
+                    text: 'Something went wrong!',
+                    icon: 'error',
+                    confirmButtonText: 'Try Again',
+                })
             }
         }
     }

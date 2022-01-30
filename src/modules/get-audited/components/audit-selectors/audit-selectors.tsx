@@ -50,12 +50,10 @@ const AuditSelectorsComponent: React.FC = () => {
         }
         setProducts(selectorsForm.getFieldsValue());
         if (audit && deadline === undefined) {
-            console.log('deadline updated')
             setTimeout(() => {
                 selectorsForm.setFieldsValue({
                     ...selectorsForm.getFieldsValue(), deadline: 1.5
                 })
-                console.log(selectorsForm.getFieldsValue())
                 setProducts(selectorsForm.getFieldsValue());
 
             }, 300)
