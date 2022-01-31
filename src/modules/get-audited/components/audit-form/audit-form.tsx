@@ -183,7 +183,7 @@ const AuditForm: React.FC = () => {
                     </div>
                     <div className="text-container">
                         <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice} BNB to:</h1>
-                        <p style={{ margin: 0, color: '#5e6278', fontSize: '1.075rem', whiteSpace: 'break-spaces' }}>0x6A1103C553Aa64233F31a60b8d19380C57F663AD</p>
+                        <p style={{ margin: 0, color: '#5e6278', fontSize: '1.075rem', whiteSpace: 'break-spaces' }}>0x845A458Ff034F46afD6beDD72730b7B88DD32b56</p>
                     </div>
                 </div>
             } type="warning" />
