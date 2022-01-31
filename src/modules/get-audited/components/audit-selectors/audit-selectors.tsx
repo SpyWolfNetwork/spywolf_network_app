@@ -43,23 +43,20 @@ const AuditSelectorsComponent: React.FC = () => {
             })
             setDisableAD(true)
         }
-        if (!audit) {
-            selectorsForm.setFieldsValue({
-                ...selectorsForm.getFieldsValue(), deadline: 1.5
-            })
-        }
+
         setProducts(selectorsForm.getFieldsValue());
+        setDisableAD(false)
+        setAuditChecked(selectorsForm.getFieldsValue().audit);
         if (audit && deadline === undefined) {
             setTimeout(() => {
                 selectorsForm.setFieldsValue({
                     ...selectorsForm.getFieldsValue(), deadline: 1.5
                 })
                 setProducts(selectorsForm.getFieldsValue());
-
-            }, 300)
+                setDisableAD(false)
+                setAuditChecked(selectorsForm.getFieldsValue().audit);
+            }, 10)
         }
-        setDisableAD(false)
-        setAuditChecked(selectorsForm.getFieldsValue().audit);
     }
 
 

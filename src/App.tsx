@@ -22,6 +22,7 @@ import SearchAdressInput from './modules/components/search-address/search-addres
 import moment from 'moment';
 import scambanner from './assets/ads/banner-scams.png'
 import TickerComponent from './modules/components/ticker/ticker';
+import useBreakpoint from 'use-breakpoint';
 
 
 
@@ -35,9 +36,10 @@ function App() {
   const [buttonDisabled, setButtonDisabled] = ctxDisabled;
 
   let navbarRef: HTMLDivElement | null;
-
+  const BREAKPOINTS = { mobile: 0, tablet: 768, desktop: 1280 }
 
   useEffect(() => {
+
     if (window.scrollY > 0) {
       setWindowScroller(true);
     }
@@ -79,7 +81,9 @@ function App() {
                       <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black"></path>
                     </svg>
                   </span>
-                } onClick={() => { setNavbarOpen(!navbarOpen) }} />
+                } onClick={() => {
+                  setNavbarOpen(!navbarOpen)
+                }} />
                 <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
               </div>
               <div className="input">
@@ -92,30 +96,34 @@ function App() {
                 <Popover content={'get up to 10% rewards on your next $SPY purchase'} >
                   <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
                     <CNavItem>
-                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" href="/charity" active>
-                        Got Scammed?
-                      </CNavLink>
+                      <Link to="/charity">
+                        <CNavLink style={{ fontSize: '13px' }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" active>
+                          Got Scammed?
+                        </CNavLink>
+                      </Link>
                     </CNavItem>
                   </Badge>
                 </Popover>
                 <CNavItem>
                   <Badge count="NEW" offset={[-15, 1]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
                     <Link to="/request-audit">
-                      <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
-                      Get Audit + KYC
+                      <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
+                        Get Audit + KYC
                       </CNavLink>
                     </Link>
                   </Badge>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
+                  <CNavLink target='__blank' href="https://pancakeswap.finance/swap?outputCurrency=0xc2d0f6b7513994a1ba86cef3aac181a371a4ca0c">
                     Buy $SPY
                   </CNavLink>
                 </CNavItem>
                 <CNavItem>
-                  <CNavLink onClick={() => { setNavbarOpen(!navbarOpen) }} href="/frequently-asked-questions">
-                    FAQ
-                  </CNavLink>
+                  <Link to="/frequently-asked-questions">
+                    <CNavLink>
+                      FAQ
+                    </CNavLink>
+                  </Link>
                 </CNavItem>
                 <div className="inline-icons" style={{ display: 'flex' }}>
                   <CNavItem className="social">
