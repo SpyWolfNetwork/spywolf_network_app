@@ -11,7 +11,7 @@ import { CCollapse, CContainer, CNavbar, CNavbarBrand, CNavbarNav, CNavItem, CNa
 
 import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 
-import { BrowserRouter, HashRouter } from 'react-router-dom';
+import { HashRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
@@ -20,7 +20,6 @@ import SubmissionContent from './modules/components/submisson-content/submission
 import { ApplicationContext } from './core/routes/providers/application.provider';
 import SearchAdressInput from './modules/components/search-address/search-address';
 import moment from 'moment';
-import scambanner from './assets/ads/banner-scams.png'
 import TickerComponent from './modules/components/ticker/ticker';
 
 
@@ -63,7 +62,7 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <div className="App">
         <CNavbar className={`${windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
           <CContainer fluid>
@@ -199,7 +198,7 @@ function App() {
       </Modal>
 
 
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
