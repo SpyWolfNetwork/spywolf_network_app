@@ -12206,11 +12206,6 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
-use-breakpoint@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/use-breakpoint/-/use-breakpoint-3.0.1.tgz#9534ca7a93e067781b45f9ab05e88675bb5962bd"
-  integrity sha512-gQ3zg55Aa/AAicxJSsKBSs5B4pcQv8PNMaJXS+P7TzvWJ6QLY7Napa2erkA6gZDmFFdkjWsztyOax5a5nuoLGQ==
-
 use-constant@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/use-constant/-/use-constant-1.1.0.tgz#76d36a0edf16d4cc8565361f522b55da5f8f3f22"

@@ -22,7 +22,6 @@ import SearchAdressInput from './modules/components/search-address/search-addres
 import moment from 'moment';
 import scambanner from './assets/ads/banner-scams.png'
 import TickerComponent from './modules/components/ticker/ticker';
-import useBreakpoint from 'use-breakpoint';
 
 
 
