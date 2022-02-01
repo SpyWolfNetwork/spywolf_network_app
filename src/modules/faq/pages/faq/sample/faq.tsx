@@ -106,7 +106,7 @@ const Faq: React.FC = () => {
                             </p>
                         </CollapsePanel>
                         <CollapsePanel className='text-gray-700 fw-bolder cursor-pointer mb-0' header="I'm ready to audit my project. How do I contact you?" key="4">
-                            <p>You can contact our team at audit@spywolf.co or by joining our <a className="primary-link" href="https://t.me/SpyWolfNetwork" target={'__blank'}>Telegram group.</a></p>
+                            <p>You can contact our team at audit@spywolf.co or by joining our <a className="primary-link" href="https://t.me/SpyWolfOfficial" target={'__blank'}>Telegram group.</a></p>
                         </CollapsePanel>
 
                     </Collapse>
