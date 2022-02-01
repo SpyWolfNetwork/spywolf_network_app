@@ -153,7 +153,18 @@ h6 {
 .brand-logo {
   height: 40px;
   @media (max-width: 991px) {
-    max-width: 200px;
-    height: 35px;
+    display: none;
+  }
+}
+.brand-logo.mobile {
+  display: none;
+  @media (max-width: 991px) {
+    display: block;
+  }
+}
+.getaudited {
+  li {
+    list-style: none !important;
+    list-style-type: none !important;
   }
 }

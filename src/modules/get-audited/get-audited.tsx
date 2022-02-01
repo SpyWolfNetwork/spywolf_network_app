@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import { Alert, Card } from 'antd';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { IoAlertCircleSharp } from 'react-icons/io5';
 import { RiH1 } from 'react-icons/ri';
 import { RequestAuditContext } from '../../core/routes/providers/request-audit.provider';
@@ -12,7 +12,12 @@ import AuditSelectorsComponent from './components/audit-selectors/audit-selector
 import { Container, Content, RequestAuditContent } from './get-audited.style';
 
 const GetAuditedComponent: React.FC = () => {
-    useEffect(() => { }, []);
+    const [isMobile, setIsMobile] = useState<boolean>(false);
+    useEffect(() => {
+        let bkps = window.matchMedia('(max-width: 991px)');
+        setIsMobile(bkps.matches);
+
+    }, []);
     const { cartData } = useContext<any>(RequestAuditContext) as any;
 
     const {
@@ -22,9 +27,13 @@ const GetAuditedComponent: React.FC = () => {
     } = cartData;
 
 
-
     return <Container>
-        <Card title={<CardTitleSubtitle title={<h1 className='title'>Request a service from Spywolf</h1>} subtitle={
+        <Card title={<CardTitleSubtitle title={
+            !isMobile ?
+                <h1 className='title'>Request a service from Spywolf</h1>
+                : <h1 className='title' style={{ width: '100%', whiteSpace: 'pre-wrap'  }}>Request a service</h1>
+        } subtitle={
+            !isMobile &&
             <span className='subtitle'>
                 Select a service below. Multiple services will result in a lower price!</span>
         } />}

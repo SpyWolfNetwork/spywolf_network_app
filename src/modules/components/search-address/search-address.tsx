@@ -1,19 +1,24 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
 import axios from 'axios';
-import React, { ClipboardEvent, KeyboardEventHandler,  useEffect, useState } from 'react';
-import {  useNavigate } from 'react-router-dom';
+import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+// import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { AddressCheckResponseModel } from '../../home/models/address-check.model';
 import { Container, SearchContainer } from './search-address.style';
 
 const SearchAdressInput: React.FC = () => {
     useEffect(() => { }, []);
+
+    // const { allTokensState } = useContext<any>(HomeContext);
+    // const { allTokens } = allTokensState;
     const { toChecksumAddress } = require('ethereum-checksum-address');
 
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
-    
+
     const validadeAddress = (address: string) => {
         return axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokenorwalletinfo/${address}`)
 

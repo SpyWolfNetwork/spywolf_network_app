@@ -196,7 +196,11 @@ const RewardComponent: React.FC = () => {
                                                 } else {
                                                     setAddressValidation({
                                                         err: 0,
-                                                        message: "Your wallet has not been scammed by the scam projects verified on SpyWolf - if you think there is a project that should be added please contact us with proof of the scam. Thank you for trusting SpyWolf",
+                                                        message: "if you were scammed by a token reported here, and the think you are eligible for a charity, please contact TJ",
+                                                        button: {
+                                                            text: 'Contact TJ',
+                                                            link: `https://t.me/tjay_spywolf`
+                                                        },
                                                         active: true
                                                     })
                                                 }
@@ -305,8 +309,11 @@ const RewardComponent: React.FC = () => {
                                             } else {
                                                 setAddressValidation({
                                                     err: 0,
-                                                    message: "Your wallet has not been scammed by the scam projects verified on SpyWolf - if you think there is a project that should be added please contact us with proof of the scam. Thank you for trusting SpyWolf",
-                                                    active: true
+                                                    message: "if you were scammed by a token reported here, and the think you are eligible for a charity, please",
+                                                    button: {
+                                                        text: 'Contact TJ',
+                                                        link: `https://t.me/tjay_spywolf`
+                                                    },                                                    active: true
                                                 })
                                             }
                                         } else {

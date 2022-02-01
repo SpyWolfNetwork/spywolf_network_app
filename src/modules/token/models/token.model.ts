@@ -1,4 +1,4 @@
-import {  FeaturedTokenDTO } from "../../home/models/featured-token";
+import { FeaturedTokenDTO } from "../../home/models/featured-token";
 
 export interface Currency {
     symbol: string;
@@ -75,6 +75,7 @@ export interface Item {
     releaseDate: string;
     tag: any;
     OtherCompanyAudit?: OtherCompanyAuditModel;
+    quickAudit?: string;
 }
 
 export interface Content {
@@ -134,26 +135,9 @@ export class Token {
     statisticInfo?: TokenStatisticsInfo;
     topHolders?: TopHolder[];
     currency?: Currency;
+    quickAudit?: string;
 
     constructor(tokenResponse: TokenResponseObject | null, featuredToken?: FeaturedTokenDTO, isUpcoming?: boolean) {
-
-        // symbol: string;
-        // isScam: string;
-        // address: string;
-        // discord: string;
-        // logo: string;
-        // name: string;
-        // isPotencialScam: string;
-        // telegram: string;
-        // votes: number;
-        // twitter: string;
-        // isRecentlyAdded: string;
-        // isFeature: string;
-        // isFairlaunch: boolean;
-        // description: string;
-        // scamReason: string[];
-        // deployedDate?: string;
-        // scamReasonTooltip?: string;        if (!isUpcoming) {
         this.level = 'Upcoming';
 
         const hasAudit = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.some(item => {
@@ -169,12 +153,16 @@ export class Token {
         this.lastchange = 'empty'
         this.currentLiquidity = tokenResponse ? (tokenResponse?.smartContractInfo?.liquidityBalance * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
         this.contractAddress = tokenResponse?.tokenPrice?.address;
-        this.basicInfo = (hasAudit && tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0].SpyWolfAudit === undefined)? otherAudit : tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
+        this.basicInfo = (hasAudit && tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0].SpyWolfAudit === undefined) ? otherAudit : tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
         this.topHolders = tokenResponse?.smartContractInfo?.topHolders;
         this.currency = tokenResponse?.smartContractInfo?.currency;
         this.isVerified = tokenResponse?.smartContractInfo?.isVerified;
         this.level = this.basicInfo?.trustLevel;
         this.statisticInfo = tokenResponse?.smartContractInfo?.statisticsInfo?.tokenStatisticsInfo;
+        if (tokenResponse?.smartContractInfo.tokenBasicInfo.content.Items[0].quickAudit) {
+            this.quickAudit = tokenResponse?.smartContractInfo.tokenBasicInfo.content.Items[0].quickAudit;
+        }
+
         if (isUpcoming) {
             this.basicInfo = {
                 website: featuredToken?.website as string,
