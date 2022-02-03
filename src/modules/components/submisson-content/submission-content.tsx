@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
-import { Button,  DatePicker, Form, Input, Select, Switch } from 'antd';
+import { Button, DatePicker, Form, Input, Select, Switch } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import axios from 'axios';
 import { format } from 'date-fns';
@@ -291,7 +291,6 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
 
 
     const validadeAddress = (address: string) => {
-
         return axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokenorwalletinfo/${address}`)
 
     }
@@ -341,6 +340,11 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                             } else {
                                 validadeAddress(addr).then(
                                     ({ data }) => {
+                                        if (data.smartContractInfo && data.smartContractInfo.currency.symbol) {
+                                            tokenForm.setFieldsValue({
+                                                ...tokenForm.getFieldsValue(), symbol: data.smartContractInfo.currency.symbol
+                                            })
+                                        }
                                         setAddressLoading(false);
                                         const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
                                         if (addressCheckResponse == null) {
@@ -416,7 +420,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
             if (addr !== undefined && addr !== '') {
                 axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/submit/${addr}`).then(
                     res => {
-                        if (res.data.content) {
+                        if (!res.data.content) {
                             setAddressValidation({
                                 err: 0,
                                 message: 'This token has already been submitted, it may be pending for approval',
@@ -426,7 +430,11 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                         } else {
                             validadeAddress(addr).then(
                                 ({ data }) => {
-
+                                    if (data.smartContractInfo && data.smartContractInfo.currency.symbol) {
+                                        tokenForm.setFieldsValue({
+                                            ...tokenForm.getFieldsValue(), symbol: data.smartContractInfo.currency.symbol
+                                        })
+                                    }
                                     const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
                                     if (addressCheckResponse == null) {
                                         setAddressLoading(false);
@@ -540,7 +548,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                             <Input />
                         </Form.Item>
                         <Form.Item name="symbol" label="Symbol/Ticker" rules={[{ required: true }]}>
-                            <Input addonBefore="$" />
+                            <Input disabled={true} addonBefore="$" />
                         </Form.Item>
                     </div>
                     <Form.Item name="description" label="Token Description" rules={[{ required: false }]}>

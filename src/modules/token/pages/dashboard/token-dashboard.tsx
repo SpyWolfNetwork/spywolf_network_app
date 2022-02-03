@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Card, Descriptions, Spin, Table, Tag } from 'antd';
 import axios from 'axios';
@@ -12,13 +13,14 @@ import { ApplicationContext } from '../../../../core/routes/providers/applicatio
 import { Token } from '../../models/token.model';
 
 import { format, isValid, parseISO } from 'date-fns';
-import {  useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Swal from 'sweetalert2'
 import { differenceInDays } from 'date-fns/esm';
 import { FaCopy } from 'react-icons/fa';
 import ClipboardJS from 'clipboard';
 import { AiFillCheckCircle } from 'react-icons/ai';
+const { toChecksumAddress } = require('ethereum-checksum-address');
 
 
 
@@ -27,7 +29,7 @@ export const TokenDashboardComponent: React.FC = () => {
     const [walletEndpoint] = useState<any>(process.env.REACT_APP_WALLET_ENDPOINT_RECEIVED_TOKEN);
 
     const { ctx } = useContext(ApplicationContext) as any;
-    const [tokenData, setTokenData] = ctx;
+    const [tokenData, setTokenData] = ctx as [tokenData: Token, setTokenData: any];
     const [tokenAddress, setTokenAddress]: any = useState();
     const [loadingState, setLoadingState]: any = useState<boolean>();
 
@@ -59,68 +61,34 @@ export const TokenDashboardComponent: React.FC = () => {
     const navigate = useNavigate();
 
     const fetchTokenData = (endpoint: string, addr: { address: string }) => {
-        axios.post(endpoint, addr).then(
-            ({ data }) => {
-                if (data.errorMessage !== undefined) {
-                    throw new Error('No Token Data');
-                }
-                setTokenData(new Token(data));
-                setLoadingState(false);
+        const checksumaddress = toChecksumAddress(addr.address)
+        const payload = { address: checksumaddress };
+        axios.post(endpoint, payload)
+            .then(
+                ({ data }) => {
+                    if (data.errorMessage !== undefined) {
+                        throw new Error('No Token Data');
+                    }
+                    setTokenData(new Token(data));
+                    setLoadingState(false);
 
-            }
-        ).catch(
-            e => {
-                Swal.fire({
-                    title: 'Oops!',
-                    text: 'This is embarrassing but something went wrong and we are trying to fix it!',
-                    icon: 'error',
-                    confirmButtonText: 'Go Back',
-                    willClose: () => {
-                        navigate('/')
-                    },
-                })
-            }
-        );
+                }
+            ).catch(
+                e => {
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: 'This is embarrassing but something went wrong and we are trying to fix it!',
+                        icon: 'error',
+                        confirmButtonText: 'Go Back',
+                        willClose: () => {
+                            navigate('/')
+                        },
+                    })
+                }
+            );
     }
 
-    const columns = [
-        {
-            title: 'position'.toUpperCase(),
-            dataIndex: 'position',
-            key: 'position',
-            render: (t: any, r: any, index: any) => <span className='fs-6 fw-bold text-gray-600' >{index + 1}</span>
-        },
-        {
-            title: 'Amount'.toUpperCase(),
-            dataIndex: 'TokenHolderQuantity',
-            key: 'TokenHolderQuantity',
-            render: (t: any, r: any, index: any) => <span className='fs-6 fw-bold text-gray-600'  >{t} {(tokenData as Token)?.basicInfo?.symbol}</span>
 
-        },
-        {
-            title: 'Wallet'.toUpperCase(),
-            key: 'TokenHolderAddress',
-            dataIndex: 'TokenHolderAddress',
-            render: (t: any) => <span  className='fs-6 fw-bold text-gray-600 contact-address-absolute' >{!t.includes('0x0000') ? t : <Tag color={'red'}>Burn Wallet</Tag>}
-                <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
-                    navigator.clipboard.writeText(t);
-                    setCopyConfirm(true)
-                    setTimeout(() => setCopyConfirm(false), 500)
-                }} >
-                    {!copyConfirm && <FaCopy color="#181c32"></FaCopy>}
-                    {copyConfirm && <AiFillCheckCircle color="#181c32"></AiFillCheckCircle>}
-                </span> </span>
-        },
-        {
-            title: 'Actions'.toUpperCase(),
-            dataIndex: 'TokenHolderAddress',
-            key: 'actions',
-            render: (t: any) =>
-                <Button target="__blank" href={`https://bscscan.com/address/${t}`} style={{ background: '#f5f8fa', color: '#a1a5b7', border: 'none', borderRadius: '12px' }} size="large" icon={<GlobalOutlined />}></Button>
-        },
-    ];
-
-    // .filter( holder => holder.TokenHolderAddress.includes('0x00000') ? holder :  );
     const getDate = (rdate: string) => {
         const date = parseISO(rdate);
         if (date && isValid(date)) {
@@ -129,7 +97,6 @@ export const TokenDashboardComponent: React.FC = () => {
             return '';
         }
     }
-    const data = (tokenData as Token)?.topHolders
     return <Container>
         <MainSection>
             <TokenMainCardComponent loading={loadingState && <div className='loading'> <Spin /></div>}>
@@ -140,21 +107,21 @@ export const TokenDashboardComponent: React.FC = () => {
 
                     <div>
                         <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                            <Descriptions.Item labelStyle={{ width: 'fit-content !important' }}  label="Company">{'SpyWolf'}</Descriptions.Item>
+                            <Descriptions.Item labelStyle={{ width: 'fit-content !important' }} label="Company">{'SpyWolf'}</Descriptions.Item>
                             {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
                         </Descriptions>
                         <div className="audit-link">
                             <LaptopOutlined color='#b5b5c3'
                             ></LaptopOutlined>
-                            <a style={{fontSize: '14px'}} target="__blank"
+                            <a style={{ fontSize: '14px' }} target="__blank"
                                 className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
                                 href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified' ? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
                         <div className="audit-gif">
                             <img
                                 width="100%"
                                 height="100%"
-                                src={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif} alt="" 
-                                />
+                                src={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif} alt=""
+                            />
                             {/* <img width="100%" height="100%" src={SpywolfGif} alt="" /> */}
                         </div>
                     </div>
@@ -177,7 +144,7 @@ export const TokenDashboardComponent: React.FC = () => {
                     <div className="audit-link">
                         <LaptopOutlined color='#b5b5c3'
                         ></LaptopOutlined>
-                        <a style={{fontSize: '14px'}} target="__blank"
+                        <a style={{ fontSize: '14px' }} target="__blank"
                             className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
                             href={(tokenData?.basicInfo?.OtherCompanyAudit as any).auditLink}>Audit Link</a>
                     </div>
@@ -232,7 +199,7 @@ export const TokenDashboardComponent: React.FC = () => {
                                 <Descriptions.Item label="Decimals">
                                     {tokenData?.currency?.decimals ? tokenData?.currency?.decimals : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item  label="Status">
+                                <Descriptions.Item label="Status">
                                     {tokenData?.basicInfo?.releaseDate ? differenceInDays(
                                         new Date(tokenData?.basicInfo?.releaseDate as string),
                                         new Date()
@@ -272,7 +239,7 @@ export const TokenDashboardComponent: React.FC = () => {
                                 <Descriptions.Item label="Total Amount">
                                     {tokenData?.statisticInfo?.amount ? tokenData?.statisticInfo?.amount : '-'}
                                 </Descriptions.Item>
-                                <Descriptions.Item  label="First Transfer">
+                                <Descriptions.Item label="First Transfer">
                                     {tokenData?.statisticInfo?.min_date ? getDate(tokenData?.statisticInfo?.min_date) : '-'}
 
                                 </Descriptions.Item>
@@ -280,7 +247,7 @@ export const TokenDashboardComponent: React.FC = () => {
                                     {tokenData?.statisticInfo?.min_date ? getDate(tokenData?.statisticInfo?.max_date) : '-'}
 
                                 </Descriptions.Item>
-                                <Descriptions.Item  label="Age">
+                                <Descriptions.Item label="Age">
                                     {tokenData?.statisticInfo?.days ? `${tokenData?.statisticInfo?.days} days` : '-'}
                                 </Descriptions.Item>
                             </Descriptions>
@@ -289,9 +256,11 @@ export const TokenDashboardComponent: React.FC = () => {
                 }
             </Card>
             {
-                (data && data?.length > 0) &&
-                <Card title="Top Holders" style={{ width: '100%' }}>
-                    <Table columns={columns} dataSource={data} scroll={{ x: 360 }} pagination={false}></Table>
+                tokenData && tokenData?.quickAudit &&
+                <Card title="Quick Audit" style={{ width: '100%' }}>
+                    <p dangerouslySetInnerHTML={{__html: tokenData.quickAudit}}>
+
+                    </p>
                 </Card>
             }
 

@@ -22,7 +22,8 @@ import SearchAdressInput from './modules/components/search-address/search-addres
 import moment from 'moment';
 import TickerComponent from './modules/components/ticker/ticker';
 
-
+import mobileLogo from './assets/core/mobile-logo.svg'
+import { HomeProvider } from './core/routes/providers/home.provider';
 
 function App() {
   const [navbarOpen, setNavbarOpen] = useState<boolean>();
@@ -68,8 +69,9 @@ function App() {
           <CContainer fluid>
 
             <CNavbarBrand style={{ width: '100%' }}>
-              <a href="/#/">
+              <a style={{ display: 'flex', width: 'fit-content' }} href="/#/">
                 <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="brand-logo h-lg-40px" />
+                <img className="brand-logo mobile" src={mobileLogo} alt="" />
               </a>
               <div className="togglers">
                 <Button type="text" id="toggler" className='hamburger-toggle d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
@@ -82,10 +84,22 @@ function App() {
                 } onClick={() => {
                   setNavbarOpen(!navbarOpen)
                 }} />
-                <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
+                <div className="getaudited" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
+                  <CNavItem style={{ listStyle: 'none' }}>
+                    <Link to="/request-audit">
+                      <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
+                        Get Audit + KYC
+                      </CNavLink>
+                    </Link>
+                  </CNavItem>
+                  <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
+                </div>
+
               </div>
               <div className="input">
+                <HomeProvider>
                 <SearchAdressInput ></SearchAdressInput>
+                </HomeProvider>
 
               </div>
             </CNavbarBrand>

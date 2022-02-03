@@ -7,6 +7,29 @@ export const Container = styled.div`
         max-width: 1320px !important;
         display: flex;
         justify-content: center;
+        .ant-card-head-title{
+                padding: 1rem !important;
+        }
+        .ant-card-head{
+                position: sticky;
+                top: 68.5px ;
+                background: white;
+                z-index: 100;
+                min-width:  0 !important;
+                @media (max-width: 991px){
+                        top: 110px ;
+                }
+                &-wrapper{
+                        padding: 10px !important;
+                        background: white;
+                        justify-content: center !important;
+                        flex-wrap: nowrap;
+                        .ant-card-extra{
+                                margin-left: initial !important;
+                                min-width: 180px;
+                        }
+                }
+        }
       
         .ant-card{
                 max-width: 1060px;
@@ -21,10 +44,21 @@ export const Container = styled.div`
                 font-weight: 600;
                 /* margin: 0 !important; */
         }
+        .text-muted{
+        }
         .subtitle{
                 font-size: 12px;
-    color: #7e8299;
-    font-weight: normal;
+                color: #7e8299;
+                font-weight: normal;
+                text-align: center;
+        }
+        .ant-card-head-title{
+                min-width: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                h1{
+                        font-size: 1.6rem !important;
+                }
         }
         .price{
                 color: #3f4254 !important;

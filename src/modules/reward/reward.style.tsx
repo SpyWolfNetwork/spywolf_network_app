@@ -150,9 +150,10 @@ export const Container = styled.div`
     }
     .contact-address{
         position: relative;
+        padding: 0 20px;
         .copybutton{
             position: absolute;
-            right: -20px;
+            right: 0;
             display: none;
             cursor: pointer;
         }

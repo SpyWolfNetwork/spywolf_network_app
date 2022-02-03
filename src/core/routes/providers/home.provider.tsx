@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { FeaturedToken, FeaturedTokensResponse } from '../../../modules/home/models/featured-token';
@@ -5,6 +6,8 @@ import { FeaturedToken, FeaturedTokensResponse } from '../../../modules/home/mod
 export const HomeContext = React.createContext({});
 
 export const HomeProvider = (props: any) => {
+    const [allTokens, setAllTokens] = useState<FeaturedToken[]>([]);
+
     const [featuredTokens, setFeaturedTokens] = useState<FeaturedToken[]>();
     const [recentlyAdded, setRecentlyAdded] = useState<FeaturedToken[]>();
     const [latestScams, setLatestScams] = useState<FeaturedToken[]>();
@@ -24,6 +27,7 @@ export const HomeProvider = (props: any) => {
 
 
     const state = {
+        allTokensState: { allTokens },
         featuredTokensState: [featuredTokens, setFeaturedTokens],
         recentlyAddedState: [recentlyAdded, setRecentlyAdded],
         amaTokensState: [amaTokens, setAmaTokens],
@@ -39,7 +43,7 @@ export const HomeProvider = (props: any) => {
         AmaTokensFilterState: [amaTokensFilter, setAmaTokensFilter]
 
     }
-     
+
     useEffect(() => {
         fetchFeaturedTokens();
         fetchRecentlyAdded();
@@ -57,7 +61,7 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setFeaturedTokens(featuredTokens)
-
+                setAllTokens([...allTokens, ...featuredTokens])
             }
 
         )
@@ -71,6 +75,7 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setRecentlyAdded(recentlyAdded)
+                setAllTokens([...allTokens, ...recentlyAdded])
 
             }
 
@@ -78,7 +83,7 @@ export const HomeProvider = (props: any) => {
 
     }
 
-    
+
     const fetchAmaAdded = () => {
         axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/amas').then(
             ({ data }) => {
@@ -87,6 +92,7 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setAmaTokens(amaTokens)
+                setAllTokens([...allTokens, ...amaTokens])
 
             }
 
@@ -103,6 +109,7 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setLatestScams(latestScams)
+                setAllTokens([...allTokens, ...latestScams])
 
             }
 

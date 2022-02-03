@@ -30,7 +30,7 @@ const TokenSlideItem: React.FC<{ token: Partial<FeaturedToken>, logoSize?: strin
                 }
                 <Popover content={(props?.token?.scamReasonTooltip ? props?.token?.scamReasonTooltip : 'Want to be a trusted project? Contact SpyWolf for an audit!')}>
                     <Tag color={props.tagColor}>
-                        {'Verified'}
+                        {'Audited'}
                     </Tag>
                 </Popover>
             </div>

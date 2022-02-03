@@ -81,8 +81,10 @@ export const TrustLevelContainer = styled.div`
       display: flex;
       justify-content: flex-start;
       max-width: 100px;
-      span{
-            white-space:pre-wrap;
+      @media (max-width: 991px){
+            span{
+                  white-space:pre-wrap;
+            }
       }
 
 `;
