@@ -330,7 +330,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                 if (addr !== undefined && addr !== '') {
                     axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/submit/${addr}`).then(
                         res => {
-                            if (!res.data.content) {
+                            if (res.data.content) {
                                 setAddressValidation({
                                     err: 0,
                                     message: 'This token has already been submitted, it may be pending for approval',
@@ -341,9 +341,23 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                                 validadeAddress(addr).then(
                                     ({ data }) => {
                                         if (data.smartContractInfo && data.smartContractInfo.currency.symbol) {
-                                            tokenForm.setFieldsValue({
-                                                ...tokenForm.getFieldsValue(), symbol: data.smartContractInfo.currency.symbol
-                                            })
+                                            if (formOption === 'scam') {
+                                                scamForm.setFieldsValue({
+                                                    ...scamForm.getFieldsValue(),
+                                                    ...{
+                                                        symbol: data.smartContractInfo.currency.symbol,
+                                                        name: data.smartContractInfo.currency.name
+                                                    }
+                                                })
+                                            } else {
+                                                tokenForm.setFieldsValue({
+                                                    ...tokenForm.getFieldsValue(),
+                                                    ...{
+                                                        symbol: data.smartContractInfo.currency.symbol,
+                                                        name: data.smartContractInfo.currency.name
+                                                    }
+                                                })
+                                            }
                                         }
                                         setAddressLoading(false);
                                         const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
@@ -431,9 +445,23 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                             validadeAddress(addr).then(
                                 ({ data }) => {
                                     if (data.smartContractInfo && data.smartContractInfo.currency.symbol) {
-                                        tokenForm.setFieldsValue({
-                                            ...tokenForm.getFieldsValue(), symbol: data.smartContractInfo.currency.symbol
-                                        })
+                                        if (formOption === 'scam') {
+                                            scamForm.setFieldsValue({
+                                                ...scamForm.getFieldsValue(),
+                                                ...{
+                                                    symbol: data.smartContractInfo.currency.symbol,
+                                                    name: data.smartContractInfo.currency.name
+                                                }
+                                            })
+                                        } else {
+                                            tokenForm.setFieldsValue({
+                                                ...tokenForm.getFieldsValue(),
+                                                ...{
+                                                    symbol: data.smartContractInfo.currency.symbol,
+                                                    name: data.smartContractInfo.currency.name
+                                                }
+                                            })
+                                        }
                                     }
                                     const addressCheckResponse: AddressCheckResponseModel | null = data.smartContractInfo;
                                     if (addressCheckResponse == null) {
@@ -544,11 +572,11 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                         </span>
                     }
                     <div className="row-group">
-                        <Form.Item name="name" label="Token Name" rules={[{ required: true }]}>
-                            <Input />
+                        <Form.Item name="name" label="Token Name">
+                            <Input disabled={true} />
                         </Form.Item>
-                        <Form.Item name="symbol" label="Symbol/Ticker" rules={[{ required: true }]}>
-                            <Input disabled={true} addonBefore="$" />
+                        <Form.Item name="symbol" label="Symbol/Ticker" >
+                            <Input disabled={true}></Input>
                         </Form.Item>
                     </div>
                     <Form.Item name="description" label="Token Description" rules={[{ required: false }]}>
@@ -640,11 +668,13 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
             formOption && formOption === 'scam' &&
             <div className="form-token">
                 <Form onChange={formChange} form={scamForm} preserve={false}>
-                    <Form.Item name="address" label="Contact Address" rules={[{ required: true }]}>
+                    <Form.Item name="address" label="Contract Address" rules={[{ required: true }]}>
                         <Input
+                            placeholder="Input token Address"
                             onPaste={searchTokenOrtokenOnPaste}
                             onKeyDown={handleSearchEnter}
                             onInput={validateInput}
+                            onBlur={validateInput}
                         />
                     </Form.Item>
                     {
@@ -654,11 +684,11 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
                         </span>
                     }
                     <div className="row-group">
-                        <Form.Item name="name" label="Token Name" rules={[{ required: true }]}>
-                            <Input />
+                        <Form.Item name="name" label="Token Name">
+                            <Input disabled={true} />
                         </Form.Item>
-                        <Form.Item name="symbol" label="Symbol/Ticker" rules={[{ required: true }]}>
-                            <Input addonBefore="$" />
+                        <Form.Item name="symbol" label="Symbol/Ticker" >
+                            <Input disabled={true}></Input>
                         </Form.Item>
                     </div>
                     <Form.Item name="scamreason" label="Scam Reason" rules={[{ required: false }]}>

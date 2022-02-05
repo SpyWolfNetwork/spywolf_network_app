@@ -3,9 +3,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px minmax(100px, 1fr) 1fr minmax(100px, 1fr) 100px ;
+  grid-template-columns: 50px minmax(100px, 1fr)  minmax(100px, 1fr) 100px ;
   @media (max-width: 480px){
-      grid-template-columns: 50px minmax(100px, 1fr) 1fr minmax(100px, 1fr);
+      grid-template-columns: 50px minmax(100px, 1fr)  minmax(100px, 1fr);
   }
   @media (max-width: 1200px){
             padding: 1rem 0.5rem ;

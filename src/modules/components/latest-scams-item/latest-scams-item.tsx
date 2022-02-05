@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
-import { Container, InfoContainer, KYCBadge, LogoContainer, ReleaseContainer, TrustLevelContainer } from './latest-scams-item.style';
+import { Container, InfoContainer,  LogoContainer, ReleaseContainer, TrustLevelContainer } from './latest-scams-item.style';
 import logoplaceholder from '../../../assets/core/no-photo.png'
 import { differenceInDays } from 'date-fns';
 import moment from 'moment';
@@ -52,14 +52,7 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
                 </Link>
                 <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
             </InfoContainer>
-            <KYCBadge>
-                {
-                    props.token.alldata?.KYC &&
-                    <Tag color="purple">
-                        KYC
-                    </Tag>
-                }
-            </KYCBadge>
+            
             <TrustLevelContainer>
                 {
                     (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>

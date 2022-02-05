@@ -174,7 +174,7 @@ export const TokenDashboardComponent: React.FC = () => {
                 {!loadingState &&
                     <div>
                         <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span>}</p>
-                        <h1 >Contact Address</h1>
+                        <h1 >Contract Address</h1>
                         {tokenAddress && <span className='contact-address'>{tokenAddress}
                             <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
                                 navigator.clipboard.writeText(tokenAddress);
