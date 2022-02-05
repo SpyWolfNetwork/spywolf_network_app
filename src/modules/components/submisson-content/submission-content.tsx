@@ -640,7 +640,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
             formOption && formOption === 'scam' &&
             <div className="form-token">
                 <Form onChange={formChange} form={scamForm} preserve={false}>
-                    <Form.Item name="address" label="Contact Address" rules={[{ required: true }]}>
+                    <Form.Item name="address" label="Contract Address" rules={[{ required: true }]}>
                         <Input
                             onPaste={searchTokenOrtokenOnPaste}
                             onKeyDown={handleSearchEnter}

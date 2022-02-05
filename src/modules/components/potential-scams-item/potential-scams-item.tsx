@@ -8,7 +8,7 @@ import React, { useEffect } from 'react';
 import { FaTelegram } from 'react-icons/fa';
 import { FeaturedToken } from '../../home/models/featured-token';
 import PoweredBy from '../powered-by/powered-by';
-import { ActionsContainer, Container, InfoContainer, KYCBadge, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
+import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './potential-scams-item.style';
 
 const tagNewConstraint = -14;
 
@@ -44,14 +44,6 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
             <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>
-        <KYCBadge>
-                {
-                    props.token.alldata?.KYC &&
-                    <Tag color="purple">
-                        KYC
-                    </Tag>
-                }
-            </KYCBadge>
         <TrustLevelContainer>
             {
                 (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
