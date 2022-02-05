@@ -16,7 +16,7 @@ import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-import spywolfad from '../../../assets/ads/spywolf_ads_army.png'
+import spywolfad from '../../../assets/ads/spywolf_ads_cookiesale.jpeg'
 
 import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 
@@ -298,7 +298,7 @@ export const HomeComponent: React.FC = () => {
                 </Card>
                 <Card id="advertisement-inline">
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                        <a href="https://www.busdx.com/" target="__blank"><img src={spywolfad} alt="" /></a>
+                        <a href="https://cookiesale.app/" target="__blank"><img src={spywolfad} alt="" /></a>
                     </div>
                 </Card>
             </div>
