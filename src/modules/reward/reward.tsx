@@ -313,7 +313,7 @@ const RewardComponent: React.FC = () => {
                                                     button: {
                                                         text: 'Contact TJ',
                                                         link: `https://t.me/tjay_spywolf`
-                                                    },                                                    active: true
+                                                    }, active: true
                                                 })
                                             }
                                         } else {
@@ -328,7 +328,7 @@ const RewardComponent: React.FC = () => {
                                                     active: true
                                                 })
 
-                                            }else if(status === 'REJECTED'){
+                                            } else if (status === 'REJECTED') {
                                                 setAddressValidation({
                                                     err: 0,
                                                     message: charityData.Items[0].message,
@@ -496,7 +496,7 @@ const RewardComponent: React.FC = () => {
                         <Swiper
                             onBeforeInit={(swipper) => {
                                 setSwipe(swipper)
-                                setTimeout(swipper.slideNext, 2200)
+                                setTimeout(() => swipper.slideNext(300), 2200);
                             }}
                             autoplay={{
                                 delay: 1000,
@@ -531,7 +531,7 @@ const RewardComponent: React.FC = () => {
                             centeredSlidesBounds={true}
                         >
                             {
-                                latestScams && latestScams?.map(token => <SwiperSlide style={{ width: '80px !important' }}>
+                                latestScams && latestScams?.map((token, i) => <SwiperSlide key={i} style={{ width: '80px !important' }}>
                                     <TokenSlideItem logoSize={'50px'} token={token} tagColor='red' />
                                 </SwiperSlide>)
                             }
