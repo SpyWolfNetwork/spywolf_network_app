@@ -420,7 +420,7 @@ const SubmissionContent: React.FC<{ submitProp?: boolean }> = (props) => {
             if (addr !== undefined && addr !== '') {
                 axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/submit/${addr}`).then(
                     res => {
-                        if (!res.data.content) {
+                        if (res.data.content) {
                             setAddressValidation({
                                 err: 0,
                                 message: 'This token has already been submitted, it may be pending for approval',
