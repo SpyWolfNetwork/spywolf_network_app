@@ -49,8 +49,8 @@ const TickerComponent: React.FC = () => {
     >
         {<Ticker mode="chain" move={!stopped} speed={7}>
             {() =>
-                tokens?.map(token =>
-                    <div className="items-wrapper">
+                tokens?.map((token, i) =>
+                    <div key={i} className="items-wrapper">
                         <Link onClick={()=>setStopped(false)} to={`/token/${token.address}`}>
                             <div className="item">
                                 <Popover content={<span>{token.symbol}</span>} >
