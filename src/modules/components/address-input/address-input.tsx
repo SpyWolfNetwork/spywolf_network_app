@@ -19,7 +19,6 @@ const AddressInputComponent: React.FC<{ valid: any, valueChange }> = ({ valid, v
     }
 
     const validateInput = (e) => {
-        console.log(e)
         try {
             toChecksumAddress(e.currentTarget.value)
             setAddressValidation({

@@ -6,7 +6,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 import { Container, InfoContainer, LogoContainer, ReleaseContainer, TrustLevelContainer } from './ama-token-item.style';
-import { differenceInDays } from 'date-fns';
+import { differenceInDays, format, isEqual } from 'date-fns';
 import moment from 'moment';
 import { MdKeyboardVoice } from 'react-icons/md';
 import { FaPlay } from 'react-icons/fa';
@@ -18,17 +18,21 @@ const tagNewConstraint = -14;
 const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
     const [applyOpacity, setApplyOpacity] = useState('');
     const [diffDays, setDiffDays] = useState(0);
+    const [isEqualDate, setIsEqualDate] = useState(false);
 
 
     useEffect(() => {
-        const diff = differenceInDays(moment.utc(props?.token?.AMADate as any).hour(0).minutes(0).millisecond(0).toDate(), moment().utc().toDate());
+        const diff = differenceInDays(
+            moment.utc(props?.token?.AMADate as any).hour(0).minutes(0).second(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate());
         setDiffDays(diff)
-        if (diff <= 0) {
+        if (diff < 0) {
             setApplyOpacity('past')
         } else {
             setApplyOpacity('')
 
         }
+
+        calculateIsEqualDate();
         moment.updateLocale("en", {
             relativeTime: {
                 s: "Today",
@@ -54,7 +58,13 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                 sameElse: 'L'
             }
         })
-    }, []);
+    }, [props.token]);
+
+    const calculateIsEqualDate = () => {
+        const today = moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate();
+        const amaDate = moment(props?.token?.AMADate).utc().hour(0).minute(0).second(0).millisecond(0).toDate();
+        setIsEqualDate(isEqual(today, amaDate));
+    }
     const navigate = useNavigate();
     const handleNavigate = () => {
         navigate(`token/${props?.token?.address}`, { state: { isUpcoming: true } });
@@ -79,19 +89,18 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                 ww: '$d weeks'
             },
             calendar: {
-                lastDay: '[Yesterday]',
                 sameDay: '[Today]',
+                lastDay: '[Yesterday]',
                 nextDay: '[Tomorrow]',
-                lastWeek: '[Last] dddd',
-                nextWeek: '[Next] dddd',
-                sameElse: 'L'
+                nextWeek: '[test ] PP',
+                sameElse: 'PP'
             }
         })
     }, [props.token])
     return <Container >
         <Link to={`token/${props?.token?.address}`}>
             {
-                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > tagNewConstraint ?
+                props?.token?.savingTime && diffDays > tagNewConstraint ?
                     <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '10px' }} >
                         <LogoContainer className={`${applyOpacity}`} >
                             <img src={props.token.logoPicture} width="50px" alt="" />
@@ -127,37 +136,30 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
                     {
-                        (moment().utc().hour(0).minutes(0).second(0).milliseconds(0).isBefore(props?.token?.AMADate)
-                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== 0
-                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1)
-                        && 'In '
-
-                    }
-
-                    {((props?.token?.AMADate) && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1) &&
-                        moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).milliseconds(0).from(moment.utc(new Date()).hour(0).minutes(0).second(0).milliseconds(0), true)
-
-                    }
-
-                    {((props?.token?.AMADate)
-                        && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') === -1)
-                        && 'Yesterday'
+                        isEqualDate && 'Today'
                     }
                     {
-                        (moment().utc().hour(0).minutes(0).second(0).milliseconds(0).isAfter(props?.token?.AMADate)
-                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== 0
-                            && moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0), 'day') !== -1
-                        )
-                        && ' ago'
+                        diffDays === 1 && 'Tomorrow'
+                    }
+                    {
+                        diffDays === -1 && 'Yesterday'
+                    }
+                    {
+                        ((props?.token?.AMADate) &&
+                            diffDays !== -1) &&
+                            diffDays !== 1 &&
+                            !isEqualDate &&
+                                format(moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
                     }
                 </span>
             </ReleaseContainer>
         </Link>
         <TrustLevelContainer >
             <div>
+
                 {
-                    diffDays === 0 ?
-                        <Button className={'today'} href={'https://t.me/SpyWolfOfficial'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
+                    diffDays > 0 ?
+                        <Button className={isEqualDate ? 'today' : ''} href={'https://t.me/SpyWolfOfficial'} type="ghost" style={{ background: '' }} target={'__blank'}> <MdKeyboardVoice size={25} />  </Button>
                         :
                         <Button type="ghost" target={'__blank'} href={props.token.AMALink}> <FaPlay size={15} />  </Button>
 
