@@ -99,19 +99,22 @@ function App() {
                     </svg>
                   </span>
                 }
+                  onClick={toggleNavbar}
                 />
                 <div className="getaudited" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
                   <CNavItem key="2000" style={{ listStyle: 'none' }}>
                     <Link
-                      onClick={toggleNavbar}
-
                       to="/request-audit">
                       <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
                         Get Audit + KYC
                       </CNavLink>
                     </Link>
                   </CNavItem>
-                  <Button onClick={() => setVisibleModal(true)} className="submitButton" type="primary" size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }} >Submit</Button>
+                  <Button
+                    onClick={() => setVisibleModal(true)}
+                    className="submitButton" type="primary"
+                    size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }}
+                  >Submit</Button>
                 </div>
 
               </div>

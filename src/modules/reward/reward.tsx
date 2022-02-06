@@ -464,7 +464,7 @@ const RewardComponent: React.FC = () => {
                         "Scam Survivor" Charity
                     </h1>
                     <span className='fs-2 fw-bold mb-20 earn-extra-cta'>
-                        All scam victims get an extra 10% in their next $SPY transaction
+                        All scam victims get an extra 20% in their next $SPY transaction
                     </span>
                 </div>
 
