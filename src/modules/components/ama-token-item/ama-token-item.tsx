@@ -31,7 +31,6 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
             setApplyOpacity('')
 
         }
-
         calculateIsEqualDate();
         moment.updateLocale("en", {
             relativeTime: {
@@ -147,9 +146,9 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                     {
                         ((props?.token?.AMADate) &&
                             diffDays !== -1) &&
-                            diffDays !== 1 &&
-                            !isEqualDate &&
-                                format(moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
+                        diffDays !== 1 &&
+                        !isEqualDate &&
+                        format(moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
                     }
                 </span>
             </ReleaseContainer>
