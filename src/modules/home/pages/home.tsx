@@ -142,8 +142,9 @@ export const HomeComponent: React.FC = () => {
         return verifiedOnly ? token?.alldata?.tag === 'VERIFIED' : true;
     }
     const filterByPast = (token: FeaturedToken) => {
-        return pastOnly ? moment.utc(token?.AMADate as string).hour(0).minutes(0).second(0).diff(moment.utc().hour(0).minutes(0).second(0)) < 0 : true;
+        return pastOnly ? moment.utc(token?.AMADate as string).hour(0).minute(0).second(0).diff(moment.utc().hour(0).minute(0).second(0)) < 0 : true;
     }
+
 
     const latestSearch: FormEventHandler<HTMLInputElement> = (e) => {
         imgLoading('latests');

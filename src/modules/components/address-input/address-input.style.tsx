@@ -4,13 +4,13 @@ import styled from 'styled-components';
 export const Container = styled.div`
     width: 100%;
     min-height:  40px !important;
+  
 `;
 export const SearchContainer = styled.div`
     width: fit-content;
     color: #181c32;
     display: flex;
     flex-direction: column;
-    align-items: center;
     width: 100%;
     min-height:  40px !important;
     position: relative;
@@ -26,11 +26,9 @@ export const SearchContainer = styled.div`
         height: 35px !important;
     }
     .address-validation-error{
-        bottom: -17px;
         z-index: 99;
-        position: absolute;
         color:#f1416c;
-        margin-top: 1.25rem!important;
+        margin-top: 0.5rem!important;
     }
     .ant-input::placeholder{
         /* color: #a1a5b9 !important;  */

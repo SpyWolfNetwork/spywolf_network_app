@@ -18,13 +18,28 @@ const AddressInputComponent: React.FC<{ valid: any, valueChange }> = ({ valid, v
 
     }
 
-    const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
-        setAddressValidation({
-            err: 0,
-            message: '',
-            active: false
-        })
+    const validateInput = (e) => {
+        try {
+            toChecksumAddress(e.currentTarget.value)
+            setAddressValidation({
+                err: 0,
+                message: '',
+                active: false
+            })
+            searchTokenOrWallet();
+        } catch (e) {
+            setAddressValidation({
+                err: 0,
+                message: 'Input a valid address',
+                active: true
+            })
+            valid(false);
+        
+        }
+        // buttonDisabled()
+    }
 
+    const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
         if (event.code === 'Enter') {
             setAddressLoading(true);
             let addr = '';
@@ -61,8 +76,12 @@ const AddressInputComponent: React.FC<{ valid: any, valueChange }> = ({ valid, v
                                 throw new Error('Invalid Token Address');
                             }
                             if (addressCheckResponse.contractType === 'Token') {
-                                // navigate(`token/${addr}`);
                                 valid(true);
+                                setAddressValidation({
+                                    err: 0,
+                                    message: '',
+                                    active: false
+                                })
                             } else {
                                 valid(false);
                                 throw new Error('Invalid Token Addres');
@@ -136,7 +155,11 @@ const AddressInputComponent: React.FC<{ valid: any, valueChange }> = ({ valid, v
                         if (addressCheckResponse.contractType === 'Token') {
                             // navigate(`token/${addr}`);
                             valid(true);
-
+                            setAddressValidation({
+                                err: 0,
+                                message: '',
+                                active: false
+                            })
 
                         } else {
                             valid(false);
@@ -209,7 +232,11 @@ const AddressInputComponent: React.FC<{ valid: any, valueChange }> = ({ valid, v
                         }
                         if (addressCheckResponse.contractType === 'Token') {
                             valid(true);
-
+                            setAddressValidation({
+                                err: 0,
+                                message: '',
+                                active: false
+                            })
 
                         } else {
                             valid(false);
@@ -254,6 +281,8 @@ const AddressInputComponent: React.FC<{ valid: any, valueChange }> = ({ valid, v
                 placeholder="0xC2D0f6b7513994A1Ba86CEf3AAc181a371A4CA0c"
                 onPaste={searchTokenOrWalletOnPaste}
                 onChange={(e) => { valueChange(e.target.value) }}
+                onInput={validateInput}
+                onBlur={validateInput}
             />
             {
                 addresValidaton?.active && <span className="address-validation-error"> {addresValidaton?.message} </span>
