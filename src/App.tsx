@@ -99,7 +99,6 @@ function App() {
                     </svg>
                   </span>
                 }
-                  onClick={toggleNavbar}
                 />
                 <div className="getaudited" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
                   <CNavItem key="2000" style={{ listStyle: 'none' }}>
