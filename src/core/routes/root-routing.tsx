@@ -13,7 +13,6 @@ import { LearnList } from "../../modules/learn/pages/learn-list/learn-list";
 import RewardComponent from "../../modules/reward/reward";
 import { TokenDashboardComponent } from "../../modules/token/pages/dashboard/token-dashboard";
 import Wallet from "../../modules/wallet/pages/wallet";
-import { HomeProvider } from "./providers/home.provider";
 import GetAuditedComponent from "../../modules/get-audited/get-audited";
 import { RequestAuditProvider } from "./providers/request-audit.provider";
 
@@ -58,15 +57,15 @@ export default function Root() {
                 <Routes >
                     <Route path="/wallet/:walletid" element={<Wallet />}>
                     </Route>
-                    <Route path="/token/:tokenid" element={<HomeProvider><TokenDashboardComponent /></HomeProvider>}>
+                    <Route path="/token/:tokenid" element={<TokenDashboardComponent />}>
                     </Route>
-                    <Route path="/" element={<HomeProvider><HomeComponent /></HomeProvider>}></Route>
+                    <Route path="/" element={<HomeComponent />}></Route>
                     <Route path="/wallet" element={<Navigate replace to="/" />}></Route>
                     <Route path="/token" element={<Navigate replace to="/" />}></Route>
                     <Route path="/learn" element={<LearnList></LearnList>}></Route>
                     <Route path="/frequently-asked-questions" element={<Faq />}></Route>
                     <Route path="/disclaimer" element={<Disclaimer />}></Route>
-                    <Route path="/charity" element={<HomeProvider><RewardComponent /></HomeProvider>}></Route>
+                    <Route path="/charity" element={<RewardComponent />}></Route>
                     <Route path="/request-audit" element={<RequestAuditProvider><GetAuditedComponent /></RequestAuditProvider>}></Route>
 
                 </Routes>
