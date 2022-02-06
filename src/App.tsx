@@ -127,7 +127,7 @@ function App() {
             </CNavbarBrand>
             <CCollapse className="navbar-collapse" visible={navbarOpen}>
               <CNavbarNav>
-                <Popover content={'get up to 10% rewards on your next $SPY purchase'} >
+                <Popover content={'get up to 20% rewards on your next $SPY purchase'} >
                   <Badge count="NEW" offset={[-15, 7]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
                     <CNavItem key="1">
                       <Link
