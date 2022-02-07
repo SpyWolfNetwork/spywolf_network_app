@@ -81,47 +81,46 @@ function App() {
 
   return (
     <HashRouter>
-      <div className="App">
-        <CNavbar className={`${windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
-          <CContainer fluid>
+      <HomeProvider>
+        <div className="App">
+          <CNavbar className={`${windowScroller ? 'sticky' : ''}`} ref={e => navbarRef = e} expand="lg" colorScheme="light" >
+            <CContainer fluid>
 
-            <CNavbarBrand style={{ width: '100%' }}>
-              <a style={{ display: 'flex', width: 'fit-content' }} href="/#/">
-                <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="brand-logo h-lg-40px" />
-                <img className="brand-logo mobile" src={mobileLogo} alt="" />
-              </a>
-              <div className="togglers">
-                <Button type="text" id="toggler" className='hamburger-toggle d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
-                  <span className="svg-icon svg-icon-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                      <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black"></path>
-                      <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black"></path>
-                    </svg>
-                  </span>
-                }
-                  onClick={toggleNavbar}
-                />
-                <div className="getaudited" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
-                  <CNavItem key="2000" style={{ listStyle: 'none' }}>
-                    <Link
-                      to="/request-audit">
-                      <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
-                        Get Audit + KYC
-                      </CNavLink>
-                    </Link>
-                  </CNavItem>
-                  <Button
-                    onClick={() => setVisibleModal(true)}
-                    className="submitButton" type="primary"
-                    size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }}
-                  >Submit</Button>
+              <CNavbarBrand style={{ width: '100%' }}>
+                <a style={{ display: 'flex', width: 'fit-content' }} href="/#/">
+                  <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="brand-logo h-lg-40px" />
+                  <img className="brand-logo mobile" src={mobileLogo} alt="" />
+                </a>
+                <div className="togglers">
+                  <Button type="text" id="toggler" className='hamburger-toggle d-lg-none btn btn-icon btn-active-color-primary w-30px h-30px ms-n2 me-3' icon={
+                    <span className="svg-icon svg-icon-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                        <path d="M21 7H3C2.4 7 2 6.6 2 6V4C2 3.4 2.4 3 3 3H21C21.6 3 22 3.4 22 4V6C22 6.6 21.6 7 21 7Z" fill="black"></path>
+                        <path opacity="0.3" d="M21 14H3C2.4 14 2 13.6 2 13V11C2 10.4 2.4 10 3 10H21C21.6 10 22 10.4 22 11V13C22 13.6 21.6 14 21 14ZM22 20V18C22 17.4 21.6 17 21 17H3C2.4 17 2 17.4 2 18V20C2 20.6 2.4 21 3 21H21C21.6 21 22 20.6 22 20Z" fill="black"></path>
+                      </svg>
+                    </span>
+                  }
+                    onClick={toggleNavbar}
+                  />
+                  <div className="getaudited" style={{ display: 'flex', columnGap: '10px', alignItems: 'center' }}>
+                    <CNavItem key="2000" style={{ listStyle: 'none' }}>
+                      <Link
+                        to="/request-audit">
+                        <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
+                          Get Audit + KYC
+                        </CNavLink>
+                      </Link>
+                    </CNavItem>
+                    <Button
+                      onClick={() => setVisibleModal(true)}
+                      className="submitButton" type="primary"
+                      size='large' style={{ color: '#152B36 !important', fontSize: '14px', fontWeight: '500' }}
+                    >Submit</Button>
+                  </div>
+
                 </div>
-
-              </div>
-              <div className="input">
-                <HomeProvider>
+                <div className="input">
                   <SearchAdressInput ></SearchAdressInput>
-                </HomeProvider>
 
               </div>
             </CNavbarBrand>
@@ -215,6 +214,7 @@ function App() {
           </div>
         </div>
       </div>
+      </HomeProvider>
 
       <Modal
         title={

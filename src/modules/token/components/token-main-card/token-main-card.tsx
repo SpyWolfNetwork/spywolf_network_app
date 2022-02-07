@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import { Badge, Button, Card, Input, Popover } from 'antd';
-import React, {  KeyboardEventHandler, useContext, useEffect, useState } from 'react';
+import React, { KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { ApplicationContext } from '../../../../core/routes/providers/application.provider';
 import { DashedCard } from '../token-info-highlight/token-info-highlight.style';
 import TokenMainCardHeaderComponent from '../token-main-card-header/token-main-card-header';
@@ -12,7 +12,7 @@ import logoplaceholder from '../../../../assets/core/no-photo.png'
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 
 
-import { LikeTwoTone,  TwitterOutlined } from '@ant-design/icons';
+import { LikeTwoTone, TwitterOutlined } from '@ant-design/icons';
 import { FaArrowUp, FaLaptop, FaTelegram } from 'react-icons/fa';
 import { RiBarChartFill } from 'react-icons/ri';
 
@@ -55,7 +55,8 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
         if (!props.loading) {
             loadCaptchaEnginge(6);
         }
-    }, [props.loading, tokenData?.basicInfo?.votes, tokenData?.basicInfo?.address, alreadyVoted, votes]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [votes]);
 
     const doSubmit = () => {
 
@@ -173,7 +174,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                     background: ribbonStyleBG(),
                     color: ribbonStyleColor()
                 }
-            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM' || tokenData?.basicInfo?.trustLevel === undefined) ? ` ${tokenData?.basicInfo?.tag === 'SCAM' ? 'SCAM' : tokenData?.basicInfo?.tag[0].toUpperCase() +  tokenData?.basicInfo?.tag.slice(1).toLowerCase()}`: `Trust ${tokenData?.level}`}`} 
+            } text={`${(tokenData?.basicInfo?.tag === 'UNVERIFIED' || tokenData?.basicInfo?.tag === 'SCAM' || tokenData?.basicInfo?.trustLevel === undefined) ? ` ${tokenData?.basicInfo?.tag === 'SCAM' ? 'SCAM' : tokenData?.basicInfo?.tag[0].toUpperCase() + tokenData?.basicInfo?.tag.slice(1).toLowerCase()}` : `Trust ${tokenData?.level}`}`}
             placement='start' >
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
                 {props.loading}

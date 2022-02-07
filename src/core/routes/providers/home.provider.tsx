@@ -24,6 +24,9 @@ export const HomeProvider = (props: any) => {
     const [amaTokensFilter, setAmaTokensFilter] = useState<boolean>(false);
     const [upcomingTokensFilter, setUpcomingTokensFilter] = useState<boolean>(false);
 
+    const [isFetched, setFetched] = useState<boolean>(false);
+
+
 
 
     const state = {
@@ -45,11 +48,13 @@ export const HomeProvider = (props: any) => {
     }
 
     useEffect(() => {
-        fetchFeaturedTokens();
-        fetchRecentlyAdded();
-        fetchLatestScams();
-        fetchPotentialScams();
-        fetchAmaAdded();
+        if (!isFetched) {
+            fetchFeaturedTokens();
+            fetchRecentlyAdded();
+            fetchLatestScams();
+            fetchPotentialScams();
+            fetchAmaAdded();
+        }
     }, []);
 
 
@@ -62,6 +67,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setFeaturedTokens(featuredTokens)
                 setAllTokens([...allTokens, ...featuredTokens])
+                setFetched(true);
             }
 
         )
@@ -76,6 +82,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setRecentlyAdded(recentlyAdded)
                 setAllTokens([...allTokens, ...recentlyAdded])
+                setFetched(true);
 
             }
 
@@ -93,6 +100,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setAmaTokens(amaTokens)
                 setAllTokens([...allTokens, ...amaTokens])
+                setFetched(true);
 
             }
 
@@ -110,6 +118,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setLatestScams(latestScams)
                 setAllTokens([...allTokens, ...latestScams])
+                setFetched(true);
 
             }
 
@@ -126,6 +135,7 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setPotentialScams(potentialScams)
+                setFetched(true);
 
             }
 
