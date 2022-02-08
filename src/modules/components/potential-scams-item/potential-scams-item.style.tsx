@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
   display: grid;
   
-  grid-template-columns: 50px minmax(100px, 0.7fr) minmax(100px, 1fr) minmax(94px, 94px) minmax(auto, 94px);
+  grid-template-columns: 50px minmax(100px, auto) 1fr 1fr  minmax(auto, 94px);
   column-gap: 1rem;
   padding: 1rem;
   align-items: center;
@@ -76,7 +76,7 @@ export const ReleaseContainer = styled.div`
 export const TrustLevelContainer = styled.div`
       width: 100%;
       display: flex;
-      justify-content: flex-start;
+      justify-content: center;
       max-width: 100px;
       @media (max-width: 991px){
             span{
@@ -97,4 +97,14 @@ export const ActionsContainer = styled.div`
 export const KYCBadge = styled.div`
       display: flex;
       justify-content: center;
+`;
+
+export const ReleaseDate = styled.div`
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      @media (max-width: 480px){
+            display: none;
+      }
 `;

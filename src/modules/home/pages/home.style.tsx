@@ -212,4 +212,8 @@ export const CardGrid = styled.div`
     }
     }
 
+    .ant-card-head-wrapper{
+        align-items: center;
+    }
+
 `;
