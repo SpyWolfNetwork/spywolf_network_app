@@ -24,6 +24,7 @@ import SolidToolbar from '../../components/solid-toolbar/solid-toolbar';
 import UnverifiedTokens from '../components/unverified-tokens/unverified-tokens';
 import AmaTokenItem from '../../components/ama-token-item/ama-token-item';
 import moment from 'moment';
+import OfficialPartners from '../components/official-partners/official-partners';
 
 export const HomeComponent: React.FC = () => {
     const {
@@ -224,22 +225,35 @@ export const HomeComponent: React.FC = () => {
             <Card
                 // style={{minHeight: '938px'}}
                 id="featured"
-                title={<CardTitleSubtitle fontSize={1} title="Trusted Tokens" subtitle=""></CardTitleSubtitle>}
-                extra={<SolidToolbar onChange={setFeaturedTokensFilter} setLoading={imgLoading} />}
-                actions={[<Pagination
-                    size="small"
-                    hideOnSinglePage={false}
-                    defaultPageSize={12}
-                    current={featuredTokensPage}
-                    total={featuredTokens?.filter(filterFeaturedTokensByLevel).length}
-                    onChange={(page: number) => updatePage('featured', page)}
-                ></Pagination>]}
+                title={
+                    <div>
+                        <OfficialPartners></OfficialPartners>
+                        <CardTitleSubtitle
+                            fontSize={1}
+                            title="Potential Scams"
+                            subtitle=""
+                            search={true}
+                            searchPlaceholder="Search Potential Scams"
+                            searchChange={potentialSearch}></CardTitleSubtitle>
+                    </div>
+
+                }
+                actions={[
+                    <Pagination
+                        size="small"
+                        hideOnSinglePage={false}
+                        defaultPageSize={12}
+                        current={potentialScamsPage}
+                        total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).length}
+                        onChange={(page: number) => updatePage('potential', page)}
+                    ></Pagination>]}
             >
                 <div className="content-wrapper">
                     {
-                        featuredTokens?.sort(sortTrustedByLevel).filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 12, featuredTokensPage * 12).map((token: FeaturedToken) =>
-                            <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>
-                        )
+                        potentialScams?.slice((potentialScamsPage - 1) * 12, potentialScamsPage * 12)
+                            .map((token: FeaturedToken) =>
+                                <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>
+                            )
                     }
                 </div>
                 {
@@ -249,11 +263,15 @@ export const HomeComponent: React.FC = () => {
 
             <Card
                 id="recently"
-                title={<span className='card-label fw-bolder fs-3 mb-1'>Upcoming Tokens</span>}
-                extra={
-                    <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}>Verified only?
-                        <Switch size={'small'} onChange={changeVerifiedOnly} />
-                    </span>}
+                title={<CardTitleSubtitle
+                    banner={{ link: '', src: scambanner }}
+                    title="Upcoming Tokens"
+                    extra={
+                        <span style={{ fontWeight: 500, columnGap: 5, alignItems: 'center', display: 'Flex' }}>Verified only?
+                            <Switch size={'small'} onChange={changeVerifiedOnly} />
+                        </span>}
+                ></CardTitleSubtitle>}
+
                 actions={[
                     <Pagination
                         size="small"
@@ -281,7 +299,7 @@ export const HomeComponent: React.FC = () => {
                     <Pagination
                         size="small"
                         current={amaTokensPage}
-                        defaultPageSize={4}
+                        defaultPageSize={3}
                         defaultCurrent={1}
                         total={amaTokens?.filter(filterByPast).length}
                         onChange={(page: number) => updatePage('ama', page)}
@@ -289,7 +307,7 @@ export const HomeComponent: React.FC = () => {
                 {
                     // .filter(filterByPast)
 
-                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 4, amaTokensPage * 4).map((token: FeaturedToken) =>
+                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 3, amaTokensPage * 3).map((token: FeaturedToken) =>
                         <AmaTokenItem token={token} imageLoading={amaImageLoading}></AmaTokenItem>)
                 }
             </Card>
@@ -336,25 +354,21 @@ export const HomeComponent: React.FC = () => {
                 </Card>
                 <Card
                     id="potential"
-                    title={<CardTitleSubtitle
-                        title="Potential Scams"
-                        subtitle=""
-                        search={true}
-                        searchPlaceholder="Search Potential Scams"
-                        searchChange={potentialSearch}
-                    ></CardTitleSubtitle>}
+                    title={<h1 style={{fontWeight: '600', margin: 0}}>Trusted Tokens</h1>}
+                    extra={<SolidToolbar onChange={setFeaturedTokensFilter} setLoading={imgLoading} />}
                     actions={[<Pagination
                         size="small"
-                        current={potentialScamsPage}
-                        defaultPageSize={6}
+                        current={featuredTokensPage}
+                        defaultPageSize={8}
                         defaultCurrent={1}
-                        total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).length}
-                        onChange={(page: number) => updatePage('potential', page)}
+                        total={featuredTokens?.filter(filterFeaturedTokensByLevel).length}
+                        onChange={(page: number) => updatePage('featured', page)}
                     ></Pagination>]}
                 >
                     {
-                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 7, potentialScamsPage * 7).map((token: FeaturedToken) =>
-                            <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>)
+                        featuredTokens?.sort(sortTrustedByLevel)
+                            .filter(filterFeaturedTokensByLevel).slice((featuredTokensPage - 1) * 8, featuredTokensPage * 8).map((token: FeaturedToken) =>
+                                <FeaturedTokenItem token={token} imageLoading={featuredImageLoading}></FeaturedTokenItem>)
                     }
 
                     {

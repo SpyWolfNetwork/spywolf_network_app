@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px minmax(100px, 1fr)  minmax(100px, 1fr) 100px ;
+  grid-template-columns: 50px minmax(100px, 0.4fr)  minmax(100px, 1fr) 100px ;
   @media (max-width: 480px){
       grid-template-columns: 50px minmax(100px, 1fr)  minmax(100px, 1fr);
   }
@@ -68,7 +68,7 @@ export const ReleaseContainer = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: center;
-      align-items: flex-end;
+      align-items: center;
       min-width: 100px;
       @media (max-width: 480px){
             display: none;
