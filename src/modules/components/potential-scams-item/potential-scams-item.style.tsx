@@ -16,13 +16,13 @@ export const Container = styled.div`
   &:hover{
         background: #f4f7f9;
       }
-  @media (max-width: 480px){
-      grid-template-columns: 50px minmax(100px, 0.7fr)  minmax(100px, 1fr) minmax(auto, 94px);;
-  }
-  @media (max-width: 1200px){
+      @media (max-width: 1200px){
+            grid-template-columns: 50px minmax(100px, 0.4fr) auto 1fr minmax(auto, 94px);;
             padding: 1rem 0.5rem ;
-
-  }
+      }
+      @media (max-width: 400px){
+          grid-template-columns: 50px minmax(60px, 0.2fr) auto 1fr minmax(auto, 94px);;
+      }
   .ant-badge-count{
       font-size: 6px !important;
       padding: 4px !important;
@@ -83,7 +83,6 @@ export const TrustLevelContainer = styled.div`
       width: 100%;
       display: flex;
       justify-content: center;
-      max-width: 100px;
       @media (max-width: 991px){
             span{
                    white-space: pre-wrap;
