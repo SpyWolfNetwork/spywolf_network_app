@@ -6,8 +6,16 @@ export const Container = styled.div`
   
   grid-template-columns: 50px minmax(100px, auto) 1fr 1fr  minmax(auto, 94px);
   column-gap: 1rem;
-  padding: 1rem;
+  padding:   0 1rem;
+
   align-items: center;
+      > * {
+  padding:  1rem 0;
+
+      }
+  &:hover{
+        background: #f4f7f9;
+      }
   @media (max-width: 480px){
       grid-template-columns: 50px minmax(100px, 0.7fr)  minmax(100px, 1fr) minmax(auto, 94px);;
   }
@@ -56,9 +64,7 @@ export const InfoContainer = styled.div`
     .symbol{
         font-size: 1rem;
     }
-    a{
-          cursor: initial;
-    }
+
 `;
 
 
