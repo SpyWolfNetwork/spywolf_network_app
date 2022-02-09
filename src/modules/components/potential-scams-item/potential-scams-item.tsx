@@ -6,9 +6,10 @@ import { differenceInDays, format } from 'date-fns';
 import moment from 'moment';
 import React, { useEffect } from 'react';
 import { FaTelegram } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 // import PoweredBy from '../powered-by/powered-by';
-import { ActionsContainer, Container, InfoContainer, LogoContainer,  ReleaseDate, TrustLevelContainer } from './potential-scams-item.style';
+import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseDate, TrustLevelContainer } from './potential-scams-item.style';
 
 const tagNewConstraint = -14;
 
@@ -18,32 +19,36 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
     }, []);
 
     return <Container>
+        <Link to={`/token/${props.token.address}`}>
+            {
+                props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > tagNewConstraint ?
+                    <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '10px' }} >   <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+                    </Badge>
+                    :
+                    <LogoContainer>
+                        <img src={props.token.logoPicture} width="50px" alt="" />
 
-        {
-            props?.token?.savingTime && differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > tagNewConstraint ?
-                <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '10px' }} >   <LogoContainer>
-                    <img src={props.token.logoPicture} width="50px" alt="" />
-                    {
-                        props.imageLoading && <div className="image-placeholder">
-                        </div>
-                    }
-                </LogoContainer>
-                </Badge>
-                :
-                <LogoContainer>
-                    <img src={props.token.logoPicture} width="50px" alt="" />
-
-                    {
-                        props.imageLoading && <div className="image-placeholder">
-                        </div>
-                    }
-                </LogoContainer>
-        }
+                        {
+                            props.imageLoading && <div className="image-placeholder">
+                            </div>
+                        }
+                    </LogoContainer>
+            }
+        </Link>
+        <Link to={`/token/${props.token.address}`}>
 
         <InfoContainer>
-            <a className='text-dark fw-bolder  mb-1 fs-6' >{props?.token?.name}</a>
+            <a className='text-dark fw-bolder primary-link mb-1 fs-6' >{props?.token?.name}</a>
             <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
         </InfoContainer>
+        </Link>
+        <Link to={`/token/${props.token.address}`}>
         <ReleaseDate>
             <span className='released-title text-muted fw-bold d-block fs-8'>
                 Release
@@ -55,6 +60,8 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
                 }
             </span>
         </ReleaseDate>
+        </Link>
+        <Link to={`/token/${props.token.address}`}>
         <TrustLevelContainer>
             {
                 (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
@@ -77,14 +84,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
                     </Popover>
                 )}
         </TrustLevelContainer>
-        {
-            // props?.token.vettedBy &&
-            // <ReleaseContainer>
-            //     {/* <PoweredBy
-            //         company={props?.token.vettedBy}
-            //     /> */}
-            // </ReleaseContainer>
-        }
+        </Link>
         <ActionsContainer>
             {
                 props?.token?.website &&

@@ -79,7 +79,7 @@ export const ReleaseContainer = styled.div`
 export const TrustLevelContainer = styled.div`
       width: 100%;
       display: flex;
-      justify-content: flex-start;
+      justify-content: flex-end;
       max-width: 100px;
       @media (max-width: 991px){
             span{
