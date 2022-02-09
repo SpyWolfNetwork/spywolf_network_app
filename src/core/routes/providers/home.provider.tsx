@@ -128,7 +128,7 @@ export const HomeProvider = (props: any) => {
 
 
     const fetchPotentialScams = () => {
-        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/POTENTIAL_SCAM').then(
+        axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/not_audited').then(
             ({ data }) => {
                 const potentialScamsResponse: FeaturedTokensResponse = data;
                 const potentialScams = potentialScamsResponse?.content?.Items?.map(
