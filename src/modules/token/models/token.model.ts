@@ -76,6 +76,8 @@ export interface Item {
     tag: any;
     OtherCompanyAudit?: OtherCompanyAuditModel;
     quickAudit?: string;
+    scamReason: string[];
+    scamReasonTooltip?: string;
 }
 
 export interface Content {

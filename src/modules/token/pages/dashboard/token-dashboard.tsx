@@ -169,10 +169,23 @@ export const TokenDashboardComponent: React.FC = () => {
 
             </Card>
 
-            <Card title="About" style={{ width: '100%' }}>
+            <Card style={{ width: '100%' }}>
                 {loadingState && <div className='loading' > <Spin /></div>}
                 {!loadingState &&
+
                     <div>
+                        {
+                            tokenData?.basicInfo?.scamReasonTooltip &&
+                            <div>
+                                <h3 style={{ fontWeight: 600 , marginTop: '-10px', display: 'flex', alignItems: 'center'}}>Scam Summary <span style={{marginLeft: '10px'}}><Tag color="red">{tokenData?.basicInfo?.scamReason && tokenData?.basicInfo?.scamReason[0]}</Tag></span></h3>
+                                <p style={{ color: 'rgb(248, 54, 71)' }}>
+                                    {
+                                        tokenData?.basicInfo?.scamReasonTooltip
+                                    }
+                                </p>
+                            </div>
+                        }
+                        <h3 style={{ fontWeight: 600 }}>About</h3>
                         <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span>}</p>
                         <h1 >Contract Address</h1>
                         {tokenAddress && <span className='contact-address'>{tokenAddress}
@@ -258,7 +271,7 @@ export const TokenDashboardComponent: React.FC = () => {
             {
                 tokenData && tokenData?.quickAudit &&
                 <Card title="Quick Audit" style={{ width: '100%' }}>
-                    <p dangerouslySetInnerHTML={{__html: tokenData.quickAudit}}>
+                    <p dangerouslySetInnerHTML={{ __html: tokenData.quickAudit }}>
 
                     </p>
                 </Card>

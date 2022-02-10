@@ -124,9 +124,11 @@ export const CardGrid = styled.div`
         .ant-card-body{
             justify-content: center;
             display: flex;
+            padding-bottom: 30px !important;
         }
 
     }
+  
     #amas{
         grid-column: 3/3;
         grid-row: 2;
@@ -221,5 +223,9 @@ export const CardGrid = styled.div`
     .ant-card-head-wrapper{
         align-items: center;
     }
-
+    #advertisement-inline{
+        .ant-card-body{
+            padding-bottom: 30px !important;
+        }
+    }
 `;

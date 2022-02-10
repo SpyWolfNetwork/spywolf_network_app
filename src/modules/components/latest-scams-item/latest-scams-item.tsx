@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/alt-text */
 // Dependencies
-import { Badge, Popover, Tag } from 'antd';
+import { Badge, Tag } from 'antd';
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
@@ -59,28 +59,14 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
                     {props?.token?.releaseDate && format(moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
-                }</span>
+                    }</span>
             </ReleaseContainer>
             <TrustLevelContainer>
-                {
-                    (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
-                        <Tag
-                            color={'red'}
-                        >
-                            {props?.token?.scamReason}
-                        </Tag>
-                    )}
-
-                {
-                    (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
-                        <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
-                            <Tag
-                                color={'red'}
-                            >
-                                {props?.token?.scamReason}
-                            </Tag>
-                        </Popover>
-                    )}
+                <Tag
+                    color={'red'}
+                >
+                    {props?.token?.scamReason}
+                </Tag>
             </TrustLevelContainer>
         </Container>
     </Link>
