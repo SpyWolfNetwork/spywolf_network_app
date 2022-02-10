@@ -82,11 +82,15 @@ export const CardGrid = styled.div`
         grid-template-rows: auto;
         column-gap: 1.4em;
         row-gap: 1.4em;
+
+        .ant-card-body{
+                height: fit-content !important;
+            }
         > div {
             margin-bottom: 10px;
             width: 100%;
-            height: 100%;
-
+            height: fit-content;
+        
             .card-title{
                 display: flex;
             }
@@ -99,7 +103,9 @@ export const CardGrid = styled.div`
         grid-column: 1/3;
         grid-row: 1/3;
         height: 100%;
- 
+        .ant-card-body{
+                height: 100% !important;
+            }
     }
     #recently{
         grid-column:3;

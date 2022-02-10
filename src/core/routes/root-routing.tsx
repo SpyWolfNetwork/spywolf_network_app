@@ -25,7 +25,7 @@ export default function Root() {
         '/disclaimer': 'Disclaimer',
         '/charity': 'Charity',
         '/frequently-asked-questions': 'Frequently Asked Question',
-        '/request-service': 'Request an audit',
+        '/request-audit': 'Request an audit',
     };
 
     const location = useLocation();
