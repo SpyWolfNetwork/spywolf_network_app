@@ -14,6 +14,9 @@ import { FeaturedToken } from '../models/featured-token';
 import { CardGrid, Container } from './home.style';
 import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
+import cookiesaleBanner from '../../../assets/ads/banner-cookiesale.jpg'
+import liquidCraftBanner from '../../../assets/ads/banner-liquidcraft.jpeg'
+
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_cookiesale.jpeg'
@@ -52,6 +55,21 @@ export const HomeComponent: React.FC = () => {
     const [latestImageLoading, setLatestImageLoading] = useState<boolean>();
     const [potentialImageLoading, setPotentialImageLoading] = useState<boolean>();
 
+    const [currentAdIndex, setCurrentAdIndex] = useState<number>(0)
+
+    const [adBanners, setAdBanners] = useState<{ src: string, url: string }[]>(
+        [
+            {
+                src: cookiesaleBanner,
+                url: 'https://cookiesale.app/'
+            },
+            {
+                src: liquidCraftBanner,
+                url: 'https://www.liquidcraft.io/'
+            }
+        ]
+    );
+
     const [featuredTokensFilter, setFeaturedTokensFilter] = featuredTokensFilterState;
 
     const [featuredTokens, setFeaturedTokens] = featuredTokensState;
@@ -73,7 +91,9 @@ export const HomeComponent: React.FC = () => {
     const [amaTokensPage, setAmaTokensPage] = amaTokensPageState;
 
 
-    useEffect(() => { }, [])
+    useEffect(() => {
+        setCurrentAdIndex(Math.round(Math.random()))
+    }, [])
 
 
     const updateFeaturedPage = (page: number) => {
@@ -242,7 +262,7 @@ export const HomeComponent: React.FC = () => {
                     <Pagination
                         size="small"
                         hideOnSinglePage={false}
-                        defaultPageSize={12}
+                        defaultPageSize={10}
                         current={potentialScamsPage}
                         total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).length}
                         onChange={(page: number) => updatePage('potential', page)}
@@ -250,7 +270,7 @@ export const HomeComponent: React.FC = () => {
             >
                 <div className="content-wrapper">
                     {
-                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 12, potentialScamsPage * 12)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 10, potentialScamsPage * 10)
                             .map((token: FeaturedToken) =>
                                 <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>
                             )
@@ -299,7 +319,7 @@ export const HomeComponent: React.FC = () => {
                     <Pagination
                         size="small"
                         current={amaTokensPage}
-                        defaultPageSize={3}
+                        defaultPageSize={4}
                         defaultCurrent={1}
                         total={amaTokens?.filter(filterByPast).length}
                         onChange={(page: number) => updatePage('ama', page)}
@@ -307,7 +327,7 @@ export const HomeComponent: React.FC = () => {
                 {
                     // .filter(filterByPast)
 
-                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 3, amaTokensPage * 3).map((token: FeaturedToken) =>
+                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 4, amaTokensPage * 4).map((token: FeaturedToken) =>
                         <AmaTokenItem token={token} imageLoading={amaImageLoading}></AmaTokenItem>)
                 }
             </Card>
@@ -317,7 +337,7 @@ export const HomeComponent: React.FC = () => {
                 </Card>
                 <Card id="advertisement-inline">
                     <div style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                        <a href="https://cookiesale.app/" target="__blank"><img src={spywolfad} alt="" /></a>
+                        <a href={adBanners[currentAdIndex].url} target="__blank"><img src={adBanners[currentAdIndex].src} alt="" /></a>
                     </div>
                 </Card>
             </div>
@@ -354,7 +374,7 @@ export const HomeComponent: React.FC = () => {
                 </Card>
                 <Card
                     id="potential"
-                    title={<h1 style={{fontWeight: '600', margin: 0}}>Trusted Tokens</h1>}
+                    title={<h1 style={{ fontWeight: '600', margin: 0 }}>Trusted Tokens</h1>}
                     extra={<SolidToolbar onChange={setFeaturedTokensFilter} setLoading={imgLoading} />}
                     actions={[<Pagination
                         size="small"

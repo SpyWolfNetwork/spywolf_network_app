@@ -26,7 +26,7 @@ export const SearchContainer = styled.div`
         height: 35px !important;
     }
     .address-validation-error{
-        bottom: -17px;
+        bottom: -67px;
         z-index: 99;
         position: absolute;
         color:#f1416c;

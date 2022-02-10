@@ -43,47 +43,57 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
         </Link>
         <Link to={`/token/${props.token.address}`}>
 
-        <InfoContainer>
-            <a className='text-dark fw-bolder primary-link mb-1 fs-6' >{props?.token?.name}</a>
-            <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
-        </InfoContainer>
+            <InfoContainer>
+                <a className='text-dark fw-bolder primary-link mb-1 fs-6' >{props?.token?.name}</a>
+                <span className=' symbol text-muted fw-bold d-block' >{props?.token?.symbol}</span>
+            </InfoContainer>
         </Link>
         <Link to={`/token/${props.token.address}`}>
-        <ReleaseDate>
-            <span className='released-title text-muted fw-bold d-block fs-8'>
-                Release
-            </span>
-            <span className='text-dark fw-bolder d-block fs-7'>
+            <ReleaseDate>
+                <span className='released-title text-muted fw-bold d-block fs-8'>
+                    Release
+                </span>
+                <span className='text-dark fw-bolder d-block fs-7'>
+                    {
+                        (props?.token?.releaseDate) &&
+                        format(moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
+                    }
+                </span>
+            </ReleaseDate>
+        </Link>
+        <Link to={`/token/${props.token.address}`}>
+            <TrustLevelContainer>
                 {
-                    (props?.token?.releaseDate) &&
-                    format(moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
-                }
-            </span>
-        </ReleaseDate>
-        </Link>
-        <Link to={`/token/${props.token.address}`}>
-        <TrustLevelContainer>
-            {
-                (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
-                    <Tag
-                        style={{ whiteSpace: 'pre-wrap' }}
-                        color={'red'}
-                    >
-                        {reason}
-                    </Tag>
-                )}
-
-            {
-                (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
-                    <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
+                    (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
                         <Tag
+                            style={{ whiteSpace: 'pre-wrap' }}
                             color={'red'}
                         >
                             {reason}
                         </Tag>
-                    </Popover>
-                )}
-        </TrustLevelContainer>
+                    )}
+
+                {
+                    !props.token.alldata?.KYC &&
+                    <Tag
+                        style={{ whiteSpace: 'pre-wrap' }}
+                        color={'red'}
+                    >
+                        No KYC
+                    </Tag>
+                }
+
+                {
+                    (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
+                        <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
+                            <Tag
+                                color={'red'}
+                            >
+                                {reason}
+                            </Tag>
+                        </Popover>
+                    )}
+            </TrustLevelContainer>
         </Link>
         <ActionsContainer>
             {

@@ -10,7 +10,7 @@ export const Container = styled.div`
 
   align-items: center;
       > * {
-  padding:  1rem 0;
+      padding:  1.2rem 0;
 
       }
   &:hover{
