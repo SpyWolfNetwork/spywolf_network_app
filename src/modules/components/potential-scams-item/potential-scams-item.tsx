@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 // Dependencies
 import { LaptopOutlined } from '@ant-design/icons';
-import { Badge, Button, Popover, Tag } from 'antd';
+import { Badge, Button, Tag } from 'antd';
 import { differenceInDays, format } from 'date-fns';
 import moment from 'moment';
 import React, { useEffect } from 'react';
@@ -64,7 +64,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
         <Link to={`/token/${props.token.address}`}>
             <TrustLevelContainer>
                 {
-                    (!props?.token?.scamReasonTooltip?.length || props?.token?.scamReasonTooltip?.length === 0) && props?.token?.scamReason?.map(reason =>
+                    props?.token?.scamReason && props?.token?.scamReason?.map(reason =>
                         <Tag
                             style={{ whiteSpace: 'pre-wrap' }}
                             color={'red'}
@@ -72,7 +72,6 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
                             {reason}
                         </Tag>
                     )}
-
                 {
                     !props.token.alldata?.KYC &&
                     <Tag
@@ -83,16 +82,6 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
                     </Tag>
                 }
 
-                {
-                    (props?.token?.scamReasonTooltip && props?.token?.scamReasonTooltip?.length > 0) && props?.token?.scamReason?.map(reason =>
-                        <Popover content={<span>{props?.token?.scamReasonTooltip}</span>} >
-                            <Tag
-                                color={'red'}
-                            >
-                                {reason}
-                            </Tag>
-                        </Popover>
-                    )}
             </TrustLevelContainer>
         </Link>
         <ActionsContainer>
