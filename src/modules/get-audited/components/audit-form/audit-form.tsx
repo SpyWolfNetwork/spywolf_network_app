@@ -153,7 +153,7 @@ const AuditForm: React.FC = () => {
 
     // eslint-disable-next-line no-control-regex
     const emailpattern = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
-    
+
     return <Container>
         <Form onChange={formChange} form={auditForm} preserve={false} >
             <div className="inline">
@@ -178,14 +178,16 @@ const AuditForm: React.FC = () => {
                 border: '1px dashed #00ff73 ',
                 backgroundColor: '#ddffe0 ',
                 borderRadius: '.475rem',
-                marginBottom: '20px'
+                marginBottom: '20px',
+                padding: '20px 10px'
             }} message={
                 <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
                     <div className="icon">
                         <IoAlertCircleSharp style={{ fill: '#00c5706c', margin: '20px' }} fontSize={'2.75rem '}></IoAlertCircleSharp>
                     </div>
                     <div className="text-container">
-                        <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice} BNB to:</h1>
+                        <h1 style={{ color: '#181c32', fontSize: '1.45rem', fontWeight: '600' }}> Pay Now and Get 10% Off! <span style={{ textDecoration: 'line-through' }}> {totalPrice} BNB</span>  </h1>
+                        <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice -  totalPrice * 0.10} BNB to:</h1>
                         <p style={{ margin: 0, color: '#5e6278', fontSize: '1.075rem', whiteSpace: 'break-spaces' }}>0x845A458Ff034F46afD6beDD72730b7B88DD32b56</p>
                     </div>
                 </div>
