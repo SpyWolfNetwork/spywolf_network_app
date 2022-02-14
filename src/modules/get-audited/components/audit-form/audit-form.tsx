@@ -172,29 +172,33 @@ const AuditForm: React.FC = () => {
             </Form.Item>
 
 
-            <Alert style={{
-                borderStyle: "dashed",
-                borderColor: '#00ff73 ',
-                border: '1px dashed #00ff73 ',
-                backgroundColor: '#ddffe0 ',
-                borderRadius: '.475rem',
-                marginBottom: '20px',
-                padding: '20px 10px'
-            }} message={
-                <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
-                    <div className="icon">
-                        <IoAlertCircleSharp style={{ fill: '#00c5706c', margin: '20px' }} fontSize={'2.75rem '}></IoAlertCircleSharp>
+            {totalPrice > 0 &&
+                <Alert style={{
+                    borderStyle: "dashed",
+                    borderColor: '#00ff73 ',
+                    border: '1px dashed #00ff73 ',
+                    backgroundColor: '#ddffe0 ',
+                    borderRadius: '.475rem',
+                    marginBottom: '20px',
+                    padding: '20px 10px'
+                }} message={
+                    <div style={{ display: 'flex', alignItems: 'center', overflow: 'hidden' }}>
+                        <div className="icon">
+                            <IoAlertCircleSharp style={{ fill: '#00c5706c', margin: '20px' }} fontSize={'2.75rem '}></IoAlertCircleSharp>
+                        </div>
+                        <div className="text-container">
+                            <h1 style={{ color: '#181c32', fontSize: '1.45rem', fontWeight: '600' }}> Pay Now and Get 10% Off! <span style={{ textDecoration: 'line-through' }}> {totalPrice} BNB</span>  </h1>
+                            <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice - totalPrice * 0.10} BNB to:</h1>
+                            <p style={{ margin: 0, color: '#5e6278', fontSize: '1.075rem', whiteSpace: 'break-spaces' }}>0x845A458Ff034F46afD6beDD72730b7B88DD32b56</p>
+                        </div>
                     </div>
-                    <div className="text-container">
-                        <h1 style={{ color: '#181c32', fontSize: '1.45rem', fontWeight: '600' }}> Pay Now and Get 10% Off! <span style={{ textDecoration: 'line-through' }}> {totalPrice} BNB</span>  </h1>
-                        <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice -  totalPrice * 0.10} BNB to:</h1>
-                        <p style={{ margin: 0, color: '#5e6278', fontSize: '1.075rem', whiteSpace: 'break-spaces' }}>0x845A458Ff034F46afD6beDD72730b7B88DD32b56</p>
-                    </div>
-                </div>
-            } type="warning" />
-            <Form.Item label={'Transaction Hash(txHash)'} name={'txHash'}  >
-                <Input placeholder='0xC2D0f6b7513994A1Ba86CEf3AAc181a371A4CA0c'></Input>
-            </Form.Item>
+                } type="warning" />
+            }
+            {totalPrice > 0 &&
+                <Form.Item label={'Transaction Hash(txHash)'} name={'txHash'}  >
+                    <Input placeholder='0xC2D0f6b7513994A1Ba86CEf3AAc181a371A4CA0c'></Input>
+                </Form.Item>
+            }
             <span>Once you submit your information, a team member will contact you to answer any questions you may have, finalize the payment and get started!
             </span>
 
