@@ -191,7 +191,7 @@ const AuditSelectorsComponent: React.FC = () => {
                 </Form.Item>
             </Form>
         }
-        <div className="ad-banner">
+        <div className="audit_tg_14472">
             <a href="https://t.me/SpyWolf_audits" target="__blank">
                 <img width="100%" src={tg_14472} alt="" />
             </a>
