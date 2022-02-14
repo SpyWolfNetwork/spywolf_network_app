@@ -11,6 +11,7 @@ import { HiOutlineIdentification } from 'react-icons/hi';
 import { RequestAuditContext } from '../../../../core/routes/providers/request-audit.provider';
 import { Container } from './audit-selectors.style';
 
+import tg_14472 from '../../../../assets/get-audited/tg_14472.png';
 
 const AUDIT_24H_PRICE = 3;
 const AUDIT_4DAYS_PRICE = 1.5;
@@ -190,6 +191,12 @@ const AuditSelectorsComponent: React.FC = () => {
                 </Form.Item>
             </Form>
         }
+        <div className="ad-banner">
+            <a href="https://t.me/SpyWolf_audits" target="__blank">
+                <img width="100%" src={tg_14472} alt="" />
+            </a>
+
+        </div>
     </Container >;
 };
 
