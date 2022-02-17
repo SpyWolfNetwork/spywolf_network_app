@@ -28,7 +28,8 @@ export interface FeaturedTokenDTO {
     scamReasonTooltip?: string;
     vettedBy: string;
     tag: string;
-    releaseDate: string;
+    releaseDate?: string;
+    scamDate?: string;
     AMADate?: any;
     AMALink?: string;
     savingTime?: string
@@ -61,6 +62,7 @@ export class  FeaturedToken {
     presaleDate?: string;
     tag?: string;
     releaseDate?: string;
+    scamDate?: string;
     AMADate?: string;
     AMALink?: string;
     savingTime?: string;
@@ -108,6 +110,7 @@ export class  FeaturedToken {
         this.telegram = featuredTokenDTO?.telegram;
         this.scamReasonTooltip = featuredTokenDTO.scamReasonTooltip;
         this.vettedBy = featuredTokenDTO.vettedBy;
+        this.scamDate = featuredTokenDTO?.scamDate ? featuredTokenDTO?.scamDate : '';
         this.alldata = featuredTokenDTO;
 
     }

@@ -23,40 +23,14 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
 
     useEffect(() => {
         const diff = differenceInDays(
-            moment.utc(props?.token?.AMADate as any).hour(0).minutes(0).second(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate());
+            moment.utc(props?.token?.AMADate as any).utc().hour(0).minute(0).second(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate());
         setDiffDays(diff)
         if (diff < 0) {
             setApplyOpacity('past')
         } else {
             setApplyOpacity('')
-
         }
         calculateIsEqualDate();
-        moment.updateLocale("en", {
-            relativeTime: {
-                s: "Today",
-                m: "%d m",
-                mm: "%d m",
-                h: "Today",
-                hh: "Today",
-                d: "Tomorrow",
-                dd: "%d days",
-                M: "Next Month",
-                MM: "%d months",
-                y: "Next Year",
-                yy: "%d years",
-                w: 'a week',
-                ww: '$d weeks'
-            },
-            calendar: {
-                lastDay: '[Yesterday]',
-                sameDay: '[Today]',
-                nextDay: '[Tomorrow]',
-                lastWeek: '[Last] dddd',
-                nextWeek: '[Next] dddd',
-                sameElse: 'L'
-            }
-        })
     }, [props.token]);
 
     const calculateIsEqualDate = () => {
@@ -148,7 +122,7 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                             diffDays !== -1) &&
                         diffDays !== 1 &&
                         !isEqualDate &&
-                        format(moment(props?.token?.AMADate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
+                        format(moment(props?.token?.AMADate).utc().hour(0).minute(0).second(0).millisecond(0).toDate(), 'PP')
                     }
                 </span>
             </ReleaseContainer>

@@ -13,6 +13,7 @@ const CardTitleSubtitle: React.FC<{
     useEffect(() => { }, []);
 
     return <Container>
+
         {
             props.banner !== undefined &&
             <Link to="/charity">

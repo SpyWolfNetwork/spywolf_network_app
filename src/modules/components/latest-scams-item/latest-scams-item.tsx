@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 // Dependencies
 import { Badge, Tag } from 'antd';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 // import PoweredBy from '../powered-by/powered-by';
@@ -14,12 +14,14 @@ import moment from 'moment';
 const tagNewConstraint = -14;
 
 const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
+
+    const [scamDate] = useState<Date>(moment(props?.token?.scamDate).utc().hour(0).minute(0).second(0).millisecond(0).toDate());
     useEffect(() => { }, []);
 
     return <Link to={'token/' + props?.token?.address}>
         <Container>
             {
-                differenceInDays(moment(props?.token?.savingTime).utc().hours(0).minutes(0).milliseconds(0).toDate(), moment().utc().hours(0).minutes(0).milliseconds(0).toDate()) > tagNewConstraint ?
+                differenceInDays(moment(props?.token?.savingTime).utc().hour(0).minute(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).millisecond(0).toDate()) > tagNewConstraint ?
                     <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '10px' }}  >   <LogoContainer>
                         <img src={props.token.logoPicture} width="50px" alt="" />
                         {
@@ -55,10 +57,10 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
 
             <ReleaseContainer>
                 <span className='released-title text-muted fw-bold d-block fs-8'>
-                    Released
+                    Scam Reported on
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
-                    {props?.token?.releaseDate && format(moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
+                    {props?.token?.releaseDate && format(scamDate, 'PP')
                     }</span>
             </ReleaseContainer>
             <TrustLevelContainer>

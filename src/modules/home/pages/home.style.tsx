@@ -34,13 +34,11 @@ export const CardGrid = styled.div`
     grid-template-columns: 1fr;
         grid-template-rows: auto;
         column-gap: 1.4em;
-        row-gap: 1.4em;
-        .scam-wrapper{
+        row-gap: 1.4em;   .scam-wrapper{
             @media (min-width: 991px){
                 margin-top: 50px;
             }
-        }
-        .ant-card{
+        }        .ant-card{
             padding: 0 !important;
   
         }
@@ -49,9 +47,8 @@ export const CardGrid = styled.div`
         }
         .ant-card .ant-card-body{
             overflow-x: auto !important;
- 
             padding-top: 15px !important;
-
+            height: 100% !important;
         }
         .bottom-cards{
             display: grid !important;
@@ -87,7 +84,6 @@ export const CardGrid = styled.div`
                 height: fit-content !important;
             }
         > div {
-            margin-bottom: 10px;
             width: 100%;
             height: fit-content;
         
@@ -111,7 +107,7 @@ export const CardGrid = styled.div`
         grid-column:3;
         grid-row:1;
         flex: 1;
-        height: 100%;
+  
     }
     #verified{
         grid-column:1/4;
@@ -133,7 +129,7 @@ export const CardGrid = styled.div`
         grid-column: 3/3;
         grid-row: 2;
         flex: 1;
-        min-height: 350px;
+        min-height: 300px;
         height: 100%;
     }
 
@@ -143,9 +139,6 @@ export const CardGrid = styled.div`
         grid-column: 1/4;
         column-gap: 1.4em;
         row-gap: 1.4em;
-        > div {
-            margin-bottom: 10px;
-        }
         #verified-inline{
             grid-column: 1/3;
 
