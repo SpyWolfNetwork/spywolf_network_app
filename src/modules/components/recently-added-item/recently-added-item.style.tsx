@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  grid-template-columns: 50px 1fr 1fr  auto;
+  grid-template-columns: 50px minmax(50px, 1fr) 1fr  auto;
   column-gap: 1rem;
   padding: 1rem;
   align-items: center;
@@ -64,6 +64,7 @@ export const ReleaseContainer = styled.div`
       justify-content: flex-end;
       align-items: flex-end;
       text-align: end;
+      padding-right: 20%;
 
 `;
 

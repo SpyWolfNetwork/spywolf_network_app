@@ -15,7 +15,7 @@ import { CardGrid, Container } from './home.style';
 import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
 import cookiesaleBanner from '../../../assets/ads/banner-cookiesale.jpg'
-import liquidCraftBanner from '../../../assets/ads/banner-liquidcraft.jpeg'
+import xpad from '../../../assets/ads/xpad.png'
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
@@ -64,8 +64,8 @@ export const HomeComponent: React.FC = () => {
                 url: 'https://cookiesale.app/'
             },
             {
-                src: liquidCraftBanner,
-                url: 'https://www.liquidcraft.io/'
+                src: xpad,
+                url: 'https://www.busdx.com/'
             }
         ]
     );
@@ -262,7 +262,7 @@ export const HomeComponent: React.FC = () => {
                     <Pagination
                         size="small"
                         hideOnSinglePage={false}
-                        defaultPageSize={10}
+                        defaultPageSize={9}
                         current={potentialScamsPage}
                         total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).length}
                         onChange={(page: number) => updatePage('potential', page)}
@@ -270,7 +270,7 @@ export const HomeComponent: React.FC = () => {
             >
                 <div className="content-wrapper">
                     {
-                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 10, potentialScamsPage * 10)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 9, potentialScamsPage *9)
                             .map((token: FeaturedToken) =>
                                 <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>
                             )

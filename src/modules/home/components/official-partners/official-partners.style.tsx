@@ -8,6 +8,8 @@ export const Container = styled.div`
     column-gap: 20px;
     padding-bottom: 20px;
     flex-wrap: wrap;
+    color: inherit;
+            font-weight: 600;
         a{
             color: inherit;
             font-weight: 600;
