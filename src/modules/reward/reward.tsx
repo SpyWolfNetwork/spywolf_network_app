@@ -220,7 +220,7 @@ const RewardComponent: React.FC = () => {
                                                 } else {
                                                     setAddressValidation({
                                                         err: 0,
-                                                        message: `You already claimed your ${formatter.format(charityAmount)} SPYs with this wallet address!`,
+                                                        message: `Charity for the amount of ${formatter.format(charityAmount)} $SPYs has been successfully paid to this wallet!`,
                                                         active: true,
                                                         button: {
                                                             text: 'see transaction',
@@ -337,7 +337,7 @@ const RewardComponent: React.FC = () => {
                                             } else {
                                                 setAddressValidation({
                                                     err: 0,
-                                                    message: `You already claimed your ${formatter.format(charityAmount)} SPYs with this wallet address!`,
+                                                    message: `Charity for the amount of ${formatter.format(charityAmount)} $SPYs has been successfully paid to this wallet!`,
                                                     active: true,
                                                     button: {
                                                         text: 'see transaction',
