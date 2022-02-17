@@ -60,7 +60,7 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
                     Scam Reported on
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
-                    {props?.token?.releaseDate && format(scamDate, 'PP')
+                    {props?.token?.scamDate && format(scamDate, 'PP')
                     }</span>
             </ReleaseContainer>
             <TrustLevelContainer>
