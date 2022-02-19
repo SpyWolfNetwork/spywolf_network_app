@@ -2,12 +2,13 @@
 // Dependencies
 import React, { useContext, useEffect } from 'react';
 import { ApplicationContext } from '../../../../core/routes/providers/application.provider';
+import { Token } from '../../models/token.model';
 import { Container, DashedCard } from './token-info-highlight.style';
 
 const TokenInfoHighlight: React.FC = () => {
-  
+
     const { ctx } = useContext(ApplicationContext) as any;
-    const [tokenData, setTokenData] = ctx;
+    const [tokenData] = ctx as  Array<Token>;
     const formatter = new Intl.NumberFormat('en-US', {
         style: 'currency',
         currency: 'USD',
@@ -38,7 +39,7 @@ const TokenInfoHighlight: React.FC = () => {
 
         <DashedCard>
             <h1 id="value" className='fs-1 fw-bolder text-gray-800 lh-1'>
-                {tokenData?.currency?.symbol ? tokenData?.currency?.symbol : '-'}
+                {tokenData?.basicInfo?.symbol ? tokenData?.basicInfo?.symbol : '-'}
             </h1>
             <span id="label" className='fs-6 fw-bold text-muted d-block lh-1 pt-2'>
                 Symbol

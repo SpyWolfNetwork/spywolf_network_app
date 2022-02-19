@@ -23,7 +23,8 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
 
     useEffect(() => {
         const diff = differenceInDays(
-            moment.utc(props?.token?.AMADate as any).utc().hour(0).minute(0).second(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate());
+            moment(props?.token?.AMADate as any).hour(0).minute(0).second(0).millisecond(0).toDate(),
+            moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate());
         setDiffDays(diff)
         if (diff < 0) {
             setApplyOpacity('past')
@@ -35,7 +36,7 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
 
     const calculateIsEqualDate = () => {
         const today = moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate();
-        const amaDate = moment(props?.token?.AMADate).utc().hour(0).minute(0).second(0).millisecond(0).toDate();
+        const amaDate = moment(props?.token?.AMADate).hour(0).minute(0).second(0).millisecond(0).toDate();
         setIsEqualDate(isEqual(today, amaDate));
     }
     const navigate = useNavigate();
@@ -44,7 +45,6 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
     }
 
     useEffect(() => {
-        moment.utc();
         moment.updateLocale("en", {
             relativeTime: {
                 s: "Today",

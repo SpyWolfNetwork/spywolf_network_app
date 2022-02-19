@@ -15,13 +15,13 @@ const tagNewConstraint = -14;
 
 const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
 
-    const [scamDate] = useState<Date>(moment(props?.token?.scamDate).utc().hour(0).minute(0).second(0).millisecond(0).toDate());
+    const [scamDate] = useState<Date>(moment(props?.token?.scamDate).hour(0).minute(0).second(0).millisecond(0).toDate());
     useEffect(() => { }, []);
 
     return <Link to={'token/' + props?.token?.address}>
         <Container>
             {
-                differenceInDays(moment(props?.token?.savingTime).utc().hour(0).minute(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).millisecond(0).toDate()) > tagNewConstraint ?
+                differenceInDays(moment(props?.token?.savingTime).hour(0).minute(0).millisecond(0).toDate(), moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate()) > tagNewConstraint ?
                     <Badge count="NEW" offset={[-10, 5]} style={{ fontSize: '10px' }}  >   <LogoContainer>
                         <img src={props.token.logoPicture} width="50px" alt="" />
                         {

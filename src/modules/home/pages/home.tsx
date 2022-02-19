@@ -319,7 +319,7 @@ export const HomeComponent: React.FC = () => {
                     <Pagination
                         size="small"
                         current={amaTokensPage}
-                        defaultPageSize={4}
+                        defaultPageSize={3}
                         defaultCurrent={1}
                         total={amaTokens?.filter(filterByPast).length}
                         onChange={(page: number) => updatePage('ama', page)}
@@ -327,7 +327,7 @@ export const HomeComponent: React.FC = () => {
                 {
                     // .filter(filterByPast)
 
-                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 4, amaTokensPage * 4).map((token: FeaturedToken) =>
+                    amaTokens?.filter(filterByPast).slice((amaTokensPage - 1) * 3, amaTokensPage * 3).map((token: FeaturedToken) =>
                         <AmaTokenItem token={token} imageLoading={amaImageLoading}></AmaTokenItem>)
                 }
             </Card>

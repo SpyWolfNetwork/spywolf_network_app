@@ -1,4 +1,4 @@
-import { FeaturedTokenDTO } from "../../home/models/featured-token";
+import { FeaturedToken, FeaturedTokenDTO } from "../../home/models/featured-token";
 
 export interface Currency {
     symbol: string;
@@ -139,48 +139,57 @@ export class Token {
     currency?: Currency;
     quickAudit?: string;
 
-    constructor(tokenResponse: TokenResponseObject | null, featuredToken?: FeaturedTokenDTO, isUpcoming?: boolean) {
-        this.level = 'Upcoming';
+    constructor(tokenResponse?: TokenResponseObject | null, featuredToken?: FeaturedTokenDTO, isUpcoming?: boolean) {
+        if (tokenResponse) {
+            this.level = 'Upcoming';
 
-        const hasAudit = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.some(item => {
-            return item.OtherCompanyAudit !== undefined
-        })
+            const hasAudit = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.some(item => {
+                return item.OtherCompanyAudit !== undefined
+            })
 
-        const otherAudit: Item | undefined = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.filter(item => {
-            return item.OtherCompanyAudit !== undefined
-        })[0]
+            const otherAudit: Item | undefined = tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items.filter(item => {
+                return item.OtherCompanyAudit !== undefined
+            })[0]
 
-        this.currentMarketCap = tokenResponse?.smartContractInfo?.marketCapInDollar;
-        this.currentPrice = tokenResponse ? (tokenResponse?.tokenPrice?.priceInBNB * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
-        this.lastchange = 'empty'
-        this.currentLiquidity = tokenResponse ? (tokenResponse?.smartContractInfo?.liquidityBalance * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
-        this.contractAddress = tokenResponse?.tokenPrice?.address;
-        this.basicInfo = (hasAudit && tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0].SpyWolfAudit === undefined) ? otherAudit : tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
-        this.topHolders = tokenResponse?.smartContractInfo?.topHolders;
-        this.currency = tokenResponse?.smartContractInfo?.currency;
-        this.isVerified = tokenResponse?.smartContractInfo?.isVerified;
-        this.level = this.basicInfo?.trustLevel;
-        this.statisticInfo = tokenResponse?.smartContractInfo?.statisticsInfo?.tokenStatisticsInfo;
-        if (tokenResponse?.smartContractInfo.tokenBasicInfo.content.Items[0].quickAudit) {
-            this.quickAudit = tokenResponse?.smartContractInfo.tokenBasicInfo.content.Items[0].quickAudit;
-        }
+            this.currentMarketCap = tokenResponse?.smartContractInfo?.marketCapInDollar;
+            this.currentPrice = tokenResponse ? (tokenResponse?.tokenPrice?.priceInBNB * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
+            this.lastchange = 'empty'
+            this.currentLiquidity = tokenResponse ? (tokenResponse?.smartContractInfo?.liquidityBalance * tokenResponse?.BNBPriceInDollar?.priceInDollar) : undefined;
+            this.contractAddress = tokenResponse?.tokenPrice?.address;
+            this.basicInfo = (hasAudit && tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0].SpyWolfAudit === undefined) ? otherAudit : tokenResponse?.smartContractInfo?.tokenBasicInfo?.content?.Items[0];
+            this.topHolders = tokenResponse?.smartContractInfo?.topHolders;
+            this.currency = tokenResponse?.smartContractInfo?.currency;
+            this.isVerified = tokenResponse?.smartContractInfo?.isVerified;
+            this.level = this.basicInfo?.trustLevel;
+            this.statisticInfo = tokenResponse?.smartContractInfo?.statisticsInfo?.tokenStatisticsInfo;
+            if (tokenResponse?.smartContractInfo.tokenBasicInfo.content.Items[0].quickAudit) {
+                this.quickAudit = tokenResponse?.smartContractInfo.tokenBasicInfo.content.Items[0].quickAudit;
+            }
 
-        if (isUpcoming) {
-            this.basicInfo = {
-                website: featuredToken?.website as string,
-                telegram: featuredToken?.telegram as string,
-                presaleInfo: featuredToken?.presaleInfo as any,
-                symbol: featuredToken?.symbol as any,
-                address: featuredToken?.address,
-                twitter: featuredToken?.twitter,
-                discord: featuredToken?.discord,
-                description: featuredToken?.description,
-                name: featuredToken?.name,
-                logo: featuredToken?.logo,
-                deployedDate: featuredToken?.deployedDate
+            if (isUpcoming) {
+                this.basicInfo = {
+                    website: featuredToken?.website as string,
+                    telegram: featuredToken?.telegram as string,
+                    presaleInfo: featuredToken?.presaleInfo as any,
+                    symbol: featuredToken?.symbol as any,
+                    address: featuredToken?.address,
+                    twitter: featuredToken?.twitter,
+                    discord: featuredToken?.discord,
+                    description: featuredToken?.description,
+                    name: featuredToken?.name,
+                    logo: featuredToken?.logo,
+                    deployedDate: featuredToken?.deployedDate
+                }
             }
         }
 
+    }
+
+    convertFrom(featuredToken: FeaturedToken) {
+        this.basicInfo = {...featuredToken}
+        this.basicInfo.logo = featuredToken.logoPicture
+        this.basicInfo.name = featuredToken.name
+        this.basicInfo.symbol = featuredToken.symbol
     }
 }
 
