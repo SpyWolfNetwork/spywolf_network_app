@@ -56,7 +56,7 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
                 <span className='text-dark fw-bolder d-block fs-7'>
                     {
                         (props?.token?.releaseDate) &&
-                        format(moment(props?.token?.releaseDate).utc().hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
+                        format(moment(props?.token?.releaseDate).hour(0).minutes(0).second(0).milliseconds(0).toDate(), 'PP')
                     }
                 </span>
             </ReleaseDate>

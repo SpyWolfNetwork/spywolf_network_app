@@ -24,10 +24,6 @@ export const HomeProvider = (props: any) => {
     const [amaTokensFilter, setAmaTokensFilter] = useState<boolean>(false);
     const [upcomingTokensFilter, setUpcomingTokensFilter] = useState<boolean>(false);
 
-    const [isFetched, setFetched] = useState<boolean>(false);
-
-
-
 
     const state = {
         allTokensState: { allTokens },
@@ -48,15 +44,35 @@ export const HomeProvider = (props: any) => {
     }
 
     useEffect(() => {
-        if (!isFetched) {
-            fetchFeaturedTokens();
-            fetchRecentlyAdded();
-            fetchLatestScams();
-            fetchPotentialScams();
-            fetchAmaAdded();
-        }
+        fetchCacheID()
+            .then(res => {
+                const cacheid = res.data.customID;
+                const currentCacheId = localStorage.getItem('cacheid')
+                // if (Number(currentCacheId) !== Number(cacheid)) {
+                if (currentCacheId !== cacheid) {
+                    localStorage.setItem('cacheid', cacheid);
+                    fetchFeaturedTokens();
+                    fetchRecentlyAdded();
+                    fetchLatestScams();
+                    fetchPotentialScams();
+                    fetchAmaAdded();
+                } else {
+                    const potentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+                    const featuredTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+                    const latestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+                    const amaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+                    const recentlyAdded = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+                    setPotentialScams(potentialScams);
+                    setFeaturedTokens(featuredTokens);
+                    setLatestScams(latestScams);
+                    setAmaTokens(amaTokens);
+                    setRecentlyAdded(recentlyAdded);
+                }
+            })
+
     }, []);
 
+    const fetchCacheID = () => axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/force_update')
 
     const fetchFeaturedTokens = () => {
         axios.get('https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokens_info/TRUSTED').then(
@@ -67,7 +83,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setFeaturedTokens(featuredTokens)
                 setAllTokens([...allTokens, ...featuredTokens])
-                setFetched(true);
+                persistToken('featuredTokens', featuredTokens);
             }
 
         )
@@ -82,7 +98,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setRecentlyAdded(recentlyAdded)
                 setAllTokens([...allTokens, ...recentlyAdded])
-                setFetched(true);
+                persistToken('recentlyAdded', recentlyAdded);
 
             }
 
@@ -100,7 +116,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setAmaTokens(amaTokens)
                 setAllTokens([...allTokens, ...amaTokens])
-                setFetched(true);
+                persistToken('amaTokens', amaTokens);
 
             }
 
@@ -118,7 +134,7 @@ export const HomeProvider = (props: any) => {
                 )
                 setLatestScams(latestScams)
                 setAllTokens([...allTokens, ...latestScams])
-                setFetched(true);
+                persistToken('latestScams', latestScams);
 
             }
 
@@ -135,12 +151,15 @@ export const HomeProvider = (props: any) => {
                     tokenResponse => new FeaturedToken(tokenResponse)
                 )
                 setPotentialScams(potentialScams)
-                setFetched(true);
-
+                persistToken('potentialScams', potentialScams);
             }
 
         )
 
+    }
+
+    const persistToken = (key, data) => {
+        localStorage.setItem(key, JSON.stringify(data));
     }
 
     return (

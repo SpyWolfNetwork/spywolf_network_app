@@ -1,4 +1,4 @@
-import { format,  isValid, parseISO } from "date-fns";
+import { format, isValid, parseISO } from "date-fns";
 
 export interface PresaleInfo {
     link: string;
@@ -34,6 +34,9 @@ export interface FeaturedTokenDTO {
     AMALink?: string;
     savingTime?: string
     KYC?: boolean;
+    isFairLaunch: boolean;
+    status: string;
+    approvalStatus: string;
 }
 
 export interface Content {
@@ -47,7 +50,16 @@ export interface FeaturedTokensResponse {
     content: Content;
 }
 
-export class  FeaturedToken {
+
+export interface PresaleInfo {
+    presaleLink: string;
+    presaleDate: string;
+    softcap: string;
+    hardcap: string;
+}
+
+
+export class FeaturedToken {
     name: string;
     symbol: string;
     logoPicture: string;
@@ -66,41 +78,54 @@ export class  FeaturedToken {
     AMADate?: string;
     AMALink?: string;
     savingTime?: string;
+    presaleInfo: PresaleInfo;
+    approvalStatus: string;
+    status: string;
+    votes: number;
+    isFairlaunch: boolean;
+    description: string;
 
     constructor(featuredTokenDTO: FeaturedTokenDTO) {
         this.name = featuredTokenDTO?.name;
         this.symbol = featuredTokenDTO?.symbol;
         this.logoPicture = featuredTokenDTO?.logo;
+        this.website = featuredTokenDTO?.website;
+        this.presaleInfo = featuredTokenDTO?.presaleInfo;
+        this.approvalStatus = featuredTokenDTO?.approvalStatus;
+        this.votes = featuredTokenDTO?.votes;
+        this.status = featuredTokenDTO?.status;
+        this.isFairlaunch = featuredTokenDTO?.isFairlaunch;
+        this.description = featuredTokenDTO?.description;
         const date = parseISO(featuredTokenDTO?.releaseDate as string);
         if (date && isValid(date)) {
             this.releaseDate = format(date, 'PP').toString();
-        }else{
+        } else {
             this.releaseDate = '';
         }
 
-        if(featuredTokenDTO.presaleInfo && featuredTokenDTO.presaleInfo.presaleDate){
+        if (featuredTokenDTO.presaleInfo && featuredTokenDTO.presaleInfo.presaleDate) {
             const presaledate = parseISO(featuredTokenDTO?.presaleInfo.presaleDate as string);
-        if (date && isValid(presaledate)) {
-            this.presaleDate = format(presaledate, 'PP').toString();
-        }else{
-            this.presaleDate = '';
-        }
+            if (date && isValid(presaledate)) {
+                this.presaleDate = format(presaledate, 'PP').toString();
+            } else {
+                this.presaleDate = '';
+            }
         }
 
-        if(featuredTokenDTO.tag){
+        if (featuredTokenDTO.tag) {
             this.tag = featuredTokenDTO.tag;
 
         }
-        if(featuredTokenDTO.AMADate){
+        if (featuredTokenDTO.AMADate) {
             this.AMADate = featuredTokenDTO.AMADate;
         }
 
-        if(featuredTokenDTO.savingTime){
+        if (featuredTokenDTO.savingTime) {
             this.savingTime = featuredTokenDTO.savingTime;
         }
 
-        
-        if(featuredTokenDTO.AMALink){
+
+        if (featuredTokenDTO.AMALink) {
             this.AMALink = featuredTokenDTO.AMALink;
         }
         this.trustLevel = featuredTokenDTO?.trustLevel;

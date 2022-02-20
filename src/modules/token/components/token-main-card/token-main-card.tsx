@@ -28,11 +28,13 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const [alreadyVoted, setAlreadyVoted] = useState<boolean>(false);
 
     useEffect(() => {
+        console.log('testeTokenDataProvider', tokenData);
         if (tokenData?.basicInfo?.votes) {
             setVotes(tokenData?.basicInfo?.votes);
         }
 
-    }, [tokenData])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [alreadyVoted])
 
     useEffect(() => {
         axios.get('https://api.ipify.org?format=json').then(
@@ -44,7 +46,6 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
                     ipAddress: res.data.ip
                 }).then(
                     res => {
-
                         window.sessionStorage.setItem('votes', JSON.stringify(res.data.content.Items));
                         setAlreadyVoted(res.data.content.Items.some(item => item.token_address === tokenData?.basicInfo?.address))
                     }
@@ -179,6 +180,7 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
             <Card title={<TokenMainCardHeaderComponent info={tokenData} />} bordered={false} style={{ width: '100%' }}>
                 {props.loading}
                 <div className="token-logo-wrapper">
+              
                     {
                         !props.loading &&
                         <img width={'100%'} src={tokenData?.basicInfo?.logo ? tokenData?.basicInfo?.logo : logoplaceholder} alt="" />

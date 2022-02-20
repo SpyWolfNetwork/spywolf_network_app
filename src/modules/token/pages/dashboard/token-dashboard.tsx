@@ -48,13 +48,25 @@ export const TokenDashboardComponent: React.FC = () => {
         const requestWaletDataBody = {
             address: tokenid as string,
         }
-
-        // fetchTransfersReceived(transfersEndpoint, requestTransfersDataBody);
-        // fetchTransfersSent(transfersEndpoint, requestTransfersDataBody);
         setTokenData(null)
-
-
         fetchTokenData(walletEndpoint, requestWaletDataBody);
+
+        const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+        const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+        const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+        const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+        const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+        const allTokens = [
+            ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+            ...persistedRecentlyAddedTokens
+        ]
+        const token = allTokens.find(persisted => persisted.address === tokenid)
+        if (token) {
+            const tokenobj = new Token();
+            tokenobj.convertFrom(token)
+            setTokenData(tokenobj)
+            setLoadingState(false);
+        }
 
     }, [tokenid])
 
@@ -99,7 +111,8 @@ export const TokenDashboardComponent: React.FC = () => {
     }
     return <Container>
         <MainSection>
-            <TokenMainCardComponent loading={loadingState && <div className='loading'> <Spin /></div>}>
+            <TokenMainCardComponent
+                loading={loadingState && <div className='loading'> <Spin /></div>}>
             </TokenMainCardComponent>
             {
                 tokenData?.basicInfo?.SpyWolfAudit !== undefined &&
@@ -177,7 +190,7 @@ export const TokenDashboardComponent: React.FC = () => {
                         {
                             tokenData?.basicInfo?.scamReasonTooltip &&
                             <div>
-                                <h3 style={{ fontWeight: 600 , marginTop: '-10px', display: 'flex', alignItems: 'center'}}>Scam Summary <span style={{marginLeft: '10px'}}><Tag color="red">{tokenData?.basicInfo?.scamReason && tokenData?.basicInfo?.scamReason[0]}</Tag></span></h3>
+                                <h3 style={{ fontWeight: 600, marginTop: '-10px', display: 'flex', alignItems: 'center' }}>Scam Summary <span style={{ marginLeft: '10px' }}><Tag color="red">{tokenData?.basicInfo?.scamReason && tokenData?.basicInfo?.scamReason[0]}</Tag></span></h3>
                                 <p style={{ color: 'rgb(248, 54, 71)' }}>
                                     {
                                         tokenData?.basicInfo?.scamReasonTooltip
