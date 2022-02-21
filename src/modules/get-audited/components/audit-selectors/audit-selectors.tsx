@@ -114,7 +114,7 @@ const AuditSelectorsComponent: React.FC = () => {
                     initialValue={false}>
                     <Checkbox  >
                         <div className="chekbox-title">
-                            <h2>AMA</h2>
+                            <h2>AMA + PROMO</h2>
                             <p>
                                 {
                                     originalPrices.ama !== prices.ama &&

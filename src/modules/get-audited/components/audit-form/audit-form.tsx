@@ -187,8 +187,7 @@ const AuditForm: React.FC = () => {
                             <IoAlertCircleSharp style={{ fill: '#00c5706c', margin: '20px' }} fontSize={'2.75rem '}></IoAlertCircleSharp>
                         </div>
                         <div className="text-container">
-                            <h1 style={{ color: '#181c32', fontSize: '1.45rem', fontWeight: '600' }}> Pay Now and Get 10% Off! <span style={{ textDecoration: 'line-through' }}> {totalPrice} BNB</span>  </h1>
-                            <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice - totalPrice * 0.10} BNB to:</h1>
+                            <h1 style={{ color: '#181c32', fontSize: '1.25rem', fontWeight: '600' }}>Please send {totalPrice} BNB to:</h1>
                             <p style={{ margin: 0, color: '#5e6278', fontSize: '1.075rem', whiteSpace: 'break-spaces' }}>0x845A458Ff034F46afD6beDD72730b7B88DD32b56</p>
                         </div>
                     </div>

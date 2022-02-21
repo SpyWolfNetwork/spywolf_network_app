@@ -7,7 +7,7 @@ export const RequestAuditContext = React.createContext({});
 export const RequestAuditProvider = (props: any) => {
     const ORIGINAL_PRICES = {
         audit: 0,
-        ama: 2,
+        ama: 3,
         kyc: 3,
         ad: 2,
         '1.5': 1.5,
@@ -19,8 +19,8 @@ export const RequestAuditProvider = (props: any) => {
 
     const ORIGINAL_DISCOUNT_PRICES = {
         audit: 0,
-        ama: 1.5,
-        kyc: 2,
+        ama: 2.5,
+        kyc: 2.5,
         ad: 0,
         '1.5': 1.5,
         '2': 2,
