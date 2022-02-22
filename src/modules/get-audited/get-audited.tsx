@@ -34,7 +34,7 @@ const GetAuditedComponent: React.FC = () => {
         }}>
             <OfficialPartners title={'Official Auditing Partners of'} />
             <Card
-    style={{boxShadow: 'none'}}
+                style={{ boxShadow: 'none' }}
                 title={<CardTitleSubtitle title={
                     !isMobile ?
                         <h1 className='title'>Request a service from Spywolf</h1>
@@ -45,8 +45,10 @@ const GetAuditedComponent: React.FC = () => {
                         Select a service below. Multiple services will result in a lower price!</span>
                 } />}
                 extra={<DashedCard>
-                    <h1 className='price' >Total: {totalPrice} BNB</h1>
-                    <h3 className='bundle'>Bundle Discount: {bundleDiscount} BNB</h3>
+                    <div>
+                        <h1 className='price' >Total: {totalPrice} BNB</h1>
+                        <h3 className='bundle'>Bundle Discount: {bundleDiscount} BNB</h3>
+                    </div>
                 </DashedCard>}
             >
 

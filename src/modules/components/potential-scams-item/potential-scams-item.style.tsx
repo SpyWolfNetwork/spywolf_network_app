@@ -3,11 +3,9 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   display: grid;
-  
   grid-template-columns: 50px minmax(100px, auto) 1fr 1fr  minmax(auto, 94px);
   column-gap: 1rem;
   padding:   0 1rem;
-
   align-items: center;
       > * {
       padding:  1.1rem 0;
@@ -22,6 +20,9 @@ export const Container = styled.div`
       }
       @media (max-width: 400px){
           grid-template-columns: 50px minmax(60px, 0.2fr) auto 1fr minmax(auto, 94px);;
+      }
+      @media (max-width: 991px){
+          grid-template-columns: 50px minmax(60px, 0.5fr) auto auto;
       }
   .ant-badge-count{
       font-size: 6px !important;
@@ -96,6 +97,9 @@ export const ActionsContainer = styled.div`
       display: flex;
       justify-content: flex-end;
       column-gap: 5px;
+      @media (max-width: 991px){
+      display: none;
+      }
 `;
 
 
@@ -112,4 +116,5 @@ export const ReleaseDate = styled.div`
       @media (max-width: 480px){
             display: none;
       }
+
 `;
