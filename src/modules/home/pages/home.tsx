@@ -262,7 +262,7 @@ export const HomeComponent: React.FC = () => {
                     <Pagination
                         size="small"
                         hideOnSinglePage={false}
-                        defaultPageSize={9}
+                        defaultPageSize={11}
                         current={potentialScamsPage}
                         total={potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).length}
                         onChange={(page: number) => updatePage('potential', page)}
@@ -270,7 +270,7 @@ export const HomeComponent: React.FC = () => {
             >
                 <div className="content-wrapper">
                     {
-                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 9, potentialScamsPage *9)
+                        potentialScams?.filter((token: FeaturedToken) => token.name.toLowerCase().includes(potentialtNameFilter.toLowerCase())).slice((potentialScamsPage - 1) * 11, potentialScamsPage *11)
                             .map((token: FeaturedToken) =>
                                 <PotentialScamsItem token={token} imageLoading={potentialImageLoading}></PotentialScamsItem>
                             )

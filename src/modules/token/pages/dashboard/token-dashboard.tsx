@@ -50,22 +50,28 @@ export const TokenDashboardComponent: React.FC = () => {
         }
         setTokenData(null)
         fetchTokenData(walletEndpoint, requestWaletDataBody);
+        try {
 
-        const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
-        const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
-        const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
-        const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
-        const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
-        const allTokens = [
-            ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
-            ...persistedRecentlyAddedTokens
-        ]
-        const token = allTokens.find(persisted => persisted.address === tokenid)
-        if (token) {
-            const tokenobj = new Token();
-            tokenobj.convertFrom(token)
-            setTokenData(tokenobj)
-            setLoadingState(false);
+            const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+            const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+            const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+            const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+            const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+            const allTokens = [
+                ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+                ...persistedRecentlyAddedTokens
+            ]
+            const token = allTokens.find(persisted => persisted.address === tokenid)
+            if (token) {
+                const tokenobj = new Token();
+                tokenobj.convertFrom(token)
+                setTokenData(tokenobj)
+                if (tokenobj.basicInfo !== undefined) {
+
+                }
+            }
+        } catch(e){
+            console.log(e);
         }
 
     }, [tokenid])
@@ -112,36 +118,40 @@ export const TokenDashboardComponent: React.FC = () => {
     return <Container>
         <MainSection>
             <TokenMainCardComponent
-                loading={loadingState && <div className='loading'> <Spin /></div>}>
+                loading={tokenData?.basicInfo === undefined && <div className='loading'> <Spin /></div>}>
             </TokenMainCardComponent>
             {
                 tokenData?.basicInfo?.SpyWolfAudit !== undefined &&
                 <Card title={`Trust ${tokenData?.level} Award`}>
-
-                    <div>
-                        <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
-                            <Descriptions.Item labelStyle={{ width: 'fit-content !important' }} label="Company">{'SpyWolf'}</Descriptions.Item>
-                            {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
-                        </Descriptions>
-                        <div className="audit-link">
-                            <LaptopOutlined color='#b5b5c3'
-                            ></LaptopOutlined>
-                            <a style={{ fontSize: '14px' }} target="__blank"
-                                className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
-                                href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified' ? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
-                        <div className="audit-gif">
-                            <img
-                                width="100%"
-                                height="100%"
-                                src={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif} alt=""
-                            />
-                            {/* <img width="100%" height="100%" src={SpywolfGif} alt="" /> */}
+                    {
+                        loadingState && <Spin />
+                    }
+                    {
+                        !loadingState && <div>
+                            <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
+                                <Descriptions.Item labelStyle={{ width: 'fit-content !important' }} label="Company">{'SpyWolf'}</Descriptions.Item>
+                                {/* <Descriptions.Item labelStyle={{ width: '175px' }} label="Date">{'October 3, 2021'}</Descriptions.Item> */}
+                            </Descriptions>
+                            <div className="audit-link">
+                                <LaptopOutlined color='#b5b5c3'
+                                ></LaptopOutlined>
+                                <a style={{ fontSize: '14px' }} target="__blank"
+                                    className="d-flex align-items-center text-gray-400 text-hover-primary me-5 mb-2"
+                                    href={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustURL}>{tokenData.basicInfo.tag.toLowerCase() === 'verified' ? 'Audit Link' : '"Certificate of Trust"'} Link</a></div>
+                            <div className="audit-gif">
+                                <img
+                                    width="100%"
+                                    height="100%"
+                                    src={tokenData?.basicInfo?.SpyWolfAudit.certificateOfTrustGif} alt=""
+                                />
+                                {/* <img width="100%" height="100%" src={SpywolfGif} alt="" /> */}
+                            </div>
                         </div>
-                    </div>
+                    }
                 </Card>
             }
 
-            {(!loadingState && tokenData?.basicInfo?.SpyWolfAudit === undefined && tokenData?.basicInfo?.OtherCompanyAudit === undefined) &&
+            {tokenData?.basicInfo?.SpyWolfAudit === undefined && (tokenData?.basicInfo?.OtherCompanyAudit === undefined) &&
                 <Card title='Audit Information'>
                     <span className="text-gray-800 fw-bold mb-5 fs-6">
                         Audits provide more security to potential investors. If you need an audit for your project, contact <a href="mailto:audits@spywolf.co" style={{ color: '#AADADF ' }}>SpyWolf</a>
@@ -177,41 +187,44 @@ export const TokenDashboardComponent: React.FC = () => {
 
         <MainContent>
             <Card style={{ width: '100%', minHeight: '115px' }}>
-                {loadingState && <div className='loading'> <Spin /></div>}
-                {!loadingState && <TokenInfoHighlight ></TokenInfoHighlight>}
+                <TokenInfoHighlight loading={loadingState} ></TokenInfoHighlight>
 
             </Card>
 
             <Card style={{ width: '100%' }}>
-                {loadingState && <div className='loading' > <Spin /></div>}
-                {!loadingState &&
 
-                    <div>
-                        {
-                            tokenData?.basicInfo?.scamReasonTooltip &&
-                            <div>
-                                <h3 style={{ fontWeight: 600, marginTop: '-10px', display: 'flex', alignItems: 'center' }}>Scam Summary <span style={{ marginLeft: '10px' }}><Tag color="red">{tokenData?.basicInfo?.scamReason && tokenData?.basicInfo?.scamReason[0]}</Tag></span></h3>
-                                <p style={{ color: 'rgb(248, 54, 71)' }}>
-                                    {
-                                        tokenData?.basicInfo?.scamReasonTooltip
-                                    }
-                                </p>
-                            </div>
-                        }
-                        <h3 style={{ fontWeight: 600 }}>About</h3>
-                        <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span>}</p>
-                        <h1 >Contract Address</h1>
-                        {tokenAddress && <span className='contact-address'>{tokenAddress}
-                            <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
-                                navigator.clipboard.writeText(tokenAddress);
-                                setCopyConfirm(true)
-                                setTimeout(() => setCopyConfirm(false), 1000)
-                            }} >
-                                {!copyConfirm && <FaCopy color="#181c32"></FaCopy>}
-                                {copyConfirm && <AiFillCheckCircle color="#181c32"></AiFillCheckCircle>}
-                            </span>
-                        </span>}
-                        <div className="descriptions-wrapper">
+                <div>
+                    {
+                        tokenData?.basicInfo?.scamReasonTooltip &&
+                        <div>
+                            <h3 style={{ fontWeight: 600, marginTop: '-10px', display: 'flex', alignItems: 'center' }}>Scam Summary <span style={{ marginLeft: '10px' }}><Tag color="red">{tokenData?.basicInfo?.scamReason && tokenData?.basicInfo?.scamReason[0]}</Tag></span></h3>
+                            <p style={{ color: 'rgb(248, 54, 71)' }}>
+                                {
+                                    tokenData?.basicInfo?.scamReasonTooltip
+                                }
+                            </p>
+                        </div>
+                    }
+                    <h3 style={{ fontWeight: 600 }}>About</h3>
+                    <p className='text-gray-800 fw-normal mb-5 fs-6' >{(tokenData as Token)?.basicInfo?.description ? (tokenData as Token)?.basicInfo?.description : <span>Are you the project owner? Please <a className="text-hover-primary" href="spywolf.co">click here</a> to add all the missing information about your project!</span>}</p>
+                    <h1 >Contract Address</h1>
+                    {tokenAddress && <span className='contact-address'>{tokenAddress}
+                        <span className="copybutton" style={{ marginLeft: '10px' }} onClick={() => {
+                            navigator.clipboard.writeText(tokenAddress);
+                            setCopyConfirm(true)
+                            setTimeout(() => setCopyConfirm(false), 1000)
+                        }} >
+                            {!copyConfirm && <FaCopy color="#181c32"></FaCopy>}
+                            {copyConfirm && <AiFillCheckCircle color="#181c32"></AiFillCheckCircle>}
+                        </span>
+                    </span>}
+                    {
+                        !tokenData?.statisticInfo && <div style={{ padding: '30px', width: '100%', display: 'flex', justifyContent: 'center' }}>
+                            <Spin />
+                        </div>
+                    }
+                    {
+                        tokenData?.statisticInfo && <div className="descriptions-wrapper">
                             <Descriptions size="small" column={{ xxl: 1, xl: 1, lg: 1, md: 1, sm: 1, xs: 1 }}>
                                 <Descriptions.Item label="Name">
                                     {tokenData?.currency?.name ? tokenData?.currency?.name : '-'}
@@ -278,8 +291,8 @@ export const TokenDashboardComponent: React.FC = () => {
                                 </Descriptions.Item>
                             </Descriptions>
                         </div>
-                    </div>
-                }
+                    }
+                </div>
             </Card>
             {
                 tokenData && tokenData?.quickAudit &&
