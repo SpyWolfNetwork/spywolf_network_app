@@ -64,7 +64,6 @@ const TokenMainCardComponent: React.FC<{ loading: any }> = (props) => {
     const doSubmit = () => {
 
         let user_captcha_value = (document?.querySelector('.user_captcha_input') as any).value;
-        console.log(user_captcha_value)
         if (validateCaptcha(user_captcha_value, false) === true) {
             axios.get('https://api.ipify.org?format=json').then(
                 res => {
