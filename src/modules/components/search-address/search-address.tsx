@@ -2,7 +2,7 @@
 // Dependencies
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input } from 'antd';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { HomeContext } from '../../../core/routes/providers/home.provider';
@@ -20,6 +20,7 @@ const SearchAdressInput: React.FC = () => {
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
 
     const validadeAddress = (address: string) => {
+
         return axios.get(`https://nhlm8489e3.execute-api.us-east-2.amazonaws.com/prod/tokenorwalletinfo/${address}`)
 
     }
@@ -35,6 +36,37 @@ const SearchAdressInput: React.FC = () => {
         if (event.code === 'Enter') {
             setAddressLoading(true);
             let addr = '';
+            try {
+                const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+                const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+                const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+                const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+                const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+                const allTokens = [
+                    ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+                    ...persistedRecentlyAddedTokens
+                ]
+                const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value)
+                if (token) {
+                    navigate(`token/${token.address}`);
+                    setAddressLoading(false);
+                    return true;
+
+                }
+                if (inputRef.state.value.includes('0x') && !token) {
+                    const token = allTokens.find(persisted => persisted.name === inputRef.state.value)
+                    setAddressLoading(false);
+                    if (token) {
+                        navigate(`token/${token.address}`);
+                        setAddressLoading(false);
+                        return true;
+    
+                    }
+                }
+            } catch (e) {
+                console.log(e);
+                return false;
+            }
             try {
                 if (!inputRef.state.value || inputRef.state.value === undefined) {
                     throw new Error('Empty Address');
@@ -104,6 +136,37 @@ const SearchAdressInput: React.FC = () => {
         setAddressLoading(true);
         let addr = '';
         try {
+            const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+            const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+            const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+            const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+            const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+            const allTokens = [
+                ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+                ...persistedRecentlyAddedTokens
+            ]
+            const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value)
+            if (token) {
+                navigate(`token/${token.address}`);
+                setAddressLoading(false);
+                return true;
+
+            }
+            if (inputRef.state.value.includes('0x') && !token) {
+                const token = allTokens.find(persisted => persisted.name === inputRef.state.value)
+                setAddressLoading(false);
+                if (token) {
+                    navigate(`token/${token.address}`);
+                    setAddressLoading(false);
+                    return true;
+
+                }
+            }
+        } catch (e) {
+            console.log(e);
+            return false;
+        }
+        try {
             if (!inputRef.state.value || inputRef.state.value === undefined) {
                 throw new Error('Empty Address');
             }
@@ -170,6 +233,37 @@ const SearchAdressInput: React.FC = () => {
         setAddressLoading(true);
         let addr = '';
         try {
+            const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+            const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+            const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+            const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+            const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+            const allTokens = [
+                ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+                ...persistedRecentlyAddedTokens
+            ]
+            const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(value.toLowerCase()) && persisted.name.toLowerCase() === value)
+            if (token) {
+                navigate(`token/${token.address}`);
+                setAddressLoading(false);
+                return true;
+
+            }
+            if (inputRef.state.value.includes('0x') && !token) {
+                const token = allTokens.find(persisted => persisted.name === value)
+                setAddressLoading(false);
+                if (token) {
+                    navigate(`token/${token.address}`);
+                    setAddressLoading(false);
+                    return true;
+
+                }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+
+        try {
             if (!value || value === undefined) {
                 throw new Error('Empty Address');
             }
@@ -229,6 +323,7 @@ const SearchAdressInput: React.FC = () => {
 
         }
     }
+
     return <Container>
         <SearchContainer>
             <Input
