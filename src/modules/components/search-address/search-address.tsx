@@ -46,7 +46,7 @@ const SearchAdressInput: React.FC = () => {
                     ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
                     ...persistedRecentlyAddedTokens
                 ]
-                const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value)
+                const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value.toLowerCase())
                 if (token) {
                     navigate(`token/${token.address}`);
                     setAddressLoading(false);
@@ -54,7 +54,7 @@ const SearchAdressInput: React.FC = () => {
 
                 }
                 if (inputRef.state.value.includes('0x') && !token) {
-                    const token = allTokens.find(persisted => persisted.name === inputRef.state.value)
+                    const token = allTokens.find(persisted => persisted.address === inputRef.state.value)
                     setAddressLoading(false);
                     if (token) {
                         navigate(`token/${token.address}`);
@@ -145,7 +145,8 @@ const SearchAdressInput: React.FC = () => {
                 ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
                 ...persistedRecentlyAddedTokens
             ]
-            const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value)
+            const token = allTokens.find(persisted => persisted.name.toLowerCase()
+            .includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value.toLowerCase())
             if (token) {
                 navigate(`token/${token.address}`);
                 setAddressLoading(false);
@@ -153,7 +154,7 @@ const SearchAdressInput: React.FC = () => {
 
             }
             if (inputRef.state.value.includes('0x') && !token) {
-                const token = allTokens.find(persisted => persisted.name === inputRef.state.value)
+                const token = allTokens.find(persisted => persisted.address === inputRef.state.value)
                 setAddressLoading(false);
                 if (token) {
                     navigate(`token/${token.address}`);
@@ -242,7 +243,7 @@ const SearchAdressInput: React.FC = () => {
                 ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
                 ...persistedRecentlyAddedTokens
             ]
-            const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(value.toLowerCase()) && persisted.name.toLowerCase() === value)
+            const token = allTokens.find(persisted => persisted.name.toLowerCase().includes(value.toLowerCase()) && persisted.name.toLowerCase() === value.toLowerCase())
             if (token) {
                 navigate(`token/${token.address}`);
                 setAddressLoading(false);
@@ -250,7 +251,7 @@ const SearchAdressInput: React.FC = () => {
 
             }
             if (inputRef.state.value.includes('0x') && !token) {
-                const token = allTokens.find(persisted => persisted.name === value)
+                const token = allTokens.find(persisted => persisted.address === value)
                 setAddressLoading(false);
                 if (token) {
                     navigate(`token/${token.address}`);
