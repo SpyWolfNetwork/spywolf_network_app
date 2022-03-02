@@ -83,5 +83,6 @@ export const Container = styled.div`
     display: flex;
     column-gap: 10px;
     flex-wrap: wrap;
+    flex-direction: column;
   }
 `;

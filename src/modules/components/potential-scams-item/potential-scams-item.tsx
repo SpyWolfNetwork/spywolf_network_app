@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { FeaturedToken } from '../../home/models/featured-token';
 // import PoweredBy from '../powered-by/powered-by';
 import { ActionsContainer, Container, InfoContainer, LogoContainer, ReleaseDate, TrustLevelContainer } from './potential-scams-item.style';
+import nophoto from '../../../assets/core/no-photo.png'
 
 const tagNewConstraint = -14;
 
@@ -32,7 +33,11 @@ const PotentialScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolea
                     </Badge>
                     :
                     <LogoContainer>
-                        <img src={props.token.logoPicture} width="50px" alt="" />
+                        <img onError={({ currentTarget }) => {
+                            currentTarget.onerror = null; // prevents looping
+                            currentTarget.src = nophoto;
+                        }} 
+                        src={props.token.logoPicture} width="50px" alt="" />
 
                         {
                             props.imageLoading && <div className="image-placeholder">

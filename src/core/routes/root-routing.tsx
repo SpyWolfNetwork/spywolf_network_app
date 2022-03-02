@@ -67,7 +67,6 @@ export default function Root() {
                     <Route path="/disclaimer" element={<Disclaimer />}></Route>
                     <Route path="/charity" element={<RewardComponent />}></Route>
                     <Route path="/request-audit" element={<RequestAuditProvider><GetAuditedComponent /></RequestAuditProvider>}></Route>
-
                 </Routes>
             </div>
         </Container>

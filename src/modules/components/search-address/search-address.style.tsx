@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const Container = styled.div`
     width: 100%;
     min-height:  40px !important;
+  
 `;
 export const SearchContainer = styled.div`
     width: fit-content;
@@ -32,5 +33,9 @@ export const SearchContainer = styled.div`
         color:#f1416c;
         margin-top: 1.25rem!important;
     }
-
+    .ant-select{
+        width: 100%;
+    }
+   
+ 
 `;

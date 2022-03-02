@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // Dependencies
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input } from 'antd';
+import { AutoComplete, Button, Input } from 'antd';
 import axios, { AxiosResponse } from 'axios';
 import React, { ClipboardEvent, KeyboardEventHandler, useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { HomeContext } from '../../../core/routes/providers/home.provider';
 import { AddressCheckResponseModel } from '../../home/models/address-check.model';
 import { Container, SearchContainer } from './search-address.style';
-
+import nophoto from '../../../assets/core/no-photo.png'
 const SearchAdressInput: React.FC = () => {
     useEffect(() => { }, []);
 
@@ -18,6 +18,8 @@ const SearchAdressInput: React.FC = () => {
 
     const [addresValidaton, setAddressValidation] = useState<{ err: number, message: string, active: boolean }>()
     const [addressLoading, setAddressLoading] = useState<boolean>(false);
+    const [autoCompleteOptions, setAutoCompleteOptions] = useState<any>();
+    const [stateAllTokens, setStateAllTokens] = useState<any>();
 
     const validadeAddress = (address: string) => {
 
@@ -26,6 +28,48 @@ const SearchAdressInput: React.FC = () => {
     }
     const navigate = useNavigate();
 
+
+
+    useEffect(
+        () => {
+            const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+            const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+            const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+            const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+            const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+            const data = [
+                ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+                ...persistedRecentlyAddedTokens
+            ];
+            const allTokens: any = [];
+            data.forEach(result => {
+                const hasItem = allTokens.some((item: any) => item.address === result.address)
+                if (!hasItem) {
+                    allTokens.push(result);
+                }
+            })
+            setStateAllTokens(allTokens);
+            setAutoCompleteOptions(allTokens.map(token => (
+                {
+                    label: <span>
+                        <img
+                            alt={''}
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null; // prevents looping
+                                currentTarget.src = nophoto;
+                            }}
+                            width="25px" style={{ borderRadius: '100%', marginRight: '10px' }} src={token.logoPicture}></img>
+                        <span style={{
+                            color: '#181c32',
+                            fontWeight: 600
+                        }}>{token.name}</span></span>
+                    ,
+                    value: token.name,
+                    address: token.address
+                }))
+            )
+        }, []
+    )
     const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
         setAddressValidation({
             err: 0,
@@ -60,7 +104,7 @@ const SearchAdressInput: React.FC = () => {
                         navigate(`token/${token.address}`);
                         setAddressLoading(false);
                         return true;
-    
+
                     }
                 }
             } catch (e) {
@@ -146,7 +190,7 @@ const SearchAdressInput: React.FC = () => {
                 ...persistedRecentlyAddedTokens
             ]
             const token = allTokens.find(persisted => persisted.name.toLowerCase()
-            .includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value.toLowerCase())
+                .includes(inputRef.state.value.toLowerCase()) && persisted.name.toLowerCase() === inputRef.state.value.toLowerCase())
             if (token) {
                 navigate(`token/${token.address}`);
                 setAddressLoading(false);
@@ -324,25 +368,40 @@ const SearchAdressInput: React.FC = () => {
 
         }
     }
-
     return <Container>
         <SearchContainer>
-            <Input
-                ref={e => { inputRef = e }}
-                prefix={<Button
-                    onClick={searchTokenOrWallet}
-                    type='ghost' style={{ background: 'transparent !important' }}
-                    loading={addressLoading} icon={<SearchOutlined />} > </Button>}
-                onKeyDown={handleSearchEnter}
-                placeholder="Search by Token Address..."
-                onPaste={searchTokenOrWalletOnPaste}
-            />
+            <AutoComplete
+                dropdownClassName="token-autocomplete"
+                options={autoCompleteOptions as any}
+                filterOption={(inputValue, option) =>
+                    option!.value.toLowerCase().includes(inputValue.toLowerCase())
+                }
+                onSelect={
+                    (option) => {
+                        const token = stateAllTokens.find(token => token.name.toLowerCase() === option.toLowerCase())
+                        navigate(`token/${token.address}`)
+                        inputRef.setValue('')
+                    }
+                }
+            >
+                <Input
+                    ref={e => { inputRef = e }}
+                    prefix={<Button
+                        onClick={searchTokenOrWallet}
+                        type='ghost' style={{ background: 'transparent !important' }}
+                        loading={addressLoading} icon={<SearchOutlined />} > </Button>}
+                    onKeyDown={handleSearchEnter}
+                    placeholder="Search by Token Address..."
+                    onPaste={searchTokenOrWalletOnPaste}
+                />
+
+            </AutoComplete>
             {
                 addresValidaton?.active && <span className="address-validation-error"> {addresValidaton?.message} </span>
             }
 
         </SearchContainer>
-    </Container>;
+    </Container >;
 };
 
 export default SearchAdressInput;
