@@ -414,3 +414,16 @@ textarea.ant-input {
 .ant-card-actions {
   margin-bottom: 10px !important;
 }
+.token-autocomplete {
+  border-radius: 8px !important;
+  overflow: hidden;
+  .ant-select-item {
+    padding: 10px 15px !important;
+  }
+  .ant-select-item:hover {
+    background: #f4f7f9 !important;
+  }
+  .ant-select-item .ant-select-item-option-active {
+    background: #f4f7f9 !important;
+  }
+}
