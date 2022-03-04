@@ -68,6 +68,7 @@ export declare namespace Transfers {
         count_in: number;
         count_out: number;
         currency: TransferCurrency;
+        transactions?: any ;
     }
 
     export interface TransfersModel {
