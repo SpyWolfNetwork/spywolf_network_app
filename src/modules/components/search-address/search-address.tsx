@@ -32,42 +32,46 @@ const SearchAdressInput: React.FC = () => {
 
     useEffect(
         () => {
-            const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
-            const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
-            const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
-            const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
-            const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
-            const data = [
-                ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
-                ...persistedRecentlyAddedTokens
-            ];
-            const allTokens: any = [];
-            data.forEach(result => {
-                const hasItem = allTokens.some((item: any) => item.address === result.address)
-                if (!hasItem) {
-                    allTokens.push(result);
-                }
-            })
-            setStateAllTokens(allTokens);
-            setAutoCompleteOptions(allTokens.map(token => (
-                {
-                    label: <span>
-                        <img
-                            alt={''}
-                            onError={({ currentTarget }) => {
-                                currentTarget.onerror = null; // prevents looping
-                                currentTarget.src = nophoto;
-                            }}
-                            width="25px" style={{ borderRadius: '100%', marginRight: '10px' }} src={token.logoPicture}></img>
-                        <span style={{
-                            color: '#181c32',
-                            fontWeight: 600
-                        }}>{token.name}</span></span>
-                    ,
-                    value: token.name,
-                    address: token.address
-                }))
-            )
+            try {
+                const persistedPotentialScams = JSON.parse(localStorage.getItem('potentialScams') as string);
+                const persistedLatestScams = JSON.parse(localStorage.getItem('latestScams') as string);
+                const persistedFeaturedTokens = JSON.parse(localStorage.getItem('featuredTokens') as string);
+                const persistedAmaTokens = JSON.parse(localStorage.getItem('amaTokens') as string);
+                const persistedRecentlyAddedTokens = JSON.parse(localStorage.getItem('recentlyAdded') as string);
+                const data = [
+                    ...persistedPotentialScams, ...persistedLatestScams, ...persistedFeaturedTokens, ...persistedAmaTokens,
+                    ...persistedRecentlyAddedTokens
+                ];
+                const allTokens: any = [];
+                data.forEach(result => {
+                    const hasItem = allTokens.some((item: any) => item.address === result.address)
+                    if (!hasItem) {
+                        allTokens.push(result);
+                    }
+                })
+                setStateAllTokens(allTokens);
+                setAutoCompleteOptions(allTokens.map(token => (
+                    {
+                        label: <span>
+                            <img
+                                alt={''}
+                                onError={({ currentTarget }) => {
+                                    currentTarget.onerror = null; // prevents looping
+                                    currentTarget.src = nophoto;
+                                }}
+                                width="25px" style={{ borderRadius: '100%', marginRight: '10px' }} src={token.logoPicture}></img>
+                            <span style={{
+                                color: '#181c32',
+                                fontWeight: 600
+                            }}>{token.name}</span></span>
+                        ,
+                        value: token.name,
+                        address: token.address
+                    }))
+                )
+            } catch(e){
+                console.log(e);
+            }
         }, []
     )
     const handleSearchEnter: KeyboardEventHandler<HTMLInputElement> | undefined = (event) => {
