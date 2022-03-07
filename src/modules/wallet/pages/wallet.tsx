@@ -86,29 +86,41 @@ const WalletComponent: React.FC = () => {
         setLoading(loading)
         setLoadingSent(loading)
         setWalletAddress(walletid as string);
-        const requestTransfersDataBody = {
-            address: (walletid as string),
-            from: from(7)
-        }
+
         const requestWaletDataBody = {
             address: (walletid as string),
         }
 
-        console.log(requestTransfersDataBody)
-        fetchTransfers(transfersEndpoint, requestTransfersDataBody);
         fetchWalletData(walletEndpoint, requestWaletDataBody);
-
     }, []);
 
 
+    useEffect(() => {
+       if(walletInfo !== undefined){
+        const requestTransfersDataBody = {
+            address: (walletid as string),
+            from: from(7)
+        }
+        fetchTransfers(transfersEndpoint, requestTransfersDataBody);
+       }
+    }, [walletInfo])
 
     const fetchTransfers = (endpoint: string, addr: { address: string, from: string }) => {
         axios.post(endpoint, addr).then(
             ({ data }) => {
                 if (data) {
                     const { transfers } = data;
-                    setReceivedTokenGroups(transfers.filter(token => token.count_in > 0));
-                    setSentTokenGroups(transfers.filter(token => token.count_out > 0));
+                    const filteredTransfers = transfers.filter(
+                        transfer => {
+                            console.log(transfer)
+                            console.log(walletInfo)
+                            walletInfo?.currencies?.some(curr => transfer.currency.address === curr.address && curr.priceInWallet !== undefined)
+                            return walletInfo?.currencies.some(curr => transfer.currency.address === curr.address && curr.priceInWallet !== undefined)
+                        }
+                    )
+
+                    setReceivedTokenGroups(filteredTransfers.filter(token => token.count_in > 0));
+                    setSentTokenGroups(filteredTransfers.filter(token => token.count_out > 0));
                     setLoadingSent(false);
                     setLoading(false);
                 } else {
@@ -124,7 +136,8 @@ const WalletComponent: React.FC = () => {
             ({ data }) => {
                 if (data) {
                     const { transfers } = data;
-                    setReceivedTokenGroups(transfers.filter(token => token.count_in > 0));
+                    console.log(transfers)
+                    setReceivedTokenGroups(transfers.filter(token => token.count_in > 0 && token.currency.priceInWallet));
                     setLoading(false);
                 } else {
                     setReceivedTokenGroups(null);
@@ -140,6 +153,7 @@ const WalletComponent: React.FC = () => {
             ({ data }) => {
                 if (data) {
                     const { transfers } = data;
+                    console.log(transfers)
                     setSentTokenGroups(transfers.filter(token => token.count_out > 0));
                     setLoadingSent(false);
                 } else {
@@ -158,7 +172,6 @@ const WalletComponent: React.FC = () => {
                 from: from(daysInAMonth as number)
             }
             if (type === 'receivedPeriod') {
-                console.log('received')
                 setReceivedPeriod(daysInAMonth);
 
             } else {
@@ -191,6 +204,7 @@ const WalletComponent: React.FC = () => {
     const fetchWalletData = (endpoint: string, addr: { address: string }) => {
         axios.post(`${endpoint}`, addr).then(
             ({ data }) => {
+
                 const walletInfoData: WalletDTO = data;
                 const wallet = new Wallet(walletInfoData);
                 setWalletInfo(wallet);
@@ -209,8 +223,8 @@ const WalletComponent: React.FC = () => {
         till: string
     }) => {
 
-        setReceivedTransfersPerToken([])
-        setReceivedTransfersPerToken([])
+        // setReceivedTransfersPerToken([])
+        // setReceivedTransfersPerToken([])
         axios.post(transactionsPerTokenEndpoint, body
         ).then(
             ({ data }) => {
@@ -282,7 +296,7 @@ const WalletComponent: React.FC = () => {
                     <Collapse onChange={(index: string | string[]) => {
                         if (index !== undefined && receivedTokenGroups) {
                             const transfer = receivedTokenGroups[Number(index)];
-                            if(!transfer.transactions){
+                            if (!transfer.transactions) {
                                 fetchCurrencyTransatcions({
                                     isSend: false,
                                     address: walletAddress,
@@ -307,7 +321,6 @@ const WalletComponent: React.FC = () => {
                                         <div className="text-gray-800 fw-bolder">{transfer.count_in}Tx</div>
                                     </div>
                                 }>
-
                                     <table style={{ marginLeft: "30px" }} className="table align-middle gs-0 gy-5">
                                         <thead>
                                             <tr>
