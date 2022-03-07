@@ -15,8 +15,10 @@ const tagNewConstraint = -14;
 
 const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> = (props) => {
 
-    const [scamDate] = useState<Date>(moment(props?.token?.scamDate).hour(0).minute(0).second(0).millisecond(0).toDate());
-    useEffect(() => { }, []);
+    const [scamDate, setScamDate] = useState<Date>(moment(props?.token?.scamDate).hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate());
+    useEffect(() => {
+        setScamDate(moment(props?.token?.scamDate).hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate())
+    }, [props?.token]);
 
     return <Link to={'token/' + props?.token?.address}>
         <Container>
@@ -60,8 +62,8 @@ const LatestScamsItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }
                     Scam Reported on
                 </span>
                 <span className='text-dark fw-bolder d-block fs-7'>
-                    {props?.token?.scamDate && format(scamDate, 'PP')
-                    }</span>
+                    {props?.token?.scamDate && format(scamDate, 'PP')}
+                </span>
             </ReleaseContainer>
             <TrustLevelContainer>
                 <Tag
