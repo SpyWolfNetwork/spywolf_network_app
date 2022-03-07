@@ -3,13 +3,13 @@
 import React, { useEffect, useState } from 'react';
 import { Container } from './order-toolbar.style';
 
-const OrderToolbar: React.FC<{ setPeriod: Function }> = (props) => {
+const OrderToolbar: React.FC<{ setPeriod: Function, type: string }> = (props) => {
     const [activeButton, setActiveButton] = useState<string>('week');
 
     useEffect(() => { }, []);
 
     const callFunction = (func: Function, period: string | number, indentifier: string) => {
-        func(period);
+        func(period, props.type);
         setActiveButton(indentifier);
     }
     return <Container>

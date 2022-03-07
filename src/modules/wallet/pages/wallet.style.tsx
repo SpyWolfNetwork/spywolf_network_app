@@ -85,4 +85,10 @@ export const Container = styled.div`
     flex-wrap: wrap;
     flex-direction: column;
   }
+  .ant-collapse-content-box{
+   table{
+    max-height:  500px;
+    overflow:  auto;
+   }
+  }
 `;

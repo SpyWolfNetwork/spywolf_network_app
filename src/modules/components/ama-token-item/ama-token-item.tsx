@@ -23,8 +23,8 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
 
     useEffect(() => {
         const diff = differenceInDays(
-            moment(props?.token?.AMADate as any).hour(0).minute(0).second(0).millisecond(0).toDate(),
-            moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate());
+            moment(props?.token?.AMADate as any).hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate(),
+            moment().utc().hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate());
         setDiffDays(diff)
         if (diff < 0) {
             setApplyOpacity('past')
@@ -35,8 +35,8 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
     }, [props.token]);
 
     const calculateIsEqualDate = () => {
-        const today = moment().utc().hour(0).minute(0).second(0).millisecond(0).toDate();
-        const amaDate = moment(props?.token?.AMADate).hour(0).minute(0).second(0).millisecond(0).toDate();
+        const today = moment().utc().hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate();
+        const amaDate = moment(props?.token?.AMADate).hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate();
         setIsEqualDate(isEqual(today, amaDate));
     }
     const navigate = useNavigate();
@@ -122,7 +122,7 @@ const AmaTokenItem: React.FC<{ token: FeaturedToken, imageLoading?: boolean }> =
                             diffDays !== -1) &&
                         diffDays !== 1 &&
                         !isEqualDate &&
-                        format(moment(props?.token?.AMADate).utc().hour(0).minute(0).second(0).millisecond(0).toDate(), 'PP')
+                        format(moment(props?.token?.AMADate).utc().hour(0).minute(0).second(0).millisecond(0).add(1, 'day').toDate(), 'PP')
                     }
                 </span>
             </ReleaseContainer>
