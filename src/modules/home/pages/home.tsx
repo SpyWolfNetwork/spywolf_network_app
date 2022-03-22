@@ -15,6 +15,7 @@ import { CardGrid, Container } from './home.style';
 import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
 import cookiesaleBanner from '../../../assets/ads/banner-cookiesale.jpg'
+import artik_protocol from '../../../assets/ads/banner-artik-protocol.jpeg'
 import xpad from '../../../assets/ads/xpad.png'
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -66,6 +67,10 @@ export const HomeComponent: React.FC = () => {
             {
                 src: xpad,
                 url: 'https://www.busdx.com/'
+            },
+            {
+                src: artik_protocol,
+                url: 'https://www.artikfinance.com/'
             }
         ]
     );
@@ -92,7 +97,8 @@ export const HomeComponent: React.FC = () => {
 
 
     useEffect(() => {
-        setCurrentAdIndex(Math.round(Math.random()))
+        const rndInt = Math.floor(Math.random() * 3);
+        setCurrentAdIndex(rndInt);
     }, [])
 
 
