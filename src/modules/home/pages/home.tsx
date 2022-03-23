@@ -17,7 +17,7 @@ import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 import cookiesaleBanner from '../../../assets/ads/banner-cookiesale.jpg'
 import artik_protocol from '../../../assets/ads/banner-artik-protocol.jpeg'
 import xpad from '../../../assets/ads/xpad.png'
-
+import poorquack from '../../../assets/ads/banner-poorquack.jpg'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import spywolfad from '../../../assets/ads/spywolf_ads_cookiesale.jpeg'
@@ -71,6 +71,10 @@ export const HomeComponent: React.FC = () => {
             {
                 src: artik_protocol,
                 url: 'https://www.artikfinance.com/'
+            },
+            {
+                src: poorquack,
+                url: 'https://bit.ly/3tyIoQQ'
             }
         ]
     );
@@ -97,7 +101,7 @@ export const HomeComponent: React.FC = () => {
 
 
     useEffect(() => {
-        const rndInt = Math.floor(Math.random() * 3);
+        const rndInt = Math.floor(Math.random() * 4);
         setCurrentAdIndex(rndInt);
     }, [])
 
