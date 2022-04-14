@@ -13,7 +13,7 @@ import { FaMedium, FaTelegram, FaTwitter } from 'react-icons/fa';
 
 import { HashRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Modal from 'antd/lib/modal/Modal';
 import SubmissionHeader from './modules/components/submission-header/submission-header';
 import SubmissionContent from './modules/components/submisson-content/submission-content';
@@ -141,13 +141,16 @@ function App() {
                 </Popover>
                 <CNavItem key="2">
                   <Badge count="NEW" offset={[-15, 1]} style={{ fontSize: '10px', lineHeight: "19px", height: '18px', minHeight: '18px' }} status='success'>
-                    <Link
-                      onClick={toggleNavbar}
-                      to="/request-audit">
-                      <CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>
+                    {/*<Link*/}
+                    {/*  onClick={toggleNavbar}*/}
+                    {/*  to="/request-audit">*/}
+                      {/*<CNavLink className="menu-item menu-lg-down-accordion me-lg-1 menu-link py-3 menu-title" target="_blank" active>*/}
+                      {/*  Get Audit + KYC*/}
+                      {/*</CNavLink>*/}
+                      <CNavLink target='__blank' href="https://t.me/SpyWolf_audits">
                         Get Audit + KYC
                       </CNavLink>
-                    </Link>
+                    {/*</Link>*/}
                   </Badge>
                 </CNavItem>
                 <CNavItem key="3">

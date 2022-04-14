@@ -67,14 +67,6 @@ export const HomeComponent: React.FC = () => {
             {
                 src: xpad,
                 url: 'https://www.busdx.com/'
-            },
-            {
-                src: artik_protocol,
-                url: 'https://www.artikfinance.com/'
-            },
-            {
-                src: poorquack,
-                url: 'https://bit.ly/3tyIoQQ'
             }
         ]
     );
@@ -101,7 +93,7 @@ export const HomeComponent: React.FC = () => {
 
 
     useEffect(() => {
-        const rndInt = Math.floor(Math.random() * 4);
+        const rndInt = Math.floor(Math.random() * 3);
         setCurrentAdIndex(rndInt);
     }, [])
 
