@@ -88,7 +88,7 @@ function App() {
 
               <CNavbarBrand style={{ width: '100%' }}>
                 <a style={{ display: 'flex', width: 'fit-content' }} href="/#/">
-                  <img alt="Logo" src="https://spywolf.co/demo/network/assets/media/logos/SpyWolf_Network_Logo.svg" className="brand-logo h-lg-40px" />
+                  <img alt="Logo" src="https://spywolf.network/assets/SpyWolf_Network_Logo.svg" className="brand-logo h-lg-40px" />
                   <img className="brand-logo mobile" src={mobileLogo} alt="" />
                 </a>
                 <div className="togglers">
