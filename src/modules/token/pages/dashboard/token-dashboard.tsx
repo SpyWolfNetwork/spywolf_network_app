@@ -275,7 +275,7 @@ export const TokenDashboardComponent: React.FC = () => {
                                     {tokenData?.statisticInfo?.count ? tokenData?.statisticInfo?.count : '-'}
                                 </Descriptions.Item>
 
-                                <Descriptions.Item label="Total Tokens Transferred Amount">
+                                <Descriptions.Item label="Tokens Transferred">
                                     {tokenData?.statisticInfo?.amount ? tokenData?.statisticInfo?.amount : '-'}
                                 </Descriptions.Item>
                                 <Descriptions.Item label="First Transfer">
