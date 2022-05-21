@@ -192,7 +192,7 @@ const AuditSelectorsComponent: React.FC = () => {
             </Form>
         }
         <div className="audit_tg_14472">
-            <a href="https://t.me/SpyWolf_audits" target="__blank">
+            <a href="https://t.me/Joe_SpyWolf" target="__blank">
                 <img width="100%" src={r4b45e81} alt="" />
             </a>
 
