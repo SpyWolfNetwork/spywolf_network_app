@@ -15,7 +15,7 @@ import { CardGrid, Container } from './home.style';
 import scambanner from '../../../assets/ads/spywolf-reward-ad.png'
 
 import cookiesaleBanner from '../../../assets/ads/banner-cookiesale.jpg'
-import artik_protocol from '../../../assets/ads/banner-artik-protocol.jpeg'
+import shopit from '../../../assets/ads/shop-it.jpeg'
 import xpad from '../../../assets/ads/xpad.png'
 import poorquack from '../../../assets/ads/banner-poorquack.jpg'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -67,6 +67,10 @@ export const HomeComponent: React.FC = () => {
             {
                 src: xpad,
                 url: 'https://www.busdx.com/'
+            },
+            {
+                src: shopit,
+                url: 'https://www.shopit.center/'
             }
         ]
     );
