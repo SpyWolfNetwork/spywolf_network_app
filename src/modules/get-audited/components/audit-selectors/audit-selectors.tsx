@@ -13,10 +13,10 @@ import { Container } from './audit-selectors.style';
 
 import r4b45e81 from '../../../../assets/get-audited/r4b45e81.png';
 
-const AUDIT_24H_PRICE = 3;
-const AUDIT_4DAYS_PRICE = 1.5;
-const AUDIT_3DAYS_PRICE = 2;
-const AUDIT_2DAYS_PRICE = 2.5;
+const AUDIT_24H_PRICE = 4;
+const AUDIT_4DAYS_PRICE = 3.1;
+const AUDIT_3DAYS_PRICE = 3.2;
+const AUDIT_2DAYS_PRICE = 3.3;
 
 
 const AuditSelectorsComponent: React.FC = () => {
