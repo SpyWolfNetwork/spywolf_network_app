@@ -67,10 +67,6 @@ export const HomeComponent: React.FC = () => {
             {
                 src: xpad,
                 url: 'https://www.busdx.com/'
-            },
-            {
-                src: shopit,
-                url: 'https://www.shopit.center/'
             }
         ]
     );
